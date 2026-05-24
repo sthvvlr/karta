@@ -82,8 +82,9 @@ export default function LandingPage() {
               background: 'linear-gradient(135deg, #5C7CFA 0%, #74C0FC 100%)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
+              whiteSpace: 'nowrap',
             }}>
-              в кармане
+              в&nbsp;кармане
             </span>
           </h1>
 
