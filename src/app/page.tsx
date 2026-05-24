@@ -1,6 +1,7 @@
 import { KartaLogo } from '@/components/KartaLogo'
 import { BlobBackground } from '@/components/BlobBackground'
 import Image from 'next/image'
+import Link from 'next/link'
 
 export default function LandingPage() {
   return (
@@ -287,6 +288,9 @@ export default function LandingPage() {
             <a href="mailto:valeriya.astahova@gmail.com" style={{ fontSize: 14, color: '#9ca3af', textDecoration: 'none' }}>
               valeriya.astahova@gmail.com
             </a>
+            <Link href="/privacy" style={{ fontSize: 14, color: '#9ca3af', textDecoration: 'none' }}>
+              Политика конфиденциальности
+            </Link>
             <span style={{ fontSize: 14, color: '#c4c9d8' }}>© 2025 Karta</span>
           </div>
         </footer>
