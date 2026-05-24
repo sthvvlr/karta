@@ -25,6 +25,9 @@ export async function middleware(request: NextRequest) {
   const isAuthRoute = pathname === '/login' || pathname === '/register'
   const isOnboarding = pathname === '/onboarding'
 
+  // Allow landing page without auth
+  if (pathname === '/') return response
+
   // Not logged in → login page
   if (!user && !isAuthRoute) {
     return NextResponse.redirect(new URL('/login', request.url))
