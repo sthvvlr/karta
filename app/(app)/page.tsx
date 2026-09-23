@@ -7,7 +7,7 @@ const C = { text: "#1A2050", muted: "rgba(26,32,80,0.42)", card: "rgba(255,255,2
 const tiles = [
   { href: "/vaccinations", icon: "💉", label: "Прививки", blob: "#BAC8FF" },
   { href: "/medications", icon: "💊", label: "Лекарства", blob: "#D0BFFF" },
-  { href: "#coming-soon", icon: "🧪", label: "Анализы", blob: "#A5F3FC" },
+  { href: "/labs", icon: "🧪", label: "Анализы", blob: "#A5F3FC" },
   { href: "#coming-soon", icon: "📋", label: "Чекапы", blob: "#C7F5E8" },
 ];
 

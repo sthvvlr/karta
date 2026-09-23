@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { eq } from "drizzle-orm";
 import { getChatGPTUser, requireChatGPTUser } from "./chatgpt-auth";
 import { getDb } from "@/db";
-import { medications, profiles, vaccinations } from "@/db/schema";
+import { labResults, medications, profiles, vaccinations } from "@/db/schema";
 import { ensureCatalog } from "./data";
 
 export async function addVaccination(formData: FormData) {
@@ -57,4 +57,21 @@ export async function saveProfile(formData: FormData) {
   }).where(eq(profiles.userId, auth.userId));
   revalidatePath("/");
   revalidatePath("/profile");
+}
+
+export async function addLabResult(formData: FormData) {
+  const auth = await requireChatGPTUser("/labs");
+  await getDb().insert(labResults).values({
+    id: crypto.randomUUID(),
+    userId: auth.userId,
+    name: String(formData.get("name") || "Анализ").trim(),
+    result: String(formData.get("result") || "") || null,
+    unit: String(formData.get("unit") || "") || null,
+    referenceRange: String(formData.get("referenceRange") || "") || null,
+    testedAt: String(formData.get("testedAt") || "") || null,
+    fileKey: null,
+    notes: String(formData.get("notes") || "") || null,
+    createdAt: new Date().toISOString(),
+  });
+  revalidatePath("/labs");
 }
