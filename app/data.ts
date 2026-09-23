@@ -43,7 +43,7 @@ export async function ensureCatalog() {
   if (existing.length) return;
 
   const now = new Date().toISOString();
-  await db.insert(vaccines).values(catalog.map((item) => ({
+  const vaccineRows = catalog.map((item) => ({
     id: item.id,
     nameRu: item.nameRu,
     nameEn: item.nameEn,
@@ -54,7 +54,10 @@ export async function ensureCatalog() {
     audience: item.audience,
     pregnancyRelevant: item.pregnancyRelevant,
     createdAt: now,
-  })));
+  }));
+  for (let index = 0; index < vaccineRows.length; index += 3) {
+    await db.insert(vaccines).values(vaccineRows.slice(index, index + 3));
+  }
 
   const doseRows = catalog.flatMap((item) =>
     Array.from({ length: item.totalDoses || 1 }, (_, index) => ({
@@ -64,7 +67,9 @@ export async function ensureCatalog() {
       afterPreviousDays: item.doseScheduleDays[index - 1] ?? null,
     }))
   );
-  if (doseRows.length) await db.insert(vaccineDoses).values(doseRows);
+  for (let index = 0; index < doseRows.length; index += 10) {
+    await db.insert(vaccineDoses).values(doseRows.slice(index, index + 10));
+  }
 }
 
 export async function getUserData(user: AppUser) {
