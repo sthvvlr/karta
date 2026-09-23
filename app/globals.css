@@ -141,6 +141,13 @@
   }
 }
 
+@media print {
+  .no-print { display: none !important; }
+  body { background: white !important; color: #1A2050 !important; }
+  .print-page { max-width: none !important; padding: 0 !important; }
+  .print-card { break-inside: avoid; box-shadow: none !important; background: white !important; }
+}
+
 /* Karta design system */
 .blob-bg {
   position: fixed;

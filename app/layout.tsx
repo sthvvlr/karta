@@ -4,6 +4,15 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Karta — карта здоровья",
   description: "Прививки, лекарства и анализы в одном месте.",
+  icons: {
+    icon: "/karta-icon.png",
+    apple: "/karta-icon.png",
+  },
+  appleWebApp: {
+    capable: true,
+    title: "Karta",
+    statusBarStyle: "default",
+  },
   other: { "codex-preview": "development" },
 };
 

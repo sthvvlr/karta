@@ -14,7 +14,7 @@ export function BottomTabBar() {
   const pathname = usePathname()
 
   return (
-    <div style={{
+    <div className="no-print" style={{
       position: 'fixed',
       bottom: 0,
       left: '50%',

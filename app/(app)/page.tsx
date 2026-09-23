@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getChatGPTUser, chatGPTSignInPath } from "@/app/chatgpt-auth";
 import { getUserData } from "@/app/data";
+import healthFacts from "@/app/health_facts.json";
 
 export const dynamic = "force-dynamic";
 
@@ -22,6 +23,11 @@ export default async function HomePage() {
   const name = data.profile?.fullName?.split(" ")[0] || user.displayName.split(" ")[0];
   const hour = new Date().getHours();
   const greeting = hour < 12 ? "Доброе утро" : hour < 18 ? "Добрый день" : "Добрый вечер";
+  const profileFields = [data.profile?.fullName, data.profile?.birthDate, data.profile?.cityCurrent, data.vaccinations.length || data.medications.length];
+  const profileProgress = Math.round(profileFields.filter(Boolean).length / profileFields.length * 100);
+  const today = new Date();
+  const dayOfYear = Math.floor((today.getTime() - new Date(today.getFullYear(), 0, 0).getTime()) / 86400000);
+  const todayFact = healthFacts[(dayOfYear - 1) % healthFacts.length];
 
   return (
     <div style={{ padding: "12px 16px 0" }}>
@@ -37,6 +43,16 @@ export default async function HomePage() {
           <div><div style={{ fontSize: 15, fontWeight: 700, color: C.text, marginBottom: 2 }}>Ваша карта здоровья</div><div style={{ fontSize: 11, color: C.muted }}>Данные сохраняются в защищённой базе</div></div>
         </div>
       </div>
+
+      <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 16, padding: "14px 16px", marginBottom: 10, boxShadow: "0 1px 8px rgba(26,32,80,0.04)" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}><div style={{ fontSize: 13, fontWeight: 700 }}>Прогресс профиля</div><div style={{ fontSize: 13, color: "#5C7CFA", fontWeight: 700 }}>{profileProgress}%</div></div>
+        <div style={{ height: 8, borderRadius: 99, background: "#E8ECFF", overflow: "hidden" }}><div style={{ width: `${profileProgress}%`, height: "100%", borderRadius: 99, background: "linear-gradient(90deg,#748FFC,#5C7CFA)" }} /></div>
+        <div style={{ fontSize: 11, color: C.muted, marginTop: 7 }}>{profileProgress === 100 ? "Профиль заполнен — можно пользоваться картой." : "Добавьте дату рождения, город и записи, чтобы карта была полезнее."}</div>
+      </div>
+
+      <div style={{ background: "rgba(255,255,255,0.58)", border: `1px solid ${C.border}`, borderRadius: 16, padding: "13px 16px", marginBottom: 10 }}><div style={{ fontSize: 11, color: "#5C7CFA", fontWeight: 700, marginBottom: 5 }}>💡 ИНТЕРЕСНЫЙ ФАКТ</div><div style={{ fontSize: 13, lineHeight: 1.45, color: C.text }}>{todayFact.ru}</div></div>
+
+      <Link href="/export" style={{ textDecoration: "none" }}><div style={{ display: "flex", alignItems: "center", gap: 10, background: "rgba(92,124,250,0.09)", border: "1px solid rgba(92,124,250,0.16)", borderRadius: 14, padding: "12px 14px", marginBottom: 20, color: "#4C6EF5" }}><span style={{ fontSize: 20 }}>📄</span><div style={{ flex: 1 }}><div style={{ fontSize: 13, fontWeight: 700 }}>Моя карта здоровья</div><div style={{ fontSize: 11, marginTop: 2, opacity: 0.75 }}>Открыть и сохранить в PDF</div></div><span style={{ fontSize: 18 }}>›</span></div></Link>
 
       <div style={{ fontSize: 13, fontWeight: 700, color: C.text, marginBottom: 10 }}>Разделы</div>
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 7, marginBottom: 20 }}>
