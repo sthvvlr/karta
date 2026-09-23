@@ -3,6 +3,8 @@ import { BlobBackground } from '@/components/BlobBackground'
 import Image from 'next/image'
 import Link from 'next/link'
 
+const FRAME_THIN = '1.5px solid rgba(255,255,255,0.65)'
+
 export default function LandingPage() {
   return (
     <div style={{ background: '#F4F6FF', minHeight: '100dvh', position: 'relative', overflow: 'hidden' }}>
@@ -40,7 +42,6 @@ export default function LandingPage() {
               fontSize: 14,
               textDecoration: 'none',
               border: '1px solid rgba(92,124,250,0.15)',
-              transition: 'all 0.2s',
             }}
           >
             Поддержка
@@ -51,7 +52,7 @@ export default function LandingPage() {
         <section style={{
           maxWidth: 1200,
           margin: '0 auto',
-          padding: '60px 40px 40px',
+          padding: '60px 40px 0',
           textAlign: 'center',
         }}>
           {/* Badge */}
@@ -106,9 +107,8 @@ export default function LandingPage() {
             gap: 16,
             justifyContent: 'center',
             flexWrap: 'wrap',
-            marginBottom: 80,
+            marginBottom: 72,
           }}>
-            {/* App Store button */}
             <div style={{
               display: 'inline-flex',
               alignItems: 'center',
@@ -129,7 +129,6 @@ export default function LandingPage() {
               Скоро в App Store
             </div>
 
-            {/* Support button */}
             <a
               href="mailto:valeriya.astahova@gmail.com"
               style={{
@@ -156,117 +155,150 @@ export default function LandingPage() {
             </a>
           </div>
 
-          {/* Screenshots */}
+          {/* Hero phone mockups — smaller, visual teaser */}
           <div style={{
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'flex-end',
-            gap: 'clamp(12px, 2vw, 28px)',
+            gap: 'clamp(8px, 1.5vw, 20px)',
             padding: '0 20px',
           }}>
-            {/* Left screen — tilted left */}
             <div style={{
               transform: 'rotate(-6deg) translateY(20px)',
               flex: '0 0 auto',
-              width: 'clamp(140px, 18vw, 230px)',
-              borderRadius: 'clamp(20px, 3vw, 36px)',
+              width: 'clamp(120px, 15vw, 200px)',
+              borderRadius: 'clamp(18px, 2.5vw, 32px)',
               overflow: 'hidden',
-              boxShadow: '0 20px 60px rgba(92,124,250,0.25), 0 4px 16px rgba(0,0,0,0.12)',
-              border: '3px solid rgba(255,255,255,0.8)',
+              boxShadow: '0 16px 48px rgba(92,124,250,0.22), 0 3px 12px rgba(0,0,0,0.1)',
+              border: FRAME_THIN,
             }}>
-              <Image
-                src="/screenshots/screen2.png"
-                alt="Прививки"
-                width={621}
-                height={1344}
-                style={{ width: '100%', height: 'auto', display: 'block' }}
-              />
+              <Image src="/screenshots/screen2.png" alt="Прививки" width={621} height={1344} style={{ width: '100%', height: 'auto', display: 'block' }} />
             </div>
 
-            {/* Center screen — upright, bigger */}
             <div style={{
               flex: '0 0 auto',
-              width: 'clamp(180px, 24vw, 300px)',
-              borderRadius: 'clamp(24px, 3.5vw, 44px)',
+              width: 'clamp(160px, 20vw, 260px)',
+              borderRadius: 'clamp(22px, 3vw, 40px)',
               overflow: 'hidden',
-              boxShadow: '0 30px 80px rgba(92,124,250,0.3), 0 8px 24px rgba(0,0,0,0.15)',
-              border: '3px solid rgba(255,255,255,0.9)',
+              boxShadow: '0 24px 64px rgba(92,124,250,0.28), 0 6px 20px rgba(0,0,0,0.12)',
+              border: FRAME_THIN,
               zIndex: 2,
               position: 'relative',
             }}>
-              <Image
-                src="/screenshots/screen1.png"
-                alt="Главный экран"
-                width={621}
-                height={1344}
-                style={{ width: '100%', height: 'auto', display: 'block' }}
-              />
+              <Image src="/screenshots/screen1.png" alt="Главный экран" width={621} height={1344} style={{ width: '100%', height: 'auto', display: 'block' }} />
             </div>
 
-            {/* Right screen — tilted right */}
             <div style={{
               transform: 'rotate(6deg) translateY(20px)',
               flex: '0 0 auto',
-              width: 'clamp(140px, 18vw, 230px)',
-              borderRadius: 'clamp(20px, 3vw, 36px)',
+              width: 'clamp(120px, 15vw, 200px)',
+              borderRadius: 'clamp(18px, 2.5vw, 32px)',
               overflow: 'hidden',
-              boxShadow: '0 20px 60px rgba(92,124,250,0.25), 0 4px 16px rgba(0,0,0,0.12)',
-              border: '3px solid rgba(255,255,255,0.8)',
+              boxShadow: '0 16px 48px rgba(92,124,250,0.22), 0 3px 12px rgba(0,0,0,0.1)',
+              border: FRAME_THIN,
             }}>
-              <Image
-                src="/screenshots/screen3.png"
-                alt="Лекарства"
-                width={621}
-                height={1344}
-                style={{ width: '100%', height: 'auto', display: 'block' }}
-              />
+              <Image src="/screenshots/screen3.png" alt="Лекарства" width={621} height={1344} style={{ width: '100%', height: 'auto', display: 'block' }} />
             </div>
           </div>
         </section>
 
-        {/* Features */}
-        <section style={{
-          maxWidth: 1100,
-          margin: '80px auto 0',
-          padding: '0 40px 80px',
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-          gap: 20,
-        }}>
-          {[
-            {
-              icon: '💉',
-              title: 'Прививки',
-              desc: 'Храните историю вакцинаций и получайте напоминания о следующих дозах',
-            },
-            {
-              icon: '💊',
-              title: 'Лекарства',
-              desc: 'Контролируйте приём препаратов и никогда не пропускайте дозу',
-            },
-            {
-              icon: '🩺',
-              title: 'Анализы',
-              desc: 'Следите за рекомендациями по сдаче анализов на основе вашего профиля',
-            },
-          ].map((f) => (
-            <div
-              key={f.title}
-              style={{
-                padding: '28px 28px',
-                borderRadius: 24,
-                background: 'rgba(255,255,255,0.6)',
-                backdropFilter: 'blur(16px)',
-                border: '1px solid rgba(255,255,255,0.8)',
-                boxShadow: '0 4px 24px rgba(92,124,250,0.08)',
-              }}
-            >
-              <div style={{ fontSize: 36, marginBottom: 14 }}>{f.icon}</div>
-              <h3 style={{ fontSize: 18, fontWeight: 700, color: '#1a1d2e', marginBottom: 8 }}>{f.title}</h3>
-              <p style={{ fontSize: 15, color: '#6b7280', lineHeight: 1.6, margin: 0 }}>{f.desc}</p>
+        {/* ── Feature annotation section ── */}
+        <div className="kt-features-wrap">
+          <div style={{ textAlign: 'center', marginBottom: 48 }}>
+            <h2 style={{
+              fontSize: 'clamp(24px, 3.5vw, 42px)',
+              fontWeight: 800,
+              color: '#1a1d2e',
+              letterSpacing: '-1px',
+              margin: '0 0 12px',
+            }}>Всё для контроля здоровья</h2>
+            <p style={{ fontSize: 16, color: '#6b7280', margin: 0 }}>
+              Прививки, лекарства, анализы и показатели — в одном приложении
+            </p>
+          </div>
+
+          <div className="kt-features-grid">
+
+            {/* Left features */}
+            <div className="kt-feat-col">
+              {[
+                { icon: '💉', title: 'Паспорт вакцинаций', desc: 'Вся история прививок и напоминания о следующих дозах' },
+                { icon: '🔔', title: 'Никогда не пропустите дозу', desc: 'Умные уведомления о прививках и приёме лекарств' },
+                { icon: '👨‍👩‍👧', title: 'Вся семья', desc: 'Ведите профили здоровья для всех близких в одном аккаунте' },
+              ].map(f => (
+                <div key={f.title} className="kt-feat-item kt-feat-item--left">
+                  <div>
+                    <p className="kt-feat-title">{f.title}</p>
+                    <p className="kt-feat-desc">{f.desc}</p>
+                  </div>
+                  <div className="kt-feat-line" />
+                  <div className="kt-feat-dot" />
+                  <div className="kt-feat-icon">{f.icon}</div>
+                </div>
+              ))}
             </div>
-          ))}
-        </section>
+
+            {/* Center phones */}
+            <div className="kt-phones">
+              <div style={{
+                transform: 'rotate(-4deg) translateY(12px)',
+                width: 'clamp(100px, 12vw, 165px)',
+                borderRadius: 'clamp(16px, 2vw, 28px)',
+                overflow: 'hidden',
+                boxShadow: '0 16px 48px rgba(92,124,250,0.2), 0 3px 10px rgba(0,0,0,0.1)',
+                border: FRAME_THIN,
+                flexShrink: 0,
+              }}>
+                <Image src="/screenshots/screen2.png" alt="Прививки" width={621} height={1344} style={{ width: '100%', height: 'auto', display: 'block' }} />
+              </div>
+
+              <div style={{
+                width: 'clamp(140px, 16vw, 215px)',
+                borderRadius: 'clamp(20px, 2.5vw, 36px)',
+                overflow: 'hidden',
+                boxShadow: '0 24px 64px rgba(92,124,250,0.26), 0 6px 18px rgba(0,0,0,0.12)',
+                border: FRAME_THIN,
+                zIndex: 2,
+                position: 'relative',
+                flexShrink: 0,
+              }}>
+                <Image src="/screenshots/screen1.png" alt="Главный экран" width={621} height={1344} style={{ width: '100%', height: 'auto', display: 'block' }} />
+              </div>
+
+              <div style={{
+                transform: 'rotate(4deg) translateY(12px)',
+                width: 'clamp(100px, 12vw, 165px)',
+                borderRadius: 'clamp(16px, 2vw, 28px)',
+                overflow: 'hidden',
+                boxShadow: '0 16px 48px rgba(92,124,250,0.2), 0 3px 10px rgba(0,0,0,0.1)',
+                border: FRAME_THIN,
+                flexShrink: 0,
+              }}>
+                <Image src="/screenshots/screen3.png" alt="Лекарства" width={621} height={1344} style={{ width: '100%', height: 'auto', display: 'block' }} />
+              </div>
+            </div>
+
+            {/* Right features */}
+            <div className="kt-feat-col">
+              {[
+                { icon: '📊', title: 'Karta Score', desc: 'Персональный индекс здоровья на основе ваших данных' },
+                { icon: '💊', title: 'Расписание лекарств', desc: 'Курсы препаратов с напоминаниями утром и вечером' },
+                { icon: '🩺', title: 'Анализы и чекапы', desc: 'Рекомендации по обследованиям на основе вашего профиля' },
+              ].map(f => (
+                <div key={f.title} className="kt-feat-item">
+                  <div className="kt-feat-icon">{f.icon}</div>
+                  <div className="kt-feat-dot" />
+                  <div className="kt-feat-line" style={{ background: 'linear-gradient(to right, rgba(92,124,250,0.5), rgba(92,124,250,0.15))' }} />
+                  <div>
+                    <p className="kt-feat-title">{f.title}</p>
+                    <p className="kt-feat-desc">{f.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+          </div>
+        </div>
 
         {/* Footer */}
         <footer style={{
@@ -291,7 +323,7 @@ export default function LandingPage() {
             <Link href="/privacy" style={{ fontSize: 14, color: '#9ca3af', textDecoration: 'none' }}>
               Политика конфиденциальности
             </Link>
-            <span style={{ fontSize: 14, color: '#c4c9d8' }}>© 2025 Karta</span>
+            <span style={{ fontSize: 14, color: '#c4c9d8' }}>© 2026 Karta</span>
           </div>
         </footer>
       </div>

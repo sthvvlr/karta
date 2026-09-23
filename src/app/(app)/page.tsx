@@ -32,13 +32,12 @@ export default async function HomePage() {
   // Today's active medications
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { data: medsRaw } = await (supabase as any)
-    .from('user_medications')
-    .select('id, name, dosage, reminder_times, meal_relation')
+    .from('medications')
+    .select('id, name, dosage, time_slots, meal_relation')
     .eq('user_id', user.id)
-    .eq('active', true)
-    .lte('start_date', new Date().toISOString().slice(0, 10))
+    .eq('is_active', true)
 
-  type MedRow = { id: string; name: string; dosage: string | null; reminder_times: string[] | null; meal_relation: string }
+  type MedRow = { id: string; name: string; dosage: string | null; time_slots: Array<{ label?: string; customTime?: string }> | null; meal_relation: string }
   const meds = medsRaw as MedRow[] | null
 
   // Today's logs
@@ -55,7 +54,7 @@ export default async function HomePage() {
   const doneIds = new Set(((logsRaw ?? []) as LogRow[]).filter(l => l.status === 'taken').map(l => l.medication_id))
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const vacCount = await (supabase as any).from('user_vaccinations').select('id', { count: 'exact', head: true }).eq('user_id', user.id)
+  const vacCount = await (supabase as any).from('vaccinations').select('id', { count: 'exact', head: true }).eq('user_id', user.id)
   const medCount = meds?.length ?? 0
 
   const hour = new Date().getHours()
@@ -123,7 +122,8 @@ export default async function HomePage() {
           <div style={{ fontSize: 13, fontWeight: 700, color: C.text, marginBottom: 4 }}>Сегодня</div>
           {meds!.map((med, i) => {
             const isDone = doneIds.has(med.id)
-            const time = med.reminder_times?.[0] ?? '—'
+            const firstSlot = med.time_slots?.[0]
+            const time = firstSlot?.customTime ?? firstSlot?.label ?? '—'
             const meal = med.meal_relation === 'before' ? 'до еды' : med.meal_relation === 'after' ? 'после еды' : med.meal_relation === 'during' ? 'с едой' : ''
             return (
               <div key={med.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '11px 0', borderBottom: i < meds!.length - 1 ? '1px solid rgba(26,32,80,0.05)' : 'none' }}>

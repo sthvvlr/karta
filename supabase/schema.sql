@@ -1,6 +1,6 @@
 -- ============================================================
--- KARTA — Database Schema
--- Run this in Supabase SQL Editor (once, in order)
+-- LEGACY SCHEMA — kept for historical reference only.
+-- Use supabase/migrations/20260923_karta_core.sql for new projects.
 -- ============================================================
 
 

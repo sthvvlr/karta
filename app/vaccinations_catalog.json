@@ -1,0 +1,855 @@
+[
+  {
+    "id": "diphtheria_tetanus",
+    "nameRu": "Дифтерия и столбняк",
+    "nameEn": "Diphtheria and Tetanus",
+    "descriptionRu": "Защищает от двух опасных инфекций — дифтерии (поражает дыхательные пути) и столбняка (поражает нервную систему при травмах). Иммунитет со временем ослабевает, поэтому нужна регулярная ревакцинация.",
+    "descriptionEn": "Protects against diphtheria (affects the respiratory tract) and tetanus (affects the nervous system, typically after injuries). Immunity wanes over time, so regular boosters are needed.",
+    "whoRu": "Все взрослые с 18 лет",
+    "whoEn": "All adults from age 18",
+    "scheduleRu": "Раз в 10 лет",
+    "scheduleEn": "Every 10 years",
+    "frequencyType": "recurring",
+    "intervalYears": 10,
+    "audience": "all",
+    "tags": [],
+    "noteRu": "Часто делается одним уколом вместе с коклюшем (АДС-М или Адасель/Бустрикс).",
+    "noteEn": "Often given as a combined shot with pertussis (Tdap).",
+    "disclaimerRu": "Если у вас нет информации о предыдущих прививках, вы можете считать себя непривитым и начать курс заново.",
+    "disclaimerEn": "If you have no record of previous vaccinations, you can consider yourself unvaccinated and start the course from scratch.",
+    "pregnancyRelevant": false,
+    "trackDate": true,
+    "regions": {
+      "US": {
+        "whoRu": "Все взрослые с 18 лет",
+        "whoEn": "All adults from age 18",
+        "scheduleRu": "Раз в 10 лет. Первая взрослая прививка должна быть Tdap (с коклюшем), последующие — Td или Tdap.",
+        "scheduleEn": "Every 10 years. The first adult booster should be Tdap (with pertussis); subsequent boosters can be Td or Tdap.",
+        "noteRu": "Если вы никогда не получали Tdap — сделайте его вместо следующего Td.",
+        "noteEn": "If you have never received Tdap — get it instead of your next Td booster."
+      },
+      "EU": {
+        "whoRu": "Все взрослые с 18 лет",
+        "whoEn": "All adults from age 18",
+        "scheduleRu": "Раз в 10 лет. В ряде стран ЕС первую взрослую прививку рекомендуют делать комбинированной (Tdap, с коклюшем).",
+        "scheduleEn": "Every 10 years. Several EU countries recommend the first adult booster as Tdap (combined with pertussis).",
+        "noteRu": null,
+        "noteEn": null
+      },
+      "AU": {
+        "whoRu": "Все взрослые с 18 лет",
+        "whoEn": "All adults from age 18",
+        "scheduleRu": "Раз в 10 лет. Первая взрослая прививка — Boostrix или Adacel (Tdap, с коклюшем).",
+        "scheduleEn": "Every 10 years. The first adult booster should be Boostrix or Adacel (Tdap, with pertussis).",
+        "noteRu": null,
+        "noteEn": null
+      },
+      "SEA": {
+        "whoRu": "Все взрослые с 18 лет",
+        "whoEn": "All adults from age 18",
+        "scheduleRu": "Раз в 10 лет (рекомендация ВОЗ)",
+        "scheduleEn": "Every 10 years (WHO recommendation)",
+        "noteRu": null,
+        "noteEn": null
+      },
+      "EAST_ASIA": {
+        "whoRu": "Все взрослые с 18 лет. Исключение: в Японии официальной программы ревакцинации взрослых нет — уточните у врача.",
+        "whoEn": "All adults from age 18. Note: Japan does not have a formal adult booster program — consult your doctor.",
+        "scheduleRu": "Раз в 10 лет (Южная Корея, Китай, Тайвань). В Японии — индивидуально.",
+        "scheduleEn": "Every 10 years (South Korea, China, Taiwan). In Japan — consult your doctor.",
+        "noteRu": null,
+        "noteEn": null
+      }
+    },
+    "totalDoses": 1,
+    "doseScheduleDays": []
+  },
+  {
+    "id": "pertussis",
+    "nameRu": "Коклюш",
+    "nameEn": "Pertussis (Whooping Cough)",
+    "descriptionRu": "Взрослые переносят коклюш как затяжной кашель и часто не догадываются о болезни — но легко передают младенцам, для которых он смертельно опасен. Детский иммунитет от прививки к взрослому возрасту угасает.",
+    "descriptionEn": "Adults often experience whooping cough as a prolonged cough without realizing it — but can easily transmit it to infants, for whom it can be fatal. Childhood immunity fades by adulthood.",
+    "whoRu": "Все взрослые — хотя бы один раз. При каждой беременности (27–36 неделя). Если рядом есть младенцы до 1 года.",
+    "whoEn": "All adults — at least once. During each pregnancy (weeks 27–36). When living with or regularly caring for infants under 1 year.",
+    "scheduleRu": "Однократно для всех взрослых. Повторно — при каждой беременности на сроке 27–36 недель.",
+    "scheduleEn": "Once for all adults. Repeat — during each pregnancy at weeks 27–36.",
+    "frequencyType": "once_plus_pregnancy",
+    "intervalYears": null,
+    "audience": "all",
+    "tags": [
+      "pregnancy",
+      "infant_contact"
+    ],
+    "noteRu": "Если не помните — рекомендуется сделать. Лишняя доза безопасна. Часто делается одним уколом вместе с дифтерией и столбняком.",
+    "noteEn": "If unsure — it's recommended to get vaccinated. An extra dose is safe. Often given as a combined shot with diphtheria and tetanus.",
+    "disclaimerRu": null,
+    "disclaimerEn": null,
+    "pregnancyRelevant": true,
+    "pregnancyNoteRu": "Рекомендуется при каждой беременности (27–36 недель) — защищает новорождённого до первых прививок.",
+    "pregnancyNoteEn": "Recommended during each pregnancy (weeks 27–36) — protects the newborn before their first vaccinations.",
+    "infantContactNoteRu": "Особенно важно, если рядом есть ребёнок до 1 года.",
+    "infantContactNoteEn": "Especially important if there is an infant under 1 year in your household.",
+    "trackDate": true,
+    "regions": {
+      "US": {
+        "whoRu": "Все взрослые — однократно (если не прививались Tdap). При каждой беременности (27–36 неделя). Если рядом есть младенцы до 1 года.",
+        "whoEn": "All adults — once (if never received Tdap). During each pregnancy (weeks 27–36). When living with or caring for infants under 1 year.",
+        "scheduleRu": "Однократно для всех взрослых. Повторно при каждой беременности на 27–36 неделях.",
+        "scheduleEn": "Once for all adults. Repeat during each pregnancy at weeks 27–36.",
+        "noteRu": "Лишняя доза безопасна. Часто делается одним уколом вместе с дифтерией и столбняком (Tdap).",
+        "noteEn": "An extra dose is safe. Often given as a combined Tdap shot with diphtheria and tetanus."
+      },
+      "EU": {
+        "whoRu": "Все взрослые — однократно (рекомендуется, если не прививались Tdap). При каждой беременности. Если рядом есть младенцы до 1 года.",
+        "whoEn": "All adults — once (recommended if never received Tdap). During each pregnancy. When caring for infants under 1 year.",
+        "scheduleRu": "Однократно для всех взрослых. При беременности — в Великобритании на 16–32 неделях, в большинстве стран ЕС на 28–36 неделях.",
+        "scheduleEn": "Once for all adults. During pregnancy — in the UK at weeks 16–32; in most EU countries at weeks 28–36.",
+        "noteRu": "Точные сроки беременности уточняйте у врача: они варьируются по стране.",
+        "noteEn": "Exact pregnancy timing varies by country — check with your doctor."
+      },
+      "AU": {
+        "whoRu": "Все взрослые — однократно. При каждой беременности (20–32 неделя). Если рядом есть младенцы до 1 года.",
+        "whoEn": "All adults — once. During each pregnancy (weeks 20–32). When caring for infants under 1 year.",
+        "scheduleRu": "Однократно для всех взрослых. Повторно при каждой беременности на 20–32 неделях (программа ATAGI).",
+        "scheduleEn": "Once for all adults. Repeat during each pregnancy at weeks 20–32 (ATAGI program).",
+        "noteRu": "Лишняя доза безопасна. Делается комбинированным Tdap-уколом (Boostrix или Adacel).",
+        "noteEn": "An extra dose is safe. Given as a combined Tdap shot (Boostrix or Adacel)."
+      },
+      "SEA": {
+        "whoRu": "Все взрослые — однократно (если не прививались). Особенно важно при контакте с младенцами. Прививка при беременности поддерживается ВОЗ, но национальные программы есть не везде — уточните у врача.",
+        "whoEn": "All adults — once (if not previously vaccinated). Especially important when in contact with infants. Pregnancy vaccination is supported by WHO, but national programs vary — check with your doctor.",
+        "scheduleRu": "Однократно для всех взрослых. Прививка при беременности — при наличии в вашей стране.",
+        "scheduleEn": "Once for all adults. Pregnancy vaccination — if available in your country.",
+        "noteRu": "Лишняя доза безопасна. Делается комбинированным уколом с дифтерией и столбняком.",
+        "noteEn": "An extra dose is safe. Often given as a combined shot with diphtheria and tetanus."
+      },
+      "EAST_ASIA": {
+        "whoRu": "Все взрослые — однократно (если не прививались). Если рядом есть младенцы до 1 года. В Японии нет официальной взрослой программы — уточните у врача. В Южной Корее рекомендован один Tdap для взрослых.",
+        "whoEn": "All adults — once (if not previously vaccinated). When caring for infants under 1 year. Japan has no official adult pertussis program — consult your doctor. South Korea recommends one Tdap for adults.",
+        "scheduleRu": "Однократно. Прививка при беременности — уточните у врача в вашей стране.",
+        "scheduleEn": "Once. Pregnancy vaccination — check with your doctor in your country.",
+        "noteRu": "В Японии коклюшная вакцина для взрослых применяется ограниченно — только для медработников в акушерстве и педиатрии. Для остальных — консультация врача.",
+        "noteEn": "In Japan, pertussis vaccination for adults is limited — mainly for healthcare workers in obstetrics and pediatrics. For others — consult your doctor."
+      }
+    },
+    "totalDoses": 1,
+    "doseScheduleDays": []
+  },
+  {
+    "id": "hepatitis_b",
+    "nameRu": "Гепатит В",
+    "nameEn": "Hepatitis B",
+    "descriptionRu": "Вирусная инфекция, поражающая печень и способная привести к циррозу и раку. Передаётся через кровь и половым путём. Вакцина надёжно защищает и формирует стойкий иммунитет на многие годы.",
+    "descriptionEn": "A viral infection that affects the liver and can lead to cirrhosis and cancer. Transmitted through blood and sexual contact. The vaccine provides reliable long-term protection.",
+    "whoRu": "Все взрослые до 55 лет (национальный календарь). Старше 55 лет — по желанию или при наличии факторов риска.",
+    "whoEn": "All adults up to age 55 (national schedule). Over 55 — on request or if risk factors are present.",
+    "scheduleRu": "3 дозы: 0 – 1 – 6 месяцев",
+    "scheduleEn": "3 doses: 0 – 1 – 6 months",
+    "frequencyType": "once",
+    "intervalYears": null,
+    "audience": "all",
+    "tags": [],
+    "noteRu": "Через 4–8 недель после третьей дозы рекомендуется сдать анализ на антитела (anti-HBs). Уровень ≥10 мМЕ/мл означает защиту. Если ниже — врач может назначить дополнительную дозу. Особенно важно для медработников, пациентов на диализе и людей с ослабленным иммунитетом.",
+    "noteEn": "4–8 weeks after the third dose, it's recommended to test for antibodies (anti-HBs). A level ≥10 mIU/mL means you're protected. If lower — your doctor may recommend an additional dose. Especially important for healthcare workers, dialysis patients, and immunocompromised individuals.",
+    "disclaimerRu": "Если у вас нет информации о предыдущих прививках против гепатита В, вы можете считать себя непривитым и пройти полный курс из 3 доз.",
+    "disclaimerEn": "If you have no record of previous hepatitis B vaccinations, you can consider yourself unvaccinated and complete the full 3-dose course.",
+    "pregnancyRelevant": false,
+    "trackDate": true,
+    "regions": {
+      "US": {
+        "whoRu": "Все взрослые без ограничения по возрасту (рекомендация CDC с 2022 года).",
+        "whoEn": "All adults regardless of age (CDC recommendation since 2022).",
+        "scheduleRu": "3 дозы: 0 – 1 – 6 месяцев. Или 2 дозы с интервалом 1 месяц (только вакцина Heplisav-B, 18+).",
+        "scheduleEn": "3 doses: 0 – 1 – 6 months. Or 2 doses 1 month apart (Heplisav-B only, age 18+).",
+        "noteRu": "CDC рекомендует всем взрослым, кто ещё не был привит. Через 4–8 недель после курса рекомендуется проверить уровень anti-HBs — особенно медработникам, пациентам на диализе и иммунокомпрометированным.",
+        "noteEn": "CDC recommends vaccination for all unvaccinated adults. Anti-HBs testing 4–8 weeks after completing the series is recommended — especially for healthcare workers, dialysis patients, and immunocompromised individuals.",
+        "disclaimerRu": "Если нет подтверждения предыдущей вакцинации, считайте себя непривитым и пройдите полный курс.",
+        "disclaimerEn": "If you have no documented proof of vaccination, consider yourself unvaccinated and complete the full course.",
+        "audience": "all"
+      },
+      "EU": {
+        "whoRu": "Приоритетные группы: медработники, люди с несколькими партнёрами, потребители инъекционных наркотиков, путешественники в эндемичные регионы, пациенты на диализе. Остальным — по желанию.",
+        "whoEn": "Priority groups: healthcare workers, people with multiple partners, people who inject drugs, travelers to endemic regions, dialysis patients. Others — on request.",
+        "scheduleRu": "3 дозы: 0 – 1 – 6 месяцев",
+        "scheduleEn": "3 doses: 0 – 1 – 6 months",
+        "noteRu": "Универсальной рекомендации для всех взрослых нет. Через 4–8 недель после курса рекомендуется проверить уровень anti-HBs медработникам и другим группам риска.",
+        "noteEn": "No universal recommendation for all adults. Anti-HBs testing 4–8 weeks after the series is recommended for healthcare workers and other risk groups.",
+        "disclaimerRu": "Если нет подтверждения предыдущей вакцинации, считайте себя непривитым и пройдите полный курс.",
+        "disclaimerEn": "If you have no documented proof of vaccination, consider yourself unvaccinated and complete the full course.",
+        "audience": "all"
+      },
+      "SEA": {
+        "whoRu": "Все непривитые взрослые без ограничения по возрасту. Вьетнам, Таиланд, Индонезия — эндемичные страны с высокой распространённостью (более 5–8% населения). Прививка особенно важна.",
+        "whoEn": "All unvaccinated adults regardless of age. Vietnam, Thailand, Indonesia are endemic countries with high prevalence (over 5–8% of the population). Vaccination is especially important.",
+        "scheduleRu": "3 дозы: 0 – 1 – 6 месяцев",
+        "scheduleEn": "3 doses: 0 – 1 – 6 months",
+        "noteRu": "В странах Юго-Восточной Азии гепатит В широко распространён. Если вы не проходили вакцинацию — сделайте курс. Через 4–8 недель после третьей дозы рекомендуется проверить anti-HBs, особенно медработникам.",
+        "noteEn": "Hepatitis B is highly prevalent in Southeast Asia. If you haven't been vaccinated — complete the course. Anti-HBs testing 4–8 weeks after the third dose is recommended, especially for healthcare workers.",
+        "disclaimerRu": "Если нет подтверждения предыдущей вакцинации, считайте себя непривитым и пройдите полный курс из 3 доз.",
+        "disclaimerEn": "If you have no documented proof of vaccination, consider yourself unvaccinated and complete the full 3-dose course.",
+        "audience": "all"
+      },
+      "AU": {
+        "whoRu": "Все непривитые взрослые. ATAGI рекомендует вакцинацию всем, кто не был привит в детстве. Приоритетные группы: медработники, аборигенное и торресовопролинское население, люди с хроническими заболеваниями.",
+        "whoEn": "All unvaccinated adults. ATAGI recommends vaccination for anyone not vaccinated in childhood. Priority groups: healthcare workers, Aboriginal and Torres Strait Islander people, people with chronic conditions.",
+        "scheduleRu": "3 дозы: 0 – 1 – 6 месяцев. Ускоренный курс возможен по назначению врача.",
+        "scheduleEn": "3 doses: 0 – 1 – 6 months. An accelerated schedule is available on medical advice.",
+        "noteRu": "Через 4–8 недель после курса медработникам и другим группам риска рекомендуется проверить уровень anti-HBs.",
+        "noteEn": "Anti-HBs testing 4–8 weeks after completing the series is recommended for healthcare workers and other risk groups.",
+        "disclaimerRu": "Если нет подтверждения предыдущей вакцинации, считайте себя непривитым и пройдите полный курс.",
+        "disclaimerEn": "If you have no documented proof of vaccination, consider yourself unvaccinated and complete the full course.",
+        "audience": "all"
+      },
+      "EAST_ASIA": {
+        "whoRu": "Все непривитые взрослые. В Китае и ряде других стран региона гепатит В исторически распространён, хотя охват вакцинацией детей высок.",
+        "whoEn": "All unvaccinated adults. Hepatitis B has historically been prevalent in China and other countries in the region, though childhood vaccination coverage is now high.",
+        "scheduleRu": "3 дозы: 0 – 1 – 6 месяцев",
+        "scheduleEn": "3 doses: 0 – 1 – 6 months",
+        "noteRu": "Через 4–8 недель после третьей дозы рекомендуется проверить уровень anti-HBs, особенно медработникам и людям с факторами риска.",
+        "noteEn": "Anti-HBs testing 4–8 weeks after the third dose is recommended, especially for healthcare workers and those with risk factors.",
+        "disclaimerRu": "Если нет подтверждения предыдущей вакцинации, считайте себя непривитым и пройдите полный курс.",
+        "disclaimerEn": "If you have no documented proof of vaccination, consider yourself unvaccinated and complete the full course.",
+        "audience": "all"
+      }
+    },
+    "totalDoses": 3,
+    "doseScheduleDays": [
+      30,
+      180
+    ]
+  },
+  {
+    "id": "mmr",
+    "nameRu": "Корь, краснуха, паротит (КПК)",
+    "nameEn": "Measles, Mumps, Rubella (MMR)",
+    "descriptionRu": "Три инфекции в одной вакцине. Корь — одна из самых заразных болезней, опасна осложнениями. Краснуха у беременных вызывает тяжёлые пороки развития плода. Паротит у мужчин может приводить к бесплодию. Детский иммунитет со временем угасает.",
+    "descriptionEn": "Three infections in one vaccine. Measles is highly contagious and can cause severe complications. Rubella during pregnancy can cause serious fetal defects. Mumps in men can lead to infertility. Childhood immunity may wane over time.",
+    "whoRu": "Взрослые 18–55 лет, не болевшие и не привитые (или привитые однократно). Рождённые до 1957 года, как правило, имеют естественный иммунитет.",
+    "whoEn": "Adults aged 18–55 who have not had the diseases and are unvaccinated (or received only one dose). Those born before 1957 are generally naturally immune.",
+    "scheduleRu": "2 дозы с интервалом 4 недели — если нет истории прививок. 1 доза — если была только одна в детстве.",
+    "scheduleEn": "2 doses 4 weeks apart — if no vaccination history. 1 dose — if only one was received in childhood.",
+    "frequencyType": "once",
+    "intervalYears": null,
+    "audience": "all",
+    "tags": [
+      "pregnancy"
+    ],
+    "noteRu": "Живая вакцина — противопоказана при беременности и выраженном иммунодефиците. После прививки от краснухи следует избегать беременности в течение 1 месяца. Паротит особенно важен для мужчин.",
+    "noteEn": "Live vaccine — contraindicated during pregnancy and in severe immunodeficiency. After the rubella component, avoid pregnancy for 1 month. Mumps vaccination is especially important for men.",
+    "disclaimerRu": "Если нет прививочного сертификата — можно либо пройти курс из 2 доз (безопасно, даже если иммунитет уже есть), либо сначала сдать кровь на антитела к кори, краснухе и паротиту (IgG). Положительный результат по всем трём — прививка не нужна.",
+    "disclaimerEn": "If you have no vaccination records — you can either complete the 2-dose course (safe even if already immune) or first check antibodies for measles, rubella, and mumps (IgG). Positive results for all three mean no vaccine is needed.",
+    "pregnancyRelevant": true,
+    "pregnancyNoteRu": "Противопоказана во время беременности. Если планируете беременность — сделайте прививку заранее и подождите 1 месяц после неё.",
+    "pregnancyNoteEn": "Contraindicated during pregnancy. If planning a pregnancy — get vaccinated in advance and wait 1 month before trying to conceive.",
+    "trackDate": true,
+    "regions": {
+      "EU": {
+        "whoRu": "Взрослые, не болевшие и не привитые (или привитые однократно). Рождённые до 1970 года могут иметь естественный иммунитет — в Европе массовую вакцинацию начали позже. Рекомендуется уточнить у врача.",
+        "whoEn": "Adults who have not had the diseases and are unvaccinated (or received only one dose). Those born before 1970 may have natural immunity — mass vaccination started later in Europe. Check with your doctor.",
+        "scheduleRu": "2 дозы с интервалом 4 недели — если нет истории прививок. 1 доза — если была только одна в детстве.",
+        "scheduleEn": "2 doses 4 weeks apart — if no vaccination history. 1 dose — if only one was received in childhood.",
+        "noteRu": "Живая вакцина — противопоказана при беременности и выраженном иммунодефиците. После прививки от краснухи следует избегать беременности в течение 1 месяца.",
+        "noteEn": "Live vaccine — contraindicated during pregnancy and in severe immunodeficiency. After the rubella component, avoid pregnancy for 1 month.",
+        "disclaimerRu": "Если нет подтверждения прививок — считайте себя непривитым и пройдите курс из 2 доз.",
+        "disclaimerEn": "If you have no documented proof of vaccination, consider yourself unvaccinated and complete the 2-dose course.",
+        "audience": "all"
+      },
+      "US": {
+        "whoRu": "Взрослые, рождённые в 1957 году и позже, без документального подтверждения иммунитета. Рождённые до 1957 года считаются иммунными.",
+        "whoEn": "Adults born in 1957 or later without documented evidence of immunity. Those born before 1957 are presumed immune.",
+        "scheduleRu": "2 дозы с интервалом 4 недели — если нет истории прививок. 1 доза — для большинства взрослых с частичной защитой.",
+        "scheduleEn": "2 doses 4 weeks apart — if no vaccination history. 1 dose — for most adults with partial protection.",
+        "noteRu": "Живая вакцина — противопоказана при беременности. После прививки от краснухи — избегать беременности 4 недели.",
+        "noteEn": "Live vaccine — contraindicated during pregnancy. After rubella component, avoid pregnancy for 4 weeks.",
+        "disclaimerRu": "Если нет документального подтверждения прививок или перенесённой болезни — считайте себя непривитым.",
+        "disclaimerEn": "If you have no documented proof of vaccination or prior disease — consider yourself unvaccinated.",
+        "audience": "all"
+      },
+      "SEA": {
+        "whoRu": "Все взрослые без документального подтверждения двух доз прививки. Порог «рождён до X года — иммунен» здесь не применяется: массовая вакцинация в странах Юго-Восточной Азии началась позже и охватывала не всех.",
+        "whoEn": "All adults without documented proof of two vaccine doses. There is no birth-year immunity threshold here: mass vaccination in Southeast Asia started later and was not universal.",
+        "scheduleRu": "2 дозы с интервалом 4 недели — если нет истории прививок. 1 доза — если была только одна в детстве.",
+        "scheduleEn": "2 doses 4 weeks apart — if no vaccination history. 1 dose — if only one was received in childhood.",
+        "noteRu": "Живая вакцина — противопоказана при беременности и выраженном иммунодефиците. После прививки от краснухи следует избегать беременности 1 месяц. Паротит особенно важен для мужчин.",
+        "noteEn": "Live vaccine — contraindicated during pregnancy and in severe immunodeficiency. After the rubella component, avoid pregnancy for 1 month. Mumps vaccination is especially important for men.",
+        "disclaimerRu": "Если нет документального подтверждения прививок — считайте себя непривитым и пройдите курс из 2 доз.",
+        "disclaimerEn": "If you have no documented proof of vaccination — consider yourself unvaccinated and complete the 2-dose course.",
+        "audience": "all"
+      },
+      "AU": {
+        "whoRu": "Взрослые без документального подтверждения двух доз прививки. Рождённые до 1966 года, как правило, имеют естественный иммунитет к кори (до начала массовой вакцинации в Австралии).",
+        "whoEn": "Adults without documented proof of two vaccine doses. Those born before 1966 are generally naturally immune to measles (prior to Australia's vaccination program).",
+        "scheduleRu": "2 дозы с интервалом 4 недели — если нет истории прививок. 1 доза — если была только одна в детстве.",
+        "scheduleEn": "2 doses 4 weeks apart — if no vaccination history. 1 dose — if only one was received in childhood.",
+        "noteRu": "Живая вакцина — противопоказана при беременности. После прививки от краснухи — избегать беременности 1 месяц. Паротит особенно важен для мужчин.",
+        "noteEn": "Live vaccine — contraindicated during pregnancy. After rubella component, avoid pregnancy for 1 month. Mumps vaccination is especially important for men.",
+        "disclaimerRu": "Если нет документального подтверждения прививок и вы не уверены насчёт перенесённых болезней — считайте себя непривитым.",
+        "disclaimerEn": "If you have no documented proof of vaccination and are unsure about past illness — consider yourself unvaccinated.",
+        "audience": "all"
+      },
+      "EAST_ASIA": {
+        "whoRu": "Взрослые без документального подтверждения двух доз прививки. В Японии и Южной Корее охват вакцинацией высокий, но если не уверены — рекомендуется привиться.",
+        "whoEn": "Adults without documented proof of two vaccine doses. Vaccination coverage is high in Japan and South Korea, but if unsure — vaccination is recommended.",
+        "scheduleRu": "2 дозы с интервалом 4 недели — если нет истории прививок. 1 доза — если была только одна в детстве.",
+        "scheduleEn": "2 doses 4 weeks apart — if no vaccination history. 1 dose — if only one was received in childhood.",
+        "noteRu": "Живая вакцина — противопоказана при беременности и выраженном иммунодефиците. После прививки от краснухи следует избегать беременности 1 месяц.",
+        "noteEn": "Live vaccine — contraindicated during pregnancy and in severe immunodeficiency. After the rubella component, avoid pregnancy for 1 month.",
+        "disclaimerRu": "Если нет документального подтверждения прививок — считайте себя непривитым.",
+        "disclaimerEn": "If you have no documented proof of vaccination — consider yourself unvaccinated.",
+        "audience": "all"
+      }
+    },
+    "totalDoses": 2,
+    "doseScheduleDays": [
+      28
+    ]
+  },
+  {
+    "id": "influenza",
+    "nameRu": "Грипп",
+    "nameEn": "Influenza (Flu)",
+    "descriptionRu": "Ежегодная вакцина от сезонного гриппа. Вирус постоянно мутирует, поэтому состав вакцины обновляется каждый год под актуальные штаммы. Грипп опасен осложнениями — пневмонией, поражением сердца — особенно у пожилых, беременных и людей с хроническими болезнями.",
+    "descriptionEn": "An annual vaccine against seasonal influenza. The virus constantly mutates, so the vaccine is updated each year to match current strains. Flu is dangerous due to complications — pneumonia, heart problems — especially in the elderly, pregnant women, and people with chronic conditions.",
+    "whoRu": "Все взрослые. Особенно важно: люди 60+, беременные (любой триместр), медработники, люди с хроническими заболеваниями сердца, лёгких, почек, диабетом.",
+    "whoEn": "All adults. Especially important for: people 60+, pregnant women (any trimester), healthcare workers, people with chronic heart, lung, kidney conditions, and diabetes.",
+    "scheduleRu": "Ежегодно. Оптимальное время — сентябрь–ноябрь, до начала сезона.",
+    "scheduleEn": "Annually. Optimal timing — September–November, before the flu season begins.",
+    "frequencyType": "annual",
+    "intervalYears": null,
+    "audience": "all",
+    "tags": [
+      "pregnancy",
+      "60plus"
+    ],
+    "noteRu": "Вакцина не содержит живого вируса — безопасна при беременности и иммунодефиците. Если заразились гриппом после прививки — болезнь пройдёт легче. Прививаться можно в любой момент сезона, даже если он уже начался.",
+    "noteEn": "The vaccine does not contain live virus — safe during pregnancy and in immunocompromised individuals. If you get the flu after vaccination, the illness will be milder. You can vaccinate at any point during the season, even after it has started.",
+    "disclaimerRu": null,
+    "disclaimerEn": null,
+    "pregnancyRelevant": true,
+    "pregnancyNoteRu": "Грипп при беременности опасен — повышает риск преждевременных родов и осложнений. Вакцина безопасна в любом триместре и защищает новорождённого первые месяцы жизни.",
+    "pregnancyNoteEn": "Flu during pregnancy is dangerous — it increases the risk of preterm birth and serious complications. The vaccine is safe in any trimester and protects the newborn in the first months of life.",
+    "trackDate": true,
+    "regions": {
+      "US": {
+        "whoRu": "Все взрослые. Особо рекомендуется: 65+, беременные, медработники, дети 6 мес.–5 лет, люди с хроническими заболеваниями.",
+        "whoEn": "All adults. Especially recommended for: 65+, pregnant women, healthcare workers, children 6 months–5 years, people with chronic conditions.",
+        "scheduleRu": "Ежегодно. Оптимально до конца октября, но можно в любое время сезона.",
+        "scheduleEn": "Annually. Ideally by end of October, but at any point during flu season.",
+        "noteRu": "Для людей 65+ доступны усиленные варианты: высокодозная вакцина (Fluzone High-Dose) или с адъювантом (Fluad) — они дают более сильный иммунный ответ. CDC рекомендует их предпочтительно.",
+        "noteEn": "For people 65+, enhanced formulations are available: high-dose (Fluzone High-Dose) or adjuvanted (Fluad) — they produce a stronger immune response. CDC preferentially recommends these."
+      },
+      "EU": {
+        "whoRu": "Все взрослые, особенно 65+, беременные, медработники, люди с хроническими заболеваниями. В Великобритании — также все дети 2–17 лет и все взрослые 50+.",
+        "whoEn": "All adults, especially 65+, pregnant women, healthcare workers, people with chronic conditions. In the UK — also all children aged 2–17 and all adults 50+.",
+        "scheduleRu": "Ежегодно, оптимально в октябре–ноябре.",
+        "scheduleEn": "Annually, ideally in October–November.",
+        "noteRu": "Для людей 65+ в ряде стран ЕС доступна адъювантная или высокодозная вакцина — уточните у врача или в аптеке.",
+        "noteEn": "For people 65+, adjuvanted or high-dose vaccines are available in several EU countries — check with your doctor or pharmacist."
+      },
+      "AU": {
+        "whoRu": "Все взрослые. Бесплатно по программе NIP: 65+, беременные, аборигенное население, люди с хроническими заболеваниями.",
+        "whoEn": "All adults. Free under the NIP program: 65+, pregnant women, Aboriginal and Torres Strait Islander people, people with certain chronic conditions.",
+        "scheduleRu": "Ежегодно. Оптимальное время — апрель–май, до начала австралийского сезона гриппа (апрель–сентябрь).",
+        "scheduleEn": "Annually. Optimal timing — April–May, before the Southern Hemisphere flu season (April–September).",
+        "noteRu": "Австралийские вакцины содержат штаммы для Южного полушария — они отличаются от северополушарных. Для 65+ предпочтительны усиленные формуляции (Fluad или высокодозная).",
+        "noteEn": "Australian vaccines contain Southern Hemisphere strains — different from Northern Hemisphere formulations. For 65+, enhanced formulations (Fluad or high-dose) are preferred."
+      },
+      "SEA": {
+        "whoRu": "Все взрослые, особенно: беременные, 60+, медработники, люди с хроническими заболеваниями. В ЮВА грипп циркулирует круглый год.",
+        "whoEn": "All adults, especially: pregnant women, 60+, healthcare workers, people with chronic conditions. In Southeast Asia, influenza circulates year-round.",
+        "scheduleRu": "Ежегодно. Строгого сезона нет — прививаться можно в любое время. ВОЗ рекомендует штаммы Северного полушария для большинства стран ЮВА.",
+        "scheduleEn": "Annually. No strict season — vaccination is possible at any time of year. WHO recommends Northern Hemisphere strains for most Southeast Asian countries.",
+        "noteRu": "Наличие вакцин и доступность бесплатной вакцинации варьируются по стране — уточните у врача или в местной клинике.",
+        "noteEn": "Vaccine availability and free vaccination programs vary by country — check with your doctor or local clinic."
+      },
+      "EAST_ASIA": {
+        "whoRu": "Все взрослые, особенно 65+, беременные, медработники, люди с хроническими заболеваниями. В Японии и Южной Корее — развитые национальные программы.",
+        "whoEn": "All adults, especially 65+, pregnant women, healthcare workers, people with chronic conditions. Japan and South Korea have well-established national programs.",
+        "scheduleRu": "Ежегодно, оптимально в октябре–ноябре.",
+        "scheduleEn": "Annually, ideally in October–November.",
+        "noteRu": "В Японии бесплатная вакцинация доступна для 65+ и групп риска. В Южной Корее — аналогичная программа. Для 65+ предпочтительны усиленные формуляции.",
+        "noteEn": "In Japan, free vaccination is available for 65+ and risk groups. South Korea has a similar program. Enhanced formulations are preferred for 65+."
+      }
+    },
+    "totalDoses": 1,
+    "doseScheduleDays": []
+  },
+  {
+    "id": "herpes_zoster",
+    "nameRu": "Опоясывающий герпес",
+    "nameEn": "Shingles (Herpes Zoster)",
+    "descriptionRu": "Вирус ветряной оспы после перенесённой болезни остаётся в нервных клетках и с возрастом может реактивироваться — вызывая мучительную боль, сыпь и нередко долговременную нейропатию (постгерпетическую невралгию). Риск резко растёт после 50 лет. Вакцина снижает риск заболевания на 90% и почти полностью предотвращает невралгию.",
+    "descriptionEn": "After chickenpox, the varicella-zoster virus stays dormant in nerve cells and can reactivate with age — causing severe pain, rash, and often long-lasting neuropathy (postherpetic neuralgia). Risk rises sharply after age 50. The vaccine reduces the risk of disease by 90% and nearly eliminates neuralgia.",
+    "whoRu": "Взрослые 60 лет и старше. Рекомендуется даже тем, кто уже болел ветрянкой или опоясывающим герпесом — вакцина снижает риск рецидива.",
+    "whoEn": "Adults aged 60 and older. Recommended even for those who have already had chickenpox or shingles — the vaccine reduces the risk of recurrence.",
+    "scheduleRu": "2 дозы с интервалом 2–6 месяцев",
+    "scheduleEn": "2 doses 2–6 months apart",
+    "frequencyType": "once",
+    "intervalYears": null,
+    "audience": "60plus",
+    "tags": [
+      "60plus"
+    ],
+    "noteRu": "Это не живая вакцина (рекомбинантная адъювантная) — безопасна при сниженном иммунитете. Нет необходимости проверять иммунитет к ветрянке перед прививкой: вакцина нужна всем в возрасте, независимо от анамнеза.",
+    "noteEn": "This is not a live vaccine (recombinant adjuvanted) — safe for immunocompromised individuals. No need to test for varicella immunity beforehand: the vaccine is recommended for all eligible adults regardless of their history.",
+    "disclaimerRu": null,
+    "disclaimerEn": null,
+    "pregnancyRelevant": false,
+    "trackDate": true,
+    "ageMin": 50,
+    "regions": {
+      "US": {
+        "whoRu": "Все взрослые от 50 лет. CDC рекомендует Shingrix всем — независимо от того, болели ли ветрянкой, опоясывающим герпесом или были привиты старой вакциной (Zostavax).",
+        "whoEn": "All adults from age 50. CDC recommends Shingrix for everyone — regardless of prior chickenpox, shingles, or old Zostavax vaccination.",
+        "scheduleRu": "2 дозы Shingrix с интервалом 2–6 месяцев",
+        "scheduleEn": "2 doses of Shingrix, 2–6 months apart",
+        "noteRu": "Shingrix заменил Zostavax в 2020 году. Если вы получали Zostavax — всё равно рекомендуется пройти курс Shingrix.",
+        "noteEn": "Shingrix replaced Zostavax in 2020. If you received Zostavax — Shingrix is still recommended."
+      },
+      "EU": {
+        "whoRu": "Взрослые от 60 лет. В ряде стран ЕС рекомендация начинается с 50 лет.",
+        "whoEn": "Adults from age 60. In some EU countries the recommendation starts at age 50.",
+        "scheduleRu": "2 дозы с интервалом 2–6 месяцев",
+        "scheduleEn": "2 doses 2–6 months apart",
+        "noteRu": "Не живая вакцина — безопасна при сниженном иммунитете. Уточните у врача наличие и стоимость вакцины в вашей стране.",
+        "noteEn": "Not a live vaccine — safe for immunocompromised individuals. Check vaccine availability and cost with your doctor."
+      },
+      "AU": {
+        "whoRu": "Взрослые от 50 лет. Особенно рекомендуется людям с ослабленным иммунитетом.",
+        "whoEn": "Adults from age 50. Especially recommended for immunocompromised individuals.",
+        "scheduleRu": "2 дозы Shingrix с интервалом 2–6 месяцев",
+        "scheduleEn": "2 doses of Shingrix, 2–6 months apart",
+        "noteRu": "Не живая вакцина — безопасна при иммунодефиците.",
+        "noteEn": "Not a live vaccine — safe for immunocompromised individuals."
+      },
+      "SEA": {
+        "whoRu": "Взрослые от 50 лет. Доступность Shingrix варьируется по стране — уточните в клинике. В ряде стран ЮВА вакцина продаётся в частных клиниках.",
+        "whoEn": "Adults from age 50. Shingrix availability varies by country — check with a local clinic. In several Southeast Asian countries, the vaccine is available at private clinics.",
+        "scheduleRu": "2 дозы с интервалом 2–6 месяцев",
+        "scheduleEn": "2 doses 2–6 months apart",
+        "noteRu": "Не живая вакцина — безопасна при сниженном иммунитете. Наличие в государственных клиниках не гарантировано.",
+        "noteEn": "Not a live vaccine — safe for immunocompromised individuals. Availability at public clinics is not guaranteed."
+      },
+      "EAST_ASIA": {
+        "whoRu": "Взрослые от 50 лет. В Японии и Южной Корее доступна Shingrix и более старая живая вакцина — предпочтительна Shingrix как более эффективная.",
+        "whoEn": "Adults from age 50. In Japan and South Korea, both Shingrix and the older live vaccine are available — Shingrix is preferred as more effective.",
+        "scheduleRu": "2 дозы Shingrix с интервалом 2–6 месяцев. Если доступна только живая вакцина — 1 доза.",
+        "scheduleEn": "2 doses of Shingrix 2–6 months apart. If only the live vaccine is available — 1 dose.",
+        "noteRu": "Shingrix эффективнее старой вакцины Zostavax на 90% против 51%. Если вы получали Zostavax — рекомендуется перейти на Shingrix.",
+        "noteEn": "Shingrix is 90% effective vs 51% for the older Zostavax. If you received Zostavax — switching to Shingrix is recommended."
+      }
+    },
+    "totalDoses": 2,
+    "doseScheduleDays": [
+      60
+    ]
+  },
+  {
+    "id": "varicella",
+    "nameRu": "Ветряная оспа",
+    "nameEn": "Chickenpox (Varicella)",
+    "descriptionRu": "Высококонтагиозная инфекция, которую большинство взрослых перенесли в детстве и имеют стойкий иммунитет. Для тех, кто не болел, ветрянка во взрослом возрасте протекает тяжело и опасна осложнениями. Особый риск — для беременных: вирус может вызвать пороки развития плода.",
+    "descriptionEn": "A highly contagious infection that most adults had in childhood and are immune to. For those who never had it, chickenpox in adulthood is severe and can cause serious complications. Special risk during pregnancy — the virus can cause fetal abnormalities.",
+    "whoRu": "Взрослые, которые не болели ветрянкой и не прививались. Особенно важно: женщины, планирующие беременность; медработники; люди с иммунодефицитом в окружении.",
+    "whoEn": "Adults who have never had chickenpox and have not been vaccinated. Especially important for: women planning pregnancy; healthcare workers; people around immunocompromised individuals.",
+    "scheduleRu": "2 дозы с интервалом 4–8 недель",
+    "scheduleEn": "2 doses 4–8 weeks apart",
+    "frequencyType": "once",
+    "intervalYears": null,
+    "audience": "all",
+    "tags": [
+      "pregnancy"
+    ],
+    "noteRu": "Живая вакцина — противопоказана при беременности. После прививки следует избегать беременности в течение 1–3 месяцев. Перед вакцинацией можно сдать кровь на антитела (varicella IgG), чтобы не прививаться при наличии естественного иммунитета.",
+    "noteEn": "Live vaccine — contraindicated during pregnancy. Avoid pregnancy for 1–3 months after vaccination. Before vaccinating, you can test for antibodies (varicella IgG) — skip the vaccine if you are already immune.",
+    "disclaimerRu": "Если нет прививочного сертификата и вы не помните, болели ли ветрянкой — рекомендуем сначала сдать анализ на антитела (анти-VZV IgG). Многие взрослые уже иммунны, но без анализа это неизвестно. Положительный результат — прививка не нужна.",
+    "disclaimerEn": "If you have no vaccination records and don't remember having chickenpox — we recommend checking antibodies first (anti-VZV IgG). Many adults are already immune, but there's no way to know without a test. A positive result means no vaccine is needed.",
+    "pregnancyRelevant": true,
+    "pregnancyNoteRu": "Противопоказана во время беременности. Если планируете беременность и не уверены в своём иммунитете — сдайте анализ и при необходимости привейтесь заранее. Подождите 1–3 месяца после прививки, прежде чем планировать.",
+    "pregnancyNoteEn": "Contraindicated during pregnancy. If planning a pregnancy and unsure of your immunity — get tested and vaccinate if needed. Wait 1–3 months after vaccination before trying to conceive.",
+    "trackDate": true,
+    "regions": {
+      "US": {
+        "whoRu": "Взрослые без документального подтверждения иммунитета. Рождённые до 1980 года в США обычно считаются иммунными (переболели до вакцинальной эры). Исключение: медработники и беременные — для них порог не применяется.",
+        "whoEn": "Adults without documented evidence of immunity. Those born before 1980 in the US are generally presumed immune (infected before the vaccine era). Exception: healthcare workers and pregnant women — the presumption does not apply to them.",
+        "scheduleRu": "2 дозы с интервалом 4–8 недель",
+        "scheduleEn": "2 doses 4–8 weeks apart",
+        "noteRu": "Живая вакцина — противопоказана при беременности, избегать беременности 1–3 месяца после. Анализ на IgG перед вакцинацией необязателен, но поможет избежать лишней дозы.",
+        "noteEn": "Live vaccine — contraindicated during pregnancy, avoid pregnancy 1–3 months after. IgG testing before vaccination is not required but helps avoid unnecessary doses.",
+        "disclaimerRu": "Если вы рождены до 1980 года и жили в США — вероятно, иммунны. Если рождены позже или в другой стране — уточните иммунитет через анализ.",
+        "disclaimerEn": "If you were born before 1980 and grew up in the US — you are likely immune. If born later or in another country — check your immunity with a blood test."
+      },
+      "EU": {
+        "whoRu": "Взрослые без иммунитета (не болели, не прививались). Приоритет: женщины перед беременностью, медработники, люди рядом с иммунодефицитными пациентами. Программы варьируются по стране.",
+        "whoEn": "Adults without immunity (never had chickenpox, not vaccinated). Priority: women before pregnancy, healthcare workers, people around immunocompromised patients. Programs vary by country.",
+        "scheduleRu": "2 дозы с интервалом 4–8 недель",
+        "scheduleEn": "2 doses 4–8 weeks apart",
+        "noteRu": "Живая вакцина — противопоказана при беременности, избегать беременности 1–3 месяца после. Перед вакцинацией рекомендуется анализ на varicella IgG.",
+        "noteEn": "Live vaccine — contraindicated during pregnancy, avoid pregnancy 1–3 months after. A varicella IgG test before vaccination is recommended.",
+        "disclaimerRu": "Большинство взрослых, выросших в Европе, имеют иммунитет. Если сомневаетесь — сдайте анализ на varicella IgG.",
+        "disclaimerEn": "Most adults who grew up in Europe are already immune. If unsure — get a varicella IgG blood test."
+      },
+      "AU": {
+        "whoRu": "Взрослые без иммунитета. В Австралии ветрянка исторически широко распространена — большинство имеют естественный иммунитет. Вакцина бесплатна в рамках программы догоняющей иммунизации для восприимчивых взрослых.",
+        "whoEn": "Adults without immunity. Chickenpox has historically been widespread in Australia — most people have natural immunity. The vaccine is free under the catch-up immunisation program for susceptible adults.",
+        "scheduleRu": "2 дозы с интервалом минимум 4 недели",
+        "scheduleEn": "2 doses at least 4 weeks apart",
+        "noteRu": "Живая вакцина — противопоказана при беременности, избегать беременности 1 месяц после. ATAGI рекомендует анализ на IgG перед вакцинацией взрослых.",
+        "noteEn": "Live vaccine — contraindicated during pregnancy, avoid pregnancy 1 month after. ATAGI recommends IgG testing before vaccinating adults.",
+        "disclaimerRu": "Большинство взрослых австралийцев имеют иммунитет. Если не уверены — сдайте анализ на varicella IgG.",
+        "disclaimerEn": "Most Australian adults are already immune. If unsure — get a varicella IgG blood test."
+      },
+      "SEA": {
+        "whoRu": "Взрослые без иммунитета. В тропических странах ЮВА ветрянка менее распространена в детском возрасте, чем в умеренном климате — часть взрослых может не иметь иммунитета. Особенно важно: медработники, женщины перед беременностью.",
+        "whoEn": "Adults without immunity. In tropical Southeast Asian countries, chickenpox is less common in childhood than in temperate climates — some adults may not be immune. Especially important: healthcare workers, women before pregnancy.",
+        "scheduleRu": "2 дозы с интервалом 4–8 недель",
+        "scheduleEn": "2 doses 4–8 weeks apart",
+        "noteRu": "В тропическом климате уровень естественного иммунитета у взрослых может быть ниже, чем в России или Европе. Анализ на varicella IgG особенно рекомендуется перед прививкой.",
+        "noteEn": "In tropical climates, natural immunity levels in adults may be lower than in Russia or Europe. A varicella IgG test is especially recommended before vaccination.",
+        "disclaimerRu": "Не предполагайте автоматически наличие иммунитета — в тропиках болеют ветрянкой реже. Сдайте анализ на varicella IgG, если не уверены.",
+        "disclaimerEn": "Do not automatically assume immunity — chickenpox is less common in tropical regions. Get a varicella IgG test if unsure."
+      },
+      "EAST_ASIA": {
+        "whoRu": "Взрослые без иммунитета. В Японии и Южной Корее — хорошие национальные программы детской вакцинации с 2014–2015 годов. Взрослые без документального подтверждения или перенесённой болезни — рекомендована вакцинация.",
+        "whoEn": "Adults without immunity. Japan and South Korea have strong childhood vaccination programs since 2014–2015. Adults without documented vaccination or prior disease — vaccination is recommended.",
+        "scheduleRu": "2 дозы с интервалом 4–8 недель",
+        "scheduleEn": "2 doses 4–8 weeks apart",
+        "noteRu": "Живая вакцина — противопоказана при беременности. Перед прививкой рекомендуется анализ на varicella IgG.",
+        "noteEn": "Live vaccine — contraindicated during pregnancy. A varicella IgG test before vaccination is recommended.",
+        "disclaimerRu": "Если не помните, болели ли ветрянкой, и нет документов о прививке — сдайте анализ на varicella IgG. Не предполагайте иммунитет автоматически.",
+        "disclaimerEn": "If you don't remember having chickenpox and have no vaccination records — get a varicella IgG test. Do not assume immunity automatically."
+      }
+    },
+    "totalDoses": 2,
+    "doseScheduleDays": [
+      28
+    ]
+  },
+  {
+    "id": "hpv",
+    "nameRu": "ВПЧ (вирус папилломы человека)",
+    "nameEn": "HPV (Human Papillomavirus)",
+    "descriptionRu": "Защищает от штаммов ВПЧ, вызывающих рак шейки матки, рак ануса, ротоглотки, полового члена, а также остроконечные кондиломы. Наиболее эффективна до начала половой жизни, но приносит пользу и взрослым — вакцина защищает от тех штаммов, с которыми вы ещё не встречались.",
+    "descriptionEn": "Protects against HPV strains that cause cervical cancer, anal, oropharyngeal, and penile cancer, as well as genital warts. Most effective before sexual debut, but beneficial for adults too — the vaccine protects against strains you have not yet been exposed to.",
+    "whoRu": "Женщины и мужчины до 26 лет — рекомендуется всем, кто не был привит в подростковом возрасте. 27–45 лет — обсудите с врачом: польза есть, но снижается с возрастом.",
+    "whoEn": "Women and men up to age 26 — recommended for all who were not vaccinated in adolescence. Ages 27–45 — discuss with your doctor: benefit exists but decreases with age.",
+    "scheduleRu": "До 15 лет: 2 дозы (0 и 6 месяцев). С 15 лет и старше: 3 дозы (0 – 1–2 – 6 месяцев).",
+    "scheduleEn": "Under 15: 2 doses (0 and 6 months). Age 15 and older: 3 doses (0 – 1–2 – 6 months).",
+    "frequencyType": "once",
+    "intervalYears": null,
+    "audience": "all",
+    "tags": [
+      "pregnancy"
+    ],
+    "noteRu": "Вакцина не заменяет скрининг на рак шейки матки — Пап-тест и ПЦР на ВПЧ нужно продолжать делать. Если вы уже были сексуально активны, вакцина всё равно полезна — она защищает от штаммов, с которыми вы ещё не контактировали.",
+    "noteEn": "The vaccine does not replace cervical cancer screening — continue Pap tests and HPV testing. If you have already been sexually active, the vaccine is still beneficial — it protects against strains you have not yet encountered.",
+    "disclaimerRu": null,
+    "disclaimerEn": null,
+    "pregnancyRelevant": true,
+    "pregnancyNoteRu": "Не рекомендуется во время беременности. Если курс начат — продолжение откладывается до после родов. Если планируете беременность — постарайтесь завершить курс заранее.",
+    "pregnancyNoteEn": "Not recommended during pregnancy. If a course has started — remaining doses are delayed until after delivery. If planning a pregnancy — try to complete the course beforehand.",
+    "trackDate": true,
+    "regions": {
+      "US": {
+        "whoRu": "Все женщины и мужчины до 26 лет. 27–45 лет — совместное решение с врачом: полезно, если ранее не прививались и сохраняется риск новых партнёров.",
+        "whoEn": "All women and men up to age 26. Ages 27–45 — shared clinical decision with a doctor: beneficial if not previously vaccinated and ongoing risk of new partners.",
+        "scheduleRu": "До 15 лет: 2 дозы. С 15 лет: 3 дозы по схеме 0 – 1–2 – 6 месяцев.",
+        "scheduleEn": "Under 15: 2 doses. Age 15+: 3 doses at 0 – 1–2 – 6 months.",
+        "noteRu": "Gardasil 9 защищает от 9 штаммов ВПЧ, включая 7 онкогенных. Вакцина не лечит уже имеющуюся инфекцию. Продолжайте скрининг на рак шейки матки.",
+        "noteEn": "Gardasil 9 protects against 9 HPV strains including 7 high-risk types. The vaccine does not treat existing infection. Continue cervical cancer screening."
+      },
+      "EU": {
+        "whoRu": "Женщины и мужчины до 26 лет. Германия: рутинно 9–14 лет, catch-up до 17; взрослые до 26 — по рекомендации врача.",
+        "whoEn": "Women and men up to age 26. Germany: routine at 9–14, catch-up to 17; adults up to 26 — on medical advice.",
+        "scheduleRu": "До 15 лет: 2 дозы. С 15 лет: 3 дозы по схеме 0 – 1–2 – 6 месяцев.",
+        "scheduleEn": "Under 15: 2 doses. Age 15+: 3 doses at 0 – 1–2 – 6 months.",
+        "noteRu": "Программы catch-up и стоимость варьируются по стране. Вакцина не заменяет скрининг на рак шейки матки.",
+        "noteEn": "Catch-up programs and costs vary by country. The vaccine does not replace cervical cancer screening."
+      },
+      "AU": {
+        "whoRu": "Женщины и мужчины до 26 лет. 27–45 лет — доступна, не входит в бесплатную программу; обсудите с врачом.",
+        "whoEn": "Women and men up to age 26. Ages 27–45 — available but not publicly funded; discuss with your doctor.",
+        "scheduleRu": "До 15 лет: 2 дозы. С 15 лет: 3 дозы по схеме 0 – 1–2 – 6 месяцев.",
+        "scheduleEn": "Under 15: 2 doses. Age 15+: 3 doses at 0 – 1–2 – 6 months.",
+        "noteRu": "Gardasil 9 — единственная рекомендованная вакцина в Австралии. Продолжайте скрининг (Cervical Screening Test — раз в 5 лет с 25 лет).",
+        "noteEn": "Gardasil 9 is the only recommended vaccine in Australia. Continue screening (Cervical Screening Test — every 5 years from age 25)."
+      },
+      "SEA": {
+        "whoRu": "Женщины до 26 лет — рекомендуется. Мужчины — зависит от страны. 27–45 лет — доступна платно, обсудите с врачом.",
+        "whoEn": "Women up to age 26 — recommended. Men — depends on country. Ages 27–45 — available privately; discuss with your doctor.",
+        "scheduleRu": "До 15 лет: 2 дозы. С 15 лет: 3 дозы по схеме 0 – 1–2 – 6 месяцев.",
+        "scheduleEn": "Under 15: 2 doses. Age 15+: 3 doses at 0 – 1–2 – 6 months.",
+        "noteRu": "Рак шейки матки — одна из наиболее распространённых онкологических проблем в ЮВА. Вакцинация особенно важна. Продолжайте регулярный скрининг.",
+        "noteEn": "Cervical cancer is among the most common cancers in Southeast Asia. Vaccination is especially important. Continue regular cervical screening."
+      },
+      "EAST_ASIA": {
+        "whoRu": "Женщины до 26 лет. Япония и Южная Корея включили мальчиков в программы. В Китае вакцина одобрена до 45 лет. Япония: программа восстановлена в 2022 году после приостановки.",
+        "whoEn": "Women up to age 26. Japan and South Korea have included boys in their programs. In China, the vaccine is approved up to age 45. Japan: program restored in 2022 after suspension.",
+        "scheduleRu": "До 15 лет: 2 дозы. С 15 лет: 3 дозы по схеме 0 – 1–2 – 6 месяцев.",
+        "scheduleEn": "Under 15: 2 doses. Age 15+: 3 doses at 0 – 1–2 – 6 months.",
+        "noteRu": "В Японии рекомендация была приостановлена с 2013 по 2022 год из-за сообщений о побочных эффектах — их связь с вакциной не подтвердилась. Сейчас прививка рекомендована и безопасна.",
+        "noteEn": "In Japan, the recommendation was suspended from 2013 to 2022 due to reported side effects — a causal link with the vaccine was not confirmed. The vaccine is now recommended and considered safe."
+      }
+    },
+    "totalDoses": 3,
+    "doseScheduleDays": [
+      60,
+      180
+    ]
+  },
+  {
+    "id": "tbe",
+    "nameRu": "Клещевой энцефалит",
+    "nameEn": "Tick-Borne Encephalitis (TBE)",
+    "descriptionRu": "Вирусная инфекция, поражающая центральную нервную систему. Передаётся через укусы инфицированных клещей, реже — через некипячённое молоко. Эндемична в лесных зонах Евразии.",
+    "descriptionEn": "A viral infection affecting the central nervous system. Transmitted through bites of infected ticks, rarely through unpasteurized dairy. Endemic in forested areas across Eurasia.",
+    "whoRu": "Все, кто живёт или выезжает в эндемичные районы и проводит время на природе — в лесу, на даче, в походах.",
+    "whoEn": "Anyone living in or traveling to endemic areas who spends time outdoors — forests, parks, countryside.",
+    "scheduleRu": "3 дозы: 0 – 1 месяц – 9–12 месяцев. Ускоренная схема: 0 – 7–14 дней – 9–12 месяцев. Ревакцинация каждые 3 года.",
+    "scheduleEn": "3 doses: 0 – 1 month – 9–12 months. Accelerated: 0 – 7–14 days – 9–12 months. Booster every 3 years.",
+    "frequencyType": "recurring",
+    "intervalYears": 3,
+    "audience": "all",
+    "tags": ["travel"],
+    "noteRu": "Вакцина не защищает от болезни Лайма. Дополнительно используйте репелленты, защитную одежду и осматривайте кожу после прогулок.",
+    "noteEn": "The vaccine does not protect against Lyme disease. Also use repellents, protective clothing, and check your skin after outdoor activities.",
+    "disclaimerRu": "Рекомендуется при проживании или поездках в эндемичные регионы. Проконсультируйтесь с врачом.",
+    "disclaimerEn": "Recommended for residents of and travelers to endemic regions. Consult a doctor before vaccination.",
+    "pregnancyRelevant": false,
+    "pregnancyNoteRu": null,
+    "pregnancyNoteEn": null,
+    "infantContactNoteRu": null,
+    "infantContactNoteEn": null,
+    "trackDate": true,
+    "requiresEndemicCheck": true,
+    "totalDoses": 3,
+    "doseScheduleDays": [30, 270],
+    "regions": {
+      "RU": {
+        "whoRu": "Жители и посетители эндемичных районов: Урал, Сибирь, Дальний Восток, Поволжье, Северо-Запад России.",
+        "whoEn": "Residents and visitors of endemic areas: Urals, Siberia, Far East, Volga region, North-West Russia.",
+        "noteRu": "В большинстве эндемичных регионов России вакцина предоставляется бесплатно по региональному календарю прививок. Уточните в поликлинике по месту жительства.",
+        "noteEn": "In most endemic Russian regions, the vaccine is available free under the regional vaccination calendar. Check with your local clinic."
+      },
+      "EU": {
+        "whoRu": "Жители и туристы в зонах риска. Наибольший риск: Австрия, Чехия, Словения, Словакия, Эстония, Латвия, Литва. Умеренный риск: Германия, Швейцария, Швеция, Финляндия, Польша, Венгрия, Хорватия.",
+        "whoEn": "Residents and travelers in risk zones. Highest risk: Austria, Czech Republic, Slovenia, Slovakia, Estonia, Latvia, Lithuania. Moderate: Germany, Switzerland, Sweden, Finland, Poland, Hungary, Croatia.",
+        "scheduleRu": "3 дозы: 0 – 1 месяц – 9–12 месяцев. Для вакцин FSME-Immun и Encepur доступна ускоренная схема.",
+        "scheduleEn": "3 doses: 0 – 1 month – 9–12 months. Accelerated schedule available for FSME-Immun and Encepur.",
+        "noteRu": "В Австрии, Чехии и странах Балтии вакцинация входит в национальные программы. В Германии покрывается страховкой при работе или проживании в эндемичных зонах.",
+        "noteEn": "In Austria, Czech Republic, and Baltic states, vaccination is part of national programs. In Germany, covered by insurance for residents or workers in endemic areas."
+      },
+      "EAST_ASIA": {
+        "whoRu": "Жители северо-восточного Китая (Хэйлунцзян, Цзилинь, Внутренняя Монголия) и Монголии — умеренный риск. Япония: только Хоккайдо.",
+        "whoEn": "Residents of northeastern China (Heilongjiang, Jilin, Inner Mongolia) and Mongolia — moderate risk. Japan: Hokkaido only.",
+        "noteRu": "Вакцина доступна преимущественно в Европе. При планировании поездки в эндемичный регион прививайтесь заранее.",
+        "noteEn": "TBE vaccines are mainly available in Europe. If planning a trip to an endemic region, vaccinate well in advance."
+      }
+    }
+  },
+  {
+    "id": "hepatitis_a",
+    "nameRu": "Гепатит А",
+    "nameEn": "Hepatitis A",
+    "descriptionRu": "Вирусная инфекция, поражающая печень. Передаётся через заражённую еду и воду, особенно в странах с низким уровнем санитарии. Как правило, не переходит в хроническую форму, но может протекать тяжело.",
+    "descriptionEn": "A viral liver infection transmitted through contaminated food and water, especially in regions with poor sanitation. Usually self-limiting but can be severe in adults.",
+    "whoRu": "Путешественники в эндемичные регионы. Взрослые без подтверждённого иммунитета — особенно рождённые после 1990 года.",
+    "whoEn": "Travelers to endemic regions. Adults without confirmed immunity — especially those born after 1990.",
+    "scheduleRu": "2 дозы: 0 и 6–12 месяцев. Для краткосрочной защиты достаточно 1 дозы — иммунитет формируется через 2–4 недели.",
+    "scheduleEn": "2 doses: 0 and 6–12 months. For short-term protection, 1 dose is sufficient — immunity develops within 2–4 weeks.",
+    "frequencyType": "once",
+    "intervalYears": null,
+    "audience": "all",
+    "tags": ["travel"],
+    "noteRu": "Если есть время — рекомендуем сначала сдать анализ на антитела (анти-HAV IgG). Многие взрослые, рождённые до 1990 года, особенно жившие в условиях низкой санитарии или выезжавшие в эндемичные страны, уже иммунны. Положительный результат — прививка не нужна.",
+    "noteEn": "If time allows, consider checking antibodies first (anti-HAV IgG). Many adults born before 1990, especially those who lived in low-sanitation environments or traveled to endemic countries, are already immune. A positive result means no vaccine is needed.",
+    "disclaimerRu": "Если нет записей о прививке и вы не уверены в статусе — можно либо вакцинироваться сразу (безопасно), либо сначала сдать анти-HAV IgG. При подготовке к поездке в эндемичный регион — вакцинируйтесь без промедления.",
+    "disclaimerEn": "If you have no vaccination records and are unsure of your status — you can either vaccinate right away (safe) or check anti-HAV IgG first. If preparing for travel to an endemic region, vaccinate without delay.",
+    "pregnancyRelevant": false,
+    "pregnancyNoteRu": null,
+    "pregnancyNoteEn": null,
+    "infantContactNoteRu": null,
+    "infantContactNoteEn": null,
+    "trackDate": true,
+    "totalDoses": 2,
+    "doseScheduleDays": [180],
+    "regions": {
+      "RU": {
+        "whoRu": "Путешественники в Азию, Африку, Латинскую Америку. Работники сферы питания и медицины. Взрослые без истории болезни и прививок — рождённые после 1990 года особенно в зоне риска.",
+        "whoEn": "Travelers to Asia, Africa, Latin America. Food and healthcare workers. Adults without disease history or vaccination records — those born after 1990 are at higher risk.",
+        "noteRu": "Гепатит А был широко распространён в СССР — многие рождённые до 1990 года уже иммунны. Если не уверены — сдайте анти-HAV IgG перед прививкой.",
+        "noteEn": "Hepatitis A was widespread in the USSR — many born before 1990 are already immune. If unsure — check anti-HAV IgG before vaccinating."
+      },
+      "EU": {
+        "whoRu": "Путешественники в эндемичные страны. Мужчины, имеющие секс с мужчинами (МСМ). Лица с хроническими заболеваниями печени. Работники лабораторий, контактирующие с вирусом.",
+        "whoEn": "Travelers to endemic countries. Men who have sex with men (MSM). People with chronic liver disease. Laboratory workers handling the virus.",
+        "noteRu": "В большинстве стран ЕС гепатит А входит в детский календарь прививок (с 1990-х). Взрослые, привитые в детстве, скорее всего защищены. Остальным — рекомендуется вакцинация перед поездкой в эндемичный регион.",
+        "noteEn": "In most EU countries, hepatitis A has been part of the childhood schedule since the 1990s. Adults vaccinated as children are likely protected. Others should vaccinate before traveling to endemic regions."
+      },
+      "US": {
+        "whoRu": "Путешественники в эндемичные страны. МСМ. Лица с хроническими заболеваниями печени или ВИЧ. Бездомные. Рождённые до 1996 года могут быть не привиты — гепатит А включили в детский календарь США в 1996 году.",
+        "whoEn": "Travelers to endemic countries. MSM. People with chronic liver disease or HIV. Unhoused individuals. Those born before 1996 may be unvaccinated — hepatitis A was added to the US childhood schedule in 1996.",
+        "noteRu": "CDC рекомендует вакцинацию всем непривитым взрослым, планирующим поездку в эндемичный регион. Прививка безопасна и высокоэффективна.",
+        "noteEn": "The CDC recommends vaccination for all unvaccinated adults planning travel to endemic regions. The vaccine is safe and highly effective."
+      },
+      "AU": {
+        "whoRu": "Путешественники в Азию, Африку, Латинскую Америку. Аборигены и жители островов Торресова пролива — имеют повышенный риск.",
+        "whoEn": "Travelers to Asia, Africa, Latin America. Aboriginal and Torres Strait Islander peoples — at higher risk.",
+        "noteRu": "Гепатит А не входит в стандартный детский календарь Австралии (кроме групп риска). Большинство взрослых австралийцев не привиты и не имеют естественного иммунитета.",
+        "noteEn": "Hepatitis A is not in the standard Australian childhood schedule (except for high-risk groups). Most Australian adults are unvaccinated and lack natural immunity."
+      },
+      "SEA": {
+        "whoRu": "Гепатит А эндемичен для большинства стран ЮВА. Местные жители часто имеют естественный иммунитет после бессимптомного заражения в детстве. Экспаты и туристы — в зоне риска.",
+        "whoEn": "Hepatitis A is endemic across most of Southeast Asia. Locals often have natural immunity from asymptomatic childhood infection. Expats and tourists are at risk.",
+        "noteRu": "Если вы живёте в ЮВА давно — рекомендуем сдать анти-HAV IgG: возможно, вы уже иммунны. Вновь прибывшим экспатам — вакцинация рекомендуется.",
+        "noteEn": "If you have lived in SEA for a long time — consider checking anti-HAV IgG: you may already be immune. Newly arrived expats should vaccinate."
+      },
+      "EAST_ASIA": {
+        "whoRu": "Япония и Южная Корея — низкий уровень заболеваемости, большинство взрослых не имеют естественного иммунитета. Вакцинация рекомендована перед поездками в другие части Азии, Африку или Латинскую Америку. Китай — умеренный риск, массовая вакцинация детей ведётся с 2008 года.",
+        "whoEn": "Japan and South Korea — low endemicity; most adults lack natural immunity. Vaccination recommended before traveling to other parts of Asia, Africa, or Latin America. China — moderate risk; childhood mass vaccination underway since 2008.",
+        "noteRu": "В Японии и Корее естественный иммунитет у взрослых редок — большинство не болели в детстве. Перед поездкой в зону риска рекомендуется вакцинация.",
+        "noteEn": "In Japan and South Korea, natural immunity in adults is rare — most were not exposed as children. Vaccination before travel to endemic areas is recommended."
+      }
+    }
+  },
+  {
+    "id": "pneumococcal",
+    "nameRu": "Пневмококковая инфекция",
+    "nameEn": "Pneumococcal Disease",
+    "descriptionRu": "Бактериальная инфекция, вызывающая пневмонию, менингит и сепсис. Наиболее опасна для пожилых, людей с хроническими заболеваниями и иммунодефицитом. Вакцина значительно снижает риск тяжёлых осложнений.",
+    "descriptionEn": "A bacterial infection causing pneumonia, meningitis, and sepsis. Most dangerous for older adults, people with chronic conditions, and the immunocompromised. Vaccination significantly reduces the risk of serious complications.",
+    "whoRu": "65 лет и старше. В любом возрасте — при хронических заболеваниях лёгких, сердца, почек, диабете, курении, аспления, иммунодефиците.",
+    "whoEn": "Age 65 and older. At any age — with chronic lung, heart, or kidney disease, diabetes, smoking, asplenia, or immunodeficiency.",
+    "scheduleRu": "Как правило, 1 доза. В ряде схем — 2 вакцины последовательно: сначала конъюгированная (PCV15 или PCV20), через 8 недель — полисахаридная (PPSV23). Уточните у врача — схема зависит от вакцины и состояния здоровья.",
+    "scheduleEn": "Usually 1 dose. Some protocols use 2 vaccines sequentially: first a conjugate vaccine (PCV15 or PCV20), then a polysaccharide vaccine (PPSV23) 8 weeks later. Consult your doctor — the schedule depends on the vaccine type and health status.",
+    "frequencyType": "once",
+    "intervalYears": null,
+    "audience": "all",
+    "tags": ["60plus"],
+    "noteRu": "Существует несколько типов пневмококковых вакцин: конъюгированные (PCV13, PCV15, PCV20) и полисахаридная (PPSV23). Они не взаимозаменяемы и при необходимости применяются последовательно. Врач подберёт схему исходя из возраста и истории прививок.",
+    "noteEn": "There are several pneumococcal vaccine types: conjugate (PCV13, PCV15, PCV20) and polysaccharide (PPSV23). They are not interchangeable and are sometimes used in sequence. A doctor will choose the right schedule based on age and vaccination history.",
+    "disclaimerRu": "Схема вакцинации зависит от возраста, наличия хронических заболеваний и типа доступной вакцины. Проконсультируйтесь с врачом перед прививкой.",
+    "disclaimerEn": "The vaccination schedule depends on age, chronic conditions, and available vaccine type. Consult your doctor before vaccinating.",
+    "pregnancyRelevant": false,
+    "pregnancyNoteRu": null,
+    "pregnancyNoteEn": null,
+    "infantContactNoteRu": null,
+    "infantContactNoteEn": null,
+    "trackDate": true,
+    "ageMin": 60,
+    "totalDoses": 1,
+    "doseScheduleDays": [],
+    "regions": {
+      "RU": {
+        "whoRu": "65 лет и старше — по национальному календарю. В любом возрасте — при хронических заболеваниях, иммунодефиците, аспления.",
+        "whoEn": "Age 65+ under the national schedule. Any age with chronic disease, immunodeficiency, or asplenia.",
+        "scheduleRu": "1 доза PCV13 или PPSV23. В ряде регионов доступна бесплатно для лиц 65+.",
+        "scheduleEn": "1 dose of PCV13 or PPSV23. In some regions available free for those 65+.",
+        "noteRu": "PCV13 (Превенар 13) включена в национальный календарь для детей. Для взрослых 65+ применяется PPSV23 (Пневмовакс) или PCV13 — уточните, что доступно в вашем регионе.",
+        "noteEn": "PCV13 (Prevenar 13) is in the national childhood schedule. For adults 65+, PPSV23 (Pneumovax) or PCV13 is used — check availability in your region."
+      },
+      "EU": {
+        "whoRu": "Рекомендации различаются по странам. Большинство стран рекомендуют PPSV23 для 65+. Германия, Франция, Нидерланды — включают в национальные программы.",
+        "whoEn": "Recommendations vary by country. Most recommend PPSV23 for 65+. Germany, France, Netherlands include it in national programs.",
+        "scheduleRu": "Обычно 1 доза PPSV23. В некоторых странах — PCV13 или PCV20 как альтернатива или в сочетании.",
+        "scheduleEn": "Usually 1 dose of PPSV23. In some countries, PCV13 or PCV20 as an alternative or in combination.",
+        "noteRu": "Уточните рекомендации страны проживания — схемы и доступные вакцины различаются. В большинстве случаев для лиц 65+ прививка бесплатна или субсидирована.",
+        "noteEn": "Check the recommendations of your country of residence — schedules and available vaccines vary. In most cases the vaccine is free or subsidised for those 65+."
+      },
+      "US": {
+        "whoRu": "65 лет и старше — всем. До 65 лет — при хронических заболеваниях лёгких, сердца, почек, диабете, курении, иммунодефиците, аспления.",
+        "whoEn": "Age 65 and older — everyone. Under 65 — with chronic lung, heart, or kidney disease, diabetes, smoking, immunodeficiency, or asplenia.",
+        "scheduleRu": "CDC рекомендует: 1 доза PCV20 — или PCV15 с последующей дозой PPSV23 через 1 год (или через 8 недель при иммунодефиците).",
+        "scheduleEn": "CDC recommends: 1 dose PCV20 — or PCV15 followed by PPSV23 1 year later (or 8 weeks later if immunocompromised).",
+        "noteRu": "Если вы уже получали PPSV23 ранее, PCV20 или PCV15 всё равно рекомендуется — они покрывают серотипы, которых нет в PPSV23. Проконсультируйтесь с врачом.",
+        "noteEn": "If you previously received PPSV23, PCV20 or PCV15 is still recommended — they cover serotypes not in PPSV23. Consult your doctor."
+      },
+      "AU": {
+        "whoRu": "70 лет и старше — PPSV23 бесплатно. 65+ у аборигенов. При хронических заболеваниях — с любого возраста.",
+        "whoEn": "Age 70 and older — PPSV23 free. Age 65+ for Aboriginal and Torres Strait Islander peoples. Chronic conditions — any age.",
+        "scheduleRu": "1 доза PPSV23. При наличии хронических заболеваний — возможна комбинация с PCV13.",
+        "scheduleEn": "1 dose PPSV23. With chronic conditions — may be combined with PCV13.",
+        "noteRu": "Входит в программу NIP (National Immunisation Program) для лиц 70+. Проконсультируйтесь с GP о схеме.",
+        "noteEn": "Part of the National Immunisation Program (NIP) for those 70+. Check with your GP about the schedule."
+      },
+      "SEA": {
+        "whoRu": "65+ и лица с хроническими заболеваниями. Доступность и включённость в национальные программы существенно различается по странам региона.",
+        "whoEn": "Age 65+ and those with chronic conditions. Availability and national program inclusion varies significantly across the region.",
+        "noteRu": "В большинстве стран ЮВА пневмококковая вакцина доступна в частных клиниках. Рекомендуется для пожилых и групп риска.",
+        "noteEn": "In most SEA countries the pneumococcal vaccine is available at private clinics. Recommended for older adults and high-risk groups."
+      },
+      "EAST_ASIA": {
+        "whoRu": "65+ и группы риска. Япония и Южная Корея включили PPSV23 в национальные программы для пожилых.",
+        "whoEn": "Age 65+ and high-risk groups. Japan and South Korea include PPSV23 in national programs for older adults.",
+        "noteRu": "В Японии PPSV23 входит в программу для лиц 65+ с субсидированием. В Южной Корее — аналогично. В Китае — рекомендован, доступен в клиниках.",
+        "noteEn": "In Japan, PPSV23 is subsidised for those 65+. South Korea has a similar program. In China it is recommended and available at clinics."
+      }
+    }
+  },
+  {
+    "id": "meningococcal",
+    "nameRu": "Менингококковая инфекция",
+    "nameEn": "Meningococcal Disease",
+    "descriptionRu": "Тяжёлая бактериальная инфекция, вызывающая менингит и сепсис. Может привести к летальному исходу в течение 24 часов. Серогруппы ACWY и B — основные для вакцинации взрослых.",
+    "descriptionEn": "A severe bacterial infection causing meningitis and sepsis. Can be fatal within 24 hours. Serogroups ACWY and B are the primary targets for adult vaccination.",
+    "whoRu": "Путешественники в эндемичные регионы (страны менингитного пояса Африки, Саудовская Аравия для хаджа). Студенты, живущие в общежитиях. Военнослужащие. Лица с аспленией или дефицитом комплемента.",
+    "whoEn": "Travelers to endemic regions (sub-Saharan Africa meningitis belt, Saudi Arabia for Hajj). Students living in dormitories. Military recruits. People with asplenia or complement deficiency.",
+    "scheduleRu": "MenACWY: 1 доза. Ревакцинация через 5 лет при сохраняющемся риске. MenB: 2 дозы с интервалом 1–2 месяца.",
+    "scheduleEn": "MenACWY: 1 dose. Booster after 5 years if ongoing risk. MenB: 2 doses 1–2 months apart.",
+    "frequencyType": "once",
+    "intervalYears": null,
+    "audience": "all",
+    "tags": ["travel"],
+    "noteRu": "Вакцины MenACWY и MenB защищают от разных серогрупп и применяются раздельно или совместно. Для паломников в Мекку (хадж/умра) вакцинация MenACWY обязательна — без справки о прививке въезд запрещён.",
+    "noteEn": "MenACWY and MenB vaccines protect against different serogroups and are given separately or together. For pilgrims traveling to Mecca (Hajj/Umrah), MenACWY vaccination is mandatory — entry is denied without a vaccination certificate.",
+    "disclaimerRu": "Выбор вакцины (MenACWY, MenB или обе) зависит от цели поездки, региона и индивидуального риска. Проконсультируйтесь с врачом или в кабинете путешественника.",
+    "disclaimerEn": "The choice of vaccine (MenACWY, MenB, or both) depends on travel destination, region, and individual risk. Consult a doctor or travel health clinic.",
+    "pregnancyRelevant": false,
+    "pregnancyNoteRu": null,
+    "pregnancyNoteEn": null,
+    "infantContactNoteRu": null,
+    "infantContactNoteEn": null,
+    "trackDate": true,
+    "totalDoses": 1,
+    "doseScheduleDays": [],
+    "regions": {
+      "RU": {
+        "whoRu": "Не входит в национальный календарь для взрослых. Рекомендуется: паломникам в Саудовскую Аравию (обязательно), путешественникам в менингитный пояс Африки, студентам в общежитиях, военнослужащим.",
+        "whoEn": "Not in the national adult schedule. Recommended for: pilgrims to Saudi Arabia (mandatory), travelers to the African meningitis belt, dormitory students, military recruits.",
+        "noteRu": "MenACWY доступна в коммерческих клиниках. Для хаджа — оформить международное свидетельство о вакцинации (ICV) не позднее чем за 10 дней до въезда в Саудовскую Аравию.",
+        "noteEn": "MenACWY is available at private clinics. For Hajj — obtain an International Certificate of Vaccination (ICV) at least 10 days before entering Saudi Arabia."
+      },
+      "EU": {
+        "whoRu": "Великобритания включает MenACWY и MenB в детский/подростковый календарь. В других странах ЕС — рекомендуется путешественникам и группам риска. Студенты в Великобритании и Ирландии — в приоритетной группе.",
+        "whoEn": "The UK includes MenACWY and MenB in the childhood/adolescent schedule. In other EU countries — recommended for travelers and high-risk groups. Students in the UK and Ireland are in a priority group.",
+        "noteRu": "В ряде стран ЕС (Нидерланды, Германия) MenACWY входит в детский календарь. Взрослым без истории прививок рекомендуется перед поездкой в зону риска.",
+        "noteEn": "In some EU countries (Netherlands, Germany), MenACWY is in the childhood schedule. Unvaccinated adults should vaccinate before traveling to risk areas."
+      },
+      "US": {
+        "whoRu": "MenACWY рекомендуется подросткам 11–12 лет с бустером в 16 лет. Взрослые без прививки — при наличии факторов риска. MenB — для 16–23 лет (предпочтительно 16–18).",
+        "whoEn": "MenACWY is recommended at ages 11–12 with a booster at 16. Unvaccinated adults with risk factors. MenB for ages 16–23 (preferably 16–18).",
+        "noteRu": "Студенты первокурсники, живущие в общежитиях, — приоритетная группа. CDC рекомендует MenB для молодых людей 16–23 лет по решению врача и пациента.",
+        "noteEn": "First-year college students living in dormitories are a priority group. The CDC recommends MenB for ages 16–23 based on shared clinical decision-making."
+      },
+      "AU": {
+        "whoRu": "MenACWY входит в детский календарь (12 месяцев и подростки). Взрослым — при поездке в зону риска или наличии медицинских показаний. MenB рекомендован для групп повышенного риска.",
+        "whoEn": "MenACWY is in the childhood schedule (12 months and adolescents). Adults — when traveling to risk areas or with medical indications. MenB recommended for high-risk groups.",
+        "noteRu": "ATAGI рекомендует MenACWY для всех путешественников в менингитный пояс и паломников в Саудовскую Аравию.",
+        "noteEn": "ATAGI recommends MenACWY for all travelers to the meningitis belt and pilgrims to Saudi Arabia."
+      },
+      "SEA": {
+        "whoRu": "Менингококковая инфекция не является высокоэндемичной для ЮВА, но вспышки случаются. Вакцинация рекомендована путешественникам в зоны риска (Африка, Саудовская Аравия) и студентам в международных учебных заведениях.",
+        "whoEn": "Meningococcal disease is not highly endemic in SEA, but outbreaks occur. Vaccination recommended for travelers to risk areas (Africa, Saudi Arabia) and students at international institutions.",
+        "noteRu": "Паломники из стран ЮВА в Саудовскую Аравию обязаны предъявить сертификат о вакцинации MenACWY.",
+        "noteEn": "Pilgrims from SEA countries to Saudi Arabia must present a MenACWY vaccination certificate."
+      },
+      "EAST_ASIA": {
+        "whoRu": "Япония и Южная Корея — менингококковая инфекция редка, вакцинация не входит в стандартный взрослый календарь. Рекомендуется путешественникам в зоны риска и студентам, уезжающим учиться за рубеж.",
+        "whoEn": "Japan and South Korea — meningococcal disease is rare; vaccination is not in the standard adult schedule. Recommended for travelers to risk areas and students studying abroad.",
+        "noteRu": "Студентам, уезжающим на учёбу в США, Великобританию или Австралию, университеты часто требуют или рекомендуют MenACWY.",
+        "noteEn": "Students going to study in the US, UK, or Australia are often required or recommended to have MenACWY by their university."
+      }
+    }
+  }
+]

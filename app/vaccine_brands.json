@@ -1,0 +1,74 @@
+{
+  "diphtheria_tetanus": [
+    "АДС-М", "АДС", "АКДС", "Бубо-М",
+    "Инфанрикс", "Пентаксим", "Тетраксим", "Тетравак",
+    "Boostrix", "Adacel", "Infanrix", "Daptacel", "Tetravac",
+    "Revaxis", "Covaxis", "Diftavax", "Td-pur"
+  ],
+  "pertussis": [
+    "АКДС", "Инфанрикс", "Инфанрикс Гекса", "Пентаксим", "Тетраксим", "Бубо-Кок",
+    "Boostrix", "Adacel", "Infanrix", "Infanrix Hexa", "Infanrix IPV",
+    "Daptacel", "Pediarix", "Pentacel", "Vaxelis",
+    "Repevax", "Triaxis", "Boostrix-Polio"
+  ],
+  "hepatitis_b": [
+    "Энджерикс-В", "Регевак", "Комбиотех", "Эбербиовак", "Бубо-Кок", "Бубо-М",
+    "Engerix-B", "Recombivax HB", "Heplisav-B", "PreHevbri",
+    "Twinrix", "Twinrix Paediatric", "Pediarix", "Vaxelis", "Sci-B-Vac"
+  ],
+  "mmr": [
+    "Приорикс", "Вакцина КПК", "MMR-II",
+    "Priorix", "M-M-R II", "MMRvaxPro", "ProQuad", "Priorix Tetra"
+  ],
+  "influenza": [
+    "Гриппол Плюс", "Гриппол", "Ультрикс", "Ультрикс Квадри", "Совигрипп", "Флю-М", "Инфлювак",
+    "Influvac Tetra", "Vaxigrip Tetra", "Ваксигрипп Тетра",
+    "Fluarix Tetra", "Flulaval Tetra",
+    "Fluzone", "Fluzone High-Dose", "Fluzone Quadrivalent",
+    "Flucelvax", "Flucelvax Tetra",
+    "FluBlok", "FluBlok Quadrivalent",
+    "Fluad", "Fluad Quad", "Efluelda",
+    "Afluria", "Afluria Quad",
+    "Fluenz Tetra", "Supemtek", "Fluvirin"
+  ],
+  "herpes_zoster": [
+    "Shingrix", "Zostavax"
+  ],
+  "varicella": [
+    "Варивакс", "Окавакс", "Варилрикс",
+    "Varivax", "Varilrix", "Okavax",
+    "ProQuad", "Priorix Tetra"
+  ],
+  "hpv": [
+    "Гардасил 9", "Гардасил", "Церварикс",
+    "Gardasil 9", "Gardasil", "Cervarix", "Cecolin"
+  ],
+  "tbe": [
+    "ЭнцеВир", "ЭнцеВир Нео", "Клещ-Э-Вак",
+    "FSME-Immun", "FSME-Immun Junior",
+    "Encepur", "Encepur Children",
+    "TicoVac", "TicoVac Junior"
+  ],
+  "hepatitis_a": [
+    "Хаврикс 720", "Хаврикс 1440", "Аваксим", "Аваксим 80", "ГЕП-А-ин-ВАК",
+    "Havrix", "Havrix Junior",
+    "Avaxim", "Avaxim Pediatric",
+    "Vaqta", "Vaqta Pediatric",
+    "Twinrix", "Twinrix Paediatric",
+    "Epaxal", "Healive"
+  ],
+  "pneumococcal": [
+    "Превенар 13", "Пневмовакс 23", "Синфлорикс",
+    "Prevenar 13", "Prevnar 13",
+    "Prevnar 20", "Prevenar 20", "Apexxnar",
+    "Vaxneuvance",
+    "Pneumovax 23",
+    "Synflorix"
+  ],
+  "meningococcal": [
+    "Менактра", "Нименрикс", "Бексеро",
+    "Menveo", "Nimenrix", "MenQuadfi", "Menactra", "Penmenvy",
+    "Bexsero", "Trumenba", "MenB-FHbp",
+    "NeisVac-C", "Meningitec"
+  ]
+}
