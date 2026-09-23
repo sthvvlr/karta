@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import { desc, eq } from "drizzle-orm";
 import { getChatGPTUser } from "@/app/chatgpt-auth";
 import { getUserData } from "@/app/data";
@@ -19,7 +18,8 @@ export default async function ExportPage() {
     <div className="no-print" style={{ marginBottom: 16 }}><Link href="/" style={{ color: "#5C7CFA", textDecoration: "none", fontSize: 14 }}>← Вернуться в Karta</Link></div>
     <PdfExportControls />
     <header style={{ display: "flex", alignItems: "center", gap: 14, borderBottom: "2px solid #DCE3FF", paddingBottom: 18, marginBottom: 20 }}>
-      <Image src="/karta-icon.png" alt="Karta" width={58} height={58} style={{ borderRadius: 14 }} />
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/karta-icon.png" alt="Karta" width={58} height={58} style={{ borderRadius: 14 }} />
       <div><h1 style={{ margin: 0, fontSize: 25 }}>Моя карта здоровья</h1><div style={{ color: "rgba(26,32,80,0.58)", marginTop: 4 }}>Karta · сформировано {new Date().toLocaleDateString("ru-RU")}</div></div>
     </header>
     <section className="print-card" style={{ background: "rgba(244,246,255,0.8)", borderRadius: 16, padding: 16, marginBottom: 18 }}><h2 style={{ fontSize: 17, margin: "0 0 10px" }}>Профиль</h2><div><b>{profile?.fullName || user.displayName}</b></div><div style={{ color: "rgba(26,32,80,0.62)", marginTop: 4 }}>Дата рождения: {profile?.birthDate || "не указана"}</div><div style={{ color: "rgba(26,32,80,0.62)", marginTop: 3 }}>Город: {[profile?.cityCurrent, profile?.regionCurrent, profile?.countryCurrent].filter(Boolean).join(", ") || "не указан"}</div></section>
