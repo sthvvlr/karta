@@ -5,10 +5,12 @@ import {
   medications,
   profiles,
   vaccineDoses,
+  vaccineBrands,
   vaccines,
   vaccinations,
 } from "@/db/schema";
 import catalog from "./vaccinations_catalog.json";
+import brandCatalog from "./vaccine_brands.json";
 
 export type AppUser = {
   userId: string;
@@ -30,6 +32,7 @@ export async function ensureProfile(user: AppUser) {
     gender: null,
     cityCurrent: null,
     countryCurrent: null,
+    regionCurrent: null,
     createdAt: now,
     updatedAt: now,
   };
@@ -69,6 +72,18 @@ export async function ensureCatalog() {
   );
   for (let index = 0; index < doseRows.length; index += 10) {
     await db.insert(vaccineDoses).values(doseRows.slice(index, index + 10));
+  }
+
+  const brandRows = Object.entries(brandCatalog).flatMap(([vaccineId, names]) =>
+    (names as string[]).map((name, index) => ({
+      id: `${vaccineId}_brand_${index}`,
+      vaccineId,
+      name,
+      region: null,
+    }))
+  );
+  for (let index = 0; index < brandRows.length; index += 10) {
+    await db.insert(vaccineBrands).values(brandRows.slice(index, index + 10));
   }
 }
 

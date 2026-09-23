@@ -1,10 +1,10 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { getChatGPTUser, requireChatGPTUser } from "./chatgpt-auth";
 import { getDb } from "@/db";
-import { labResults, medications, profiles, vaccinations } from "@/db/schema";
+import { labResults, medicationLogs, medications, profiles, vaccinations } from "@/db/schema";
 import { ensureCatalog } from "./data";
 
 export async function addVaccination(formData: FormData) {
@@ -27,9 +27,10 @@ export async function addVaccination(formData: FormData) {
 
 export async function addMedication(formData: FormData) {
   const auth = await requireChatGPTUser("/medications");
-  await getDb().insert(medications).values({
-    id: crypto.randomUUID(),
+  const id = String(formData.get("id") || "");
+  const values = {
     userId: auth.userId,
+    drugCode: String(formData.get("drugCode") || "") || null,
     name: String(formData.get("name") || "Новый препарат").trim(),
     dosage: String(formData.get("dosage") || "") || null,
     frequency: String(formData.get("frequency") || "") || null,
@@ -39,9 +40,49 @@ export async function addMedication(formData: FormData) {
     endDate: String(formData.get("endDate") || "") || null,
     isActive: true,
     createdAt: new Date().toISOString(),
-  });
+  };
+  if (id) await getDb().update(medications).set(values).where(and(eq(medications.id, id), eq(medications.userId, auth.userId)));
+  else await getDb().insert(medications).values({ id: crypto.randomUUID(), ...values });
   revalidatePath("/");
   revalidatePath("/medications");
+}
+
+export async function deleteMedication(formData: FormData) {
+  const auth = await requireChatGPTUser("/medications");
+  const id = String(formData.get("id") || "");
+  if (!id) return;
+  await getDb().delete(medicationLogs).where(and(eq(medicationLogs.medicationId, id), eq(medicationLogs.userId, auth.userId)));
+  await getDb().delete(medications).where(and(eq(medications.id, id), eq(medications.userId, auth.userId)));
+  revalidatePath("/");
+  revalidatePath("/medications");
+}
+
+export async function toggleMedicationTaken(formData: FormData) {
+  const auth = await requireChatGPTUser("/medications");
+  const medicationId = String(formData.get("medicationId") || "");
+  const today = new Date().toISOString().slice(0, 10);
+  const scheduledAt = `${today}T${String(formData.get("time") || "12:00")}:00`;
+  const db = getDb();
+  const [existing] = await db.select().from(medicationLogs).where(and(eq(medicationLogs.medicationId, medicationId), eq(medicationLogs.userId, auth.userId), eq(medicationLogs.scheduledAt, scheduledAt))).limit(1);
+  if (existing) await db.update(medicationLogs).set({ status: existing.status === "taken" ? "planned" : "taken", takenAt: existing.status === "taken" ? null : new Date().toISOString() }).where(eq(medicationLogs.id, existing.id));
+  else await db.insert(medicationLogs).values({ id: crypto.randomUUID(), userId: auth.userId, medicationId, scheduledAt, status: "taken", takenAt: new Date().toISOString() });
+  revalidatePath("/");
+  revalidatePath("/medications");
+}
+
+export async function deleteVaccination(formData: FormData) {
+  const auth = await requireChatGPTUser("/vaccinations");
+  const id = String(formData.get("id") || "");
+  if (id) await getDb().delete(vaccinations).where(and(eq(vaccinations.id, id), eq(vaccinations.userId, auth.userId)));
+  revalidatePath("/");
+  revalidatePath("/vaccinations");
+}
+
+export async function deleteLabResult(formData: FormData) {
+  const auth = await requireChatGPTUser("/labs");
+  const id = String(formData.get("id") || "");
+  if (id) await getDb().delete(labResults).where(and(eq(labResults.id, id), eq(labResults.userId, auth.userId)));
+  revalidatePath("/labs");
 }
 
 export async function saveProfile(formData: FormData) {
@@ -52,6 +93,7 @@ export async function saveProfile(formData: FormData) {
     birthDate: String(formData.get("birthDate") || "") || null,
     gender: String(formData.get("gender") || "") || null,
     cityCurrent: String(formData.get("cityCurrent") || "") || null,
+    regionCurrent: String(formData.get("regionCurrent") || "") || null,
     countryCurrent: String(formData.get("countryCurrent") || "") || null,
     updatedAt: new Date().toISOString(),
   }).where(eq(profiles.userId, auth.userId));

@@ -8,6 +8,13 @@
       "when": 1790162352619,
       "tag": "0000_daffy_tarot",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1790168534177,
+      "tag": "0001_military_kang",
+      "breakpoints": true
     }
   ]
 }

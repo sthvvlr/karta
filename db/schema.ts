@@ -7,6 +7,7 @@ export const profiles = sqliteTable("profiles", {
   birthDate: text("birth_date"),
   gender: text("gender"),
   cityCurrent: text("city_current"),
+  regionCurrent: text("region_current"),
   countryCurrent: text("country_current"),
   createdAt: text("created_at").notNull(),
   updatedAt: text("updated_at").notNull(),
@@ -64,6 +65,7 @@ export const vaccinations = sqliteTable("vaccinations", {
 export const medications = sqliteTable("medications", {
   id: text("id").primaryKey(),
   userId: text("user_id").notNull(),
+  drugCode: text("drug_code"),
   name: text("name").notNull(),
   dosage: text("dosage"),
   frequency: text("frequency"),

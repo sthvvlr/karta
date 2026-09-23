@@ -2,6 +2,8 @@ import Link from "next/link";
 import { getChatGPTUser, chatGPTSignInPath } from "@/app/chatgpt-auth";
 import { getUserData } from "@/app/data";
 
+export const dynamic = "force-dynamic";
+
 const C = { text: "#1A2050", muted: "rgba(26,32,80,0.42)", card: "rgba(255,255,255,0.72)", border: "rgba(255,255,255,0.9)" };
 
 const tiles = [

@@ -1,0 +1,10667 @@
+[
+  {
+    "id": "pseudoephedrine",
+    "ru": "(+)-псевдоэфедрин",
+    "en": "(+)-pseudoephedrine"
+  },
+  {
+    "id": "z_flupentixol",
+    "ru": "(Z)-флупентиксол",
+    "en": "(Z)-flupentixol"
+  },
+  {
+    "id": "thiopental",
+    "ru": "(±)-тиопентал",
+    "en": "(±)-thiopental"
+  },
+  {
+    "id": "ephedrine",
+    "ru": "(−)-эфедрин",
+    "en": "(−)-ephedrine"
+  },
+  {
+    "id": "edaravone",
+    "ru": "1-фенил-3-метил-5-пиразолон",
+    "en": "edaravone"
+  },
+  {
+    "id": "17_hydroxyprogesterone",
+    "ru": "17-Гидроксипрогестерон",
+    "en": "17α-hydroxyprogesterone"
+  },
+  {
+    "id": "2_phenylphenol",
+    "ru": "2-фенилфенол",
+    "en": "2-phenylphenol"
+  },
+  {
+    "id": "4_dimethylaminophenol",
+    "ru": "4-диметиламинофенол",
+    "en": "4-dimethylaminophenol"
+  },
+  {
+    "id": "fomepizole",
+    "ru": "4-метилпиразол",
+    "en": "fomepizole"
+  },
+  {
+    "id": "5_htp",
+    "ru": "5-гидрокситриптофан",
+    "en": "5-HTP"
+  },
+  {
+    "id": "oxyquinoline",
+    "ru": "8-оксихинолин",
+    "en": "oxyquinoline"
+  },
+  {
+    "id": "ad5_ncov",
+    "ru": "Ad5-nCoV",
+    "en": "Ad5-nCoV"
+  },
+  {
+    "id": "alcaftadine",
+    "ru": "Alcaftadine",
+    "en": "alcaftadine"
+  },
+  {
+    "id": "sn_glycero_3_phosphocholine",
+    "ru": "Alpha-GPC",
+    "en": "sn-glycero-3-phosphocholine"
+  },
+  {
+    "id": "diphtheria_vaccine",
+    "ru": "Antidiftotetano",
+    "en": "diphtheria vaccine"
+  },
+  {
+    "id": "etoricoxib",
+    "ru": "Arcoxia",
+    "en": "etoricoxib"
+  },
+  {
+    "id": "artemether",
+    "ru": "Artemether",
+    "en": "artemether"
+  },
+  {
+    "id": "dutasteride",
+    "ru": "Avodart",
+    "en": "dutasteride"
+  },
+  {
+    "id": "olmesartan",
+    "ru": "Behicar",
+    "en": "olmesartan"
+  },
+  {
+    "id": "benproperine",
+    "ru": "Benproperine",
+    "en": "benproperine"
+  },
+  {
+    "id": "boceprevir",
+    "ru": "Boceprevir",
+    "en": "boceprevir"
+  },
+  {
+    "id": "bromazepam",
+    "ru": "Bromezepam",
+    "en": "bromazepam"
+  },
+  {
+    "id": "co_codamol",
+    "ru": "Co-codamol 500ml",
+    "en": "Co-codamol"
+  },
+  {
+    "id": "coronavac",
+    "ru": "CoronaVac",
+    "en": "CoronaVac"
+  },
+  {
+    "id": "cyproterone",
+    "ru": "Cyproterone",
+    "en": "cyproterone"
+  },
+  {
+    "id": "conjugated_estrogens",
+    "ru": "Cульфат эстрона",
+    "en": "conjugated estrogens"
+  },
+  {
+    "id": "dapoxetine",
+    "ru": "Dapoxetine",
+    "en": "dapoxetine"
+  },
+  {
+    "id": "denosumab",
+    "ru": "Denosumab",
+    "en": "denosumab"
+  },
+  {
+    "id": "eravacycline",
+    "ru": "Eravacycline",
+    "en": "eravacycline"
+  },
+  {
+    "id": "exemestane",
+    "ru": "Exemestan",
+    "en": "exemestane"
+  },
+  {
+    "id": "dimethindene",
+    "ru": "FENISTIL",
+    "en": "dimethindene"
+  },
+  {
+    "id": "florbetaben_f_18",
+    "ru": "Florbetaben",
+    "en": "florbetaben f-18"
+  },
+  {
+    "id": "florbetapir_18f",
+    "ru": "Florbetapir (18F)",
+    "en": "florbetapir (18F)"
+  },
+  {
+    "id": "fluciclovine_f18",
+    "ru": "Fluciclovine (18F)",
+    "en": "fluciclovine-F18"
+  },
+  {
+    "id": "fluorodopa_f_18",
+    "ru": "Fluorodopa (18F)",
+    "en": "fluorodopa F-18"
+  },
+  {
+    "id": "fluoroestradiol_f_18",
+    "ru": "Fluoroestradiol F-18",
+    "en": "fluoroestradiol f-18"
+  },
+  {
+    "id": "flutemetamol_f_18",
+    "ru": "Flutemetamol (18F)",
+    "en": "flutemetamol F-18"
+  },
+  {
+    "id": "imipenem_cilastatin",
+    "ru": "Imipenem",
+    "en": "imipenem/cilastatin"
+  },
+  {
+    "id": "immunoglobulin_g",
+    "ru": "Immunoglobulin g",
+    "en": "immunoglobulin G"
+  },
+  {
+    "id": "iobenguane_i_131",
+    "ru": "Iobenguane (131I)",
+    "en": "iobenguane I-131"
+  },
+  {
+    "id": "ipecacuanha",
+    "ru": "Ipecacuanha",
+    "en": "Ipecacuanha"
+  },
+  {
+    "id": "iron_ii_fumarate",
+    "ru": "Iron(II) fumarate",
+    "en": "iron(II) fumarate"
+  },
+  {
+    "id": "jwh_018",
+    "ru": "JWH-018",
+    "en": "JWH-018"
+  },
+  {
+    "id": "lifitegrast",
+    "ru": "Lifitegrast",
+    "en": "lifitegrast"
+  },
+  {
+    "id": "enoxaparin_sodium",
+    "ru": "Lobenox",
+    "en": "enoxaparin sodium"
+  },
+  {
+    "id": "dotatate_lutenium_lu_177",
+    "ru": "Lutetium Lu 177 dotatate",
+    "en": "dotatate lutenium Lu-177"
+  },
+  {
+    "id": "rs_meclizine",
+    "ru": "Meclizine",
+    "en": "(RS)-meclizine"
+  },
+  {
+    "id": "melperone",
+    "ru": "Melperon",
+    "en": "melperone"
+  },
+  {
+    "id": "mercury",
+    "ru": "Mercury",
+    "en": "Mercury"
+  },
+  {
+    "id": "methimazole",
+    "ru": "Methimazole",
+    "en": "methimazole"
+  },
+  {
+    "id": "mmr_vaccine",
+    "ru": "MMR vaccine",
+    "en": "MMR vaccine"
+  },
+  {
+    "id": "mrna_1273_vaccine",
+    "ru": "MRNA-1273",
+    "en": "mRNA-1273 vaccine"
+  },
+  {
+    "id": "molindone",
+    "ru": "Mолиндон",
+    "en": "(±)-molindone"
+  },
+  {
+    "id": "naftifine",
+    "ru": "Naftin",
+    "en": "naftifine"
+  },
+  {
+    "id": "omadacycline",
+    "ru": "Omadacycline",
+    "en": "omadacycline"
+  },
+  {
+    "id": "abatacept",
+    "ru": "Orencia",
+    "en": "abatacept"
+  },
+  {
+    "id": "oxandrolone",
+    "ru": "Oxandrolone",
+    "en": "oxandrolone"
+  },
+  {
+    "id": "polygala_senega",
+    "ru": "Polygala senega",
+    "en": "Polygala senega"
+  },
+  {
+    "id": "ramucirumab",
+    "ru": "Ramucirumab",
+    "en": "ramucirumab"
+  },
+  {
+    "id": "rizatriptan",
+    "ru": "Rizatriptan",
+    "en": "rizatriptan"
+  },
+  {
+    "id": "s_adenosylmethionine",
+    "ru": "S-аденозилметионин",
+    "en": "S-adenosylmethionine"
+  },
+  {
+    "id": "s_ropivacaine",
+    "ru": "S-ропивакаин",
+    "en": "(S)-ropivacaine"
+  },
+  {
+    "id": "saccharomyces_boulardii",
+    "ru": "Saccharomyces boulardii",
+    "en": "Saccharomyces boulardii"
+  },
+  {
+    "id": "sebelipase_alfa",
+    "ru": "Sebelipase alfa",
+    "en": "sebelipase alfa"
+  },
+  {
+    "id": "silodosin",
+    "ru": "Silodix",
+    "en": "silodosin"
+  },
+  {
+    "id": "siltuximab",
+    "ru": "Siltuximab",
+    "en": "siltuximab"
+  },
+  {
+    "id": "sipuleucel_t",
+    "ru": "Sipuleucel-T",
+    "en": "sipuleucel-T"
+  },
+  {
+    "id": "sugammadex_sodium",
+    "ru": "Sugammadex",
+    "en": "sugammadex sodium"
+  },
+  {
+    "id": "artificial_tears",
+    "ru": "Tearlose",
+    "en": "artificial tears"
+  },
+  {
+    "id": "tetrazepam",
+    "ru": "Tetrazepam",
+    "en": "tetrazepam"
+  },
+  {
+    "id": "pfizer_biontech_covid_19_vaccine",
+    "ru": "Tozinameran",
+    "en": "Pfizer–BioNTech COVID-19 vaccine"
+  },
+  {
+    "id": "trimethobenzamide",
+    "ru": "Trimethobenzamide",
+    "en": "trimethobenzamide"
+  },
+  {
+    "id": "vedolizumab",
+    "ru": "Vedolizumab",
+    "en": "vedolizumab"
+  },
+  {
+    "id": "carotene",
+    "ru": "Β-каротин",
+    "en": "β-carotene"
+  },
+  {
+    "id": "gamolenic_acid",
+    "ru": "Γ-линоленовая кислота",
+    "en": "gamolenic acid"
+  },
+  {
+    "id": "abacavir",
+    "ru": "Абакавир",
+    "en": "abacavir"
+  },
+  {
+    "id": "abacavir_dolutegravir_lamivudine",
+    "ru": "Абакавир/Долутегравир/Ламивудин",
+    "en": "abacavir/dolutegravir/lamivudine"
+  },
+  {
+    "id": "abacavir_lamivudine_zidovudine",
+    "ru": "Абакавир/Ламивудин/Зидовудин",
+    "en": "abacavir/lamivudine/zidovudine"
+  },
+  {
+    "id": "abatacept_2",
+    "ru": "Абатацепт",
+    "en": "Abatacept"
+  },
+  {
+    "id": "abilify",
+    "ru": "Абилифай",
+    "en": "Abilify"
+  },
+  {
+    "id": "avamys",
+    "ru": "Авамис",
+    "en": "Avamys"
+  },
+  {
+    "id": "avanafil",
+    "ru": "Аванафил",
+    "en": "avanafil"
+  },
+  {
+    "id": "avodart",
+    "ru": "Аводарт",
+    "en": "Avodart"
+  },
+  {
+    "id": "agomelatine",
+    "ru": "Агомелатин",
+    "en": "agomelatine"
+  },
+  {
+    "id": "adalimumab",
+    "ru": "Адалимумаб",
+    "en": "adalimumab"
+  },
+  {
+    "id": "advantan",
+    "ru": "Адвантан",
+    "en": "Advantan"
+  },
+  {
+    "id": "adenosine",
+    "ru": "Аденозин",
+    "en": "adenosine"
+  },
+  {
+    "id": "epinephrine",
+    "ru": "Адреналин",
+    "en": "epinephrine"
+  },
+  {
+    "id": "corticotropin",
+    "ru": "Адренокортикотропный гормон",
+    "en": "corticotropin"
+  },
+  {
+    "id": "dpt_vaccine",
+    "ru": "Адсорбированная коклюшно-дифтерийно-столбнячная вакцина",
+    "en": "DPT vaccine"
+  },
+  {
+    "id": "azathioprine",
+    "ru": "Азатиоприн",
+    "en": "azathioprine"
+  },
+  {
+    "id": "azacitidine",
+    "ru": "Азацитидин",
+    "en": "azacitidine"
+  },
+  {
+    "id": "azelaic_acid",
+    "ru": "Азелаиновая кислота",
+    "en": "azelaic acid"
+  },
+  {
+    "id": "azelastine",
+    "ru": "Азеластин",
+    "en": "azelastine"
+  },
+  {
+    "id": "asenapine",
+    "ru": "Азенапин",
+    "en": "asenapine"
+  },
+  {
+    "id": "azithromycin",
+    "ru": "Азитромицин",
+    "en": "azithromycin"
+  },
+  {
+    "id": "nitrogen",
+    "ru": "Азот",
+    "en": "nitrogen"
+  },
+  {
+    "id": "nitrogen_mustard",
+    "ru": "Азотистые иприты",
+    "en": "nitrogen mustard"
+  },
+  {
+    "id": "aztreonam",
+    "ru": "Азтреонам",
+    "en": "aztreonam"
+  },
+  {
+    "id": "ajmaline",
+    "ru": "Аймалин",
+    "en": "ajmaline"
+  },
+  {
+    "id": "acamprosate",
+    "ru": "Акампросат",
+    "en": "acamprosate"
+  },
+  {
+    "id": "acarbose",
+    "ru": "Акарбоза",
+    "en": "acarbose"
+  },
+  {
+    "id": "akatinol_memantine",
+    "ru": "Акатинол Мемантин",
+    "en": "Akatinol Memantine"
+  },
+  {
+    "id": "aquadetrim",
+    "ru": "Аквадетрим",
+    "en": "Aquadetrim"
+  },
+  {
+    "id": "aqua_maris",
+    "ru": "Аквамарис",
+    "en": "Aqua Maris"
+  },
+  {
+    "id": "acnecutane",
+    "ru": "Акнекутан",
+    "en": "Acnecutane"
+  },
+  {
+    "id": "acrivastine",
+    "ru": "Акривастин",
+    "en": "acrivastine"
+  },
+  {
+    "id": "akriderm",
+    "ru": "Акридерм",
+    "en": "Akriderm"
+  },
+  {
+    "id": "cridanimod",
+    "ru": "Акридонуксусная кислота",
+    "en": "cridanimod"
+  },
+  {
+    "id": "aktiferrin",
+    "ru": "Актиферрин",
+    "en": "Aktiferrin"
+  },
+  {
+    "id": "actovegin",
+    "ru": "Актовегин",
+    "en": "Actovegin"
+  },
+  {
+    "id": "actrapid",
+    "ru": "Актрапид",
+    "en": "Actrapid"
+  },
+  {
+    "id": "algeldrate",
+    "ru": "Алгелдрат",
+    "en": "algeldrate"
+  },
+  {
+    "id": "alectinib",
+    "ru": "Алектиниб",
+    "en": "alectinib"
+  },
+  {
+    "id": "alemtuzumab",
+    "ru": "Алемтузумаб",
+    "en": "alemtuzumab"
+  },
+  {
+    "id": "trimeprazine",
+    "ru": "Алимемазин",
+    "en": "trimeprazine"
+  },
+  {
+    "id": "alirocumab",
+    "ru": "Алирокумаб",
+    "en": "alirocumab"
+  },
+  {
+    "id": "alkyl_sulfonate",
+    "ru": "Алкилсульфонаты",
+    "en": "alkyl sulfonate"
+  },
+  {
+    "id": "allergen",
+    "ru": "Аллерген",
+    "en": "allergen"
+  },
+  {
+    "id": "allobarbital",
+    "ru": "Аллобарбитал",
+    "en": "allobarbital"
+  },
+  {
+    "id": "allopurinol",
+    "ru": "Аллопуринол",
+    "en": "allopurinol"
+  },
+  {
+    "id": "alogliptin",
+    "ru": "Алоглиптин",
+    "en": "Alogliptin"
+  },
+  {
+    "id": "alosetron",
+    "ru": "Алосетрон",
+    "en": "Alosetron"
+  },
+  {
+    "id": "alprazolam",
+    "ru": "Алпразолам",
+    "en": "alprazolam"
+  },
+  {
+    "id": "alprenolol",
+    "ru": "Алпренолол",
+    "en": "alprenolol"
+  },
+  {
+    "id": "alprostadil",
+    "ru": "Алпростадил",
+    "en": "alprostadil"
+  },
+  {
+    "id": "alteplase",
+    "ru": "Алтеплаза",
+    "en": "Alteplase"
+  },
+  {
+    "id": "altretamine",
+    "ru": "Алтретамин",
+    "en": "altretamine"
+  },
+  {
+    "id": "alfavit",
+    "ru": "Алфавит",
+    "en": "Alfavit"
+  },
+  {
+    "id": "alfentanil",
+    "ru": "Алфентанил",
+    "en": "alfentanil"
+  },
+  {
+    "id": "alfuzosin",
+    "ru": "Алфузозин",
+    "en": "alfuzosin"
+  },
+  {
+    "id": "albendazol",
+    "ru": "Альбендазол",
+    "en": "albendazol"
+  },
+  {
+    "id": "calcium_alginate",
+    "ru": "Альгинат кальция",
+    "en": "calcium alginate"
+  },
+  {
+    "id": "alginic_acid",
+    "ru": "Альгиновая кислота",
+    "en": "alginic acid"
+  },
+  {
+    "id": "aldosterone",
+    "ru": "Альдостерон",
+    "en": "aldosterone"
+  },
+  {
+    "id": "alteplase_2",
+    "ru": "Альтеплаза",
+    "en": "alteplase"
+  },
+  {
+    "id": "alpha_d3_teva",
+    "ru": "Альфа Д3-Тева",
+    "en": "Alpha D3-Teva"
+  },
+  {
+    "id": "alpha_normix",
+    "ru": "Альфа Нормикс",
+    "en": "Alpha Normix"
+  },
+  {
+    "id": "galactosidase_alpha",
+    "ru": "Альфа-галактозидаза",
+    "en": "galactosidase alpha"
+  },
+  {
+    "id": "cytovir_3",
+    "ru": "Альфа-глутамил-триптофан+Аскорбиновая кислота+Бендазол",
+    "en": "cytovir-3"
+  },
+  {
+    "id": "alphagan",
+    "ru": "Альфаган",
+    "en": "Alphagan"
+  },
+  {
+    "id": "alfacalcidol",
+    "ru": "Альфакальцидол",
+    "en": "alfacalcidol"
+  },
+  {
+    "id": "alfuzosin_2",
+    "ru": "Альфузозин",
+    "en": "Alfuzosin"
+  },
+  {
+    "id": "amantadine",
+    "ru": "Амантадин",
+    "en": "amantadine"
+  },
+  {
+    "id": "amaryl",
+    "ru": "Амарил",
+    "en": "Amaryl"
+  },
+  {
+    "id": "ambazone",
+    "ru": "Амбазон",
+    "en": "ambazone"
+  },
+  {
+    "id": "ambenonium",
+    "ru": "Амбенония хлорид",
+    "en": "ambenonium"
+  },
+  {
+    "id": "ambroxol",
+    "ru": "Амброксол",
+    "en": "ambroxol"
+  },
+  {
+    "id": "ammoniatedmercuric_chloride",
+    "ru": "Амидохлорид ртути",
+    "en": "ammoniatedmercuric chloride"
+  },
+  {
+    "id": "amikacin",
+    "ru": "Амикацин",
+    "en": "amikacin"
+  },
+  {
+    "id": "amixin",
+    "ru": "Амиксин",
+    "en": "Amixin"
+  },
+  {
+    "id": "amiloride",
+    "ru": "Амилорид",
+    "en": "amiloride"
+  },
+  {
+    "id": "amineptine_hydrochloride",
+    "ru": "Аминептин",
+    "en": "amineptine hydrochloride"
+  },
+  {
+    "id": "aminoglycoside_antibiotic",
+    "ru": "Аминогликозиды",
+    "en": "aminoglycoside antibiotic"
+  },
+  {
+    "id": "aminocaproic_acid",
+    "ru": "Аминокапроновая кислота",
+    "en": "aminocaproic acid"
+  },
+  {
+    "id": "amino_acid",
+    "ru": "Аминокислота",
+    "en": "amino acid"
+  },
+  {
+    "id": "aminolevulinic_acid",
+    "ru": "Аминолевулиновая кислота",
+    "en": "aminolevulinic acid"
+  },
+  {
+    "id": "aminophenazone",
+    "ru": "Аминофеназон",
+    "en": "aminophenazone"
+  },
+  {
+    "id": "phenibut",
+    "ru": "Аминофенилмасляная кислота",
+    "en": "phenibut"
+  },
+  {
+    "id": "aminophylline",
+    "ru": "Аминофиллин",
+    "en": "Aminophylline"
+  },
+  {
+    "id": "amiodarone",
+    "ru": "Амиодарон",
+    "en": "amiodarone"
+  },
+  {
+    "id": "rs_amisulpride",
+    "ru": "Амисульприд",
+    "en": "(RS)-amisulpride"
+  },
+  {
+    "id": "amitriptyline",
+    "ru": "Амитриптилин",
+    "en": "amitriptyline"
+  },
+  {
+    "id": "amlodipine",
+    "ru": "Амлодипин",
+    "en": "amlodipine"
+  },
+  {
+    "id": "amobarbital",
+    "ru": "Амобарбитал",
+    "en": "amobarbital"
+  },
+  {
+    "id": "amoxiclav",
+    "ru": "Амоксиклав",
+    "en": "Amoxiclav"
+  },
+  {
+    "id": "amoxicillin",
+    "ru": "Амоксициллин",
+    "en": "amoxicillin"
+  },
+  {
+    "id": "amoxicillin_clavulanate",
+    "ru": "Амоксициллин/Клавуланат",
+    "en": "Amoxicillin/Clavulanate"
+  },
+  {
+    "id": "amorolfine",
+    "ru": "Аморолфин",
+    "en": "amorolfine"
+  },
+  {
+    "id": "ampicillin",
+    "ru": "Ампициллин",
+    "en": "ampicillin"
+  },
+  {
+    "id": "amprenavir",
+    "ru": "Ампренавир",
+    "en": "amprenavir"
+  },
+  {
+    "id": "amphenicols",
+    "ru": "Амфеникол",
+    "en": "amphenicols"
+  },
+  {
+    "id": "rs_diethylpropion",
+    "ru": "Амфепрамон",
+    "en": "(RS)-diethylpropion"
+  },
+  {
+    "id": "dl_amphetamine",
+    "ru": "Амфетамин",
+    "en": "DL-amphetamine"
+  },
+  {
+    "id": "amphotericin_b",
+    "ru": "Амфотерицин B",
+    "en": "amphotericin B"
+  },
+  {
+    "id": "anabolic_steroid",
+    "ru": "Анаболические стероиды",
+    "en": "anabolic steroid"
+  },
+  {
+    "id": "anagrelide",
+    "ru": "Анагрелид",
+    "en": "anagrelide"
+  },
+  {
+    "id": "anakinra",
+    "ru": "Анакинра",
+    "en": "anakinra"
+  },
+  {
+    "id": "analgin",
+    "ru": "Анальгин",
+    "en": "Analgin"
+  },
+  {
+    "id": "anastrozole",
+    "ru": "Анастрозол",
+    "en": "anastrozole"
+  },
+  {
+    "id": "anaural",
+    "ru": "Анауран",
+    "en": "Anaural"
+  },
+  {
+    "id": "vasoprotective",
+    "ru": "Ангиопротекторы",
+    "en": "vasoprotective"
+  },
+  {
+    "id": "andexanet_alfa",
+    "ru": "Андекса",
+    "en": "andexanet alfa"
+  },
+  {
+    "id": "testosterone_undecanoate",
+    "ru": "Андриол",
+    "en": "testosterone undecanoate"
+  },
+  {
+    "id": "androgen",
+    "ru": "Андрогены",
+    "en": "androgen"
+  },
+  {
+    "id": "angeliq",
+    "ru": "Анжелик",
+    "en": "Angeliq"
+  },
+  {
+    "id": "anilides",
+    "ru": "Анилиды",
+    "en": "anilides"
+  },
+  {
+    "id": "anileridine",
+    "ru": "Анилэридин",
+    "en": "anileridine"
+  },
+  {
+    "id": "aniracetam",
+    "ru": "Анирацетам",
+    "en": "aniracetam"
+  },
+  {
+    "id": "anxiolytic",
+    "ru": "Анксиолитик",
+    "en": "anxiolytic"
+  },
+  {
+    "id": "anoro_ellipta",
+    "ru": "Анорo Эллипта",
+    "en": "Anoro Ellipta"
+  },
+  {
+    "id": "anorectic",
+    "ru": "Анорексигенные средства",
+    "en": "anorectic"
+  },
+  {
+    "id": "antacid",
+    "ru": "Антацид",
+    "en": "antacid"
+  },
+  {
+    "id": "antigrippin",
+    "ru": "АнтиГриппин",
+    "en": "Antigrippin"
+  },
+  {
+    "id": "antidepressant",
+    "ru": "Антидепрессант",
+    "en": "antidepressant"
+  },
+  {
+    "id": "arginine_vasopressin",
+    "ru": "Антидиуретический гормон",
+    "en": "arginine vasopressin"
+  },
+  {
+    "id": "anticoagulant",
+    "ru": "Антикоагулянты",
+    "en": "anticoagulant"
+  },
+  {
+    "id": "antimetabolite",
+    "ru": "Антиметаболит",
+    "en": "antimetabolite"
+  },
+  {
+    "id": "rabies_immunoglobulin",
+    "ru": "Антирабический иммуноглобулин",
+    "en": "rabies immunoglobulin"
+  },
+  {
+    "id": "antiseptic",
+    "ru": "Антисептик",
+    "en": "antiseptic"
+  },
+  {
+    "id": "antistax",
+    "ru": "Антистакс",
+    "en": "Antistax"
+  },
+  {
+    "id": "antithrombotic_enzyme",
+    "ru": "Антитромбический фермент",
+    "en": "antithrombotic enzyme"
+  },
+  {
+    "id": "apidra",
+    "ru": "Апидра",
+    "en": "Apidra"
+  },
+  {
+    "id": "apixaban",
+    "ru": "Апиксабан",
+    "en": "apixaban"
+  },
+  {
+    "id": "apomorphine",
+    "ru": "Апоморфин",
+    "en": "apomorphine"
+  },
+  {
+    "id": "apremilast",
+    "ru": "Апремиласт",
+    "en": "apremilast"
+  },
+  {
+    "id": "aprovel",
+    "ru": "Апровель",
+    "en": "Aprovel"
+  },
+  {
+    "id": "aprotinin",
+    "ru": "Апротинин",
+    "en": "aprotinin"
+  },
+  {
+    "id": "arava",
+    "ru": "Арава",
+    "en": "Arava"
+  },
+  {
+    "id": "arbidol",
+    "ru": "Арбидол",
+    "en": "Arbidol"
+  },
+  {
+    "id": "arixtra",
+    "ru": "Арикстра",
+    "en": "Arixtra"
+  },
+  {
+    "id": "arimidex",
+    "ru": "Аримидекс",
+    "en": "Arimidex"
+  },
+  {
+    "id": "aripiprazole",
+    "ru": "Арипипразол",
+    "en": "aripiprazole"
+  },
+  {
+    "id": "aricept",
+    "ru": "Арисепт",
+    "en": "Aricept"
+  },
+  {
+    "id": "arifon",
+    "ru": "Арифон",
+    "en": "Arifon"
+  },
+  {
+    "id": "arcoxia",
+    "ru": "Аркоксиа",
+    "en": "Arcoxia"
+  },
+  {
+    "id": "armodafinil",
+    "ru": "Армодафинил",
+    "en": "armodafinil"
+  },
+  {
+    "id": "artemisinin",
+    "ru": "Артемизинин",
+    "en": "artemisinin"
+  },
+  {
+    "id": "artesunate",
+    "ru": "Артесунат",
+    "en": "artesunate"
+  },
+  {
+    "id": "arthra",
+    "ru": "Артра",
+    "en": "Arthra"
+  },
+  {
+    "id": "artrozilen",
+    "ru": "Артрозилен",
+    "en": "Artrozilen"
+  },
+  {
+    "id": "arutimol",
+    "ru": "Арутимол",
+    "en": "Arutimol"
+  },
+  {
+    "id": "ascorbic_acid",
+    "ru": "Аскорбиновая кислота",
+    "en": "Ascorbic acid"
+  },
+  {
+    "id": "asparaginase",
+    "ru": "Аспарагиназа",
+    "en": "Asparaginase"
+  },
+  {
+    "id": "asparkam",
+    "ru": "Аспаркам",
+    "en": "Asparkam"
+  },
+  {
+    "id": "aspekard",
+    "ru": "Аспекард",
+    "en": "Aspekard"
+  },
+  {
+    "id": "aspirin",
+    "ru": "Аспирин",
+    "en": "Aspirin"
+  },
+  {
+    "id": "aspoxicillin",
+    "ru": "Аспоксициллин",
+    "en": "aspoxicillin"
+  },
+  {
+    "id": "astemizole",
+    "ru": "Астемизол",
+    "en": "astemizole"
+  },
+  {
+    "id": "asunaprevir",
+    "ru": "Асунапревир",
+    "en": "asunaprevir"
+  },
+  {
+    "id": "atazanavir",
+    "ru": "Атазанавир",
+    "en": "atazanavir"
+  },
+  {
+    "id": "ataluren",
+    "ru": "Аталурен",
+    "en": "ataluren"
+  },
+  {
+    "id": "atezolizumab",
+    "ru": "Атезолизумаб",
+    "en": "atezolizumab"
+  },
+  {
+    "id": "atenolol",
+    "ru": "Атенолол",
+    "en": "atenolol"
+  },
+  {
+    "id": "atovaquone",
+    "ru": "Атовакуон",
+    "en": "atovaquone"
+  },
+  {
+    "id": "atosiban",
+    "ru": "Атозибан",
+    "en": "atosiban"
+  },
+  {
+    "id": "atomoxetine",
+    "ru": "Атомоксетин",
+    "en": "atomoxetine"
+  },
+  {
+    "id": "atorvastatin",
+    "ru": "Аторвастатин",
+    "en": "atorvastatin"
+  },
+  {
+    "id": "atracurium_besylate",
+    "ru": "Атракурия безилат",
+    "en": "atracurium besylate"
+  },
+  {
+    "id": "atrovent",
+    "ru": "Атровент",
+    "en": "Atrovent"
+  },
+  {
+    "id": "atropine",
+    "ru": "Атропин",
+    "en": "atropine"
+  },
+  {
+    "id": "atc_code_a04",
+    "ru": "АТХ код A04",
+    "en": "ATC code A04"
+  },
+  {
+    "id": "atc_code_a08",
+    "ru": "АТХ код A08",
+    "en": "ATC code A08"
+  },
+  {
+    "id": "atc_code_a09",
+    "ru": "АТХ код A09",
+    "en": "ATC code A09"
+  },
+  {
+    "id": "atc_code_a13",
+    "ru": "АТХ код A13",
+    "en": "ATC code A13"
+  },
+  {
+    "id": "atc_code_a14",
+    "ru": "АТХ код A14",
+    "en": "ATC code A14"
+  },
+  {
+    "id": "atc_code_a15",
+    "ru": "АТХ код A15",
+    "en": "ATC code A15"
+  },
+  {
+    "id": "atc_code_a16",
+    "ru": "АТХ код A16",
+    "en": "ATC code A16"
+  },
+  {
+    "id": "atc_code_b01",
+    "ru": "АТХ код B01",
+    "en": "ATC code B01"
+  },
+  {
+    "id": "atc_code_b02",
+    "ru": "АТХ код B02",
+    "en": "ATC code B02"
+  },
+  {
+    "id": "atc_code_b06",
+    "ru": "АТХ код B06",
+    "en": "ATC code B06"
+  },
+  {
+    "id": "atc_code_c01",
+    "ru": "АТХ код C01",
+    "en": "ATC code C01"
+  },
+  {
+    "id": "atc_code_d02",
+    "ru": "АТХ код D02",
+    "en": "ATC code D02"
+  },
+  {
+    "id": "atc_code_d03",
+    "ru": "АТХ код D03",
+    "en": "ATC code D03"
+  },
+  {
+    "id": "atc_code_d09",
+    "ru": "АТХ код D09",
+    "en": "ATC code D09"
+  },
+  {
+    "id": "atc_code_j05",
+    "ru": "АТХ код J05",
+    "en": "ATC code J05"
+  },
+  {
+    "id": "atc_code_m04",
+    "ru": "АТХ код M04",
+    "en": "ATC code M04"
+  },
+  {
+    "id": "atc_code_m05",
+    "ru": "АТХ код M05",
+    "en": "ATC code M05"
+  },
+  {
+    "id": "atc_code_m09",
+    "ru": "АТХ код M09",
+    "en": "ATC code M09"
+  },
+  {
+    "id": "atc_code_v01",
+    "ru": "АТХ код V01",
+    "en": "ATC code V01"
+  },
+  {
+    "id": "atc_code_a01",
+    "ru": "АТХ код А01",
+    "en": "ATC code A01"
+  },
+  {
+    "id": "atc_code_r05",
+    "ru": "АТХ-код R05",
+    "en": "ATC code R05"
+  },
+  {
+    "id": "augmentin",
+    "ru": "Аугментин",
+    "en": "Augmentin"
+  },
+  {
+    "id": "auranofin",
+    "ru": "Ауранофин",
+    "en": "auranofin"
+  },
+  {
+    "id": "aurothioglucose",
+    "ru": "Ауротиоглюкоза",
+    "en": "aurothioglucose"
+  },
+  {
+    "id": "aurotioprol",
+    "ru": "Ауротиопрол",
+    "en": "aurotioprol"
+  },
+  {
+    "id": "aflibercept",
+    "ru": "Афлиберцепт",
+    "en": "aflibercept"
+  },
+  {
+    "id": "afobazol",
+    "ru": "Афобазол",
+    "en": "Afobazol"
+  },
+  {
+    "id": "acebutolol",
+    "ru": "Ацебутолол",
+    "en": "acebutolol"
+  },
+  {
+    "id": "aceclidine",
+    "ru": "Ацеклидин",
+    "en": "aceclidine"
+  },
+  {
+    "id": "aceclofenac",
+    "ru": "Ацеклофенак",
+    "en": "aceclofenac"
+  },
+  {
+    "id": "acemetacin",
+    "ru": "Ацеметацин",
+    "en": "acemetacin"
+  },
+  {
+    "id": "acetazolamide",
+    "ru": "Ацетазоламид",
+    "en": "acetazolamide"
+  },
+  {
+    "id": "potassium_acetate",
+    "ru": "Ацетат калия",
+    "en": "potassium acetate"
+  },
+  {
+    "id": "calcium_acetate",
+    "ru": "Ацетат кальция",
+    "en": "calcium acetate"
+  },
+  {
+    "id": "sodium_acetate",
+    "ru": "Ацетат натрия",
+    "en": "sodium acetate"
+  },
+  {
+    "id": "zinc_acetate",
+    "ru": "Ацетат цинка",
+    "en": "zinc acetate"
+  },
+  {
+    "id": "aspirin_2",
+    "ru": "Ацетилсалициловая кислота",
+    "en": "aspirin"
+  },
+  {
+    "id": "acetylcholine",
+    "ru": "Ацетилхолин",
+    "en": "acetylcholine"
+  },
+  {
+    "id": "n_acetyl_l_cysteine",
+    "ru": "Ацетилцистеин",
+    "en": "N-acetyl-L-cysteine"
+  },
+  {
+    "id": "acetophenazine",
+    "ru": "Ацетофеназин",
+    "en": "acetophenazine"
+  },
+  {
+    "id": "aciclovir",
+    "ru": "Ацикловир",
+    "en": "aciclovir"
+  },
+  {
+    "id": "аципол",
+    "ru": "Аципол",
+    "en": ""
+  },
+  {
+    "id": "acc",
+    "ru": "АЦЦ",
+    "en": "ACC"
+  },
+  {
+    "id": "basiliximab",
+    "ru": "Базиликсимаб",
+    "en": "basiliximab"
+  },
+  {
+    "id": "baziron_ac",
+    "ru": "Базирон АС",
+    "en": "Baziron AC"
+  },
+  {
+    "id": "rs_baclofen",
+    "ru": "Баклофен",
+    "en": "(RS)-baclofen"
+  },
+  {
+    "id": "bacterial_vaccine",
+    "ru": "Бактериальная вакцина",
+    "en": "bacterial vaccine"
+  },
+  {
+    "id": "barbital",
+    "ru": "Барбитал",
+    "en": "barbital"
+  },
+  {
+    "id": "baricitinib",
+    "ru": "Барицитиниб",
+    "en": "baricitinib"
+  },
+  {
+    "id": "bacitracin_a",
+    "ru": "Бацитрацин",
+    "en": "bacitracin a"
+  },
+  {
+    "id": "bevacizumab",
+    "ru": "Бевацизумаб",
+    "en": "bevacizumab"
+  },
+  {
+    "id": "bedaquiline",
+    "ru": "Бедаквилин",
+    "en": "bedaquiline"
+  },
+  {
+    "id": "bezitramide",
+    "ru": "Безитрамид",
+    "en": "bezitramide"
+  },
+  {
+    "id": "bezlotoxumab",
+    "ru": "Безлотоксумаб",
+    "en": "bezlotoxumab"
+  },
+  {
+    "id": "becaplermin",
+    "ru": "Бекаплермин",
+    "en": "becaplermin"
+  },
+  {
+    "id": "beclamide",
+    "ru": "Бекламид",
+    "en": "beclamide"
+  },
+  {
+    "id": "beclomethasone",
+    "ru": "Беклометазон",
+    "en": "Beclomethasone"
+  },
+  {
+    "id": "beclomethasone_dipropionate",
+    "ru": "Беклометазона дипропионат",
+    "en": "beclomethasone dipropionate"
+  },
+  {
+    "id": "beclospray",
+    "ru": "Беклоспрей",
+    "en": "Beclospray"
+  },
+  {
+    "id": "bexarotene",
+    "ru": "Бексаротен",
+    "en": "bexarotene"
+  },
+  {
+    "id": "belimumab",
+    "ru": "Белимумаб",
+    "en": "belimumab"
+  },
+  {
+    "id": "belinostat",
+    "ru": "Белиностат",
+    "en": "belinostat"
+  },
+  {
+    "id": "belogent",
+    "ru": "Белогент",
+    "en": "Belogent"
+  },
+  {
+    "id": "bemegride",
+    "ru": "Бемегрид",
+    "en": "bemegride"
+  },
+  {
+    "id": "bemiparin",
+    "ru": "Бемипарин натрия",
+    "en": "bemiparin"
+  },
+  {
+    "id": "tolazoline",
+    "ru": "Бендазол",
+    "en": "tolazoline"
+  },
+  {
+    "id": "bendamustine",
+    "ru": "Бендамустин",
+    "en": "bendamustine"
+  },
+  {
+    "id": "benzathine_benzylpenicillin",
+    "ru": "Бензатина бензилпенициллин",
+    "en": "benzathine benzylpenicillin"
+  },
+  {
+    "id": "benzydamine",
+    "ru": "Бензидамин",
+    "en": "benzydamine"
+  },
+  {
+    "id": "benzyl_benzoate",
+    "ru": "Бензилбензоат",
+    "en": "benzyl benzoate"
+  },
+  {
+    "id": "benzyl_alcohol",
+    "ru": "Бензиловый спирт",
+    "en": "benzyl alcohol"
+  },
+  {
+    "id": "benznidazole",
+    "ru": "Бензнидазол",
+    "en": "benznidazole"
+  },
+  {
+    "id": "sodium_benzoate",
+    "ru": "Бензоат натрия",
+    "en": "sodium benzoate"
+  },
+  {
+    "id": "benzodiazepine_drug",
+    "ru": "Бензодиазепин",
+    "en": "benzodiazepine drug"
+  },
+  {
+    "id": "benzoyl_peroxide",
+    "ru": "Бензоилпероксид",
+    "en": "benzoyl peroxide"
+  },
+  {
+    "id": "benzocaine",
+    "ru": "Бензокаин",
+    "en": "benzocaine"
+  },
+  {
+    "id": "benzonatate",
+    "ru": "Бензонатат",
+    "en": "benzonatate"
+  },
+  {
+    "id": "benzatropine",
+    "ru": "Бензтропин",
+    "en": "benzatropine"
+  },
+  {
+    "id": "benperidol",
+    "ru": "Бенперидол",
+    "en": "benperidol"
+  },
+  {
+    "id": "benfotiamine",
+    "ru": "Бенфотиамин",
+    "en": "benfotiamine"
+  },
+  {
+    "id": "bepanthen",
+    "ru": "Бепантен",
+    "en": "Bepanthen"
+  },
+  {
+    "id": "bergapten",
+    "ru": "Бергаптен",
+    "en": "bergapten"
+  },
+  {
+    "id": "prussian_blue",
+    "ru": "Берлинская лазурь",
+    "en": "Prussian blue"
+  },
+  {
+    "id": "berlipril",
+    "ru": "Берлиприл",
+    "en": "Berlipril"
+  },
+  {
+    "id": "berlithion",
+    "ru": "Берлитион",
+    "en": "Berlithion"
+  },
+  {
+    "id": "berodual",
+    "ru": "Беродуал",
+    "en": "Berodual"
+  },
+  {
+    "id": "berotec",
+    "ru": "Беротек",
+    "en": "Berotec"
+  },
+  {
+    "id": "beta_blocker",
+    "ru": "Бета-адреноблокатор",
+    "en": "beta blocker"
+  },
+  {
+    "id": "betahistine",
+    "ru": "Бетагистин",
+    "en": "betahistine"
+  },
+  {
+    "id": "betaine",
+    "ru": "Бетаин",
+    "en": "betaine"
+  },
+  {
+    "id": "betaxolol",
+    "ru": "Бетаксолол",
+    "en": "betaxolol"
+  },
+  {
+    "id": "betamethasone",
+    "ru": "Бетаметазон",
+    "en": "betamethasone"
+  },
+  {
+    "id": "interferon_beta_1b",
+    "ru": "Бетаферон",
+    "en": "interferon beta-1b"
+  },
+  {
+    "id": "biguanide",
+    "ru": "Бигуаниды",
+    "en": "biguanide"
+  },
+  {
+    "id": "bicalutamide",
+    "ru": "Бикалутамид",
+    "en": "bicalutamide"
+  },
+  {
+    "id": "bilastine",
+    "ru": "Биластин",
+    "en": "bilastine"
+  },
+  {
+    "id": "bimatoprost",
+    "ru": "Биматопрост",
+    "en": "bimatoprost"
+  },
+  {
+    "id": "bioparox",
+    "ru": "Биопарокс",
+    "en": "Bioparox"
+  },
+  {
+    "id": "biotin",
+    "ru": "Биотин",
+    "en": "biotin"
+  },
+  {
+    "id": "bisacodyl",
+    "ru": "Бисакодил",
+    "en": "bisacodyl"
+  },
+  {
+    "id": "bisoprolol",
+    "ru": "Бисопролол",
+    "en": "bisoprolol"
+  },
+  {
+    "id": "bifemelane",
+    "ru": "Бифемелан",
+    "en": "bifemelane"
+  },
+  {
+    "id": "bifiform",
+    "ru": "Бифиформ",
+    "en": "Bifiform"
+  },
+  {
+    "id": "bifonazole",
+    "ru": "Бифоназол",
+    "en": "bifonazole"
+  },
+  {
+    "id": "bleomycin",
+    "ru": "Блеомицин",
+    "en": "bleomycin"
+  },
+  {
+    "id": "blinatumomab",
+    "ru": "Блинатумомаб",
+    "en": "blinatumomab"
+  },
+  {
+    "id": "bosentan_hydrate",
+    "ru": "Бозентан гидрат",
+    "en": "bosentan hydrate"
+  },
+  {
+    "id": "bopindolol",
+    "ru": "Бопиндолол",
+    "en": "bopindolol"
+  },
+  {
+    "id": "orthoboric_acid",
+    "ru": "Борная кислота",
+    "en": "orthoboric acid"
+  },
+  {
+    "id": "bortezomib",
+    "ru": "Бортезомиб",
+    "en": "bortezomib"
+  },
+  {
+    "id": "botulinum_toxin_group",
+    "ru": "Ботулотоксин",
+    "en": "botulinum toxin group"
+  },
+  {
+    "id": "hawthorn",
+    "ru": "Боярышник",
+    "en": "Hawthorn"
+  },
+  {
+    "id": "brexpiprazole",
+    "ru": "Брекспипразол",
+    "en": "brexpiprazole"
+  },
+  {
+    "id": "brentuximab_vedotin",
+    "ru": "Брентуксимаб ведотин",
+    "en": "brentuximab vedotin"
+  },
+  {
+    "id": "breo_ellipta",
+    "ru": "Брео Эллипта",
+    "en": "Breo Ellipta"
+  },
+  {
+    "id": "briakinumab",
+    "ru": "Бриакинумаб",
+    "en": "briakinumab"
+  },
+  {
+    "id": "brimonidine",
+    "ru": "Бримонидин",
+    "en": "brimonidine"
+  },
+  {
+    "id": "brinzolamide",
+    "ru": "Бринзоламид",
+    "en": "brinzolamide"
+  },
+  {
+    "id": "brintellix",
+    "ru": "Бринтелликс",
+    "en": "Brintellix"
+  },
+  {
+    "id": "brodalumab",
+    "ru": "Бродалумаб",
+    "en": "brodalumab"
+  },
+  {
+    "id": "bromhexine",
+    "ru": "Бромгексин",
+    "en": "bromhexine"
+  },
+  {
+    "id": "bromelain",
+    "ru": "Бромелаин",
+    "en": "bromelain"
+  },
+  {
+    "id": "bromide",
+    "ru": "Бромиды",
+    "en": "bromide"
+  },
+  {
+    "id": "bromisoval",
+    "ru": "Бромизовал",
+    "en": "bromisoval"
+  },
+  {
+    "id": "bromocriptine",
+    "ru": "Бромокриптин",
+    "en": "bromocriptine"
+  },
+  {
+    "id": "bromopride",
+    "ru": "Бромоприд",
+    "en": "bromopride"
+  },
+  {
+    "id": "sulfobromophthalein",
+    "ru": "Бромсульфофталеин",
+    "en": "sulfobromophthalein"
+  },
+  {
+    "id": "bromfenac",
+    "ru": "Бромфенак",
+    "en": "bromfenac"
+  },
+  {
+    "id": "bronchomunal",
+    "ru": "Бронхомунал",
+    "en": "Bronchomunal"
+  },
+  {
+    "id": "budesonide",
+    "ru": "Будесонид",
+    "en": "budesonide"
+  },
+  {
+    "id": "budipine",
+    "ru": "Будипин",
+    "en": "budipine"
+  },
+  {
+    "id": "bumetanide",
+    "ru": "Буметанид",
+    "en": "bumetanide"
+  },
+  {
+    "id": "bupivacaine_rs",
+    "ru": "Бупивакаин",
+    "en": "bupivacaine-(RS)"
+  },
+  {
+    "id": "buprenorphine",
+    "ru": "Бупренорфин",
+    "en": "buprenorphine"
+  },
+  {
+    "id": "bupropion",
+    "ru": "Бупропион",
+    "en": "bupropion"
+  },
+  {
+    "id": "buspirone",
+    "ru": "Буспирон",
+    "en": "buspirone"
+  },
+  {
+    "id": "busulfan",
+    "ru": "Бусульфан",
+    "en": "busulfan"
+  },
+  {
+    "id": "butamirate",
+    "ru": "Бутамират",
+    "en": "butamirate"
+  },
+  {
+    "id": "butyroxan",
+    "ru": "Бутироксан",
+    "en": "butyroxan"
+  },
+  {
+    "id": "butorphanol",
+    "ru": "Буторфанол",
+    "en": "butorphanol"
+  },
+  {
+    "id": "bufexamac",
+    "ru": "Буфексамак",
+    "en": "bufexamac"
+  },
+  {
+    "id": "bcg_vaccine",
+    "ru": "БЦЖ",
+    "en": "BCG vaccine"
+  },
+  {
+    "id": "liquid_paraffin",
+    "ru": "Вазелиновое масло",
+    "en": "liquid paraffin"
+  },
+  {
+    "id": "vasobral",
+    "ru": "Вазобрал",
+    "en": "Vasobral"
+  },
+  {
+    "id": "vasodilator_agent",
+    "ru": "Вазодилататор",
+    "en": "vasodilator agent"
+  },
+  {
+    "id": "vaccine",
+    "ru": "Вакцина",
+    "en": "vaccine"
+  },
+  {
+    "id": "influenza_vaccine",
+    "ru": "Вакцина для профилактики гриппа",
+    "en": "influenza vaccine"
+  },
+  {
+    "id": "cholera_vaccine",
+    "ru": "Вакцина от холеры",
+    "en": "cholera vaccine"
+  },
+  {
+    "id": "covid_19_vaccine",
+    "ru": "Вакцина против COVID-19",
+    "en": "COVID-19 vaccine"
+  },
+  {
+    "id": "rabies_vaccine",
+    "ru": "Вакцина против вируса бешенства",
+    "en": "rabies vaccine"
+  },
+  {
+    "id": "hepatitis_b_vaccine",
+    "ru": "Вакцина против вируса гепатита B",
+    "en": "Hepatitis B vaccine"
+  },
+  {
+    "id": "hpv_vaccine",
+    "ru": "Вакцина против вируса папилломы человека",
+    "en": "HPV vaccine"
+  },
+  {
+    "id": "hepatitis_a_vaccine",
+    "ru": "Вакцина против гепатита A",
+    "en": "hepatitis A vaccine"
+  },
+  {
+    "id": "measles_vaccine",
+    "ru": "Вакцина против кори",
+    "en": "measles vaccine"
+  },
+  {
+    "id": "smallpox_vaccine",
+    "ru": "Вакцина против оспы",
+    "en": "smallpox vaccine"
+  },
+  {
+    "id": "mumps_vaccine",
+    "ru": "Вакцина против паротита",
+    "en": "mumps vaccine"
+  },
+  {
+    "id": "pneumococcal_vaccine",
+    "ru": "Вакцина против пневмококка",
+    "en": "pneumococcal vaccine"
+  },
+  {
+    "id": "polio_vaccine",
+    "ru": "Вакцина против полиомиелита",
+    "en": "polio vaccine"
+  },
+  {
+    "id": "tetanus_vaccine",
+    "ru": "Вакцина против столбняка",
+    "en": "tetanus vaccine"
+  },
+  {
+    "id": "tuberculosis_vaccines",
+    "ru": "Вакцина против туберкулёза",
+    "en": "tuberculosis vaccines"
+  },
+  {
+    "id": "viral_hepatitis_vaccines",
+    "ru": "Вакцины против вирусного гепатита",
+    "en": "viral hepatitis vaccines"
+  },
+  {
+    "id": "valacyclovir",
+    "ru": "Валацикловир",
+    "en": "valacyclovir"
+  },
+  {
+    "id": "valbenazine",
+    "ru": "Валбеназин",
+    "en": "valbenazine"
+  },
+  {
+    "id": "valdecoxib",
+    "ru": "Валдекоксиб",
+    "en": "valdecoxib"
+  },
+  {
+    "id": "valerian",
+    "ru": "Валерьяна",
+    "en": "Valerian"
+  },
+  {
+    "id": "validol",
+    "ru": "Валидол",
+    "en": "validol"
+  },
+  {
+    "id": "valpromide",
+    "ru": "Валпромид",
+    "en": "Valpromide"
+  },
+  {
+    "id": "valsartan",
+    "ru": "Валсартан",
+    "en": "Valsartan"
+  },
+  {
+    "id": "valdoxan",
+    "ru": "Вальдоксан",
+    "en": "Valdoxan"
+  },
+  {
+    "id": "valproic_acid",
+    "ru": "Вальпроевая кислота",
+    "en": "valproic acid"
+  },
+  {
+    "id": "valsartan_2",
+    "ru": "Вальсартан",
+    "en": "valsartan"
+  },
+  {
+    "id": "valtrex",
+    "ru": "Вальтрекс",
+    "en": "Valtrex"
+  },
+  {
+    "id": "vancomycin",
+    "ru": "Ванкомицин",
+    "en": "vancomycin"
+  },
+  {
+    "id": "vardenafil",
+    "ru": "Варденафил",
+    "en": "vardenafil"
+  },
+  {
+    "id": "varenicline",
+    "ru": "Варениклин",
+    "en": "varenicline"
+  },
+  {
+    "id": "rac_warfarin",
+    "ru": "Варфарин",
+    "en": "rac-warfarin"
+  },
+  {
+    "id": "vecuronium",
+    "ru": "Векурония",
+    "en": "vecuronium"
+  },
+  {
+    "id": "sofosbuvir_velpatasvir",
+    "ru": "Велпатасвир/Софосбувир",
+    "en": "sofosbuvir/velpatasvir"
+  },
+  {
+    "id": "vemurafenib",
+    "ru": "Вемурафениб",
+    "en": "vemurafenib"
+  },
+  {
+    "id": "venarus",
+    "ru": "Венарус",
+    "en": "Venarus"
+  },
+  {
+    "id": "venetoclax",
+    "ru": "Венетоклакс",
+    "en": "venetoclax"
+  },
+  {
+    "id": "venlafaxine",
+    "ru": "Венлафаксин",
+    "en": "venlafaxine"
+  },
+  {
+    "id": "ventolin",
+    "ru": "Вентолин",
+    "en": "Ventolin"
+  },
+  {
+    "id": "verapamil",
+    "ru": "Верапамил",
+    "en": "verapamil"
+  },
+  {
+    "id": "veroshpiron",
+    "ru": "Верошпирон",
+    "en": "Veroshpiron"
+  },
+  {
+    "id": "versatis",
+    "ru": "Версатис",
+    "en": "Versatis"
+  },
+  {
+    "id": "vestronidase_alfa",
+    "ru": "Вестронидаза альфа",
+    "en": "vestronidase alfa"
+  },
+  {
+    "id": "viagra",
+    "ru": "Виагра",
+    "en": "Viagra"
+  },
+  {
+    "id": "vibrocil",
+    "ru": "Виброцил",
+    "en": "Vibrocil"
+  },
+  {
+    "id": "visanne",
+    "ru": "Визанна",
+    "en": "Visanne"
+  },
+  {
+    "id": "visine",
+    "ru": "Визин",
+    "en": "Visine"
+  },
+  {
+    "id": "victoza",
+    "ru": "Виктоза",
+    "en": "Victoza"
+  },
+  {
+    "id": "vildagliptin",
+    "ru": "Вилдаглиптин",
+    "en": "vildagliptin"
+  },
+  {
+    "id": "vilprafen",
+    "ru": "Вильпрафен",
+    "en": "Vilprafen"
+  },
+  {
+    "id": "vinblastine",
+    "ru": "Винбластин",
+    "en": "vinblastine"
+  },
+  {
+    "id": "vindesine",
+    "ru": "Виндесин",
+    "en": "vindesine"
+  },
+  {
+    "id": "vincamine",
+    "ru": "Винкамин",
+    "en": "vincamine"
+  },
+  {
+    "id": "vincristine",
+    "ru": "Винкристин",
+    "en": "vincristine"
+  },
+  {
+    "id": "potassium_hydrogen_tartrate",
+    "ru": "Винный камень",
+    "en": "potassium hydrogen tartrate"
+  },
+  {
+    "id": "vinorelbine",
+    "ru": "Винорелбин",
+    "en": "vinorelbine"
+  },
+  {
+    "id": "vinpocetine",
+    "ru": "Винпоцетин",
+    "en": "vinpocetine"
+  },
+  {
+    "id": "clioquinol",
+    "ru": "Виоформ",
+    "en": "clioquinol"
+  },
+  {
+    "id": "vipidia",
+    "ru": "Випидия",
+    "en": "Vipidia"
+  },
+  {
+    "id": "viral_vaccines",
+    "ru": "Вирусные вакцины",
+    "en": "viral vaccines"
+  },
+  {
+    "id": "bismuth_subcitrate",
+    "ru": "Висмута трикалия дицитрат",
+    "en": "bismuth subcitrate"
+  },
+  {
+    "id": "vitamin_a",
+    "ru": "Витамин A",
+    "en": "Vitamin A"
+  },
+  {
+    "id": "vitamin_b12",
+    "ru": "Витамин B12",
+    "en": "vitamin B12"
+  },
+  {
+    "id": "vitamin_b6",
+    "ru": "Витамин B6",
+    "en": "Vitamin B6"
+  },
+  {
+    "id": "vitamin_c",
+    "ru": "Витамин C",
+    "en": "vitamin C"
+  },
+  {
+    "id": "vitamin_d",
+    "ru": "Витамин D",
+    "en": "vitamin D"
+  },
+  {
+    "id": "vitamin_d3",
+    "ru": "Витамин D3",
+    "en": "Vitamin D3"
+  },
+  {
+    "id": "vitamin_e",
+    "ru": "Витамин E",
+    "en": "vitamin E"
+  },
+  {
+    "id": "vitamin_k",
+    "ru": "Витамин K",
+    "en": "Vitamin K"
+  },
+  {
+    "id": "vitamin_a_2",
+    "ru": "Витамин А",
+    "en": "vitamin A"
+  },
+  {
+    "id": "vitrum",
+    "ru": "Витрум",
+    "en": "Vitrum"
+  },
+  {
+    "id": "vitrum_prenatal",
+    "ru": "Витрум Пренатал",
+    "en": "Vitrum Prenatal"
+  },
+  {
+    "id": "viferon",
+    "ru": "Виферон",
+    "en": "Viferon"
+  },
+  {
+    "id": "intrauterine_device",
+    "ru": "Внутриматочная спираль",
+    "en": "intrauterine device"
+  },
+  {
+    "id": "voglibose",
+    "ru": "Воглибозе",
+    "en": "voglibose"
+  },
+  {
+    "id": "voltaren",
+    "ru": "Вольтарен",
+    "en": "Voltaren"
+  },
+  {
+    "id": "voriconazole",
+    "ru": "Вориконазол",
+    "en": "voriconazole"
+  },
+  {
+    "id": "vorinostat",
+    "ru": "Вориностат",
+    "en": "vorinostat"
+  },
+  {
+    "id": "vortioxetine",
+    "ru": "Вортиоксетин",
+    "en": "vortioxetine"
+  },
+  {
+    "id": "gabapentin",
+    "ru": "Габапентин",
+    "en": "gabapentin"
+  },
+  {
+    "id": "gaviscon",
+    "ru": "Гавискон",
+    "en": "Gaviscon"
+  },
+  {
+    "id": "gadodiamide_hydrate",
+    "ru": "Гадодиамид",
+    "en": "gadodiamide hydrate"
+  },
+  {
+    "id": "galactose",
+    "ru": "Галактоза",
+    "en": "galactose"
+  },
+  {
+    "id": "galantamine",
+    "ru": "Галантамин",
+    "en": "galantamine"
+  },
+  {
+    "id": "haloperidol",
+    "ru": "Галоперидол",
+    "en": "haloperidol"
+  },
+  {
+    "id": "halothane",
+    "ru": "Галотан",
+    "en": "halothane"
+  },
+  {
+    "id": "aminobutyric_acid",
+    "ru": "Гамма-аминомасляная кислота",
+    "en": "γ-aminobutyric acid"
+  },
+  {
+    "id": "ganciclovir",
+    "ru": "Ганцикловир",
+    "en": "ganciclovir"
+  },
+  {
+    "id": "gardasil",
+    "ru": "Гардасил",
+    "en": "Gardasil"
+  },
+  {
+    "id": "guaiazulene",
+    "ru": "Гвайазулен",
+    "en": "guaiazulene"
+  },
+  {
+    "id": "guaifenesin",
+    "ru": "Гвайфенезин",
+    "en": "guaifenesin"
+  },
+  {
+    "id": "methenamine",
+    "ru": "Гексаметилентетрамин",
+    "en": "methenamine"
+  },
+  {
+    "id": "4_hexylresorcinol",
+    "ru": "Гексилрезорцин",
+    "en": "4-hexylresorcinol"
+  },
+  {
+    "id": "hexobarbital",
+    "ru": "Гексобарбитал",
+    "en": "hexobarbital"
+  },
+  {
+    "id": "hexoprenaline",
+    "ru": "Гексопреналин",
+    "en": "hexoprenaline"
+  },
+  {
+    "id": "hexetidine",
+    "ru": "Гексорал",
+    "en": "hexetidine"
+  },
+  {
+    "id": "helium",
+    "ru": "Гелий",
+    "en": "helium"
+  },
+  {
+    "id": "hematogen",
+    "ru": "Гематоген",
+    "en": "hematogen"
+  },
+  {
+    "id": "gemeprost",
+    "ru": "Гемепрост",
+    "en": "gemeprost"
+  },
+  {
+    "id": "clomethiazole",
+    "ru": "Геминейрин",
+    "en": "clomethiazole"
+  },
+  {
+    "id": "gemifloxacin",
+    "ru": "Гемифлоксацин",
+    "en": "gemifloxacin"
+  },
+  {
+    "id": "gemtuzumab_ozogamicin",
+    "ru": "Гемтузумаб озогамицин",
+    "en": "gemtuzumab ozogamicin"
+  },
+  {
+    "id": "gemfibrozil",
+    "ru": "Гемфиброзил",
+    "en": "gemfibrozil"
+  },
+  {
+    "id": "gemcitabine",
+    "ru": "Гемцитабин",
+    "en": "gemcitabine"
+  },
+  {
+    "id": "gentamicin",
+    "ru": "Гентамицин",
+    "en": "gentamicin"
+  },
+  {
+    "id": "heparin",
+    "ru": "Гепарин",
+    "en": "heparin"
+  },
+  {
+    "id": "hepatyrix",
+    "ru": "Гепатирикс",
+    "en": "Hepatyrix"
+  },
+  {
+    "id": "heptral",
+    "ru": "Гептрал",
+    "en": "Heptral"
+  },
+  {
+    "id": "heroin",
+    "ru": "Героин",
+    "en": "heroin"
+  },
+  {
+    "id": "herceptin",
+    "ru": "Герцептин",
+    "en": "Herceptin"
+  },
+  {
+    "id": "gestrinone",
+    "ru": "Гестринон",
+    "en": "gestrinone"
+  },
+  {
+    "id": "gefitinib",
+    "ru": "Гефитиниб",
+    "en": "gefitinib"
+  },
+  {
+    "id": "hyaluronan_sodium",
+    "ru": "Гиалуронат натрия",
+    "en": "Hyaluronan sodium"
+  },
+  {
+    "id": "hydralazine",
+    "ru": "Гидралазин",
+    "en": "hydralazine"
+  },
+  {
+    "id": "potassium_hydrogen_carbonate",
+    "ru": "Гидрокарбонат калия",
+    "en": "potassium hydrogen carbonate"
+  },
+  {
+    "id": "sodium_bicarbonate",
+    "ru": "Гидрокарбонат натрия",
+    "en": "sodium bicarbonate"
+  },
+  {
+    "id": "hydrocodone",
+    "ru": "Гидрокодон",
+    "en": "hydrocodone"
+  },
+  {
+    "id": "aluminum_hydroxide",
+    "ru": "Гидроксид алюминия",
+    "en": "aluminum hydroxide"
+  },
+  {
+    "id": "iron_iii_hydroxide",
+    "ru": "Гидроксид железа(III)",
+    "en": "iron(III) hydroxide"
+  },
+  {
+    "id": "magnesium_hydroxide",
+    "ru": "Гидроксид магния",
+    "en": "magnesium hydroxide"
+  },
+  {
+    "id": "rs_hydroxyzine",
+    "ru": "Гидроксизин",
+    "en": "(RS)-hydroxyzine"
+  },
+  {
+    "id": "hydroxycarbamide",
+    "ru": "Гидроксикарбамид",
+    "en": "hydroxycarbamide"
+  },
+  {
+    "id": "hydroxychloroquine",
+    "ru": "Гидроксихлорохин",
+    "en": "hydroxychloroquine"
+  },
+  {
+    "id": "hydroxyethyl_starch",
+    "ru": "Гидроксиэтилкрахмал",
+    "en": "hydroxyethyl starch"
+  },
+  {
+    "id": "hydroxocobalamin",
+    "ru": "Гидроксокобаламин",
+    "en": "hydroxocobalamin"
+  },
+  {
+    "id": "aluminium_chlorohydrate",
+    "ru": "Гидроксохлорид алюминия",
+    "en": "aluminium chlorohydrate"
+  },
+  {
+    "id": "hydromorphone",
+    "ru": "Гидроморфон",
+    "en": "hydromorphone"
+  },
+  {
+    "id": "hydroquinone",
+    "ru": "Гидрохинон",
+    "en": "hydroquinone"
+  },
+  {
+    "id": "hydrochlorothiazide",
+    "ru": "Гидрохлоротиазид",
+    "en": "hydrochlorothiazide"
+  },
+  {
+    "id": "ginkgo_biloba",
+    "ru": "Гинкго Билоба",
+    "en": "Ginkgo Biloba"
+  },
+  {
+    "id": "gyno_tardyferon",
+    "ru": "Гино-Тардиферон",
+    "en": "Gyno-Tardyferon"
+  },
+  {
+    "id": "gyno_tardyferon_b9",
+    "ru": "Гино-Тардиферон B9",
+    "en": "Gyno-Tardyferon B9"
+  },
+  {
+    "id": "hyoscyamine",
+    "ru": "Гиосциамин",
+    "en": "hyoscyamine"
+  },
+  {
+    "id": "hypothiazide",
+    "ru": "Гипотиазид",
+    "en": "Hypothiazide"
+  },
+  {
+    "id": "sodium_hypochlorite",
+    "ru": "Гипохлорит натрия",
+    "en": "sodium hypochlorite"
+  },
+  {
+    "id": "histaglobulin",
+    "ru": "Гистаглобулин",
+    "en": "histaglobulin"
+  },
+  {
+    "id": "glyburide",
+    "ru": "Глибенкламид",
+    "en": "glyburide"
+  },
+  {
+    "id": "gleevec",
+    "ru": "Гливек",
+    "en": "Gleevec"
+  },
+  {
+    "id": "gliclazide",
+    "ru": "Гликлазид",
+    "en": "gliclazide"
+  },
+  {
+    "id": "glycopeptide_antibiotic",
+    "ru": "Гликопептидные антибиотики",
+    "en": "glycopeptide antibiotic"
+  },
+  {
+    "id": "glimepiride",
+    "ru": "Глимепирид",
+    "en": "glimepiride"
+  },
+  {
+    "id": "glipizide",
+    "ru": "Глипизид",
+    "en": "glipizide"
+  },
+  {
+    "id": "dipeptidyl_peptidase_4_inhibitors",
+    "ru": "Глиптины",
+    "en": "dipeptidyl peptidase-4 inhibitors"
+  },
+  {
+    "id": "anthelmintic",
+    "ru": "Глистогонные средства",
+    "en": "anthelmintic"
+  },
+  {
+    "id": "gliflozins",
+    "ru": "Глифлозины",
+    "en": "gliflozins"
+  },
+  {
+    "id": "glycerol",
+    "ru": "Глицерин",
+    "en": "glycerol"
+  },
+  {
+    "id": "calcium_2_glycerophosphate",
+    "ru": "Глицерофосфат кальция",
+    "en": "calcium 2-glycerophosphate"
+  },
+  {
+    "id": "glycine",
+    "ru": "Глицин",
+    "en": "glycine"
+  },
+  {
+    "id": "glycyrrhizin",
+    "ru": "Глицирризиновая кислота",
+    "en": "glycyrrhizin"
+  },
+  {
+    "id": "l_glutamine",
+    "ru": "Глутамин",
+    "en": "L-glutamine"
+  },
+  {
+    "id": "glutathione",
+    "ru": "Глутатион",
+    "en": "glutathione"
+  },
+  {
+    "id": "glucagon",
+    "ru": "Глюкагон",
+    "en": "glucagon"
+  },
+  {
+    "id": "glucagon_like_peptide_1",
+    "ru": "Глюкагоноподобный пептид-1",
+    "en": "glucagon-like peptide-1"
+  },
+  {
+    "id": "glucose",
+    "ru": "Глюкоза",
+    "en": "glucose"
+  },
+  {
+    "id": "d_glucosamine",
+    "ru": "Глюкозамин",
+    "en": "D-glucosamine"
+  },
+  {
+    "id": "glucocorticoid",
+    "ru": "Глюкокортикоид",
+    "en": "glucocorticoid"
+  },
+  {
+    "id": "calcium_gluconate",
+    "ru": "Глюконат кальция",
+    "en": "calcium gluconate"
+  },
+  {
+    "id": "glucophage",
+    "ru": "Глюкофаж",
+    "en": "Glucophage"
+  },
+  {
+    "id": "calcium_gluceptate",
+    "ru": "Глюцептат кальция",
+    "en": "calcium gluceptate"
+  },
+  {
+    "id": "golimumab",
+    "ru": "Голимумаб",
+    "en": "golimumab"
+  },
+  {
+    "id": "homatropine",
+    "ru": "Гоматропин",
+    "en": "homatropine"
+  },
+  {
+    "id": "gonadotropins",
+    "ru": "Гонадотропные гормоны",
+    "en": "gonadotropins"
+  },
+  {
+    "id": "gonal_f",
+    "ru": "Гонал-Ф",
+    "en": "Gonal-F"
+  },
+  {
+    "id": "hypothalamic_hormones",
+    "ru": "Гормоны гипоталамуса",
+    "en": "hypothalamic hormones"
+  },
+  {
+    "id": "gramicidin_d",
+    "ru": "Грамицидин",
+    "en": "gramicidin D"
+  },
+  {
+    "id": "grammidin",
+    "ru": "Граммидин",
+    "en": "Grammidin"
+  },
+  {
+    "id": "grandaxin",
+    "ru": "Грандаксин",
+    "en": "Grandaxin"
+  },
+  {
+    "id": "griseofulvin",
+    "ru": "Гризеофульвин",
+    "en": "Griseofulvin"
+  },
+  {
+    "id": "guanethidine",
+    "ru": "Гуанетидин",
+    "en": "guanethidine"
+  },
+  {
+    "id": "guanfacine",
+    "ru": "Гуанфацин",
+    "en": "guanfacine"
+  },
+  {
+    "id": "guar_gum",
+    "ru": "Гуаровая камедь",
+    "en": "guar gum"
+  },
+  {
+    "id": "guselkumab",
+    "ru": "Гуселькумаб",
+    "en": "guselkumab"
+  },
+  {
+    "id": "sodium_picosulfate",
+    "ru": "Гутталакс",
+    "en": "sodium picosulfate"
+  },
+  {
+    "id": "dabrafenib",
+    "ru": "Дабрафениб",
+    "en": "dabrafenib"
+  },
+  {
+    "id": "dasatinib",
+    "ru": "Дазатиниб",
+    "en": "dasatinib"
+  },
+  {
+    "id": "dacarbazine",
+    "ru": "Дакарбазин",
+    "en": "dacarbazine"
+  },
+  {
+    "id": "daclatasvir",
+    "ru": "Даклатасвир",
+    "en": "daclatasvir"
+  },
+  {
+    "id": "daclizumab",
+    "ru": "Даклизумаб",
+    "en": "daclizumab"
+  },
+  {
+    "id": "actinomycin",
+    "ru": "Дактиномицин",
+    "en": "actinomycin"
+  },
+  {
+    "id": "dalacin",
+    "ru": "Далацин",
+    "en": "Dalacin"
+  },
+  {
+    "id": "dalbavancin",
+    "ru": "Далбаванцин",
+    "en": "dalbavancin"
+  },
+  {
+    "id": "dalteparin",
+    "ru": "Далтепарин натрия",
+    "en": "dalteparin"
+  },
+  {
+    "id": "danazol",
+    "ru": "Даназол",
+    "en": "danazol"
+  },
+  {
+    "id": "dantrolene",
+    "ru": "Дантролен",
+    "en": "dantrolene"
+  },
+  {
+    "id": "dapagliflozin",
+    "ru": "Дапаглифлозин",
+    "en": "Dapagliflozin"
+  },
+  {
+    "id": "dapoxetine_2",
+    "ru": "Дапоксетин",
+    "en": "Dapoxetine"
+  },
+  {
+    "id": "dapsone",
+    "ru": "Дапсон",
+    "en": "dapsone"
+  },
+  {
+    "id": "2r_daptomycin",
+    "ru": "Даптомицин",
+    "en": "(2R)-daptomycin"
+  },
+  {
+    "id": "daratumumab",
+    "ru": "Даратумумаб",
+    "en": "daratumumab"
+  },
+  {
+    "id": "darunavir",
+    "ru": "Дарунавир",
+    "en": "darunavir"
+  },
+  {
+    "id": "dasabuvir",
+    "ru": "Дасабувир",
+    "en": "dasabuvir"
+  },
+  {
+    "id": "daunorubicin",
+    "ru": "Даунорубицин",
+    "en": "daunorubicin"
+  },
+  {
+    "id": "ddt",
+    "ru": "ДДТ",
+    "en": "DDT"
+  },
+  {
+    "id": "de_nol",
+    "ru": "Де-нол",
+    "en": "De-nol"
+  },
+  {
+    "id": "deserpidine",
+    "ru": "Дезерпидин",
+    "en": "deserpidine"
+  },
+  {
+    "id": "desipramine",
+    "ru": "Дезипрамин",
+    "en": "desipramine"
+  },
+  {
+    "id": "desloratadine",
+    "ru": "Дезлоратадин",
+    "en": "desloratadine"
+  },
+  {
+    "id": "deoxycorticosterone",
+    "ru": "Дезоксикортикостерон",
+    "en": "deoxycorticosterone"
+  },
+  {
+    "id": "deoxycholic_acid",
+    "ru": "Дезоксихолевая кислота",
+    "en": "deoxycholic acid"
+  },
+  {
+    "id": "dexamethasone",
+    "ru": "Дексаметазон",
+    "en": "dexamethasone"
+  },
+  {
+    "id": "dextroamphetamine",
+    "ru": "Дексамфетамин",
+    "en": "dextroamphetamine"
+  },
+  {
+    "id": "dexetimide",
+    "ru": "Дексетимид",
+    "en": "dexetimide"
+  },
+  {
+    "id": "dexketoprofen",
+    "ru": "Декскетопрофен",
+    "en": "dexketoprofen"
+  },
+  {
+    "id": "dexmedetomidine",
+    "ru": "Дексмедетомидин",
+    "en": "dexmedetomidine"
+  },
+  {
+    "id": "dexmethylphenidate",
+    "ru": "Дексметилфенидат",
+    "en": "dexmethylphenidate"
+  },
+  {
+    "id": "dexpanthenol",
+    "ru": "Декспантенол",
+    "en": "dexpanthenol"
+  },
+  {
+    "id": "dextromethorphan",
+    "ru": "Декстрометорфан",
+    "en": "dextromethorphan"
+  },
+  {
+    "id": "dextromoramide",
+    "ru": "Декстроморамид",
+    "en": "dextromoramide"
+  },
+  {
+    "id": "dextropropoxyphene",
+    "ru": "Декстропропоксифен",
+    "en": "dextropropoxyphene"
+  },
+  {
+    "id": "delavirdine",
+    "ru": "Делавирдин",
+    "en": "delavirdine"
+  },
+  {
+    "id": "delafloxacin",
+    "ru": "Делафлоксацин",
+    "en": "delafloxacin"
+  },
+  {
+    "id": "deltamethrin",
+    "ru": "Дельтаметрин",
+    "en": "deltamethrin"
+  },
+  {
+    "id": "depakine",
+    "ru": "Депакин",
+    "en": "Depakine"
+  },
+  {
+    "id": "deprenyl",
+    "ru": "Депренил",
+    "en": "(±)-deprenyl"
+  },
+  {
+    "id": "depressant",
+    "ru": "Депрессант",
+    "en": "depressant"
+  },
+  {
+    "id": "derinat",
+    "ru": "Деринат",
+    "en": "Derinat"
+  },
+  {
+    "id": "dermatan_sulfate",
+    "ru": "Дерматансульфат",
+    "en": "dermatan sulfate"
+  },
+  {
+    "id": "desmopressin",
+    "ru": "Десмопрессин",
+    "en": "desmopressin"
+  },
+  {
+    "id": "desflurane",
+    "ru": "Десфлуран",
+    "en": "desflurane"
+  },
+  {
+    "id": "detralex",
+    "ru": "Детралекс",
+    "en": "Detralex"
+  },
+  {
+    "id": "deferasirox",
+    "ru": "Деферазирокс",
+    "en": "deferasirox"
+  },
+  {
+    "id": "jardiance",
+    "ru": "Джардинс",
+    "en": "Jardiance"
+  },
+  {
+    "id": "jess",
+    "ru": "Джес",
+    "en": "Jess"
+  },
+  {
+    "id": "josamycin",
+    "ru": "Джозамицин",
+    "en": "josamycin"
+  },
+  {
+    "id": "diazepam",
+    "ru": "Диазепам",
+    "en": "diazepam"
+  },
+  {
+    "id": "diazoxide",
+    "ru": "Диазоксид",
+    "en": "diazoxide"
+  },
+  {
+    "id": "diastase",
+    "ru": "Диастаза",
+    "en": "diastase"
+  },
+  {
+    "id": "diacerein",
+    "ru": "Диацереин",
+    "en": "diacerein"
+  },
+  {
+    "id": "dibutyl_phthalate",
+    "ru": "Дибутилфталат",
+    "en": "dibutyl phthalate"
+  },
+  {
+    "id": "divigel",
+    "ru": "Дивигель",
+    "en": "Divigel"
+  },
+  {
+    "id": "dihydrocodeine",
+    "ru": "Дигидрокодеин",
+    "en": "dihydrocodeine"
+  },
+  {
+    "id": "dihydrotachysterol",
+    "ru": "Дигидротахистерол",
+    "en": "dihydrotachysterol"
+  },
+  {
+    "id": "dihydrotestosterone",
+    "ru": "Дигидротестостерон",
+    "en": "dihydrotestosterone"
+  },
+  {
+    "id": "dihydroergotamine",
+    "ru": "Дигидроэрготамин",
+    "en": "dihydroergotamine"
+  },
+  {
+    "id": "ergoloid_mesylate",
+    "ru": "Дигидроэрготоксин",
+    "en": "ergoloid mesylate"
+  },
+  {
+    "id": "digitoxin",
+    "ru": "Дигитоксин",
+    "en": "digitoxin"
+  },
+  {
+    "id": "digoxin",
+    "ru": "Дигоксин",
+    "en": "digoxin"
+  },
+  {
+    "id": "dydrogesterone",
+    "ru": "Дидрогестерон",
+    "en": "dydrogesterone"
+  },
+  {
+    "id": "dienogest",
+    "ru": "Диеногест",
+    "en": "dienogest"
+  },
+  {
+    "id": "isoflurophate",
+    "ru": "Диизопропилфторфосфат",
+    "en": "isoflurophate"
+  },
+  {
+    "id": "diclofenac",
+    "ru": "Диклофенак",
+    "en": "Diclofenac"
+  },
+  {
+    "id": "dicumarol",
+    "ru": "Дикумарин",
+    "en": "dicumarol"
+  },
+  {
+    "id": "diltiazem",
+    "ru": "Дилтиазем",
+    "en": "diltiazem"
+  },
+  {
+    "id": "dimercaprol",
+    "ru": "Димеркапрол",
+    "en": "dimercaprol"
+  },
+  {
+    "id": "deanol",
+    "ru": "Диметиламиноэтанол",
+    "en": "deanol"
+  },
+  {
+    "id": "dimethyl_sulfoxide",
+    "ru": "Диметилсульфоксид",
+    "en": "dimethyl sulfoxide"
+  },
+  {
+    "id": "dimethyl_phthalate",
+    "ru": "Диметилфталат",
+    "en": "dimethyl phthalate"
+  },
+  {
+    "id": "dimethyl_fumarate",
+    "ru": "Диметилфумарат",
+    "en": "dimethyl fumarate"
+  },
+  {
+    "id": "sodium_folinate",
+    "ru": "Динатрия фолинат",
+    "en": "Sodium folinate"
+  },
+  {
+    "id": "dinutuximab",
+    "ru": "Динутуксимаб",
+    "en": "dinutuximab"
+  },
+  {
+    "id": "diovan",
+    "ru": "Диован",
+    "en": "Diovan"
+  },
+  {
+    "id": "diosmectite",
+    "ru": "Диосмектит",
+    "en": "Diosmectite"
+  },
+  {
+    "id": "diosmin",
+    "ru": "Диосмин",
+    "en": "diosmin"
+  },
+  {
+    "id": "dipyridamole",
+    "ru": "Дипиридамол",
+    "en": "dipyridamole"
+  },
+  {
+    "id": "diprospan",
+    "ru": "Дипроспан",
+    "en": "Diprospan"
+  },
+  {
+    "id": "dirithromycin",
+    "ru": "Диритромицин",
+    "en": "dirithromycin"
+  },
+  {
+    "id": "dysprosium",
+    "ru": "Диспрозий",
+    "en": "dysprosium"
+  },
+  {
+    "id": "distigmine_bromide",
+    "ru": "Дистигмина бромид",
+    "en": "distigmine bromide"
+  },
+  {
+    "id": "selenium_disulfide",
+    "ru": "Дисульфид селена",
+    "en": "selenium disulfide"
+  },
+  {
+    "id": "disulfiram",
+    "ru": "Дисульфирам",
+    "en": "disulfiram"
+  },
+  {
+    "id": "nitrendipine",
+    "ru": "Дитирозин",
+    "en": "nitrendipine"
+  },
+  {
+    "id": "diuretic",
+    "ru": "Диуретик",
+    "en": "diuretic"
+  },
+  {
+    "id": "diphenhydramine",
+    "ru": "Дифенгидрамин",
+    "en": "diphenhydramine"
+  },
+  {
+    "id": "difenoxin",
+    "ru": "Дифеноксин",
+    "en": "difenoxin"
+  },
+  {
+    "id": "diflunisal",
+    "ru": "Дифлунисал",
+    "en": "diflunisal"
+  },
+  {
+    "id": "diflucan",
+    "ru": "Дифлюкан",
+    "en": "Diflucan"
+  },
+  {
+    "id": "differin",
+    "ru": "Дифферин",
+    "en": "Differin"
+  },
+  {
+    "id": "dicyclomine",
+    "ru": "Дицикломин",
+    "en": "dicyclomine"
+  },
+  {
+    "id": "ethacizine",
+    "ru": "Диэтиламинопропионилэтоксикарбониламинофенотиазин",
+    "en": "ethacizine"
+  },
+  {
+    "id": "diethylstilbestrol",
+    "ru": "Диэтилстильбестрол",
+    "en": "diethylstilbestrol"
+  },
+  {
+    "id": "diethyltoluamide",
+    "ru": "Диэтилтолуамид",
+    "en": "diethyltoluamide"
+  },
+  {
+    "id": "rs_dobutamine",
+    "ru": "Добутамин",
+    "en": "(RS)-dobutamine"
+  },
+  {
+    "id": "perfluoropentane",
+    "ru": "Додекафторпентан",
+    "en": "perfluoropentane"
+  },
+  {
+    "id": "docosanol",
+    "ru": "Докозанол-1",
+    "en": "docosanol"
+  },
+  {
+    "id": "doxazosin",
+    "ru": "Доксазозин",
+    "en": "doxazosin"
+  },
+  {
+    "id": "e_z_doxepin",
+    "ru": "Доксепин",
+    "en": "(E/Z)-doxepin"
+  },
+  {
+    "id": "doxylamine",
+    "ru": "Доксиламин",
+    "en": "doxylamine"
+  },
+  {
+    "id": "doxycycline",
+    "ru": "Доксициклин",
+    "en": "doxycycline"
+  },
+  {
+    "id": "doxorubicin",
+    "ru": "Доксорубицин",
+    "en": "doxorubicin"
+  },
+  {
+    "id": "dolasetron",
+    "ru": "Доласетрон",
+    "en": "dolasetron"
+  },
+  {
+    "id": "dolutegravir",
+    "ru": "Долутегравир",
+    "en": "dolutegravir"
+  },
+  {
+    "id": "dolphin",
+    "ru": "Долфин",
+    "en": "Dolphin"
+  },
+  {
+    "id": "domperidone",
+    "ru": "Домперидон",
+    "en": "domperidone"
+  },
+  {
+    "id": "dona",
+    "ru": "Дона",
+    "en": "Dona"
+  },
+  {
+    "id": "donepezil",
+    "ru": "Донепезил",
+    "en": "donepezil"
+  },
+  {
+    "id": "donormyl",
+    "ru": "Донормил",
+    "en": "Donormyl"
+  },
+  {
+    "id": "doravirine",
+    "ru": "Доравирин",
+    "en": "doravirine"
+  },
+  {
+    "id": "dorzolamide",
+    "ru": "Дорзоламид",
+    "en": "dorzolamide"
+  },
+  {
+    "id": "dopamine",
+    "ru": "Дофамин",
+    "en": "dopamine"
+  },
+  {
+    "id": "dopamine_agonist",
+    "ru": "Дофаминомиметик",
+    "en": "dopamine agonist"
+  },
+  {
+    "id": "docetaxel",
+    "ru": "Доцетаксел",
+    "en": "docetaxel"
+  },
+  {
+    "id": "droperidol",
+    "ru": "Дроперидол",
+    "en": "droperidol"
+  },
+  {
+    "id": "drotaverine",
+    "ru": "Дротаверин",
+    "en": "drotaverine"
+  },
+  {
+    "id": "dulaglutide",
+    "ru": "Дулаглутид",
+    "en": "Dulaglutide"
+  },
+  {
+    "id": "s_duloxetine",
+    "ru": "Дулоксетин",
+    "en": "(S)-duloxetine"
+  },
+  {
+    "id": "duotrav",
+    "ru": "Дуотрав",
+    "en": "DuoTrav"
+  },
+  {
+    "id": "dupixent",
+    "ru": "Дупиксент",
+    "en": "Dupixent"
+  },
+  {
+    "id": "dupilumab",
+    "ru": "Дупилумаб",
+    "en": "dupilumab"
+  },
+  {
+    "id": "dutasteride_2",
+    "ru": "Дутастерид",
+    "en": "Dutasteride"
+  },
+  {
+    "id": "duspatalin",
+    "ru": "Дюспаталин",
+    "en": "Duspatalin"
+  },
+  {
+    "id": "duphalac",
+    "ru": "Дюфалак",
+    "en": "Duphalac"
+  },
+  {
+    "id": "duphaston",
+    "ru": "Дюфастон",
+    "en": "Duphaston"
+  },
+  {
+    "id": "janine",
+    "ru": "Жанин",
+    "en": "Janine"
+  },
+  {
+    "id": "gelatin",
+    "ru": "Желатин",
+    "en": "gelatin"
+  },
+  {
+    "id": "iron_ii_gluconate",
+    "ru": "Железа глюконат",
+    "en": "iron(II) gluconate"
+  },
+  {
+    "id": "iron",
+    "ru": "Железо",
+    "en": "Iron"
+  },
+  {
+    "id": "ginseng",
+    "ru": "Женьшень",
+    "en": "Ginseng"
+  },
+  {
+    "id": "cod_liver_oil",
+    "ru": "Жир печени трески",
+    "en": "cod liver oil"
+  },
+  {
+    "id": "zaleplon",
+    "ru": "Залеплон",
+    "en": "zaleplon"
+  },
+  {
+    "id": "milk_substitute",
+    "ru": "Заменитель молока",
+    "en": "milk substitute"
+  },
+  {
+    "id": "zanamivir",
+    "ru": "Занамивир",
+    "en": "zanamivir"
+  },
+  {
+    "id": "zantac",
+    "ru": "Зантак",
+    "en": "Zantac"
+  },
+  {
+    "id": "zafirlukast",
+    "ru": "Зафирлукаст",
+    "en": "zafirlukast"
+  },
+  {
+    "id": "hypericum_perforatum",
+    "ru": "Зверобой продырявленный",
+    "en": "Hypericum perforatum"
+  },
+  {
+    "id": "zidovudine",
+    "ru": "Зидовудин",
+    "en": "zidovudine"
+  },
+  {
+    "id": "zimelidine",
+    "ru": "Зимелидин",
+    "en": "zimelidine"
+  },
+  {
+    "id": "zinerit",
+    "ru": "Зинерит",
+    "en": "Zinerit"
+  },
+  {
+    "id": "zinnat",
+    "ru": "Зиннат",
+    "en": "Zinnat"
+  },
+  {
+    "id": "ziprasidone",
+    "ru": "Зипрасидон",
+    "en": "ziprasidone"
+  },
+  {
+    "id": "zyrtec",
+    "ru": "Зиртек",
+    "en": "Zyrtec"
+  },
+  {
+    "id": "zovirax",
+    "ru": "Зовиракс",
+    "en": "Zovirax"
+  },
+  {
+    "id": "zoledronic_acid",
+    "ru": "Золедроновая кислота",
+    "en": "zoledronic acid"
+  },
+  {
+    "id": "zoloft",
+    "ru": "Золофт",
+    "en": "Zoloft"
+  },
+  {
+    "id": "zolpidem",
+    "ru": "Золпидем",
+    "en": "zolpidem"
+  },
+  {
+    "id": "zomepirac",
+    "ru": "Зомепирак",
+    "en": "zomepirac"
+  },
+  {
+    "id": "zopiclone",
+    "ru": "Зопиклон",
+    "en": "zopiclone"
+  },
+  {
+    "id": "zotepine",
+    "ru": "Зотепин",
+    "en": "zotepine"
+  },
+  {
+    "id": "zuclopenthixol",
+    "ru": "Зуклопентиксол",
+    "en": "zuclopenthixol"
+  },
+  {
+    "id": "ibalizumab",
+    "ru": "Ибализумаб",
+    "en": "ibalizumab"
+  },
+  {
+    "id": "ibandronic_acid",
+    "ru": "Ибандроновая кислота",
+    "en": "ibandronic acid"
+  },
+  {
+    "id": "ibrutinib",
+    "ru": "Ибрутиниб",
+    "en": "ibrutinib"
+  },
+  {
+    "id": "ibs",
+    "ru": "Ибс",
+    "en": "IBS"
+  },
+  {
+    "id": "ibuprofen",
+    "ru": "Ибупрофен",
+    "en": "ibuprofen"
+  },
+  {
+    "id": "ivabradine",
+    "ru": "Ивабрадин",
+    "en": "ivabradine"
+  },
+  {
+    "id": "ivermectin",
+    "ru": "Ивермектин",
+    "en": "ivermectin"
+  },
+  {
+    "id": "idarubicin",
+    "ru": "Идарубицин",
+    "en": "idarubicin"
+  },
+  {
+    "id": "idarucizumab",
+    "ru": "Идаруцизумаб",
+    "en": "Idarucizumab"
+  },
+  {
+    "id": "idebenone",
+    "ru": "Идебенон",
+    "en": "idebenone"
+  },
+  {
+    "id": "idelalisib",
+    "ru": "Иделалиcиб",
+    "en": "idelalisib"
+  },
+  {
+    "id": "idoxuridine",
+    "ru": "Идоксуридин",
+    "en": "idoxuridine"
+  },
+  {
+    "id": "n_pentyl_nitrite",
+    "ru": "Изоамилнитрит",
+    "en": "n-pentyl nitrite"
+  },
+  {
+    "id": "isocarboxazid",
+    "ru": "Изокарбоксазид",
+    "en": "isocarboxazid"
+  },
+  {
+    "id": "isoniazid",
+    "ru": "Изониазид",
+    "en": "isoniazid"
+  },
+  {
+    "id": "isoprenaline",
+    "ru": "Изопреналин",
+    "en": "isoprenaline"
+  },
+  {
+    "id": "isopropyl_alcohol",
+    "ru": "Изопропиловый спирт",
+    "en": "isopropyl alcohol"
+  },
+  {
+    "id": "isosorbide_dinitrate",
+    "ru": "Изосорбида динитрат",
+    "en": "isosorbide dinitrate"
+  },
+  {
+    "id": "isosorbide_mononitrate",
+    "ru": "Изосорбида мононитрат",
+    "en": "isosorbide mononitrate"
+  },
+  {
+    "id": "isotretinoin",
+    "ru": "Изотретиноин",
+    "en": "isotretinoin"
+  },
+  {
+    "id": "isoflurane",
+    "ru": "Изофлуран",
+    "en": "isoflurane"
+  },
+  {
+    "id": "isofra",
+    "ru": "Изофра",
+    "en": "Isofra"
+  },
+  {
+    "id": "icotinib",
+    "ru": "Икотиниб",
+    "en": "icotinib"
+  },
+  {
+    "id": "ixekizumab",
+    "ru": "Иксекизумаб",
+    "en": "ixekizumab"
+  },
+  {
+    "id": "iloperidone",
+    "ru": "Илоперидон",
+    "en": "iloperidone"
+  },
+  {
+    "id": "imatinib",
+    "ru": "Иматиниб",
+    "en": "imatinib"
+  },
+  {
+    "id": "imiglucerase",
+    "ru": "Имиглюцераза",
+    "en": "imiglucerase"
+  },
+  {
+    "id": "imipramine",
+    "ru": "Имипрамин",
+    "en": "imipramine"
+  },
+  {
+    "id": "immunal",
+    "ru": "Иммунал",
+    "en": "Immunal"
+  },
+  {
+    "id": "immunoglobulin",
+    "ru": "Иммуноглобулин",
+    "en": "immunoglobulin"
+  },
+  {
+    "id": "immunosuppressive_drug",
+    "ru": "Иммунодепрессант",
+    "en": "immunosuppressive drug"
+  },
+  {
+    "id": "immunostimulant",
+    "ru": "Иммуностимуляторы",
+    "en": "immunostimulant"
+  },
+  {
+    "id": "antiserum",
+    "ru": "Имунная сыворотка",
+    "en": "antiserum"
+  },
+  {
+    "id": "invega",
+    "ru": "Инвега",
+    "en": "Invega"
+  },
+  {
+    "id": "invert_sugar",
+    "ru": "Инвертный сахар",
+    "en": "invert sugar"
+  },
+  {
+    "id": "invokana",
+    "ru": "Инвокана",
+    "en": "Invokana"
+  },
+  {
+    "id": "ingavirin",
+    "ru": "Ингавирин",
+    "en": "Ingavirin"
+  },
+  {
+    "id": "indacaterol",
+    "ru": "Индакатерол",
+    "en": "Indacaterol"
+  },
+  {
+    "id": "indapamide",
+    "ru": "Индапамид",
+    "en": "indapamide"
+  },
+  {
+    "id": "indigotindisulfonate_sodium",
+    "ru": "Индигокармин",
+    "en": "indigotindisulfonate sodium"
+  },
+  {
+    "id": "indomethacin",
+    "ru": "Индометацин",
+    "en": "indomethacin"
+  },
+  {
+    "id": "inegy",
+    "ru": "Инеджи",
+    "en": "Inegy"
+  },
+  {
+    "id": "icatibant",
+    "ru": "Инкатибант",
+    "en": "icatibant"
+  },
+  {
+    "id": "inclisiran",
+    "ru": "Инклисиран",
+    "en": "inclisiran"
+  },
+  {
+    "id": "inosine",
+    "ru": "Инозин",
+    "en": "inosine"
+  },
+  {
+    "id": "inosine_pranobex",
+    "ru": "Инозин пранобекс",
+    "en": "inosine pranobex"
+  },
+  {
+    "id": "inositol",
+    "ru": "Инозитол",
+    "en": "inositol"
+  },
+  {
+    "id": "inotuzumab_ozogamicin",
+    "ru": "Инотузумаб озогамицин",
+    "en": "inotuzumab ozogamicin"
+  },
+  {
+    "id": "inspra",
+    "ru": "Инспра",
+    "en": "Inspra"
+  },
+  {
+    "id": "insulin",
+    "ru": "Инсулин",
+    "en": "Insulin"
+  },
+  {
+    "id": "insulin_glargine",
+    "ru": "Инсулин гларгин",
+    "en": "Insulin glargine"
+  },
+  {
+    "id": "insulin_degludec",
+    "ru": "Инсулин деглудек",
+    "en": "Insulin degludec"
+  },
+  {
+    "id": "insulin_detemir",
+    "ru": "Инсулин детемир",
+    "en": "Insulin detemir"
+  },
+  {
+    "id": "insulin_lispro",
+    "ru": "Инсулин Лиспро",
+    "en": "Insulin Lispro"
+  },
+  {
+    "id": "interleukins",
+    "ru": "Интерлейкины",
+    "en": "interleukins"
+  },
+  {
+    "id": "interferon",
+    "ru": "Интерферон",
+    "en": "interferon"
+  },
+  {
+    "id": "interferon_alfa_2b_recombinant",
+    "ru": "Интерферон альфа-2b",
+    "en": "interferon Alfa-2b, Recombinant"
+  },
+  {
+    "id": "interferon_beta_1a",
+    "ru": "Интерферон бета-1a",
+    "en": "interferon beta-1a"
+  },
+  {
+    "id": "infliximab",
+    "ru": "Инфликсимаб",
+    "en": "infliximab"
+  },
+  {
+    "id": "influvac",
+    "ru": "Инфлювак",
+    "en": "Influvac"
+  },
+  {
+    "id": "iron_ii_iodide",
+    "ru": "Иодид железа(II)",
+    "en": "iron(II) iodide"
+  },
+  {
+    "id": "potassium_iodide",
+    "ru": "Иодид калия",
+    "en": "potassium iodide"
+  },
+  {
+    "id": "mercury_ii_iodide",
+    "ru": "Иодид ртути(II)",
+    "en": "mercury(II) iodide"
+  },
+  {
+    "id": "iodoform",
+    "ru": "Иодоформ",
+    "en": "iodoform"
+  },
+  {
+    "id": "iopromide",
+    "ru": "Иопромид",
+    "en": "iopromide"
+  },
+  {
+    "id": "ioflupane_i_123",
+    "ru": "Иофлупан (123I)",
+    "en": "ioflupane I-123"
+  },
+  {
+    "id": "yohimbine",
+    "ru": "Иохимбин",
+    "en": "yohimbine"
+  },
+  {
+    "id": "ipidacrine",
+    "ru": "Ипидакрин",
+    "en": "ipidacrine"
+  },
+  {
+    "id": "ipilimumab",
+    "ru": "Ипилимумаб",
+    "en": "ipilimumab"
+  },
+  {
+    "id": "ipratropium",
+    "ru": "Ипратропий",
+    "en": "Ipratropium"
+  },
+  {
+    "id": "ipratropium_bromide",
+    "ru": "Ипратропия бромид",
+    "en": "ipratropium bromide"
+  },
+  {
+    "id": "iproniazid",
+    "ru": "Ипрониазид",
+    "en": "iproniazid"
+  },
+  {
+    "id": "irinotecan",
+    "ru": "Иринотекан",
+    "en": "irinotecan"
+  },
+  {
+    "id": "artificial_tears_2",
+    "ru": "Искусственная слеза",
+    "en": "Artificial tears"
+  },
+  {
+    "id": "itraconazole",
+    "ru": "Итраконазол",
+    "en": "itraconazole"
+  },
+  {
+    "id": "ifosfamide",
+    "ru": "Ифосфамид",
+    "en": "ifosfamide"
+  },
+  {
+    "id": "iod_aktiv",
+    "ru": "Йод-актив",
+    "en": "Iod-aktiv"
+  },
+  {
+    "id": "iodinolum",
+    "ru": "Йодинол",
+    "en": "Iodinolum"
+  },
+  {
+    "id": "ethiodized_oil",
+    "ru": "Йодолипол",
+    "en": "ethiodized oil"
+  },
+  {
+    "id": "iodomarin",
+    "ru": "Йодомарин",
+    "en": "Iodomarin"
+  },
+  {
+    "id": "cabergoline",
+    "ru": "Каберголин",
+    "en": "cabergoline"
+  },
+  {
+    "id": "kabiven",
+    "ru": "Кабивен",
+    "en": "Kabiven"
+  },
+  {
+    "id": "cavinton",
+    "ru": "Кавинтон",
+    "en": "Cavinton"
+  },
+  {
+    "id": "kagocel",
+    "ru": "Кагоцел",
+    "en": "Kagocel"
+  },
+  {
+    "id": "potassium",
+    "ru": "Калий",
+    "en": "potassium"
+  },
+  {
+    "id": "potassium_iodide_2",
+    "ru": "Калия йодид",
+    "en": "Potassium iodide"
+  },
+  {
+    "id": "calcium",
+    "ru": "Кальций",
+    "en": "Calcium"
+  },
+  {
+    "id": "calcium_d3_nycomed",
+    "ru": "Кальций Д3 Никомед",
+    "en": "Calcium D3 Nycomed"
+  },
+  {
+    "id": "calcium_d3_nycomed_2",
+    "ru": "Кальций-D3 Никомед",
+    "en": "Calcium-D3 Nycomed"
+  },
+  {
+    "id": "calcitonin",
+    "ru": "Кальцитонин",
+    "en": "Calcitonin"
+  },
+  {
+    "id": "calcitriol",
+    "ru": "Кальцитриол",
+    "en": "calcitriol"
+  },
+  {
+    "id": "calcium_dobesilate",
+    "ru": "Кальция добезилат",
+    "en": "calcium dobesilate"
+  },
+  {
+    "id": "coal_tar",
+    "ru": "Каменноугольная смола",
+    "en": "coal tar"
+  },
+  {
+    "id": "camostat",
+    "ru": "Камостат",
+    "en": "camostat"
+  },
+  {
+    "id": "camphor",
+    "ru": "Камфора",
+    "en": "camphor"
+  },
+  {
+    "id": "canagliflozin",
+    "ru": "Канаглифлозин",
+    "en": "Canagliflozin"
+  },
+  {
+    "id": "canakinumab",
+    "ru": "Канакинумаб",
+    "en": "canakinumab"
+  },
+  {
+    "id": "kanamycin_extract",
+    "ru": "Канамицин",
+    "en": "kanamycin (extract)"
+  },
+  {
+    "id": "cangrelor",
+    "ru": "Кангрелор",
+    "en": "cangrelor"
+  },
+  {
+    "id": "candesartan",
+    "ru": "Кандесартан",
+    "en": "candesartan"
+  },
+  {
+    "id": "canephron",
+    "ru": "Канефрон",
+    "en": "Canephron"
+  },
+  {
+    "id": "cannabidiol",
+    "ru": "Каннабидиол",
+    "en": "cannabidiol"
+  },
+  {
+    "id": "capecitabine",
+    "ru": "Капецитабин",
+    "en": "capecitabine"
+  },
+  {
+    "id": "caplacizumab",
+    "ru": "Каплацизумаб",
+    "en": "caplacizumab"
+  },
+  {
+    "id": "capreomycin",
+    "ru": "Капреомицин",
+    "en": "capreomycin"
+  },
+  {
+    "id": "capsaicin",
+    "ru": "Капсаицин",
+    "en": "capsaicin"
+  },
+  {
+    "id": "captopril",
+    "ru": "Каптоприл",
+    "en": "captopril"
+  },
+  {
+    "id": "carbamazepin",
+    "ru": "Карбамазепин",
+    "en": "carbamazepin"
+  },
+  {
+    "id": "carbapenem_antibiotic",
+    "ru": "Карбапенемы",
+    "en": "carbapenem antibiotic"
+  },
+  {
+    "id": "carbachol",
+    "ru": "Карбахол",
+    "en": "carbachol"
+  },
+  {
+    "id": "carbetocin",
+    "ru": "Карбетоцин",
+    "en": "carbetocin"
+  },
+  {
+    "id": "carbimazole",
+    "ru": "Карбимазол",
+    "en": "Carbimazole"
+  },
+  {
+    "id": "iron_ii_carbonate",
+    "ru": "Карбонат железа(II)",
+    "en": "iron(II) carbonate"
+  },
+  {
+    "id": "calcium_carbonate",
+    "ru": "Карбонат кальция",
+    "en": "calcium carbonate"
+  },
+  {
+    "id": "lanthanum_carbonate",
+    "ru": "Карбонат лантана(III)",
+    "en": "lanthanum carbonate"
+  },
+  {
+    "id": "magnesium_carbonate",
+    "ru": "Карбонат магния",
+    "en": "magnesium carbonate"
+  },
+  {
+    "id": "carboplatin",
+    "ru": "Карбоплатин",
+    "en": "carboplatin"
+  },
+  {
+    "id": "malathion",
+    "ru": "Карбофос",
+    "en": "malathion"
+  },
+  {
+    "id": "l_carbocysteine",
+    "ru": "Карбоцистеин",
+    "en": "L-carbocysteine"
+  },
+  {
+    "id": "carvedilol",
+    "ru": "Карведилол",
+    "en": "carvedilol"
+  },
+  {
+    "id": "cardiket",
+    "ru": "Кардикет",
+    "en": "Cardiket"
+  },
+  {
+    "id": "cardiomagnyl",
+    "ru": "Кардиомагнил",
+    "en": "Cardiomagnyl"
+  },
+  {
+    "id": "cardura",
+    "ru": "Кардура",
+    "en": "Cardura"
+  },
+  {
+    "id": "cariprazine",
+    "ru": "Карипразин",
+    "en": "cariprazine"
+  },
+  {
+    "id": "carisoprodol",
+    "ru": "Карисопродол",
+    "en": "carisoprodol"
+  },
+  {
+    "id": "carmustine",
+    "ru": "Кармустин",
+    "en": "carmustine"
+  },
+  {
+    "id": "karsil",
+    "ru": "Карсил",
+    "en": "Karsil"
+  },
+  {
+    "id": "castor_oil",
+    "ru": "Касторовое масло",
+    "en": "castor oil"
+  },
+  {
+    "id": "norpseudoephedrine",
+    "ru": "Катин",
+    "en": "(+)-norpseudoephedrine"
+  },
+  {
+    "id": "quazepam",
+    "ru": "Квазепам",
+    "en": "quazepam"
+  },
+  {
+    "id": "quassia",
+    "ru": "Квассия",
+    "en": "Quassia"
+  },
+  {
+    "id": "alum",
+    "ru": "Квасцы",
+    "en": "alum"
+  },
+  {
+    "id": "quetiapine",
+    "ru": "Кветиапин",
+    "en": "quetiapine"
+  },
+  {
+    "id": "kenalog",
+    "ru": "Кеналог",
+    "en": "Kenalog"
+  },
+  {
+    "id": "rs_ketamine",
+    "ru": "Кетамин",
+    "en": "(RS)-ketamine"
+  },
+  {
+    "id": "ketanov",
+    "ru": "Кетанов",
+    "en": "Ketanov"
+  },
+  {
+    "id": "ketanserin",
+    "ru": "Кетансерин",
+    "en": "ketanserin"
+  },
+  {
+    "id": "ketobemidone",
+    "ru": "Кетобемидон",
+    "en": "ketobemidone"
+  },
+  {
+    "id": "ketoconazole",
+    "ru": "Кетоконазол",
+    "en": "ketoconazole"
+  },
+  {
+    "id": "rs_ketoprofen",
+    "ru": "Кетопрофен",
+    "en": "(RS)-ketoprofen"
+  },
+  {
+    "id": "ketorol",
+    "ru": "Кеторол",
+    "en": "Ketorol"
+  },
+  {
+    "id": "ketorolac",
+    "ru": "Кеторолак",
+    "en": "ketorolac"
+  },
+  {
+    "id": "ketosteril",
+    "ru": "Кетостерил",
+    "en": "Ketosteril"
+  },
+  {
+    "id": "ketotifen",
+    "ru": "Кетотифен",
+    "en": "ketotifen"
+  },
+  {
+    "id": "oxygen",
+    "ru": "Кислород",
+    "en": "oxygen"
+  },
+  {
+    "id": "cladribine",
+    "ru": "Кладрибин",
+    "en": "cladribine"
+  },
+  {
+    "id": "qlaira",
+    "ru": "Клайра",
+    "en": "Qlaira"
+  },
+  {
+    "id": "claritin",
+    "ru": "Кларитин",
+    "en": "Claritin"
+  },
+  {
+    "id": "clarithromycin",
+    "ru": "Кларитромицин",
+    "en": "clarithromycin"
+  },
+  {
+    "id": "klacid",
+    "ru": "Клацид",
+    "en": "Klacid"
+  },
+  {
+    "id": "clexane",
+    "ru": "Клексан",
+    "en": "Clexane"
+  },
+  {
+    "id": "clemastine",
+    "ru": "Клемастин",
+    "en": "clemastine"
+  },
+  {
+    "id": "rs_clenbuterol",
+    "ru": "Кленбутерол",
+    "en": "(RS)-clenbuterol"
+  },
+  {
+    "id": "klenzit",
+    "ru": "Клензит",
+    "en": "Klenzit"
+  },
+  {
+    "id": "climara",
+    "ru": "Климара",
+    "en": "Climara"
+  },
+  {
+    "id": "klimonorm",
+    "ru": "Климонорм",
+    "en": "Klimonorm"
+  },
+  {
+    "id": "clindamycin",
+    "ru": "Клиндамицин",
+    "en": "clindamycin"
+  },
+  {
+    "id": "urinalysis",
+    "ru": "Клинический анализ мочи",
+    "en": "urinalysis"
+  },
+  {
+    "id": "clobazam",
+    "ru": "Клобазам",
+    "en": "clobazam"
+  },
+  {
+    "id": "clobetasol",
+    "ru": "Клобетазол",
+    "en": "clobetasol"
+  },
+  {
+    "id": "clodronic_acid",
+    "ru": "Клодроновая кислота",
+    "en": "clodronic acid"
+  },
+  {
+    "id": "clozapine",
+    "ru": "Клозапин",
+    "en": "clozapine"
+  },
+  {
+    "id": "clomipramine",
+    "ru": "Кломипрамин",
+    "en": "clomipramine"
+  },
+  {
+    "id": "clomiphene",
+    "ru": "Кломифен",
+    "en": "Clomiphene"
+  },
+  {
+    "id": "clonazepam",
+    "ru": "Клоназепам",
+    "en": "clonazepam"
+  },
+  {
+    "id": "clonidine",
+    "ru": "Клонидин",
+    "en": "clonidine"
+  },
+  {
+    "id": "clopidogrel",
+    "ru": "Клопидогрел",
+    "en": "clopidogrel"
+  },
+  {
+    "id": "clorazepic_acid",
+    "ru": "Клоразепат",
+    "en": "clorazepic acid"
+  },
+  {
+    "id": "clomifene",
+    "ru": "Клостилбегит",
+    "en": "clomifene"
+  },
+  {
+    "id": "clotiapine",
+    "ru": "Клотиапин",
+    "en": "clotiapine"
+  },
+  {
+    "id": "clotrimazole",
+    "ru": "Клотримазол",
+    "en": "clotrimazole"
+  },
+  {
+    "id": "sulfamethoxazole_trimethoprim",
+    "ru": "Ко-тримоксазол",
+    "en": "sulfamethoxazole/trimethoprim"
+  },
+  {
+    "id": "cobamamide",
+    "ru": "Кобамамид",
+    "en": "cobamamide"
+  },
+  {
+    "id": "cobicistat",
+    "ru": "Кобицистат",
+    "en": "cobicistat"
+  },
+  {
+    "id": "codeine",
+    "ru": "Кодеин",
+    "en": "codeine"
+  },
+  {
+    "id": "codelac",
+    "ru": "Коделак",
+    "en": "Codelac"
+  },
+  {
+    "id": "cozaar",
+    "ru": "Козаар",
+    "en": "Cozaar"
+  },
+  {
+    "id": "cosentyx",
+    "ru": "Козэнтикс",
+    "en": "Cosentyx"
+  },
+  {
+    "id": "cocaine",
+    "ru": "Кокаин",
+    "en": "cocaine"
+  },
+  {
+    "id": "coldrex",
+    "ru": "Колдрекс",
+    "en": "Coldrex"
+  },
+  {
+    "id": "colestyramine",
+    "ru": "Колестирамин",
+    "en": "colestyramine"
+  },
+  {
+    "id": "colistin",
+    "ru": "Колистин",
+    "en": "colistin"
+  },
+  {
+    "id": "collagen",
+    "ru": "Коллаген",
+    "en": "collagen"
+  },
+  {
+    "id": "s_colchicine",
+    "ru": "Колхицин",
+    "en": "(S)-(−)-colchicine"
+  },
+  {
+    "id": "комбинации_каптоприла_и_диуретиков",
+    "ru": "Комбинации каптоприла и диуретиков",
+    "en": ""
+  },
+  {
+    "id": "комбинации_эналаприла_и_диуретиков",
+    "ru": "Комбинации эналаприла и диуретиков",
+    "en": ""
+  },
+  {
+    "id": "complivit",
+    "ru": "Компливит",
+    "en": "Complivit"
+  },
+  {
+    "id": "concor",
+    "ru": "Конкор",
+    "en": "Concor"
+  },
+  {
+    "id": "controloc",
+    "ru": "Контролок",
+    "en": "Controloc"
+  },
+  {
+    "id": "glatiramer_acetate",
+    "ru": "Копаксон",
+    "en": "glatiramer acetate"
+  },
+  {
+    "id": "coraxan",
+    "ru": "Кораксан",
+    "en": "Coraxan"
+  },
+  {
+    "id": "corvalol",
+    "ru": "Корвалол",
+    "en": "Corvalol"
+  },
+  {
+    "id": "althea_root",
+    "ru": "Корень алтея",
+    "en": "althea root"
+  },
+  {
+    "id": "cortisol",
+    "ru": "Кортизол",
+    "en": "cortisol"
+  },
+  {
+    "id": "cortisone",
+    "ru": "Кортизон",
+    "en": "cortisone"
+  },
+  {
+    "id": "corticosteroid",
+    "ru": "Кортикостероиды",
+    "en": "corticosteroid"
+  },
+  {
+    "id": "cosmetics",
+    "ru": "Косметика",
+    "en": "cosmetics"
+  },
+  {
+    "id": "cosopt",
+    "ru": "Косопт",
+    "en": "Cosopt"
+  },
+  {
+    "id": "bone_morphogenetic_protein",
+    "ru": "Костный морфогенетический белок",
+    "en": "bone morphogenetic protein"
+  },
+  {
+    "id": "caffeine",
+    "ru": "Кофеин",
+    "en": "caffeine"
+  },
+  {
+    "id": "ubidecarenone",
+    "ru": "Кофермент Q",
+    "en": "ubidecarenone"
+  },
+  {
+    "id": "coenzyme_q10",
+    "ru": "Коэнзим Q10",
+    "en": "Coenzyme Q10"
+  },
+  {
+    "id": "phosphocreatine",
+    "ru": "Креатинфосфорная кислота",
+    "en": "phosphocreatine"
+  },
+  {
+    "id": "creosote",
+    "ru": "Креозот",
+    "en": "creosote"
+  },
+  {
+    "id": "creon",
+    "ru": "Креон",
+    "en": "Creon"
+  },
+  {
+    "id": "crestor",
+    "ru": "Крестор",
+    "en": "Crestor"
+  },
+  {
+    "id": "krypton_81m",
+    "ru": "Криптон-81m",
+    "en": "krypton-81m"
+  },
+  {
+    "id": "crystal_violet",
+    "ru": "Кристаллический фиолетовый",
+    "en": "crystal violet"
+  },
+  {
+    "id": "cromoglicic_acid",
+    "ru": "Кромоглициевая кислота",
+    "en": "cromoglicic acid"
+  },
+  {
+    "id": "crofelemer",
+    "ru": "Крофелемер",
+    "en": "crofelemer"
+  },
+  {
+    "id": "xalatan",
+    "ru": "Ксалатан",
+    "en": "Xalatan"
+  },
+  {
+    "id": "xanthines",
+    "ru": "Ксантин",
+    "en": "xanthines"
+  },
+  {
+    "id": "xarelto",
+    "ru": "Ксарелто",
+    "en": "Xarelto"
+  },
+  {
+    "id": "xeloda",
+    "ru": "Кселода",
+    "en": "Xeloda"
+  },
+  {
+    "id": "xenon",
+    "ru": "Ксенон",
+    "en": "xenon"
+  },
+  {
+    "id": "xenon_127",
+    "ru": "Ксенон-127",
+    "en": "xenon-127"
+  },
+  {
+    "id": "xenon_133",
+    "ru": "Ксенон-133",
+    "en": "xenon-133"
+  },
+  {
+    "id": "xylometazoline",
+    "ru": "Ксилометазолин",
+    "en": "xylometazoline"
+  },
+  {
+    "id": "xymelin",
+    "ru": "Ксимелин",
+    "en": "Xymelin"
+  },
+  {
+    "id": "curantyl",
+    "ru": "Курантил",
+    "en": "Curantyl"
+  },
+  {
+    "id": "labetalol",
+    "ru": "Лабеталол",
+    "en": "labetalol"
+  },
+  {
+    "id": "lavender_oil",
+    "ru": "Лавандовое масло",
+    "en": "lavender oil"
+  },
+  {
+    "id": "lavomax",
+    "ru": "Лавомакс",
+    "en": "Lavomax"
+  },
+  {
+    "id": "lazolvan",
+    "ru": "Лазолван",
+    "en": "Lazolvan"
+  },
+  {
+    "id": "potassium_dl_lactate",
+    "ru": "Лактат калия",
+    "en": "potassium DL-lactate"
+  },
+  {
+    "id": "calcium_dl_lactate",
+    "ru": "Лактат кальция",
+    "en": "calcium DL-lactate"
+  },
+  {
+    "id": "lactitol",
+    "ru": "Лактитол",
+    "en": "lactitol"
+  },
+  {
+    "id": "lactobacillus",
+    "ru": "Лактобациллы",
+    "en": "Lactobacillus"
+  },
+  {
+    "id": "lactofiltrum",
+    "ru": "Лактофильтрум",
+    "en": "Lactofiltrum"
+  },
+  {
+    "id": "lactulose",
+    "ru": "Лактулоза",
+    "en": "β-lactulose"
+  },
+  {
+    "id": "lamivudine",
+    "ru": "Ламивудин",
+    "en": "lamivudine"
+  },
+  {
+    "id": "lamivudine_zidovudine",
+    "ru": "Ламивудин/Зидовудин",
+    "en": "lamivudine/zidovudine"
+  },
+  {
+    "id": "lamisil",
+    "ru": "Ламизил",
+    "en": "Lamisil"
+  },
+  {
+    "id": "lamictal",
+    "ru": "Ламиктал",
+    "en": "Lamictal"
+  },
+  {
+    "id": "lamotrigine",
+    "ru": "Ламотриджин",
+    "en": "lamotrigine"
+  },
+  {
+    "id": "lansoprazole",
+    "ru": "Лансопразол",
+    "en": "lansoprazole"
+  },
+  {
+    "id": "lantus",
+    "ru": "Лантус",
+    "en": "Lantus"
+  },
+  {
+    "id": "lapatinib",
+    "ru": "Лапатиниб",
+    "en": "lapatinib"
+  },
+  {
+    "id": "lappaconitine_hydrobromide",
+    "ru": "Лаппаконитина гидробромид",
+    "en": "lappaconitine hydrobromide"
+  },
+  {
+    "id": "latanoprost",
+    "ru": "Латанопрост",
+    "en": "latanoprost"
+  },
+  {
+    "id": "latuda",
+    "ru": "Латуда",
+    "en": "Latuda"
+  },
+  {
+    "id": "sodium_lauryl_sulfate",
+    "ru": "Лаурилсульфат натрия",
+    "en": "sodium lauryl sulfate"
+  },
+  {
+    "id": "levamisole",
+    "ru": "Левамизол",
+    "en": "levamisole"
+  },
+  {
+    "id": "levomethadyl_acetate",
+    "ru": "Левацетилметадол",
+    "en": "levomethadyl acetate"
+  },
+  {
+    "id": "levemir",
+    "ru": "Левемир",
+    "en": "Levemir"
+  },
+  {
+    "id": "s_etiracetam",
+    "ru": "Леветирацетам",
+    "en": "(S)-etiracetam"
+  },
+  {
+    "id": "levitra",
+    "ru": "Левитра",
+    "en": "Levitra"
+  },
+  {
+    "id": "levobupivacaine",
+    "ru": "Левобупивакаин",
+    "en": "levobupivacaine"
+  },
+  {
+    "id": "levodopa",
+    "ru": "Леводопа",
+    "en": "levodopa"
+  },
+  {
+    "id": "levodopa_carbidopa",
+    "ru": "Леводопа/Карбидопа",
+    "en": "Levodopa/Carbidopa"
+  },
+  {
+    "id": "levodropropizine",
+    "ru": "Леводропропизин",
+    "en": "levodropropizine"
+  },
+  {
+    "id": "carnitine",
+    "ru": "Левокарнитин",
+    "en": "carnitine"
+  },
+  {
+    "id": "levomepromazine",
+    "ru": "Левомепромазин",
+    "en": "levomepromazine"
+  },
+  {
+    "id": "levomilnacipran",
+    "ru": "Левомилнаципран",
+    "en": "Levomilnacipran"
+  },
+  {
+    "id": "levomycetin",
+    "ru": "Левомицетин",
+    "en": "Levomycetin"
+  },
+  {
+    "id": "levonorgestrel",
+    "ru": "Левоноргестрел",
+    "en": "levonorgestrel"
+  },
+  {
+    "id": "levosimendan",
+    "ru": "Левосимендан",
+    "en": "levosimendan"
+  },
+  {
+    "id": "levosulpiride",
+    "ru": "Левосульпирид",
+    "en": "levosulpiride"
+  },
+  {
+    "id": "levothyroxine",
+    "ru": "Левотироксин",
+    "en": "Levothyroxine"
+  },
+  {
+    "id": "l_thyroxine",
+    "ru": "Левотироксин натрия",
+    "en": "L-thyroxine"
+  },
+  {
+    "id": "levofloxacin",
+    "ru": "Левофлоксацин",
+    "en": "levofloxacin"
+  },
+  {
+    "id": "levocetirizine",
+    "ru": "Левоцетиризин",
+    "en": "levocetirizine"
+  },
+  {
+    "id": "rs_lenalidomide",
+    "ru": "Леналидомид",
+    "en": "(RS)-lenalidomide"
+  },
+  {
+    "id": "letrozole",
+    "ru": "Летрозол",
+    "en": "Letrozole"
+  },
+  {
+    "id": "leflunomide",
+    "ru": "Лефлуномид",
+    "en": "leflunomide"
+  },
+  {
+    "id": "livalo",
+    "ru": "Ливазо",
+    "en": "Livalo"
+  },
+  {
+    "id": "livial",
+    "ru": "Ливиал",
+    "en": "Livial"
+  },
+  {
+    "id": "lidocaine",
+    "ru": "Лидокаин",
+    "en": "lidocaine"
+  },
+  {
+    "id": "lidocaine_patch",
+    "ru": "Лидокаин пластырь",
+    "en": "Lidocaine patch"
+  },
+  {
+    "id": "lisdexamfetamine",
+    "ru": "Лиздексамфетамин",
+    "en": "lisdexamfetamine"
+  },
+  {
+    "id": "lisuride",
+    "ru": "Лизергол",
+    "en": "lisuride"
+  },
+  {
+    "id": "dl_lysine",
+    "ru": "Лизин",
+    "en": "DL-lysine"
+  },
+  {
+    "id": "lisinopril",
+    "ru": "Лизиноприл",
+    "en": "lisinopril"
+  },
+  {
+    "id": "lizobakt",
+    "ru": "Лизобакт",
+    "en": "Lizobakt"
+  },
+  {
+    "id": "lysozyme",
+    "ru": "Лизоцим",
+    "en": "Lysozyme"
+  },
+  {
+    "id": "likopid",
+    "ru": "Ликопид",
+    "en": "Likopid"
+  },
+  {
+    "id": "citric_acid",
+    "ru": "Лимонная кислота",
+    "en": "citric acid"
+  },
+  {
+    "id": "linagliptin",
+    "ru": "Линаглиптин",
+    "en": "linagliptin"
+  },
+  {
+    "id": "linaclotide",
+    "ru": "Линаклотид",
+    "en": "linaclotide"
+  },
+  {
+    "id": "lindinet",
+    "ru": "Линдинет",
+    "en": "Lindinet"
+  },
+  {
+    "id": "linezolid",
+    "ru": "Линезолид",
+    "en": "linezolid"
+  },
+  {
+    "id": "linex",
+    "ru": "Линекс",
+    "en": "Linex"
+  },
+  {
+    "id": "lincosamides",
+    "ru": "Линкозамиды",
+    "en": "lincosamides"
+  },
+  {
+    "id": "lincomycin",
+    "ru": "Линкомицин",
+    "en": "lincomycin"
+  },
+  {
+    "id": "rs_thioctic_acid",
+    "ru": "Липоевая кислота",
+    "en": "(RS)-thioctic acid"
+  },
+  {
+    "id": "lipimar",
+    "ru": "Липримар",
+    "en": "Lipimar"
+  },
+  {
+    "id": "liraglutide",
+    "ru": "Лираглутид",
+    "en": "Liraglutide"
+  },
+  {
+    "id": "lyrica",
+    "ru": "Лирика",
+    "en": "Lyrica"
+  },
+  {
+    "id": "lovastatin",
+    "ru": "Ловастатин",
+    "en": "lovastatin"
+  },
+  {
+    "id": "logest",
+    "ru": "Логест",
+    "en": "Logest"
+  },
+  {
+    "id": "lozap",
+    "ru": "Лозап",
+    "en": "Lozap"
+  },
+  {
+    "id": "losartan",
+    "ru": "Лозартан",
+    "en": "losartan"
+  },
+  {
+    "id": "loxapine",
+    "ru": "Локсапин",
+    "en": "loxapine"
+  },
+  {
+    "id": "lomefloxacin",
+    "ru": "Ломефлоксацин",
+    "en": "lomefloxacin"
+  },
+  {
+    "id": "lomustine",
+    "ru": "Ломустин",
+    "en": "lomustine"
+  },
+  {
+    "id": "lonidamine",
+    "ru": "Лонидамин",
+    "en": "lonidamine"
+  },
+  {
+    "id": "loperamide",
+    "ru": "Лоперамид",
+    "en": "loperamide"
+  },
+  {
+    "id": "lopinavir_ritonavir",
+    "ru": "Лопинавир/Ритонавир",
+    "en": "lopinavir/ritonavir"
+  },
+  {
+    "id": "lorazepam",
+    "ru": "Лоразепам",
+    "en": "lorazepam"
+  },
+  {
+    "id": "loratadine",
+    "ru": "Лоратадин",
+    "en": "loratadine"
+  },
+  {
+    "id": "lorinden",
+    "ru": "Лоринден",
+    "en": "Lorinden"
+  },
+  {
+    "id": "lornoxicam",
+    "ru": "Лорноксикам",
+    "en": "lornoxicam"
+  },
+  {
+    "id": "lubiprostone",
+    "ru": "Лубипростон",
+    "en": "lubiprostone"
+  },
+  {
+    "id": "lumiracoxib",
+    "ru": "Лумиракоксиб",
+    "en": "lumiracoxib"
+  },
+  {
+    "id": "lurasidone",
+    "ru": "Луразидон",
+    "en": "lurasidone"
+  },
+  {
+    "id": "flaxseed",
+    "ru": "Льняное семя",
+    "en": "flaxseed"
+  },
+  {
+    "id": "lumigan",
+    "ru": "Люмиган",
+    "en": "Lumigan"
+  },
+  {
+    "id": "pulmonary_surfactant",
+    "ru": "Лёгочный сурфактант",
+    "en": "pulmonary surfactant"
+  },
+  {
+    "id": "maalox",
+    "ru": "Маалокс",
+    "en": "Maalox"
+  },
+  {
+    "id": "mabthera",
+    "ru": "Мабтера",
+    "en": "MabThera"
+  },
+  {
+    "id": "magne_b6",
+    "ru": "Магне B6",
+    "en": "Magne B6"
+  },
+  {
+    "id": "magnelis_b6",
+    "ru": "Магнелис B6",
+    "en": "Magnelis B6"
+  },
+  {
+    "id": "magnesium",
+    "ru": "Магний",
+    "en": "Magnesium"
+  },
+  {
+    "id": "madopar",
+    "ru": "Мадопар",
+    "en": "Madopar"
+  },
+  {
+    "id": "maxitrol",
+    "ru": "Макситрол",
+    "en": "Maxitrol"
+  },
+  {
+    "id": "maltofer",
+    "ru": "Мальтофер",
+    "en": "Maltofer"
+  },
+  {
+    "id": "mangafodipir",
+    "ru": "Мангафодипир",
+    "en": "mangafodipir"
+  },
+  {
+    "id": "d_mannitol",
+    "ru": "Маннит",
+    "en": "D-(-)-mannitol"
+  },
+  {
+    "id": "mannosulfan",
+    "ru": "Манносульфан",
+    "en": "mannosulfan"
+  },
+  {
+    "id": "maprotiline",
+    "ru": "Мапротилин",
+    "en": "maprotiline"
+  },
+  {
+    "id": "maraviroc",
+    "ru": "Маравирок",
+    "en": "maraviroc"
+  },
+  {
+    "id": "mebhydrolin",
+    "ru": "Мебгидролин",
+    "en": "mebhydrolin"
+  },
+  {
+    "id": "mebeverine",
+    "ru": "Мебеверин",
+    "en": "mebeverine"
+  },
+  {
+    "id": "mebendazole",
+    "ru": "Мебендазол",
+    "en": "mebendazole"
+  },
+  {
+    "id": "mebicar",
+    "ru": "Мебикар",
+    "en": "Mebicar"
+  },
+  {
+    "id": "megestrol_acetate",
+    "ru": "Мегестрол ацетат",
+    "en": "megestrol acetate"
+  },
+  {
+    "id": "medazepam",
+    "ru": "Медазепам",
+    "en": "medazepam"
+  },
+  {
+    "id": "medroxyprogesterone",
+    "ru": "Медроксипрогестерон",
+    "en": "medroxyprogesterone"
+  },
+  {
+    "id": "medrol",
+    "ru": "Медрол",
+    "en": "Medrol"
+  },
+  {
+    "id": "mezim",
+    "ru": "Мезим",
+    "en": "Mezim"
+  },
+  {
+    "id": "meclofenoxate",
+    "ru": "Меклофеноксат",
+    "en": "meclofenoxate"
+  },
+  {
+    "id": "mexidol",
+    "ru": "Мексидол",
+    "en": "Mexidol"
+  },
+  {
+    "id": "melaxen",
+    "ru": "Мелаксен",
+    "en": "Melaxen"
+  },
+  {
+    "id": "melarsoprol",
+    "ru": "Меларсопрол",
+    "en": "melarsoprol"
+  },
+  {
+    "id": "melatonin",
+    "ru": "Мелатонин",
+    "en": "melatonin"
+  },
+  {
+    "id": "meloxicam",
+    "ru": "Мелоксикам",
+    "en": "meloxicam"
+  },
+  {
+    "id": "melphalan",
+    "ru": "Мелфалан",
+    "en": "melphalan"
+  },
+  {
+    "id": "meldonium",
+    "ru": "Мельдоний",
+    "en": "meldonium"
+  },
+  {
+    "id": "memantine",
+    "ru": "Мемантин",
+    "en": "memantine"
+  },
+  {
+    "id": "menadione",
+    "ru": "Менадион",
+    "en": "menadione"
+  },
+  {
+    "id": "meningococcal_vaccine",
+    "ru": "Менингококковая вакцина",
+    "en": "meningococcal vaccine"
+  },
+  {
+    "id": "menogon",
+    "ru": "Меногон",
+    "en": "Menogon"
+  },
+  {
+    "id": "quinacrine",
+    "ru": "Мепакрин",
+    "en": "quinacrine"
+  },
+  {
+    "id": "mepartricin",
+    "ru": "Мепартрицин",
+    "en": "mepartricin"
+  },
+  {
+    "id": "mepivacaine",
+    "ru": "Мепивакаин",
+    "en": "mepivacaine"
+  },
+  {
+    "id": "mepolizumab",
+    "ru": "Меполизумаб",
+    "en": "mepolizumab"
+  },
+  {
+    "id": "meprobamate",
+    "ru": "Мепробамат",
+    "en": "meprobamate"
+  },
+  {
+    "id": "meptazinol",
+    "ru": "Мептазинол",
+    "en": "meptazinol"
+  },
+  {
+    "id": "mercazolil",
+    "ru": "Мерказолил",
+    "en": "Mercazolil"
+  },
+  {
+    "id": "mercaptopurine",
+    "ru": "Меркаптопурин",
+    "en": "mercaptopurine"
+  },
+  {
+    "id": "merbromin",
+    "ru": "Меркурохром",
+    "en": "merbromin"
+  },
+  {
+    "id": "meropenem",
+    "ru": "Меропенем",
+    "en": "meropenem"
+  },
+  {
+    "id": "meropenem_vaborbactam",
+    "ru": "Меропенем/Ваборбактам",
+    "en": "meropenem/vaborbactam"
+  },
+  {
+    "id": "thiomersal",
+    "ru": "Мертиолят",
+    "en": "thiomersal"
+  },
+  {
+    "id": "mesalazine",
+    "ru": "Месалазин",
+    "en": "mesalazine"
+  },
+  {
+    "id": "mesoridazine",
+    "ru": "Месоридазин",
+    "en": "mesoridazine"
+  },
+  {
+    "id": "mesterolone",
+    "ru": "Местеролон",
+    "en": "mesterolone"
+  },
+  {
+    "id": "local_anesthetic",
+    "ru": "Местный анестетик",
+    "en": "local anesthetic"
+  },
+  {
+    "id": "rs_methadone",
+    "ru": "Метадон",
+    "en": "(RS)-methadone"
+  },
+  {
+    "id": "methaqualone",
+    "ru": "Метаквалон",
+    "en": "methaqualone"
+  },
+  {
+    "id": "metamizole_sodium",
+    "ru": "Метамизол натрия",
+    "en": "metamizole sodium"
+  },
+  {
+    "id": "d_methamphetamine",
+    "ru": "Метамфетамин",
+    "en": "D-methamphetamine"
+  },
+  {
+    "id": "methandrostenolone",
+    "ru": "Метандиенон",
+    "en": "methandrostenolone"
+  },
+  {
+    "id": "methyldopa",
+    "ru": "Метилдопа",
+    "en": "methyldopa"
+  },
+  {
+    "id": "methylene_blue",
+    "ru": "Метиленовый синий",
+    "en": "methylene blue"
+  },
+  {
+    "id": "methylcobalamin",
+    "ru": "Метилкобаламин",
+    "en": "methylcobalamin"
+  },
+  {
+    "id": "methylnaltrexone_bromide",
+    "ru": "Метилналтрексона бромид",
+    "en": "methylnaltrexone bromide"
+  },
+  {
+    "id": "hypromellose",
+    "ru": "Метилоксипропилцеллюлоза",
+    "en": "hypromellose"
+  },
+  {
+    "id": "meparfynol",
+    "ru": "Метилпентинол",
+    "en": "meparfynol"
+  },
+  {
+    "id": "methylprednisolone",
+    "ru": "Метилпреднизолон",
+    "en": "methylprednisolone"
+  },
+  {
+    "id": "methyltestosterone",
+    "ru": "Метилтестостерон",
+    "en": "methyltestosterone"
+  },
+  {
+    "id": "methyluracil",
+    "ru": "Метилурацил",
+    "en": "Methyluracil"
+  },
+  {
+    "id": "methylphenidate",
+    "ru": "Метилфенидат",
+    "en": "methylphenidate"
+  },
+  {
+    "id": "methyl_cellulose",
+    "ru": "Метилцеллюлоза",
+    "en": "methyl cellulose"
+  },
+  {
+    "id": "methylergonovine",
+    "ru": "Метилэргометрин",
+    "en": "methylergonovine"
+  },
+  {
+    "id": "metisazone",
+    "ru": "Метисазон",
+    "en": "metisazone"
+  },
+  {
+    "id": "methysergide",
+    "ru": "Метисергид",
+    "en": "methysergide"
+  },
+  {
+    "id": "methicillin",
+    "ru": "Метициллин",
+    "en": "methicillin"
+  },
+  {
+    "id": "methohexital",
+    "ru": "Метогекситал",
+    "en": "methohexital"
+  },
+  {
+    "id": "methocarbamol",
+    "ru": "Метокарбамол",
+    "en": "methocarbamol"
+  },
+  {
+    "id": "metoclopramide",
+    "ru": "Метоклопрамид",
+    "en": "metoclopramide"
+  },
+  {
+    "id": "methoxyflurane",
+    "ru": "Метоксифлуран",
+    "en": "methoxyflurane"
+  },
+  {
+    "id": "metopimazine",
+    "ru": "Метопимазин",
+    "en": "metopimazine"
+  },
+  {
+    "id": "rs_metoprolol",
+    "ru": "Метопролол",
+    "en": "(RS)-metoprolol"
+  },
+  {
+    "id": "methotrexate",
+    "ru": "Метотрексат",
+    "en": "methotrexate"
+  },
+  {
+    "id": "metreleptin",
+    "ru": "Метрелептин",
+    "en": "metreleptin"
+  },
+  {
+    "id": "metronidazole",
+    "ru": "Метронидазол",
+    "en": "metronidazole"
+  },
+  {
+    "id": "metronidazole_gel",
+    "ru": "Метронидазол гель",
+    "en": "Metronidazole gel"
+  },
+  {
+    "id": "metformin",
+    "ru": "Метформин",
+    "en": "metformin"
+  },
+  {
+    "id": "mefenamic_acid",
+    "ru": "Мефенамовая кислота",
+    "en": "mefenamic acid"
+  },
+  {
+    "id": "mefenorex",
+    "ru": "Мефенорекс",
+    "en": "mefenorex"
+  },
+  {
+    "id": "mefloquine",
+    "ru": "Мефлохин",
+    "en": "mefloquine"
+  },
+  {
+    "id": "mechlorethamine",
+    "ru": "Мехлоретамин",
+    "en": "mechlorethamine"
+  },
+  {
+    "id": "miacalcic",
+    "ru": "Миакальцик",
+    "en": "Miacalcic"
+  },
+  {
+    "id": "rs_mianserin",
+    "ru": "Миансерин",
+    "en": "(RS)-mianserin"
+  },
+  {
+    "id": "mibefradil",
+    "ru": "Мибефрадил",
+    "en": "mibefradil"
+  },
+  {
+    "id": "mivacurium",
+    "ru": "Мивакурия хлорид",
+    "en": "mivacurium"
+  },
+  {
+    "id": "midazolam",
+    "ru": "Мидазолам",
+    "en": "midazolam"
+  },
+  {
+    "id": "midecamycin",
+    "ru": "Мидекамицин",
+    "en": "midecamycin"
+  },
+  {
+    "id": "mydocalm",
+    "ru": "Мидокалм",
+    "en": "Mydocalm"
+  },
+  {
+    "id": "misoprostol",
+    "ru": "Мизопростол",
+    "en": "misoprostol"
+  },
+  {
+    "id": "micardis",
+    "ru": "Микардис",
+    "en": "Micardis"
+  },
+  {
+    "id": "micafungin",
+    "ru": "Микафунгин",
+    "en": "micafungin"
+  },
+  {
+    "id": "miconazole",
+    "ru": "Миконазол",
+    "en": "Miconazole"
+  },
+  {
+    "id": "milnacipran",
+    "ru": "Милнаципран",
+    "en": "milnacipran"
+  },
+  {
+    "id": "miltefosine",
+    "ru": "Милтефозин",
+    "en": "miltefosine"
+  },
+  {
+    "id": "milgamma",
+    "ru": "Мильгамма",
+    "en": "Milgamma"
+  },
+  {
+    "id": "rs_mandelic_acid",
+    "ru": "Миндальная кислота",
+    "en": "(RS)-mandelic acid"
+  },
+  {
+    "id": "mineralocorticoid",
+    "ru": "Минералокортикоид",
+    "en": "mineralocorticoid"
+  },
+  {
+    "id": "minoxidil",
+    "ru": "Миноксидил",
+    "en": "minoxidil"
+  },
+  {
+    "id": "minocycline",
+    "ru": "Миноциклин",
+    "en": "minocycline"
+  },
+  {
+    "id": "muscle_relaxant",
+    "ru": "Миорелаксанты",
+    "en": "muscle relaxant"
+  },
+  {
+    "id": "mirapex",
+    "ru": "Мирапекс",
+    "en": "Mirapex"
+  },
+  {
+    "id": "myristyl_sulfate",
+    "ru": "Миристилсульфат",
+    "en": "myristyl sulfate"
+  },
+  {
+    "id": "mirtazapine",
+    "ru": "Миртазапин",
+    "en": "mirtazapine"
+  },
+  {
+    "id": "mitoxantrone",
+    "ru": "Митоксантрон",
+    "en": "mitoxantrone"
+  },
+  {
+    "id": "mitomycins",
+    "ru": "Митомицин",
+    "en": "mitomycins"
+  },
+  {
+    "id": "rs_mitotane",
+    "ru": "Митотан",
+    "en": "(RS)-mitotane"
+  },
+  {
+    "id": "mifepristone",
+    "ru": "Мифепристон",
+    "en": "mifepristone"
+  },
+  {
+    "id": "movalis",
+    "ru": "Мовалис",
+    "en": "Movalis"
+  },
+  {
+    "id": "modafinil",
+    "ru": "Модафинил",
+    "en": "modafinil"
+  },
+  {
+    "id": "moclobemide",
+    "ru": "Моклобемид",
+    "en": "moclobemide"
+  },
+  {
+    "id": "moxifloxacin",
+    "ru": "Моксифлоксацин",
+    "en": "moxifloxacin"
+  },
+  {
+    "id": "moxonidine",
+    "ru": "Моксонидин",
+    "en": "moxonidine"
+  },
+  {
+    "id": "dl_lactic_acid",
+    "ru": "Молочная кислота",
+    "en": "DL-lactic acid"
+  },
+  {
+    "id": "infant_formula",
+    "ru": "Молочная смесь",
+    "en": "infant formula"
+  },
+  {
+    "id": "mometasone_furoate",
+    "ru": "Мометазон",
+    "en": "mometasone furoate"
+  },
+  {
+    "id": "monobenzone",
+    "ru": "Монобензон",
+    "en": "monobenzone"
+  },
+  {
+    "id": "sodium_monofluorophosphate",
+    "ru": "Монофторофосфат натрия",
+    "en": "sodium monofluorophosphate"
+  },
+  {
+    "id": "montelukast",
+    "ru": "Монтелукаст",
+    "en": "montelukast"
+  },
+  {
+    "id": "monural",
+    "ru": "Монурал",
+    "en": "Monural"
+  },
+  {
+    "id": "morphine",
+    "ru": "Морфин",
+    "en": "morphine"
+  },
+  {
+    "id": "motilium",
+    "ru": "Мотилиум",
+    "en": "Motilium"
+  },
+  {
+    "id": "mycophenolate_mofetil",
+    "ru": "Мофетила микофенолат",
+    "en": "Mycophenolate mofetil"
+  },
+  {
+    "id": "urea",
+    "ru": "Мочевина",
+    "en": "urea"
+  },
+  {
+    "id": "moexipril",
+    "ru": "Моэксиприл",
+    "en": "moexipril"
+  },
+  {
+    "id": "mukaltin",
+    "ru": "Мукалтин",
+    "en": "Mukaltin"
+  },
+  {
+    "id": "mucolytic",
+    "ru": "Муколитические средства",
+    "en": "mucolytic"
+  },
+  {
+    "id": "multi_tabs",
+    "ru": "Мульти-табс",
+    "en": "Multi-tabs"
+  },
+  {
+    "id": "mupirocin",
+    "ru": "Мупироцин",
+    "en": "mupirocin"
+  },
+  {
+    "id": "nabumetone",
+    "ru": "Набуметон",
+    "en": "nabumetone"
+  },
+  {
+    "id": "nadifloxacin",
+    "ru": "Надифлоксацин",
+    "en": "nadifloxacin"
+  },
+  {
+    "id": "nadolol",
+    "ru": "Надолол",
+    "en": "nadolol"
+  },
+  {
+    "id": "nadroparin",
+    "ru": "Надропарин",
+    "en": "Nadroparin"
+  },
+  {
+    "id": "nasivin",
+    "ru": "Називин",
+    "en": "Nasivin"
+  },
+  {
+    "id": "nasonex",
+    "ru": "Назонекс",
+    "en": "Nasonex"
+  },
+  {
+    "id": "nise",
+    "ru": "Найз",
+    "en": "Nise"
+  },
+  {
+    "id": "nacom",
+    "ru": "Наком",
+    "en": "Nacom"
+  },
+  {
+    "id": "nalbuphine",
+    "ru": "Налбуфин",
+    "en": "nalbuphine"
+  },
+  {
+    "id": "nalgesin",
+    "ru": "Налгезин",
+    "en": "Nalgesin"
+  },
+  {
+    "id": "naldemedine",
+    "ru": "Налдемедин",
+    "en": "naldemedine"
+  },
+  {
+    "id": "nalidixic_acid",
+    "ru": "Налидиксовая кислота",
+    "en": "nalidixic acid"
+  },
+  {
+    "id": "nalmefene",
+    "ru": "Налмефен",
+    "en": "nalmefene"
+  },
+  {
+    "id": "naloxegol",
+    "ru": "Налоксегол",
+    "en": "naloxegol"
+  },
+  {
+    "id": "naloxone",
+    "ru": "Налоксон",
+    "en": "naloxone"
+  },
+  {
+    "id": "nalorphine",
+    "ru": "Налорфин",
+    "en": "Nalorphine"
+  },
+  {
+    "id": "naltrexone",
+    "ru": "Налтрексон",
+    "en": "naltrexone"
+  },
+  {
+    "id": "nandrolone",
+    "ru": "Нандролона деканоат",
+    "en": "nandrolone"
+  },
+  {
+    "id": "naproxen",
+    "ru": "Напроксен",
+    "en": "naproxen"
+  },
+  {
+    "id": "noscapine",
+    "ru": "Наркотин",
+    "en": "noscapine"
+  },
+  {
+    "id": "natamycin",
+    "ru": "Натамицин",
+    "en": "natamycin"
+  },
+  {
+    "id": "gold_monosodium_thiomalate",
+    "ru": "Натрия ауротиомалат",
+    "en": "gold monosodium thiomalate"
+  },
+  {
+    "id": "sodium_salicylate",
+    "ru": "Натрия салицилат",
+    "en": "sodium salicylate"
+  },
+  {
+    "id": "sodium_phosphates",
+    "ru": "Натрия фосфаты",
+    "en": "sodium phosphates"
+  },
+  {
+    "id": "naphazoline",
+    "ru": "Нафазолин",
+    "en": "naphazoline"
+  },
+  {
+    "id": "naphthyzinum",
+    "ru": "Нафтизин",
+    "en": "Naphthyzinum"
+  },
+  {
+    "id": "nebivolol",
+    "ru": "Небиволол",
+    "en": "nebivolol"
+  },
+  {
+    "id": "nebilet",
+    "ru": "Небилет",
+    "en": "Nebilet"
+  },
+  {
+    "id": "nevirapine",
+    "ru": "Невирапин",
+    "en": "nevirapine"
+  },
+  {
+    "id": "neuromultivit",
+    "ru": "Нейромультивит",
+    "en": "Neuromultivit"
+  },
+  {
+    "id": "nexium",
+    "ru": "Нексиум",
+    "en": "Nexium"
+  },
+  {
+    "id": "nelarabine",
+    "ru": "Неларабин",
+    "en": "nelarabine"
+  },
+  {
+    "id": "nelfinavir",
+    "ru": "Нельфинавир",
+    "en": "nelfinavir"
+  },
+  {
+    "id": "neomycin",
+    "ru": "Неомицин",
+    "en": "neomycin"
+  },
+  {
+    "id": "neostigmine",
+    "ru": "Неостигмин",
+    "en": "neostigmine"
+  },
+  {
+    "id": "nepafenac",
+    "ru": "Непафенак",
+    "en": "nepafenac"
+  },
+  {
+    "id": "netarsudil",
+    "ru": "Нетарсудил",
+    "en": "netarsudil"
+  },
+  {
+    "id": "rs_nefopam",
+    "ru": "Нефопам",
+    "en": "(RS)-nefopam"
+  },
+  {
+    "id": "necitumumab",
+    "ru": "Нецитумумаб",
+    "en": "necitumumab"
+  },
+  {
+    "id": "nialamide",
+    "ru": "Ниаламид",
+    "en": "nialamide"
+  },
+  {
+    "id": "nivolumab",
+    "ru": "Ниволумаб",
+    "en": "nivolumab"
+  },
+  {
+    "id": "nizatidine",
+    "ru": "Низатидин",
+    "en": "nizatidine"
+  },
+  {
+    "id": "nikethamide",
+    "ru": "Никетамид",
+    "en": "nikethamide"
+  },
+  {
+    "id": "niclosamide",
+    "ru": "Никлозамид",
+    "en": "niclosamide"
+  },
+  {
+    "id": "nicorandil",
+    "ru": "Никорандил",
+    "en": "nicorandil"
+  },
+  {
+    "id": "nicotine",
+    "ru": "Никотин",
+    "en": "nicotine"
+  },
+  {
+    "id": "niacinamide",
+    "ru": "Никотинамид",
+    "en": "niacinamide"
+  },
+  {
+    "id": "nicotine_replacement_therapy",
+    "ru": "Никотинзаместительная терапия",
+    "en": "nicotine replacement therapy"
+  },
+  {
+    "id": "nicotinic_acid",
+    "ru": "Никотиновая кислота",
+    "en": "nicotinic acid"
+  },
+  {
+    "id": "nilotinib",
+    "ru": "Нилотиниб",
+    "en": "nilotinib"
+  },
+  {
+    "id": "nilutamide",
+    "ru": "Нилутамид",
+    "en": "nilutamide"
+  },
+  {
+    "id": "nimesil",
+    "ru": "Нимесил",
+    "en": "Nimesil"
+  },
+  {
+    "id": "nimesulide",
+    "ru": "Нимесулид",
+    "en": "nimesulide"
+  },
+  {
+    "id": "nimodipine",
+    "ru": "Нимодипин",
+    "en": "nimodipine"
+  },
+  {
+    "id": "nimustine",
+    "ru": "Нимустин",
+    "en": "nimustine"
+  },
+  {
+    "id": "nintedanib",
+    "ru": "Нинтеданиб",
+    "en": "nintedanib"
+  },
+  {
+    "id": "nystatin",
+    "ru": "Нистатин",
+    "en": "nystatin"
+  },
+  {
+    "id": "nitrazepam",
+    "ru": "Нитразепам",
+    "en": "nitrazepam"
+  },
+  {
+    "id": "silver_nitrate",
+    "ru": "Нитрат серебра(I)",
+    "en": "silver nitrate"
+  },
+  {
+    "id": "sodium_nitrite",
+    "ru": "Нитрит натрия",
+    "en": "sodium nitrite"
+  },
+  {
+    "id": "nitroglycerin",
+    "ru": "Нитроглицерин",
+    "en": "nitroglycerin"
+  },
+  {
+    "id": "nitroxoline",
+    "ru": "Нитроксолин",
+    "en": "nitroxoline"
+  },
+  {
+    "id": "nitroprusside",
+    "ru": "Нитропруссид натрия",
+    "en": "nitroprusside"
+  },
+  {
+    "id": "nitrofurazone",
+    "ru": "Нитрофурал",
+    "en": "nitrofurazone"
+  },
+  {
+    "id": "nitrofurantoin",
+    "ru": "Нитрофурантоин",
+    "en": "nitrofurantoin"
+  },
+  {
+    "id": "nifedipine",
+    "ru": "Нифедипин",
+    "en": "nifedipine"
+  },
+  {
+    "id": "niflumic_acid",
+    "ru": "Нифлумовая кислота",
+    "en": "niflumic acid"
+  },
+  {
+    "id": "nifuroxazide",
+    "ru": "Нифуроксазид",
+    "en": "nifuroxazide"
+  },
+  {
+    "id": "nifurtimox",
+    "ru": "Нифуртимокс",
+    "en": "nifurtimox"
+  },
+  {
+    "id": "nicergoline",
+    "ru": "Ницерголин",
+    "en": "nicergoline"
+  },
+  {
+    "id": "no_spa",
+    "ru": "Но-шпа",
+    "en": "No-spa"
+  },
+  {
+    "id": "novinet",
+    "ru": "Новинет",
+    "en": "Novinet"
+  },
+  {
+    "id": "novo_passit",
+    "ru": "Ново-пассит",
+    "en": "Novo-Passit"
+  },
+  {
+    "id": "novorapid",
+    "ru": "НовоРапид",
+    "en": "NovoRapid"
+  },
+  {
+    "id": "noliprel",
+    "ru": "Нолипрел",
+    "en": "Noliprel"
+  },
+  {
+    "id": "nolpaza",
+    "ru": "Нольпаза",
+    "en": "Nolpaza"
+  },
+  {
+    "id": "rs_nomifensine",
+    "ru": "Номифензин",
+    "en": "(RS)-nomifensine"
+  },
+  {
+    "id": "nootropil",
+    "ru": "Ноотропил",
+    "en": "Nootropil"
+  },
+  {
+    "id": "norepinephrine",
+    "ru": "Норадреналин",
+    "en": "norepinephrine"
+  },
+  {
+    "id": "normodipine",
+    "ru": "Нормодипин",
+    "en": "Normodipine"
+  },
+  {
+    "id": "nortriptyline",
+    "ru": "Нортриптилин",
+    "en": "nortriptyline"
+  },
+  {
+    "id": "norfenefrine",
+    "ru": "Норфенефрин",
+    "en": "norfenefrine"
+  },
+  {
+    "id": "norfloxacin",
+    "ru": "Норфлоксацин",
+    "en": "norfloxacin"
+  },
+  {
+    "id": "norethisterone",
+    "ru": "Норэтистерон",
+    "en": "norethisterone"
+  },
+  {
+    "id": "nurofen",
+    "ru": "Нурофен",
+    "en": "Nurofen"
+  },
+  {
+    "id": "nusinersen",
+    "ru": "Нусинерсен",
+    "en": "nusinersen"
+  },
+  {
+    "id": "obeticholic_acid",
+    "ru": "Обетихолевая кислота",
+    "en": "obeticholic acid"
+  },
+  {
+    "id": "obidoxime_chloride",
+    "ru": "Обидоксим",
+    "en": "obidoxime chloride"
+  },
+  {
+    "id": "obinutuzumab",
+    "ru": "Обинутузумаб",
+    "en": "obinutuzumab"
+  },
+  {
+    "id": "ovestin",
+    "ru": "Овестин",
+    "en": "Ovestin"
+  },
+  {
+    "id": "ozempic",
+    "ru": "Оземпик",
+    "en": "Ozempic"
+  },
+  {
+    "id": "ocrelizumab",
+    "ru": "Окрелизумаб",
+    "en": "ocrelizumab"
+  },
+  {
+    "id": "oxazepam",
+    "ru": "Оксазепам",
+    "en": "oxazepam"
+  },
+  {
+    "id": "oxaliplatin",
+    "ru": "Оксалиплатин",
+    "en": "oxaliplatin"
+  },
+  {
+    "id": "oxaprozin",
+    "ru": "Оксапрозин",
+    "en": "oxaprozin"
+  },
+  {
+    "id": "oxacillin",
+    "ru": "Оксациллин",
+    "en": "oxacillin"
+  },
+  {
+    "id": "oxeladin",
+    "ru": "Окселадин",
+    "en": "oxeladin"
+  },
+  {
+    "id": "oxyal",
+    "ru": "Оксиал",
+    "en": "Oxyal"
+  },
+  {
+    "id": "rs_oxybutynin",
+    "ru": "Оксибутинин",
+    "en": "(RS)-oxybutynin"
+  },
+  {
+    "id": "sodium_oxybate",
+    "ru": "Оксибутират натрия",
+    "en": "sodium oxybate"
+  },
+  {
+    "id": "nitrous_oxide",
+    "ru": "Оксид азота(I)",
+    "en": "nitrous oxide"
+  },
+  {
+    "id": "nitric_oxide",
+    "ru": "Оксид азота(II)",
+    "en": "nitric oxide"
+  },
+  {
+    "id": "aluminium_oxide",
+    "ru": "Оксид алюминия",
+    "en": "aluminium oxide"
+  },
+  {
+    "id": "magnesium_oxide",
+    "ru": "Оксид магния",
+    "en": "magnesium oxide"
+  },
+  {
+    "id": "arsenic_trioxide",
+    "ru": "Оксид мышьяка(III)",
+    "en": "arsenic trioxide"
+  },
+  {
+    "id": "carbon_dioxide",
+    "ru": "Оксид углерода(IV)",
+    "en": "carbon dioxide"
+  },
+  {
+    "id": "oxycodone",
+    "ru": "Оксикодон",
+    "en": "oxycodone"
+  },
+  {
+    "id": "oxycodone_paracetamol",
+    "ru": "Оксикодон/парацетамол",
+    "en": "Oxycodone/paracetamol"
+  },
+  {
+    "id": "oxymetazoline",
+    "ru": "Оксиметазолин",
+    "en": "oxymetazoline"
+  },
+  {
+    "id": "oxytetracycline",
+    "ru": "Окситетрациклин",
+    "en": "oxytetracycline"
+  },
+  {
+    "id": "oxytocin",
+    "ru": "Окситоцин",
+    "en": "oxytocin"
+  },
+  {
+    "id": "etidronic_acid",
+    "ru": "Оксиэтилидендифосфоновая кислота",
+    "en": "etidronic acid"
+  },
+  {
+    "id": "oxcarbazepine",
+    "ru": "Окскарбазепин",
+    "en": "oxcarbazepine"
+  },
+  {
+    "id": "oxolinic_acid",
+    "ru": "Оксолиновая кислота",
+    "en": "oxolinic acid"
+  },
+  {
+    "id": "oxprenolol",
+    "ru": "Окспренолол",
+    "en": "oxprenolol"
+  },
+  {
+    "id": "octopamine",
+    "ru": "Октопамин",
+    "en": "octopamine"
+  },
+  {
+    "id": "octreotide",
+    "ru": "Октреотид",
+    "en": "octreotide"
+  },
+  {
+    "id": "olanzapine",
+    "ru": "Оланзапин",
+    "en": "olanzapine"
+  },
+  {
+    "id": "olaflur",
+    "ru": "Олафлур",
+    "en": "olaflur"
+  },
+  {
+    "id": "oleandomycin",
+    "ru": "Олеандомицин",
+    "en": "oleandomycin"
+  },
+  {
+    "id": "olumiant",
+    "ru": "Олюмиант",
+    "en": "Olumiant"
+  },
+  {
+    "id": "omalizumab",
+    "ru": "Омализумаб",
+    "en": "omalizumab"
+  },
+  {
+    "id": "omega_3",
+    "ru": "Омега-3",
+    "en": "Omega-3"
+  },
+  {
+    "id": "omega_3_fatty_acid",
+    "ru": "Омега-3-ненасыщенные жирные кислоты",
+    "en": "omega-3 fatty acid"
+  },
+  {
+    "id": "omez",
+    "ru": "Омез",
+    "en": "Omez"
+  },
+  {
+    "id": "omeprazole",
+    "ru": "Омепразол",
+    "en": "omeprazole"
+  },
+  {
+    "id": "omnic",
+    "ru": "Омник",
+    "en": "Omnic"
+  },
+  {
+    "id": "papaveretum",
+    "ru": "Омнопон",
+    "en": "papaveretum"
+  },
+  {
+    "id": "onbrez",
+    "ru": "Онбрез",
+    "en": "Onbrez"
+  },
+  {
+    "id": "onglyza",
+    "ru": "Онглиза",
+    "en": "Onglyza"
+  },
+  {
+    "id": "ondansetron",
+    "ru": "Ондансетрон",
+    "en": "ondansetron"
+  },
+  {
+    "id": "opioid",
+    "ru": "Опиоид",
+    "en": "opioid"
+  },
+  {
+    "id": "opipramol",
+    "ru": "Опипрамол",
+    "en": "opipramol"
+  },
+  {
+    "id": "opium",
+    "ru": "Опиум",
+    "en": "opium"
+  },
+  {
+    "id": "orencia",
+    "ru": "Оренсия",
+    "en": "Orencia"
+  },
+  {
+    "id": "oritavancin",
+    "ru": "Оритаванцин",
+    "en": "oritavancin"
+  },
+  {
+    "id": "orlistat",
+    "ru": "Орлистат",
+    "en": "orlistat"
+  },
+  {
+    "id": "trisodium_phosphate",
+    "ru": "Ортофосфат натрия",
+    "en": "trisodium phosphate"
+  },
+  {
+    "id": "orungal",
+    "ru": "Орунгал",
+    "en": "Orungal"
+  },
+  {
+    "id": "metaproterenol",
+    "ru": "Орципреналин",
+    "en": "metaproterenol"
+  },
+  {
+    "id": "oseltamivir",
+    "ru": "Осельтамивир",
+    "en": "oseltamivir"
+  },
+  {
+    "id": "otipax",
+    "ru": "Отипакс",
+    "en": "Otipax"
+  },
+  {
+    "id": "otrivin",
+    "ru": "Отривин",
+    "en": "Otrivin"
+  },
+  {
+    "id": "ofatumumab",
+    "ru": "Офатумумаб",
+    "en": "ofatumumab"
+  },
+  {
+    "id": "dl_ofloxacin",
+    "ru": "Офлоксацин",
+    "en": "DL-ofloxacin"
+  },
+  {
+    "id": "oftan_catachrom",
+    "ru": "Офтан Катахром",
+    "en": "Oftan Catachrom"
+  },
+  {
+    "id": "paclitaxel",
+    "ru": "Паклитаксел",
+    "en": "paclitaxel"
+  },
+  {
+    "id": "palbociclib",
+    "ru": "Палбоциклиб",
+    "en": "palbociclib"
+  },
+  {
+    "id": "paliperidone",
+    "ru": "Палиперидон",
+    "en": "paliperidone"
+  },
+  {
+    "id": "3as_palonosetron",
+    "ru": "Палоносетрон",
+    "en": "(3aS)-palonosetron"
+  },
+  {
+    "id": "pamidronic_acid",
+    "ru": "Памидроновая кислота",
+    "en": "pamidronic acid"
+  },
+  {
+    "id": "panangin",
+    "ru": "Панангин",
+    "en": "Panangin"
+  },
+  {
+    "id": "panitumumab",
+    "ru": "Панитумумаб",
+    "en": "panitumumab"
+  },
+  {
+    "id": "pancreatin",
+    "ru": "Панкреатин",
+    "en": "pancreatin"
+  },
+  {
+    "id": "pancuronium_cation",
+    "ru": "Панкуроний",
+    "en": "pancuronium (cation)"
+  },
+  {
+    "id": "panobinostat",
+    "ru": "Панобиностат",
+    "en": "panobinostat"
+  },
+  {
+    "id": "panthenol",
+    "ru": "Пантенол",
+    "en": "Panthenol"
+  },
+  {
+    "id": "pantethine",
+    "ru": "Пантетин",
+    "en": "pantethine"
+  },
+  {
+    "id": "pantoprazole",
+    "ru": "Пантопразол",
+    "en": "pantoprazole"
+  },
+  {
+    "id": "papaverine",
+    "ru": "Папаверин",
+    "en": "papaverine"
+  },
+  {
+    "id": "papazole",
+    "ru": "Папазол",
+    "en": "papazole"
+  },
+  {
+    "id": "4_aminobenzoic_acid",
+    "ru": "Пара-аминобензойная кислота",
+    "en": "4-aminobenzoic acid"
+  },
+  {
+    "id": "4_aminosalicylic_acid",
+    "ru": "Пара-аминосалициловая кислота",
+    "en": "4-aminosalicylic acid"
+  },
+  {
+    "id": "paraldehyde",
+    "ru": "Паральдегид",
+    "en": "paraldehyde"
+  },
+  {
+    "id": "paracetamol",
+    "ru": "Парацетамол",
+    "en": "paracetamol"
+  },
+  {
+    "id": "parecoxib",
+    "ru": "Парекоксиб",
+    "en": "parecoxib"
+  },
+  {
+    "id": "paroxetine",
+    "ru": "Пароксетин",
+    "en": "paroxetine"
+  },
+  {
+    "id": "patiromer",
+    "ru": "Патиромер",
+    "en": "patiromer"
+  },
+  {
+    "id": "patisiran",
+    "ru": "Патисиран",
+    "en": "patisiran"
+  },
+  {
+    "id": "sparteine",
+    "ru": "Пахикарпин",
+    "en": "(−)-sparteine"
+  },
+  {
+    "id": "peginterferon_alfa_2a",
+    "ru": "Пегилированный интерферон альфа-2а",
+    "en": "peginterferon alfa-2a"
+  },
+  {
+    "id": "pectin",
+    "ru": "Пектиновые вещества",
+    "en": "pectin"
+  },
+  {
+    "id": "pembrolizumab",
+    "ru": "Пембролизумаб",
+    "en": "pembrolizumab"
+  },
+  {
+    "id": "pemetrexed",
+    "ru": "Пеметрексед",
+    "en": "pemetrexed"
+  },
+  {
+    "id": "pemoline",
+    "ru": "Пемолин",
+    "en": "pemoline"
+  },
+  {
+    "id": "d_penicillamine",
+    "ru": "Пеницилламин",
+    "en": "D-penicillamine"
+  },
+  {
+    "id": "pentagastrin",
+    "ru": "Пентагастрин",
+    "en": "pentagastrin"
+  },
+  {
+    "id": "pentazocine",
+    "ru": "Пентазоцин",
+    "en": "(-)-pentazocine"
+  },
+  {
+    "id": "pentalgin",
+    "ru": "Пенталгин",
+    "en": "Pentalgin"
+  },
+  {
+    "id": "pentaerythritol_tetranitrate",
+    "ru": "Пентаэритриттетранитрат",
+    "en": "pentaerythritol tetranitrate"
+  },
+  {
+    "id": "pentetrazol",
+    "ru": "Пентилентетразол",
+    "en": "pentetrazol"
+  },
+  {
+    "id": "rs_pentobarbital",
+    "ru": "Пентобарбитал",
+    "en": "(RS)-pentobarbital"
+  },
+  {
+    "id": "pentoxifylline",
+    "ru": "Пентоксифиллин",
+    "en": "pentoxifylline"
+  },
+  {
+    "id": "penfluridol",
+    "ru": "Пенфлуридол",
+    "en": "penfluridol"
+  },
+  {
+    "id": "penciclovir",
+    "ru": "Пенцикловир",
+    "en": "penciclovir"
+  },
+  {
+    "id": "peramivir",
+    "ru": "Перамивир",
+    "en": "peramivir"
+  },
+  {
+    "id": "sodium_perborate",
+    "ru": "Перборат натрия",
+    "en": "sodium perborate"
+  },
+  {
+    "id": "pergolide",
+    "ru": "Перголид",
+    "en": "pergolide"
+  },
+  {
+    "id": "benzoyl_peroxide_2",
+    "ru": "Перекись бензоила",
+    "en": "Benzoyl peroxide"
+  },
+  {
+    "id": "perindopril",
+    "ru": "Периндоприл",
+    "en": "perindopril"
+  },
+  {
+    "id": "periciazine",
+    "ru": "Перициазин",
+    "en": "periciazine"
+  },
+  {
+    "id": "potassium_permanganate",
+    "ru": "Перманганат калия",
+    "en": "potassium permanganate"
+  },
+  {
+    "id": "permethrin",
+    "ru": "Перметрин",
+    "en": "permethrin"
+  },
+  {
+    "id": "feather",
+    "ru": "Перо",
+    "en": "feather"
+  },
+  {
+    "id": "hydrogen_peroxide",
+    "ru": "Пероксид водорода",
+    "en": "hydrogen peroxide"
+  },
+  {
+    "id": "magnesium_peroxide",
+    "ru": "Пероксид магния",
+    "en": "magnesium peroxide"
+  },
+  {
+    "id": "persen",
+    "ru": "Персен",
+    "en": "Persen"
+  },
+  {
+    "id": "pertuzumab",
+    "ru": "Пертузумаб",
+    "en": "pertuzumab"
+  },
+  {
+    "id": "perphenazine",
+    "ru": "Перфеназин",
+    "en": "perphenazine"
+  },
+  {
+    "id": "perftoran",
+    "ru": "Перфторан",
+    "en": "Perftoran"
+  },
+  {
+    "id": "potassium_perchlorate",
+    "ru": "Перхлорат калия",
+    "en": "potassium perchlorate"
+  },
+  {
+    "id": "pethidine",
+    "ru": "Петидин",
+    "en": "pethidine"
+  },
+  {
+    "id": "pefloxacin",
+    "ru": "Пефлоксацин",
+    "en": "pefloxacin"
+  },
+  {
+    "id": "amdinocillin_pivoxil",
+    "ru": "Пивмециллинам",
+    "en": "amdinocillin pivoxil"
+  },
+  {
+    "id": "pidotimod",
+    "ru": "Пидотимод",
+    "en": "pidotimod"
+  },
+  {
+    "id": "picloxydine",
+    "ru": "Пиклоксидин",
+    "en": "picloxydine"
+  },
+  {
+    "id": "pilocarpine",
+    "ru": "Пилокарпин",
+    "en": "pilocarpine"
+  },
+  {
+    "id": "pimavanserin",
+    "ru": "Пимавансерин",
+    "en": "pimavanserin"
+  },
+  {
+    "id": "pimafucin",
+    "ru": "Пимафуцин",
+    "en": "Pimafucin"
+  },
+  {
+    "id": "pimecrolimus",
+    "ru": "Пимекролимус",
+    "en": "pimecrolimus"
+  },
+  {
+    "id": "pimozide",
+    "ru": "Пимозид",
+    "en": "pimozide"
+  },
+  {
+    "id": "pinacidil",
+    "ru": "Пинацидил",
+    "en": "pinacidil"
+  },
+  {
+    "id": "pindolol",
+    "ru": "Пиндолол",
+    "en": "pindolol"
+  },
+  {
+    "id": "rs_pioglitazone",
+    "ru": "Пиоглитазон",
+    "en": "(RS)-pioglitazone"
+  },
+  {
+    "id": "pipamperone",
+    "ru": "Пипамперон",
+    "en": "pipamperone"
+  },
+  {
+    "id": "pipecuronium_bromide",
+    "ru": "Пипекуроний",
+    "en": "pipecuronium bromide"
+  },
+  {
+    "id": "pipemidic_acid",
+    "ru": "Пипемидовая кислота",
+    "en": "pipemidic acid"
+  },
+  {
+    "id": "piperazine",
+    "ru": "Пиперазин",
+    "en": "piperazine"
+  },
+  {
+    "id": "pipotiazine",
+    "ru": "Пипотиазин",
+    "en": "pipotiazine"
+  },
+  {
+    "id": "pipradrol",
+    "ru": "Пипрадрол",
+    "en": "pipradrol"
+  },
+  {
+    "id": "pyrazinamide",
+    "ru": "Пиразинамид",
+    "en": "pyrazinamide"
+  },
+  {
+    "id": "pyrazolone",
+    "ru": "Пиразолон",
+    "en": "pyrazolone"
+  },
+  {
+    "id": "pyrantel",
+    "ru": "Пирантел",
+    "en": "pyrantel"
+  },
+  {
+    "id": "piracetam",
+    "ru": "Пирацетам",
+    "en": "piracetam"
+  },
+  {
+    "id": "pirenzepine",
+    "ru": "Пирензепин",
+    "en": "pirenzepine"
+  },
+  {
+    "id": "pyrethrin",
+    "ru": "Пиретрины",
+    "en": "pyrethrin"
+  },
+  {
+    "id": "piribedil",
+    "ru": "Пирибедил",
+    "en": "Piribedil"
+  },
+  {
+    "id": "pyridoxal_phosphate",
+    "ru": "Пиридоксальфосфат",
+    "en": "pyridoxal phosphate"
+  },
+  {
+    "id": "pyridoxine",
+    "ru": "Пиридоксин",
+    "en": "pyridoxine"
+  },
+  {
+    "id": "pyridostigmine",
+    "ru": "Пиридостигмина бромид",
+    "en": "pyridostigmine"
+  },
+  {
+    "id": "pyritinol",
+    "ru": "Пиритинол",
+    "en": "pyritinol"
+  },
+  {
+    "id": "piritramide",
+    "ru": "Пиритрамид",
+    "en": "piritramide"
+  },
+  {
+    "id": "piroxicam",
+    "ru": "Пироксикам",
+    "en": "piroxicam"
+  },
+  {
+    "id": "pitavastatin",
+    "ru": "Питавастатин",
+    "en": "Pitavastatin"
+  },
+  {
+    "id": "pitolisant",
+    "ru": "Питолизант",
+    "en": "pitolisant"
+  },
+  {
+    "id": "colloidal_gold",
+    "ru": "Питьевое золото",
+    "en": "colloidal gold"
+  },
+  {
+    "id": "plavix",
+    "ru": "Плавикс",
+    "en": "Plavix"
+  },
+  {
+    "id": "blood_plasma",
+    "ru": "Плазма крови",
+    "en": "blood plasma"
+  },
+  {
+    "id": "plaquenil",
+    "ru": "Плаквенил",
+    "en": "Plaquenil"
+  },
+  {
+    "id": "adhesive_bandage",
+    "ru": "Пластырь",
+    "en": "adhesive bandage"
+  },
+  {
+    "id": "plecanatide",
+    "ru": "Плеканатид",
+    "en": "plecanatide"
+  },
+  {
+    "id": "cilostazol",
+    "ru": "Плетал",
+    "en": "cilostazol"
+  },
+  {
+    "id": "aplidin",
+    "ru": "Плитидепсин",
+    "en": "aplidin"
+  },
+  {
+    "id": "dressing",
+    "ru": "Повязка",
+    "en": "dressing"
+  },
+  {
+    "id": "psyllium_seed_husks",
+    "ru": "Подорожник",
+    "en": "Psyllium seed husks"
+  },
+  {
+    "id": "podofilox",
+    "ru": "Подофиллотоксин",
+    "en": "podofilox"
+  },
+  {
+    "id": "posaconazole",
+    "ru": "Позаконазол",
+    "en": "posaconazole"
+  },
+  {
+    "id": "polydex",
+    "ru": "Полидекса",
+    "en": "Polydex"
+  },
+  {
+    "id": "polydex_ear",
+    "ru": "Полидекса (уши)",
+    "en": "Polydex (ear)"
+  },
+  {
+    "id": "polydimethylsiloxane",
+    "ru": "Полидиметилсилоксан",
+    "en": "polydimethylsiloxane"
+  },
+  {
+    "id": "policosanol",
+    "ru": "Поликозанол",
+    "en": "Policosanol"
+  },
+  {
+    "id": "polymyxins",
+    "ru": "Полимиксины",
+    "en": "polymyxins"
+  },
+  {
+    "id": "polynoxylin",
+    "ru": "Полиноксилин",
+    "en": "polynoxylin"
+  },
+  {
+    "id": "polyoxidonium",
+    "ru": "Полиоксидоний",
+    "en": "Polyoxidonium"
+  },
+  {
+    "id": "polyethylene_glycol",
+    "ru": "Полиэтиленгликоль",
+    "en": "polyethylene glycol"
+  },
+  {
+    "id": "pomalidomide",
+    "ru": "Помалидомид",
+    "en": "pomalidomide"
+  },
+  {
+    "id": "postinor",
+    "ru": "Постинор",
+    "en": "Postinor"
+  },
+  {
+    "id": "pravastatin",
+    "ru": "Правастатин",
+    "en": "pravastatin"
+  },
+  {
+    "id": "pradaxa",
+    "ru": "Прадакса",
+    "en": "Pradaxa"
+  },
+  {
+    "id": "praziquantel",
+    "ru": "Празиквантел",
+    "en": "praziquantel"
+  },
+  {
+    "id": "prazosin",
+    "ru": "Празозин",
+    "en": "prazosin"
+  },
+  {
+    "id": "pralidoxime",
+    "ru": "Пралидоксим",
+    "en": "pralidoxime"
+  },
+  {
+    "id": "praluent",
+    "ru": "Пралуент",
+    "en": "Praluent"
+  },
+  {
+    "id": "pramipexole",
+    "ru": "Прамипексол",
+    "en": "Pramipexole"
+  },
+  {
+    "id": "pramiracetam",
+    "ru": "Прамирацетам",
+    "en": "pramiracetam"
+  },
+  {
+    "id": "pramlintide",
+    "ru": "Прамлинтид",
+    "en": "pramlintide"
+  },
+  {
+    "id": "prasugrel",
+    "ru": "Прасугрель",
+    "en": "prasugrel"
+  },
+  {
+    "id": "pregabalin",
+    "ru": "Прегабалин",
+    "en": "pregabalin"
+  },
+  {
+    "id": "pregnacare",
+    "ru": "Прегнакеа",
+    "en": "Pregnacare"
+  },
+  {
+    "id": "pregnyl",
+    "ru": "Прегнил",
+    "en": "Pregnyl"
+  },
+  {
+    "id": "prednisolone",
+    "ru": "Преднизолон",
+    "en": "prednisolone"
+  },
+  {
+    "id": "prednisone",
+    "ru": "Преднизон",
+    "en": "prednisone"
+  },
+  {
+    "id": "prednicarbate",
+    "ru": "Предникарбат",
+    "en": "prednicarbate"
+  },
+  {
+    "id": "prednimustine",
+    "ru": "Преднимустин",
+    "en": "prednimustine"
+  },
+  {
+    "id": "preductal",
+    "ru": "Предуктал",
+    "en": "Preductal"
+  },
+  {
+    "id": "prenoxdiazine",
+    "ru": "Преноксдиазин",
+    "en": "prenoxdiazine"
+  },
+  {
+    "id": "prestarium",
+    "ru": "Престариум",
+    "en": "Prestarium"
+  },
+  {
+    "id": "priligy",
+    "ru": "Прилиджи",
+    "en": "Priligy"
+  },
+  {
+    "id": "prilocaine",
+    "ru": "Прилокаин",
+    "en": "prilocaine"
+  },
+  {
+    "id": "primidone",
+    "ru": "Примидон",
+    "en": "primidone"
+  },
+  {
+    "id": "progesterone",
+    "ru": "Прогестерон",
+    "en": "progesterone"
+  },
+  {
+    "id": "prograf",
+    "ru": "Програф",
+    "en": "Prograf"
+  },
+  {
+    "id": "prozac",
+    "ru": "Прозак",
+    "en": "Prozac"
+  },
+  {
+    "id": "procaine",
+    "ru": "Прокаин",
+    "en": "procaine"
+  },
+  {
+    "id": "procainamide",
+    "ru": "Прокаинамид",
+    "en": "procainamide"
+  },
+  {
+    "id": "procarbazine",
+    "ru": "Прокарбазин",
+    "en": "procarbazine"
+  },
+  {
+    "id": "promazine",
+    "ru": "Промазин",
+    "en": "promazine"
+  },
+  {
+    "id": "promedol",
+    "ru": "Промедол",
+    "en": "Promedol"
+  },
+  {
+    "id": "promethazine",
+    "ru": "Прометазин",
+    "en": "(±)-promethazine"
+  },
+  {
+    "id": "pronoran",
+    "ru": "Проноран",
+    "en": "Pronoran"
+  },
+  {
+    "id": "propanidid",
+    "ru": "Пропанидид",
+    "en": "propanidid"
+  },
+  {
+    "id": "rs_propafenone",
+    "ru": "Пропафенон",
+    "en": "(RS)-propafenone"
+  },
+  {
+    "id": "propecia",
+    "ru": "Пропеция",
+    "en": "Propecia"
+  },
+  {
+    "id": "propyl_alcohol",
+    "ru": "Пропиловый спирт",
+    "en": "propyl alcohol"
+  },
+  {
+    "id": "propylthiouracil",
+    "ru": "Пропилтиоурацил",
+    "en": "Propylthiouracil"
+  },
+  {
+    "id": "sodium_propionate",
+    "ru": "Пропионат натрия",
+    "en": "sodium propionate"
+  },
+  {
+    "id": "propyphenazone",
+    "ru": "Пропифеназон",
+    "en": "propyphenazone"
+  },
+  {
+    "id": "propofol",
+    "ru": "Пропофол",
+    "en": "propofol"
+  },
+  {
+    "id": "propranolol",
+    "ru": "Пропранолол",
+    "en": "propranolol"
+  },
+  {
+    "id": "proscar",
+    "ru": "Проскар",
+    "en": "Proscar"
+  },
+  {
+    "id": "prostaglandins",
+    "ru": "Простагландины",
+    "en": "prostaglandins"
+  },
+  {
+    "id": "prostacyclin",
+    "ru": "Простациклин",
+    "en": "prostacyclin"
+  },
+  {
+    "id": "protamine",
+    "ru": "Протамины",
+    "en": "protamine"
+  },
+  {
+    "id": "antidiarrhoeal",
+    "ru": "Противодиарейные средства",
+    "en": "antidiarrhoeal"
+  },
+  {
+    "id": "antiparasitic",
+    "ru": "Противомикробные, противопаразитарные и противоглистные средства",
+    "en": "antiparasitic"
+  },
+  {
+    "id": "antineoplastic_antibiotics",
+    "ru": "Противоопухолевые антибиотики",
+    "en": "antineoplastic antibiotics"
+  },
+  {
+    "id": "antidote",
+    "ru": "Противоядие",
+    "en": "antidote"
+  },
+  {
+    "id": "protionamide",
+    "ru": "Протионамид",
+    "en": "protionamide"
+  },
+  {
+    "id": "protopic",
+    "ru": "Протопик",
+    "en": "Protopic"
+  },
+  {
+    "id": "prochlorperazine",
+    "ru": "Прохлорперазин",
+    "en": "prochlorperazine"
+  },
+  {
+    "id": "prucalopride",
+    "ru": "Прукалоприд",
+    "en": "prucalopride"
+  },
+  {
+    "id": "psycholeptic",
+    "ru": "Психолептик",
+    "en": "psycholeptic"
+  },
+  {
+    "id": "pulmicort",
+    "ru": "Пульмикорт",
+    "en": "Pulmicort"
+  },
+  {
+    "id": "puregon",
+    "ru": "Пурегон",
+    "en": "Puregon"
+  },
+  {
+    "id": "motherwort",
+    "ru": "Пустырник",
+    "en": "Motherwort"
+  },
+  {
+    "id": "rs_rabeprazole",
+    "ru": "Рабепразол",
+    "en": "(RS)-rabeprazole"
+  },
+  {
+    "id": "rasagiline",
+    "ru": "Разагилин",
+    "en": "rasagiline"
+  },
+  {
+    "id": "raltegravir",
+    "ru": "Ралтегравир",
+    "en": "raltegravir"
+  },
+  {
+    "id": "ramelteon",
+    "ru": "Рамелтеон",
+    "en": "ramelteon"
+  },
+  {
+    "id": "ramipril",
+    "ru": "Рамиприл",
+    "en": "ramipril"
+  },
+  {
+    "id": "ranibizumab",
+    "ru": "Ранибизумаб",
+    "en": "ranibizumab"
+  },
+  {
+    "id": "ranimustine",
+    "ru": "Ранимустин",
+    "en": "ranimustine"
+  },
+  {
+    "id": "ranitidine",
+    "ru": "Ранитидин",
+    "en": "ranitidine"
+  },
+  {
+    "id": "ranitidine_bismuth_citrate",
+    "ru": "Ранитидина висмута цитрат",
+    "en": "Ranitidine bismuth citrate"
+  },
+  {
+    "id": "hydrogen_peroxide_solution",
+    "ru": "Раствор перекиси водорода",
+    "en": "hydrogen peroxide solution"
+  },
+  {
+    "id": "diphenadione",
+    "ru": "Ратиндан",
+    "en": "diphenadione"
+  },
+  {
+    "id": "rebamipide",
+    "ru": "Ребамипид",
+    "en": "rebamipide"
+  },
+  {
+    "id": "rs_rs_reboxetine",
+    "ru": "Ребоксетин",
+    "en": "(RS,RS)-reboxetine"
+  },
+  {
+    "id": "regorafenib",
+    "ru": "Регорафениб",
+    "en": "regorafenib"
+  },
+  {
+    "id": "regulon",
+    "ru": "Регулон",
+    "en": "Regulon"
+  },
+  {
+    "id": "reserpine",
+    "ru": "Резерпин",
+    "en": "reserpine"
+  },
+  {
+    "id": "resorcin",
+    "ru": "Резорцин",
+    "en": "resorcin"
+  },
+  {
+    "id": "relvar_ellipta",
+    "ru": "Релвар Эллипта",
+    "en": "Relvar Ellipta"
+  },
+  {
+    "id": "remdesivir",
+    "ru": "Ремдесивир",
+    "en": "remdesivir"
+  },
+  {
+    "id": "remicade",
+    "ru": "Ремикейд",
+    "en": "Remicade"
+  },
+  {
+    "id": "remifentanil",
+    "ru": "Ремифентанил",
+    "en": "remifentanil"
+  },
+  {
+    "id": "renvela",
+    "ru": "Ренвела",
+    "en": "Renvela"
+  },
+  {
+    "id": "rennie",
+    "ru": "Ренни",
+    "en": "Rennie"
+  },
+  {
+    "id": "dextran_40",
+    "ru": "Реополиглюкин",
+    "en": "dextran-40"
+  },
+  {
+    "id": "repaglinide",
+    "ru": "Репаглинид",
+    "en": "repaglinide"
+  },
+  {
+    "id": "repatha",
+    "ru": "Репата",
+    "en": "Repatha"
+  },
+  {
+    "id": "reslizumab",
+    "ru": "Реслизумаб",
+    "en": "reslizumab"
+  },
+  {
+    "id": "retapamulin",
+    "ru": "Ретапамулин",
+    "en": "retapamulin"
+  },
+  {
+    "id": "retinol",
+    "ru": "Ретинол",
+    "en": "retinol"
+  },
+  {
+    "id": "ribavirin",
+    "ru": "Рибавирин",
+    "en": "ribavirin"
+  },
+  {
+    "id": "ribomunyl",
+    "ru": "Рибомунил",
+    "en": "Ribomunyl"
+  },
+  {
+    "id": "riboflavin",
+    "ru": "Рибофлавин",
+    "en": "riboflavin"
+  },
+  {
+    "id": "rivaroxaban",
+    "ru": "Ривароксабан",
+    "en": "rivaroxaban"
+  },
+  {
+    "id": "rivastigmine",
+    "ru": "Ривастигмин",
+    "en": "rivastigmine"
+  },
+  {
+    "id": "rilmenidine",
+    "ru": "Рилменидин",
+    "en": "rilmenidine"
+  },
+  {
+    "id": "rilpivirine",
+    "ru": "Рилпивирин",
+    "en": "rilpivirine"
+  },
+  {
+    "id": "riluzole",
+    "ru": "Рилузол",
+    "en": "riluzole"
+  },
+  {
+    "id": "rimantadine",
+    "ru": "Римантадин",
+    "en": "rimantadine"
+  },
+  {
+    "id": "rinvoq",
+    "ru": "Ринвок",
+    "en": "Rinvoq"
+  },
+  {
+    "id": "rinza",
+    "ru": "Ринза",
+    "en": "Rinza"
+  },
+  {
+    "id": "rhinocleanse",
+    "ru": "Ринокленз",
+    "en": "Rhinocleanse"
+  },
+  {
+    "id": "rhinopront",
+    "ru": "Ринопронт",
+    "en": "Rhinopront"
+  },
+  {
+    "id": "rhinostop",
+    "ru": "Риностоп",
+    "en": "Rhinostop"
+  },
+  {
+    "id": "rinofluimucil",
+    "ru": "Ринофлуимуцил",
+    "en": "Rinofluimucil"
+  },
+  {
+    "id": "risperidone",
+    "ru": "Рисперидон",
+    "en": "risperidone"
+  },
+  {
+    "id": "ritonavir",
+    "ru": "Ритонавир",
+    "en": "ritonavir"
+  },
+  {
+    "id": "rituximab",
+    "ru": "Ритуксимаб",
+    "en": "rituximab"
+  },
+  {
+    "id": "rifabutin",
+    "ru": "Рифабутин",
+    "en": "rifabutin"
+  },
+  {
+    "id": "rifaximin",
+    "ru": "Рифаксимин",
+    "en": "rifaximin"
+  },
+  {
+    "id": "rifamycin",
+    "ru": "Рифамицин",
+    "en": "rifamycin"
+  },
+  {
+    "id": "rifampicin",
+    "ru": "Рифампицин",
+    "en": "rifampicin"
+  },
+  {
+    "id": "roaccutane",
+    "ru": "Роаккутан",
+    "en": "Roaccutane"
+  },
+  {
+    "id": "rosuvastatin",
+    "ru": "Розувастатин",
+    "en": "rosuvastatin"
+  },
+  {
+    "id": "roxithromycin",
+    "ru": "Рокситромицин",
+    "en": "roxithromycin"
+  },
+  {
+    "id": "rocuronium",
+    "ru": "Рокуроний",
+    "en": "rocuronium"
+  },
+  {
+    "id": "romiplostim",
+    "ru": "Ромиплостим",
+    "en": "romiplostim"
+  },
+  {
+    "id": "romosozumab",
+    "ru": "Ромосозумаб",
+    "en": "Romosozumab"
+  },
+  {
+    "id": "ropinirole",
+    "ru": "Ропинирол",
+    "en": "Ropinirole"
+  },
+  {
+    "id": "rs_rosiglitazone",
+    "ru": "Росиглитазон",
+    "en": "(RS)-rosiglitazone"
+  },
+  {
+    "id": "rotavirus_vaccine",
+    "ru": "Ротавирусная вакцина",
+    "en": "rotavirus vaccine"
+  },
+  {
+    "id": "rofecoxib",
+    "ru": "Рофекоксиб",
+    "en": "rofecoxib"
+  },
+  {
+    "id": "roflumilast",
+    "ru": "Рофлумиласт",
+    "en": "roflumilast"
+  },
+  {
+    "id": "rupatadine",
+    "ru": "Рупатадин",
+    "en": "Rupatadine"
+  },
+  {
+    "id": "rutin",
+    "ru": "Рутозид",
+    "en": "rutin"
+  },
+  {
+    "id": "fish_oil",
+    "ru": "Рыбий жир",
+    "en": "Fish oil"
+  },
+  {
+    "id": "saquinavir",
+    "ru": "Саквинавир",
+    "en": "saquinavir"
+  },
+  {
+    "id": "saxagliptin",
+    "ru": "Саксаглиптин",
+    "en": "Saxagliptin"
+  },
+  {
+    "id": "sacubitril_valsartan",
+    "ru": "Сакубитрил/Валсартан",
+    "en": "Sacubitril/Valsartan"
+  },
+  {
+    "id": "salicylamide",
+    "ru": "Салициламид",
+    "en": "salicylamide"
+  },
+  {
+    "id": "salicylic_acid",
+    "ru": "Салициловая кислота",
+    "en": "salicylic acid"
+  },
+  {
+    "id": "rac_salbutamol",
+    "ru": "Сальбутамол",
+    "en": "rac-salbutamol"
+  },
+  {
+    "id": "salmeterol",
+    "ru": "Сальметерол",
+    "en": "salmeterol"
+  },
+  {
+    "id": "sandimmun",
+    "ru": "Сандиммун",
+    "en": "Sandimmun"
+  },
+  {
+    "id": "sanorin",
+    "ru": "Санорин",
+    "en": "Sanorin"
+  },
+  {
+    "id": "sarecycline",
+    "ru": "Сарециклин",
+    "en": "sarecycline"
+  },
+  {
+    "id": "sarilumab",
+    "ru": "Сарилумаб",
+    "en": "sarilumab"
+  },
+  {
+    "id": "satraplatin",
+    "ru": "Сатраплатин",
+    "en": "satraplatin"
+  },
+  {
+    "id": "safinamide",
+    "ru": "Сафинамид",
+    "en": "safinamide"
+  },
+  {
+    "id": "sevelamer",
+    "ru": "Севеламер",
+    "en": "Sevelamer"
+  },
+  {
+    "id": "sevoflurane",
+    "ru": "Севофлуран",
+    "en": "sevoflurane"
+  },
+  {
+    "id": "secnidazole",
+    "ru": "Секнидазол",
+    "en": "secnidazole"
+  },
+  {
+    "id": "secretin",
+    "ru": "Секретин",
+    "en": "secretin"
+  },
+  {
+    "id": "secukinumab",
+    "ru": "Секукинумаб",
+    "en": "secukinumab"
+  },
+  {
+    "id": "selenium",
+    "ru": "Селен",
+    "en": "Selenium"
+  },
+  {
+    "id": "sodium_selenate",
+    "ru": "Селенат натрия",
+    "en": "sodium selenate"
+  },
+  {
+    "id": "sodium_selenite",
+    "ru": "Селенит натрия",
+    "en": "sodium selenite"
+  },
+  {
+    "id": "cellcept",
+    "ru": "Селлсепт",
+    "en": "CellCept"
+  },
+  {
+    "id": "semaglutide",
+    "ru": "Семаглутид",
+    "en": "semaglutide"
+  },
+  {
+    "id": "semustine",
+    "ru": "Семустин",
+    "en": "semustine"
+  },
+  {
+    "id": "senna_glycoside",
+    "ru": "Сеннозид",
+    "en": "senna glycoside"
+  },
+  {
+    "id": "septefril",
+    "ru": "Септефрил",
+    "en": "Septefril"
+  },
+  {
+    "id": "cardiac_glycoside",
+    "ru": "Сердечные гликозиды",
+    "en": "cardiac glycoside"
+  },
+  {
+    "id": "seretide",
+    "ru": "Серетид",
+    "en": "Seretide"
+  },
+  {
+    "id": "seroquel",
+    "ru": "Сероквель",
+    "en": "Seroquel"
+  },
+  {
+    "id": "rs_sertaconazole",
+    "ru": "Сертаконазол",
+    "en": "(RS)-sertaconazole"
+  },
+  {
+    "id": "sertindole",
+    "ru": "Сертиндол",
+    "en": "sertindole"
+  },
+  {
+    "id": "sertraline",
+    "ru": "Сертралин",
+    "en": "sertraline"
+  },
+  {
+    "id": "sequifenadine",
+    "ru": "Сехифенадин",
+    "en": "sequifenadine"
+  },
+  {
+    "id": "cialis",
+    "ru": "Сиалис",
+    "en": "Cialis"
+  },
+  {
+    "id": "rs_sibutramine",
+    "ru": "Сибутрамин",
+    "en": "(RS)-sibutramine"
+  },
+  {
+    "id": "sildenafil",
+    "ru": "Силденафил",
+    "en": "sildenafil"
+  },
+  {
+    "id": "silibinin_a",
+    "ru": "Силибинин",
+    "en": "silibinin A"
+  },
+  {
+    "id": "calcium_silicate",
+    "ru": "Силикат кальция",
+    "en": "calcium silicate"
+  },
+  {
+    "id": "silicone",
+    "ru": "Силикон",
+    "en": "silicone"
+  },
+  {
+    "id": "silimar",
+    "ru": "Силимар",
+    "en": "Silimar"
+  },
+  {
+    "id": "silymarin",
+    "ru": "Силимарин",
+    "en": "silymarin"
+  },
+  {
+    "id": "symbicort",
+    "ru": "Симбикорт",
+    "en": "Symbicort"
+  },
+  {
+    "id": "simvastatin",
+    "ru": "Симвастатин",
+    "en": "simvastatin"
+  },
+  {
+    "id": "sympathomimetic_drug",
+    "ru": "Симпатомиметик",
+    "en": "sympathomimetic drug"
+  },
+  {
+    "id": "singulair",
+    "ru": "Сингуляр",
+    "en": "Singulair"
+  },
+  {
+    "id": "sinekod",
+    "ru": "Синекод",
+    "en": "Sinekod"
+  },
+  {
+    "id": "oxedrine",
+    "ru": "Синефрин",
+    "en": "oxedrine"
+  },
+  {
+    "id": "polidocanol",
+    "ru": "Синтанол",
+    "en": "polidocanol"
+  },
+  {
+    "id": "sinupret",
+    "ru": "Синупрет",
+    "en": "Sinupret"
+  },
+  {
+    "id": "siofor",
+    "ru": "Сиофор",
+    "en": "Siofor"
+  },
+  {
+    "id": "sirdalud",
+    "ru": "Сирдалуд",
+    "en": "Sirdalud"
+  },
+  {
+    "id": "sirolimus",
+    "ru": "Сиролимус",
+    "en": "sirolimus"
+  },
+  {
+    "id": "systane",
+    "ru": "Систейн",
+    "en": "Systane"
+  },
+  {
+    "id": "sitagliptin",
+    "ru": "Ситаглиптин",
+    "en": "sitagliptin"
+  },
+  {
+    "id": "skinoren",
+    "ru": "Скинорен",
+    "en": "Skinoren"
+  },
+  {
+    "id": "l_scopolamine",
+    "ru": "Скополамин",
+    "en": "L-scopolamine"
+  },
+  {
+    "id": "smecta",
+    "ru": "Смекта",
+    "en": "Smecta"
+  },
+  {
+    "id": "hypnotics_and_sedatives",
+    "ru": "Снотворные и седативные средства",
+    "en": "hypnotics and sedatives"
+  },
+  {
+    "id": "mercury_compound",
+    "ru": "Соединение ртути",
+    "en": "mercury compound"
+  },
+  {
+    "id": "calcium_compounds",
+    "ru": "Соединения кальция",
+    "en": "calcium compounds"
+  },
+  {
+    "id": "selenium_compounds",
+    "ru": "Соединения селена",
+    "en": "selenium compounds"
+  },
+  {
+    "id": "sulfur_compound",
+    "ru": "Соединения серы",
+    "en": "sulfur compound"
+  },
+  {
+    "id": "solifenacin_succinate",
+    "ru": "Солифенацин",
+    "en": "solifenacin succinate"
+  },
+  {
+    "id": "hydrochloric_acid",
+    "ru": "Соляная кислота",
+    "en": "hydrochloric acid"
+  },
+  {
+    "id": "sorafenib",
+    "ru": "Сорафениб",
+    "en": "sorafenib"
+  },
+  {
+    "id": "d_sorbitol",
+    "ru": "Сорбит",
+    "en": "D-sorbitol"
+  },
+  {
+    "id": "sorbifer_durules",
+    "ru": "Сорбифер Дурулес",
+    "en": "Sorbifer Durules"
+  },
+  {
+    "id": "sotalol",
+    "ru": "Соталол",
+    "en": "sotalol"
+  },
+  {
+    "id": "sofosbuvir",
+    "ru": "Софосбувир",
+    "en": "sofosbuvir"
+  },
+  {
+    "id": "sparfloxacin",
+    "ru": "Спарфлоксацин",
+    "en": "sparfloxacin"
+  },
+  {
+    "id": "spiolto_respimat",
+    "ru": "Спиолто Респимат",
+    "en": "Spiolto Respimat"
+  },
+  {
+    "id": "spiramycin",
+    "ru": "Спирамицин",
+    "en": "spiramycin"
+  },
+  {
+    "id": "spiriva",
+    "ru": "Спирива",
+    "en": "Spiriva"
+  },
+  {
+    "id": "spironolactone",
+    "ru": "Спиронолактон",
+    "en": "spironolactone"
+  },
+  {
+    "id": "stavudine",
+    "ru": "Ставудин",
+    "en": "stavudine"
+  },
+  {
+    "id": "stalevo",
+    "ru": "Сталево",
+    "en": "Stalevo"
+  },
+  {
+    "id": "stanozolol",
+    "ru": "Станозолол",
+    "en": "stanozolol"
+  },
+  {
+    "id": "flucloxacillin",
+    "ru": "Стафюлекс",
+    "en": "flucloxacillin"
+  },
+  {
+    "id": "psychoanaleptic",
+    "ru": "Стимулирующие ЦНС вещества",
+    "en": "Psychoanaleptic"
+  },
+  {
+    "id": "prokinetic_agent",
+    "ru": "Стимуляторы моторики ЖКТ, в том числе рвотные средства",
+    "en": "prokinetic agent"
+  },
+  {
+    "id": "strattera",
+    "ru": "Страттера",
+    "en": "Strattera"
+  },
+  {
+    "id": "strepsils",
+    "ru": "Стрепсилс",
+    "en": "Strepsils"
+  },
+  {
+    "id": "deoxyribonuclease",
+    "ru": "Стрептодорназа",
+    "en": "deoxyribonuclease"
+  },
+  {
+    "id": "streptozocin",
+    "ru": "Стрептозотоцин",
+    "en": "α-streptozocin"
+  },
+  {
+    "id": "streptokinase",
+    "ru": "Стрептокиназа",
+    "en": "Streptokinase"
+  },
+  {
+    "id": "streptomycin",
+    "ru": "Стрептомицин",
+    "en": "streptomycin"
+  },
+  {
+    "id": "structum",
+    "ru": "Структум",
+    "en": "Structum"
+  },
+  {
+    "id": "suvorexant",
+    "ru": "Суворексант",
+    "en": "suvorexant"
+  },
+  {
+    "id": "ipragliflozin",
+    "ru": "Суглат (ипраглифлозин)",
+    "en": "ipragliflozin"
+  },
+  {
+    "id": "succinylcholine",
+    "ru": "Сукцинилхолин",
+    "en": "succinylcholine"
+  },
+  {
+    "id": "succinimide",
+    "ru": "Сукцинимид",
+    "en": "succinimide"
+  },
+  {
+    "id": "sulindac",
+    "ru": "Сулиндак",
+    "en": "sulindac"
+  },
+  {
+    "id": "sulbutiamine",
+    "ru": "Сульбутиамин",
+    "en": "sulbutiamine"
+  },
+  {
+    "id": "rs_sulpiride",
+    "ru": "Сульпирид",
+    "en": "(RS)-sulpiride"
+  },
+  {
+    "id": "sultopride",
+    "ru": "Сультоприд",
+    "en": "sultopride"
+  },
+  {
+    "id": "sulfaguanidine",
+    "ru": "Сульфагуанидин",
+    "en": "sulfaguanidine"
+  },
+  {
+    "id": "sulfadiazine",
+    "ru": "Сульфадиазин натрий",
+    "en": "sulfadiazine"
+  },
+  {
+    "id": "sulfadimethoxine",
+    "ru": "Сульфадиметоксин",
+    "en": "sulfadimethoxine"
+  },
+  {
+    "id": "sulfanilamide",
+    "ru": "Сульфаниламид",
+    "en": "sulfanilamide"
+  },
+  {
+    "id": "sulfonamide_drug",
+    "ru": "Сульфаниламиды",
+    "en": "sulfonamide drug"
+  },
+  {
+    "id": "sulfapyridine",
+    "ru": "Сульфапиридин",
+    "en": "sulfapyridine"
+  },
+  {
+    "id": "sulfasalazine",
+    "ru": "Сульфасалазин",
+    "en": "sulfasalazine"
+  },
+  {
+    "id": "ferrous_sulfate",
+    "ru": "Сульфат железа",
+    "en": "Ferrous sulfate"
+  },
+  {
+    "id": "iron_ii_sulfate",
+    "ru": "Сульфат железа(II)",
+    "en": "iron(II) sulfate"
+  },
+  {
+    "id": "magnesium_sulfate",
+    "ru": "Сульфат магния",
+    "en": "magnesium sulfate"
+  },
+  {
+    "id": "cupric_sulfate",
+    "ru": "Сульфат меди(II)",
+    "en": "cupric sulfate"
+  },
+  {
+    "id": "sodium_sulfate",
+    "ru": "Сульфат натрия",
+    "en": "sodium sulfate"
+  },
+  {
+    "id": "zinc_sulfate",
+    "ru": "Сульфат цинка",
+    "en": "zinc sulfate"
+  },
+  {
+    "id": "sulfacetamide",
+    "ru": "Сульфацетамид",
+    "en": "sulfacetamide"
+  },
+  {
+    "id": "antimony_pentasulfide",
+    "ru": "Сульфид сурьмы(V)",
+    "en": "antimony pentasulfide"
+  },
+  {
+    "id": "sulfinpyrazone",
+    "ru": "Сульфинпиразон",
+    "en": "sulfinpyrazone"
+  },
+  {
+    "id": "sulfonylurea",
+    "ru": "Сульфонилмочевина",
+    "en": "sulfonylurea"
+  },
+  {
+    "id": "sumamed",
+    "ru": "Сумамед",
+    "en": "Sumamed"
+  },
+  {
+    "id": "sumatriptan",
+    "ru": "Суматриптан",
+    "en": "sumatriptan"
+  },
+  {
+    "id": "sunitinib",
+    "ru": "Сунитиниб",
+    "en": "sunitinib"
+  },
+  {
+    "id": "suprastin",
+    "ru": "Супрастин",
+    "en": "Suprastin"
+  },
+  {
+    "id": "sufentanil",
+    "ru": "Суфентанил",
+    "en": "sufentanil"
+  },
+  {
+    "id": "tavanic",
+    "ru": "Таваник",
+    "en": "Tavanic"
+  },
+  {
+    "id": "tadalafil",
+    "ru": "Тадалафил",
+    "en": "tadalafil"
+  },
+  {
+    "id": "tazobactam",
+    "ru": "Тазобактам",
+    "en": "tazobactam"
+  },
+  {
+    "id": "tacrine",
+    "ru": "Такрин",
+    "en": "tacrine"
+  },
+  {
+    "id": "tacrolimus",
+    "ru": "Такролимус",
+    "en": "tacrolimus"
+  },
+  {
+    "id": "tacrolimus_systemic",
+    "ru": "Такролимус (системный)",
+    "en": "Tacrolimus (systemic)"
+  },
+  {
+    "id": "taliglucerase_alfa",
+    "ru": "Талиглюцераза альфа",
+    "en": "taliglucerase alfa"
+  },
+  {
+    "id": "thalidomide",
+    "ru": "Талидомид",
+    "en": "thalidomide"
+  },
+  {
+    "id": "talinolol",
+    "ru": "Талинолол",
+    "en": "talinolol"
+  },
+  {
+    "id": "tamiflu",
+    "ru": "Тамифлю",
+    "en": "Tamiflu"
+  },
+  {
+    "id": "tamoxifen",
+    "ru": "Тамоксифен",
+    "en": "tamoxifen"
+  },
+  {
+    "id": "tamsulosin",
+    "ru": "Тамсулозин",
+    "en": "tamsulosin"
+  },
+  {
+    "id": "tantum_verde",
+    "ru": "Тантум Верде",
+    "en": "Tantum Verde"
+  },
+  {
+    "id": "tardyferon",
+    "ru": "Тардиферон",
+    "en": "Tardyferon"
+  },
+  {
+    "id": "tardyferon_b9",
+    "ru": "Тардиферон B9",
+    "en": "Tardyferon B9"
+  },
+  {
+    "id": "tafen_nasal",
+    "ru": "Тафен Назаль",
+    "en": "Tafen Nasal"
+  },
+  {
+    "id": "tafluprost",
+    "ru": "Тафлупрост",
+    "en": "tafluprost"
+  },
+  {
+    "id": "rs_tegafur",
+    "ru": "Тегафур",
+    "en": "(RS)-tegafur"
+  },
+  {
+    "id": "tedizolid",
+    "ru": "Тедизолид",
+    "en": "tedizolid"
+  },
+  {
+    "id": "telaprevir",
+    "ru": "Телапревир",
+    "en": "telaprevir"
+  },
+  {
+    "id": "telzap",
+    "ru": "Телзап",
+    "en": "Telzap"
+  },
+  {
+    "id": "telithromycin",
+    "ru": "Телитромицин",
+    "en": "telithromycin"
+  },
+  {
+    "id": "telmisartan",
+    "ru": "Телмисартан",
+    "en": "telmisartan"
+  },
+  {
+    "id": "temazepam",
+    "ru": "Темазепам",
+    "en": "temazepam"
+  },
+  {
+    "id": "temozolomide",
+    "ru": "Темозоломид",
+    "en": "temozolomide"
+  },
+  {
+    "id": "tempalgin",
+    "ru": "Темпалгин",
+    "en": "Tempalgin"
+  },
+  {
+    "id": "temsirolimus",
+    "ru": "Темсиролимус",
+    "en": "temsirolimus"
+  },
+  {
+    "id": "tenecteplase",
+    "ru": "Тенектеплаза",
+    "en": "tenecteplase"
+  },
+  {
+    "id": "teniposide",
+    "ru": "Тенипозид",
+    "en": "teniposide"
+  },
+  {
+    "id": "tenoxicam",
+    "ru": "Теноксикам",
+    "en": "tenoxicam"
+  },
+  {
+    "id": "tenoten",
+    "ru": "Тенотен",
+    "en": "Tenoten"
+  },
+  {
+    "id": "tenofovir_disoproxil",
+    "ru": "Тенофовир",
+    "en": "tenofovir disoproxil"
+  },
+  {
+    "id": "tenofovir_alafenamide",
+    "ru": "Тенофовир алафенамид",
+    "en": "tenofovir alafenamide"
+  },
+  {
+    "id": "tenofovir_emtricitabine",
+    "ru": "Тенофовир/эмтрицитабин",
+    "en": "tenofovir/emtricitabine"
+  },
+  {
+    "id": "theobromine",
+    "ru": "Теобромин",
+    "en": "theobromine"
+  },
+  {
+    "id": "theopec",
+    "ru": "Теопэк",
+    "en": "Theopec"
+  },
+  {
+    "id": "theophylline",
+    "ru": "Теофиллин",
+    "en": "theophylline"
+  },
+  {
+    "id": "teraflex",
+    "ru": "Терафлекс",
+    "en": "Teraflex"
+  },
+  {
+    "id": "theraflu",
+    "ru": "ТераФлю",
+    "en": "TheraFlu"
+  },
+  {
+    "id": "terbinafine",
+    "ru": "Тербинафин",
+    "en": "terbinafine"
+  },
+  {
+    "id": "terbutaline",
+    "ru": "Тербуталин",
+    "en": "terbutaline"
+  },
+  {
+    "id": "terizidone",
+    "ru": "Теризидон",
+    "en": "terizidone"
+  },
+  {
+    "id": "teriflunomide",
+    "ru": "Терифлуномид",
+    "en": "teriflunomide"
+  },
+  {
+    "id": "terlipressin",
+    "ru": "Терлипрессин",
+    "en": "terlipressin"
+  },
+  {
+    "id": "testosterone",
+    "ru": "Тестостерон",
+    "en": "testosterone"
+  },
+  {
+    "id": "tetrabenazine",
+    "ru": "Тетрабеназин",
+    "en": "tetrabenazine"
+  },
+  {
+    "id": "borax",
+    "ru": "Тетраборат натрия",
+    "en": "borax"
+  },
+  {
+    "id": "sapropterin",
+    "ru": "Тетрагидробиоптерин",
+    "en": "sapropterin"
+  },
+  {
+    "id": "tetrahydrocannabinol",
+    "ru": "Тетрагидроканнабинол",
+    "en": "tetrahydrocannabinol"
+  },
+  {
+    "id": "tetracaine",
+    "ru": "Тетракаин",
+    "en": "tetracaine"
+  },
+  {
+    "id": "cosyntropin",
+    "ru": "Тетракозактид",
+    "en": "cosyntropin"
+  },
+  {
+    "id": "thiram",
+    "ru": "Тетраметилтиурамдисульфид",
+    "en": "thiram"
+  },
+  {
+    "id": "magnesium_silicate",
+    "ru": "Тетрасиликат магния",
+    "en": "magnesium silicate"
+  },
+  {
+    "id": "tetracycline",
+    "ru": "Тетрациклин",
+    "en": "tetracycline"
+  },
+  {
+    "id": "tetracycline_antibiotic",
+    "ru": "Тетрациклины",
+    "en": "tetracycline antibiotic"
+  },
+  {
+    "id": "tetrahydrozoline",
+    "ru": "Тетризолин",
+    "en": "tetrahydrozoline"
+  },
+  {
+    "id": "thiabendazole",
+    "ru": "Тиабендазол",
+    "en": "thiabendazole"
+  },
+  {
+    "id": "tiagabine",
+    "ru": "Тиагабин",
+    "en": "tiagabine"
+  },
+  {
+    "id": "thiazide",
+    "ru": "Тиазиды",
+    "en": "thiazide"
+  },
+  {
+    "id": "2_4_thiazolidinedione",
+    "ru": "Тиазолидиндион",
+    "en": "2,4-thiazolidinedione"
+  },
+  {
+    "id": "thiamazole",
+    "ru": "Тиамазол",
+    "en": "Thiamazole"
+  },
+  {
+    "id": "thiamine_1_ion",
+    "ru": "Тиамин",
+    "en": "thiamine(1+) ion"
+  },
+  {
+    "id": "tianeptine",
+    "ru": "Тианептин",
+    "en": "(±)-tianeptine"
+  },
+  {
+    "id": "tiapride",
+    "ru": "Тиаприд",
+    "en": "tiapride"
+  },
+  {
+    "id": "tibolone",
+    "ru": "Тиболон",
+    "en": "Tibolone"
+  },
+  {
+    "id": "tizanidine",
+    "ru": "Тизанидин",
+    "en": "tizanidine"
+  },
+  {
+    "id": "tizin",
+    "ru": "Тизин",
+    "en": "Tizin"
+  },
+  {
+    "id": "tildrakizumab",
+    "ru": "Тилдракизумаб",
+    "en": "tildrakizumab"
+  },
+  {
+    "id": "rac_tilidine",
+    "ru": "Тилидин",
+    "en": "rac-tilidine"
+  },
+  {
+    "id": "tilorone",
+    "ru": "Тилорон",
+    "en": "tilorone"
+  },
+  {
+    "id": "tiludronic_acid",
+    "ru": "Тилудроновая кислота",
+    "en": "tiludronic acid"
+  },
+  {
+    "id": "s_timolol",
+    "ru": "Тимолол",
+    "en": "(S)-(−)-timolol"
+  },
+  {
+    "id": "tinidazole",
+    "ru": "Тинидазол",
+    "en": "tinidazole"
+  },
+  {
+    "id": "thiogamma",
+    "ru": "Тиогамма",
+    "en": "Thiogamma"
+  },
+  {
+    "id": "6_thioguanine",
+    "ru": "Тиогуанин",
+    "en": "6-thioguanine"
+  },
+  {
+    "id": "thioproperazine",
+    "ru": "Тиопроперазин",
+    "en": "thioproperazine"
+  },
+  {
+    "id": "thioridazine",
+    "ru": "Тиоридазин",
+    "en": "thioridazine"
+  },
+  {
+    "id": "sodium_thiosulfate",
+    "ru": "Тиосульфат натрия",
+    "en": "sodium thiosulfate"
+  },
+  {
+    "id": "z_thiothixene",
+    "ru": "Тиотиксен",
+    "en": "(Z)-thiothixene"
+  },
+  {
+    "id": "tiotropium",
+    "ru": "Тиотропий",
+    "en": "Tiotropium"
+  },
+  {
+    "id": "tiotropium_2",
+    "ru": "Тиотропия бромид",
+    "en": "tiotropium"
+  },
+  {
+    "id": "thyroid_hormone",
+    "ru": "Тиреоидный гормон",
+    "en": "thyroid hormone"
+  },
+  {
+    "id": "thyreotom",
+    "ru": "Тиреотом",
+    "en": "Thyreotom"
+  },
+  {
+    "id": "thyroid_stimulating_hormone",
+    "ru": "Тиреотропный гормон",
+    "en": "thyroid-stimulating hormone"
+  },
+  {
+    "id": "tirzepatide",
+    "ru": "Тирзепатид",
+    "en": "tirzepatide"
+  },
+  {
+    "id": "thyroxin",
+    "ru": "Тироксин",
+    "en": "Thyroxin"
+  },
+  {
+    "id": "thyrotropin_releasing_hormone",
+    "ru": "Тиролиберин",
+    "en": "thyrotropin-releasing hormone"
+  },
+  {
+    "id": "tirofiban",
+    "ru": "Тирофибан",
+    "en": "tirofiban"
+  },
+  {
+    "id": "natalizumab",
+    "ru": "Тисабри",
+    "en": "natalizumab"
+  },
+  {
+    "id": "thiethylperazine",
+    "ru": "Тиэтилперазин",
+    "en": "thiethylperazine"
+  },
+  {
+    "id": "tobramycin",
+    "ru": "Тобрамицин",
+    "en": "tobramycin"
+  },
+  {
+    "id": "tobrex",
+    "ru": "Тобрекс",
+    "en": "Tobrex"
+  },
+  {
+    "id": "tolmetin",
+    "ru": "Толметин",
+    "en": "tolmetin"
+  },
+  {
+    "id": "tolperisone",
+    "ru": "Толперизон",
+    "en": "tolperisone"
+  },
+  {
+    "id": "tolfenamic_acid",
+    "ru": "Толфенамовая кислота",
+    "en": "tolfenamic acid"
+  },
+  {
+    "id": "topiramate",
+    "ru": "Топирамат",
+    "en": "topiramate"
+  },
+  {
+    "id": "topotecan",
+    "ru": "Топотекан",
+    "en": "topotecan"
+  },
+  {
+    "id": "torasemide",
+    "ru": "Торасемид",
+    "en": "Torasemide"
+  },
+  {
+    "id": "z_toremifene",
+    "ru": "Торемифен",
+    "en": "(Z)-Toremifene"
+  },
+  {
+    "id": "totema",
+    "ru": "Тотема",
+    "en": "Totema"
+  },
+  {
+    "id": "tofacitinib",
+    "ru": "Тофацитиниб",
+    "en": "tofacitinib"
+  },
+  {
+    "id": "tofisopam",
+    "ru": "Тофизопам",
+    "en": "tofisopam"
+  },
+  {
+    "id": "tocilizumab",
+    "ru": "Тоцилизумаб",
+    "en": "tocilizumab"
+  },
+  {
+    "id": "travoprost",
+    "ru": "Травопрост",
+    "en": "travoprost"
+  },
+  {
+    "id": "trajenta",
+    "ru": "Тражента",
+    "en": "Trajenta"
+  },
+  {
+    "id": "trazodone",
+    "ru": "Тразодон",
+    "en": "trazodone"
+  },
+  {
+    "id": "tricor",
+    "ru": "Трайкор",
+    "en": "Tricor"
+  },
+  {
+    "id": "tramadol",
+    "ru": "Трамадол",
+    "en": "tramadol"
+  },
+  {
+    "id": "tranexamic_acid",
+    "ru": "Транексамовая кислота",
+    "en": "tranexamic acid"
+  },
+  {
+    "id": "tranylcypromine",
+    "ru": "Транилципромин",
+    "en": "tranylcypromine"
+  },
+  {
+    "id": "trastuzumab",
+    "ru": "Трастузумаб",
+    "en": "trastuzumab"
+  },
+  {
+    "id": "ado_trastuzumab_emtansine",
+    "ru": "Трастузумаб эмтанзин",
+    "en": "ado-trastuzumab emtansine"
+  },
+  {
+    "id": "trental",
+    "ru": "Трентал",
+    "en": "Trental"
+  },
+  {
+    "id": "treosulfan",
+    "ru": "Треосульфан",
+    "en": "treosulfan"
+  },
+  {
+    "id": "tresiba",
+    "ru": "Тресиба",
+    "en": "Tresiba"
+  },
+  {
+    "id": "tretinoin",
+    "ru": "Третиноин",
+    "en": "tretinoin"
+  },
+  {
+    "id": "tri_mercy",
+    "ru": "Три-Мерси",
+    "en": "Tri-Mercy"
+  },
+  {
+    "id": "triazolam",
+    "ru": "Триазолам",
+    "en": "triazolam"
+  },
+  {
+    "id": "triamcinolone",
+    "ru": "Триамцинолон",
+    "en": "triamcinolone"
+  },
+  {
+    "id": "trihexyphenidyl",
+    "ru": "Тригексифенидил",
+    "en": "trihexyphenidyl"
+  },
+  {
+    "id": "triclabendazole",
+    "ru": "Триклабендазол",
+    "en": "triclabendazole"
+  },
+  {
+    "id": "triclosan",
+    "ru": "Триклозан",
+    "en": "triclosan"
+  },
+  {
+    "id": "trimebutine",
+    "ru": "Тримебутин",
+    "en": "trimebutine"
+  },
+  {
+    "id": "trimedat",
+    "ru": "Тримедат",
+    "en": "Trimedat"
+  },
+  {
+    "id": "trimethadione",
+    "ru": "Триметадион",
+    "en": "trimethadione"
+  },
+  {
+    "id": "trimetazidine",
+    "ru": "Триметазидин",
+    "en": "trimetazidine"
+  },
+  {
+    "id": "trimethoprim",
+    "ru": "Триметоприм",
+    "en": "trimethoprim"
+  },
+  {
+    "id": "trimipramine",
+    "ru": "Тримипрамин",
+    "en": "trimipramine"
+  },
+  {
+    "id": "trypsin",
+    "ru": "Трипсин",
+    "en": "trypsin"
+  },
+  {
+    "id": "triptorelin",
+    "ru": "Трипторелин",
+    "en": "triptorelin"
+  },
+  {
+    "id": "tryptophan",
+    "ru": "Триптофан",
+    "en": "tryptophan"
+  },
+  {
+    "id": "trifarotene",
+    "ru": "Трифаротен",
+    "en": "trifarotene"
+  },
+  {
+    "id": "trifluoperazine",
+    "ru": "Трифлуоперазин",
+    "en": "trifluoperazine"
+  },
+  {
+    "id": "trifluperidol",
+    "ru": "Трифлуперидол",
+    "en": "trifluperidol"
+  },
+  {
+    "id": "triflupromazine",
+    "ru": "Трифлупромазин",
+    "en": "triflupromazine"
+  },
+  {
+    "id": "trichloroethene",
+    "ru": "Трихлорэтилен",
+    "en": "trichloroethene"
+  },
+  {
+    "id": "trichopol",
+    "ru": "Трихопол",
+    "en": "Trichopol"
+  },
+  {
+    "id": "trolamine",
+    "ru": "Триэтаноламин",
+    "en": "trolamine"
+  },
+  {
+    "id": "trovafloxacin",
+    "ru": "Тровафлоксацин",
+    "en": "trovafloxacin"
+  },
+  {
+    "id": "troxerutin",
+    "ru": "Троксерутин",
+    "en": "Troxerutin"
+  },
+  {
+    "id": "tromantadine",
+    "ru": "Тромантадин",
+    "en": "tromantadine"
+  },
+  {
+    "id": "coagulation_factor_ii_thrombin",
+    "ru": "Тромбин",
+    "en": "Coagulation factor II, thrombin"
+  },
+  {
+    "id": "thrombo_ass",
+    "ru": "Тромбо АСС",
+    "en": "Thrombo ASS"
+  },
+  {
+    "id": "platelet",
+    "ru": "Тромбоцит",
+    "en": "platelet"
+  },
+  {
+    "id": "tropicamide",
+    "ru": "Тропикамид",
+    "en": "tropicamide"
+  },
+  {
+    "id": "tropisetron",
+    "ru": "Трописетрон",
+    "en": "tropisetron"
+  },
+  {
+    "id": "trofosfamide",
+    "ru": "Трофосфамид",
+    "en": "trofosfamide"
+  },
+  {
+    "id": "trulicity",
+    "ru": "Трулисити",
+    "en": "Trulicity"
+  },
+  {
+    "id": "trusopt",
+    "ru": "Трусопт",
+    "en": "Trusopt"
+  },
+  {
+    "id": "tuberculin",
+    "ru": "Туберкулин",
+    "en": "tuberculin"
+  },
+  {
+    "id": "tubocurarine",
+    "ru": "Тубокурарина хлорид",
+    "en": "tubocurarine"
+  },
+  {
+    "id": "toujeo",
+    "ru": "Туджео",
+    "en": "Toujeo"
+  },
+  {
+    "id": "ouabain",
+    "ru": "Уабаин",
+    "en": "ouabain"
+  },
+  {
+    "id": "ubiquinol",
+    "ru": "Убихинол",
+    "en": "Ubiquinol"
+  },
+  {
+    "id": "udenafil",
+    "ru": "Уденафил",
+    "en": "udenafil"
+  },
+  {
+    "id": "acetic_acid",
+    "ru": "Уксусная кислота",
+    "en": "acetic acid"
+  },
+  {
+    "id": "ulipristal_acetate",
+    "ru": "Улипристала ацетат",
+    "en": "ulipristal acetate"
+  },
+  {
+    "id": "articaine",
+    "ru": "Ультракаин",
+    "en": "articaine"
+  },
+  {
+    "id": "umeclidinium",
+    "ru": "Умеклидиний",
+    "en": "Umeclidinium"
+  },
+  {
+    "id": "umifenovir",
+    "ru": "Умифеновир",
+    "en": "umifenovir"
+  },
+  {
+    "id": "undecylenic_acid",
+    "ru": "Ундециленовая кислота",
+    "en": "undecylenic acid"
+  },
+  {
+    "id": "upadacitinib",
+    "ru": "Упадацитиниб",
+    "en": "Upadacitinib"
+  },
+  {
+    "id": "uracil_mustard",
+    "ru": "Урамустин",
+    "en": "uracil mustard"
+  },
+  {
+    "id": "urapidil",
+    "ru": "Урапидил",
+    "en": "urapidil"
+  },
+  {
+    "id": "carbamate",
+    "ru": "Уретаны",
+    "en": "carbamate"
+  },
+  {
+    "id": "plasminogen_activator_urokinase",
+    "ru": "Урокиназный активатор плазминогена",
+    "en": "Plasminogen activator, urokinase"
+  },
+  {
+    "id": "urofollitropin",
+    "ru": "Урофоллитропин",
+    "en": "urofollitropin"
+  },
+  {
+    "id": "ursodiol",
+    "ru": "Урсодезоксихолевая кислота",
+    "en": "ursodiol"
+  },
+  {
+    "id": "ursofalk",
+    "ru": "Урсофальк",
+    "en": "Ursofalk"
+  },
+  {
+    "id": "ustekinumab",
+    "ru": "Устекинумаб",
+    "en": "ustekinumab"
+  },
+  {
+    "id": "uterotonic",
+    "ru": "Утеротоник",
+    "en": "uterotonic"
+  },
+  {
+    "id": "utrogestan",
+    "ru": "Утрожестан",
+    "en": "Utrogestan"
+  },
+  {
+    "id": "fabomotizole",
+    "ru": "Фабомитозол",
+    "en": "fabomotizole"
+  },
+  {
+    "id": "favipiravir",
+    "ru": "Фавипиравир",
+    "en": "favipiravir"
+  },
+  {
+    "id": "factor_xiii",
+    "ru": "Фактор XIII",
+    "en": "factor XIII"
+  },
+  {
+    "id": "coagulation_factor_vii",
+    "ru": "Фактор свёртывания крови VII",
+    "en": "coagulation factor VII"
+  },
+  {
+    "id": "coagulation_factor_x",
+    "ru": "Фактор свёртывания крови X",
+    "en": "coagulation factor X"
+  },
+  {
+    "id": "von_willebrand_factor",
+    "ru": "Фактор фон Виллебранда",
+    "en": "Von Willebrand factor"
+  },
+  {
+    "id": "famotidine",
+    "ru": "Фамотидин",
+    "en": "famotidine"
+  },
+  {
+    "id": "famciclovir",
+    "ru": "Фамцикловир",
+    "en": "famciclovir"
+  },
+  {
+    "id": "faringosept",
+    "ru": "Фарингосепт",
+    "en": "Faringosept"
+  },
+  {
+    "id": "fasudil",
+    "ru": "Фасудил",
+    "en": "fasudil"
+  },
+  {
+    "id": "fesoterodine",
+    "ru": "Фезотеродин",
+    "en": "fesoterodine"
+  },
+  {
+    "id": "fexofenadine",
+    "ru": "Фексофенадин",
+    "en": "fexofenadine"
+  },
+  {
+    "id": "felbamate",
+    "ru": "Фелбамат",
+    "en": "felbamate"
+  },
+  {
+    "id": "femara",
+    "ru": "Фемара",
+    "en": "Femara"
+  },
+  {
+    "id": "femibion",
+    "ru": "Фемибион",
+    "en": "Femibion"
+  },
+  {
+    "id": "femoston",
+    "ru": "Фемостон",
+    "en": "Femoston"
+  },
+  {
+    "id": "phenazepam",
+    "ru": "Феназепам",
+    "en": "Phenazepam"
+  },
+  {
+    "id": "antipyrine",
+    "ru": "Феназон",
+    "en": "antipyrine"
+  },
+  {
+    "id": "phenacetin",
+    "ru": "Фенацетин",
+    "en": "phenacetin"
+  },
+  {
+    "id": "phenelzine",
+    "ru": "Фенелзин",
+    "en": "phenelzine"
+  },
+  {
+    "id": "fenethylline",
+    "ru": "Фенетиллин",
+    "en": "fenethylline"
+  },
+  {
+    "id": "phenylbutazone",
+    "ru": "Фенилбутазон",
+    "en": "phenylbutazone"
+  },
+  {
+    "id": "norephedrine",
+    "ru": "Фенилпропаноламин",
+    "en": "(±)-norephedrine"
+  },
+  {
+    "id": "phenylephrine",
+    "ru": "Фенилэфрин",
+    "en": "phenylephrine"
+  },
+  {
+    "id": "phenytoin",
+    "ru": "Фенитоин",
+    "en": "phenytoin"
+  },
+  {
+    "id": "phenobarbital",
+    "ru": "Фенобарбитал",
+    "en": "phenobarbital"
+  },
+  {
+    "id": "penicillin_v",
+    "ru": "Феноксиметилпенициллин",
+    "en": "penicillin v"
+  },
+  {
+    "id": "phenol",
+    "ru": "Фенол",
+    "en": "phenol"
+  },
+  {
+    "id": "phenolsulfonphthalein",
+    "ru": "Феноловый красный",
+    "en": "phenolsulfonphthalein"
+  },
+  {
+    "id": "phenolphthaleina",
+    "ru": "Фенолфталеин",
+    "en": "phenolphthaleina"
+  },
+  {
+    "id": "rs_fenoprofen",
+    "ru": "Фенопрофен",
+    "en": "(RS)-fenoprofen"
+  },
+  {
+    "id": "fenoterol",
+    "ru": "Фенотерол",
+    "en": "fenoterol"
+  },
+  {
+    "id": "fenofibrate",
+    "ru": "Фенофибрат",
+    "en": "fenofibrate"
+  },
+  {
+    "id": "fenspiride",
+    "ru": "Фенспирид",
+    "en": "fenspiride"
+  },
+  {
+    "id": "fentanyl",
+    "ru": "Фентанил",
+    "en": "fentanyl"
+  },
+  {
+    "id": "phentermine",
+    "ru": "Фентермин",
+    "en": "phentermine"
+  },
+  {
+    "id": "phentolamine",
+    "ru": "Фентоламин",
+    "en": "phentolamine"
+  },
+  {
+    "id": "rs_fenfluramine",
+    "ru": "Фенфлурамин",
+    "en": "(RS)-fenfluramine"
+  },
+  {
+    "id": "fervex",
+    "ru": "Фервекс",
+    "en": "Fervex"
+  },
+  {
+    "id": "ferretab",
+    "ru": "Ферретаб",
+    "en": "Ferretab"
+  },
+  {
+    "id": "ferrum_lek",
+    "ru": "Феррум Лек",
+    "en": "Ferrum Lek"
+  },
+  {
+    "id": "festal",
+    "ru": "Фестал",
+    "en": "Festal"
+  },
+  {
+    "id": "fibrinolysin",
+    "ru": "Фибринолизин",
+    "en": "fibrinolysin"
+  },
+  {
+    "id": "physiotens",
+    "ru": "Физиотенз",
+    "en": "Physiotens"
+  },
+  {
+    "id": "physostigmine",
+    "ru": "Физостигмин",
+    "en": "physostigmine"
+  },
+  {
+    "id": "filgrastim",
+    "ru": "Филграстим",
+    "en": "filgrastim"
+  },
+  {
+    "id": "e_phytonadione",
+    "ru": "Филлохинон",
+    "en": "(E)-phytonadione"
+  },
+  {
+    "id": "finasteride",
+    "ru": "Финастерид",
+    "en": "finasteride"
+  },
+  {
+    "id": "fingolimod",
+    "ru": "Финголимод",
+    "en": "fingolimod"
+  },
+  {
+    "id": "finlepsin",
+    "ru": "Финлепсин",
+    "en": "Finlepsin"
+  },
+  {
+    "id": "degarelix",
+    "ru": "Фирмагон",
+    "en": "degarelix"
+  },
+  {
+    "id": "avermectin",
+    "ru": "Фитоверм",
+    "en": "Avermectin"
+  },
+  {
+    "id": "phytolysinum",
+    "ru": "Фитолизин",
+    "en": "Phytolysinum"
+  },
+  {
+    "id": "flavonoid",
+    "ru": "Флавоноиды",
+    "en": "flavonoid"
+  },
+  {
+    "id": "phlebodia",
+    "ru": "Флебодиа",
+    "en": "Phlebodia"
+  },
+  {
+    "id": "flemoxin_solutab",
+    "ru": "Флемоксин Солютаб",
+    "en": "Flemoxin Solutab"
+  },
+  {
+    "id": "flibanserin",
+    "ru": "Флибансерин",
+    "en": "flibanserin"
+  },
+  {
+    "id": "flixonase",
+    "ru": "Фликсоназе",
+    "en": "Flixonase"
+  },
+  {
+    "id": "floxal",
+    "ru": "Флоксал",
+    "en": "Floxal"
+  },
+  {
+    "id": "phloroglucinol",
+    "ru": "Флороглюцин",
+    "en": "phloroglucinol"
+  },
+  {
+    "id": "fluvastatin",
+    "ru": "Флувастатин",
+    "en": "Fluvastatin"
+  },
+  {
+    "id": "fluvoxamine",
+    "ru": "Флувоксамин",
+    "en": "fluvoxamine"
+  },
+  {
+    "id": "fludarabine_phosphate",
+    "ru": "Флударабин",
+    "en": "fludarabine phosphate"
+  },
+  {
+    "id": "fludrocortisone",
+    "ru": "Флудрокортизон",
+    "en": "fludrocortisone"
+  },
+  {
+    "id": "fluimucil",
+    "ru": "Флуимуцил",
+    "en": "Fluimucil"
+  },
+  {
+    "id": "fluconazole",
+    "ru": "Флуконазол",
+    "en": "fluconazole"
+  },
+  {
+    "id": "flumazenil",
+    "ru": "Флумазенил",
+    "en": "flumazenil"
+  },
+  {
+    "id": "flunitrazepam",
+    "ru": "Флунитразепам",
+    "en": "flunitrazepam"
+  },
+  {
+    "id": "fluoxetine",
+    "ru": "Флуоксетин",
+    "en": "fluoxetine"
+  },
+  {
+    "id": "fluorescein",
+    "ru": "Флуоресцеин",
+    "en": "fluorescein"
+  },
+  {
+    "id": "fluocinolone_acetonide",
+    "ru": "Флуоцинолона ацетонид",
+    "en": "fluocinolone acetonide"
+  },
+  {
+    "id": "flupirtine",
+    "ru": "Флупиртин",
+    "en": "flupirtine"
+  },
+  {
+    "id": "flurbiprofen",
+    "ru": "Флурбипрофен",
+    "en": "(±)-flurbiprofen"
+  },
+  {
+    "id": "fluspirilene",
+    "ru": "Флуспирилен",
+    "en": "fluspirilene"
+  },
+  {
+    "id": "flutamide",
+    "ru": "Флутамид",
+    "en": "flutamide"
+  },
+  {
+    "id": "fluticasone",
+    "ru": "Флутиказон",
+    "en": "fluticasone"
+  },
+  {
+    "id": "fluphenazine",
+    "ru": "Флуфеназин",
+    "en": "fluphenazine"
+  },
+  {
+    "id": "fosinopril",
+    "ru": "Фозиноприл",
+    "en": "fosinopril"
+  },
+  {
+    "id": "folacin",
+    "ru": "Фолацин",
+    "en": "Folacin"
+  },
+  {
+    "id": "folic_acid",
+    "ru": "Фолиевая кислота",
+    "en": "folic acid"
+  },
+  {
+    "id": "fondaparinux",
+    "ru": "Фондапаринукс",
+    "en": "fondaparinux"
+  },
+  {
+    "id": "forlax",
+    "ru": "Форлакс",
+    "en": "Forlax"
+  },
+  {
+    "id": "formoterol",
+    "ru": "Формотерол",
+    "en": "formoterol"
+  },
+  {
+    "id": "forxiga",
+    "ru": "Форсига",
+    "en": "Forxiga"
+  },
+  {
+    "id": "fosamprenavir",
+    "ru": "Фосампреновир",
+    "en": "fosamprenavir"
+  },
+  {
+    "id": "foscarnet",
+    "ru": "Фоскарнет",
+    "en": "foscarnet"
+  },
+  {
+    "id": "fostamatinib",
+    "ru": "Фостаматиниб",
+    "en": "fostamatinib"
+  },
+  {
+    "id": "фостер",
+    "ru": "Фостер",
+    "en": ""
+  },
+  {
+    "id": "paraoxon",
+    "ru": "Фосфакол",
+    "en": "paraoxon"
+  },
+  {
+    "id": "aluminium_phosphate",
+    "ru": "Фосфат алюминия",
+    "en": "aluminium phosphate"
+  },
+  {
+    "id": "phosphogliv",
+    "ru": "Фосфоглив",
+    "en": "Phosphogliv"
+  },
+  {
+    "id": "fosfomycin",
+    "ru": "Фосфомицин",
+    "en": "fosfomycin"
+  },
+  {
+    "id": "fotemustine",
+    "ru": "Фотемустин",
+    "en": "fotemustine"
+  },
+  {
+    "id": "fraxiparine",
+    "ru": "Фраксипарин",
+    "en": "Fraxiparine"
+  },
+  {
+    "id": "framycetin",
+    "ru": "Фрамицетин",
+    "en": "framycetin"
+  },
+  {
+    "id": "keto_d_fructose",
+    "ru": "Фруктоза",
+    "en": "keto-D-fructose"
+  },
+  {
+    "id": "beta_fructose_1_6_bisphosphate",
+    "ru": "Фруктозо-1,6-дифосфат",
+    "en": "beta-fructose 1,6-bisphosphate"
+  },
+  {
+    "id": "phthalylsulfathiazole",
+    "ru": "Фталазол",
+    "en": "phthalylsulfathiazole"
+  },
+  {
+    "id": "fludeoxyglucose_18f",
+    "ru": "Фтордезоксиглюкоза",
+    "en": "fludeoxyglucose (18F)"
+  },
+  {
+    "id": "sodium_fluoride",
+    "ru": "Фторид натрия",
+    "en": "sodium fluoride"
+  },
+  {
+    "id": "tin_ii_fluoride",
+    "ru": "Фторид олова(II)",
+    "en": "tin(II) fluoride"
+  },
+  {
+    "id": "sulfur_hexafluoride",
+    "ru": "Фторид серы(VI)",
+    "en": "sulfur hexafluoride"
+  },
+  {
+    "id": "fluorouracil",
+    "ru": "Фторурацил",
+    "en": "fluorouracil"
+  },
+  {
+    "id": "quinolone_antibiotic",
+    "ru": "Фторхинолоны",
+    "en": "quinolone antibiotic"
+  },
+  {
+    "id": "fusafungine",
+    "ru": "Фузафунгин",
+    "en": "fusafungine"
+  },
+  {
+    "id": "fusidic_acid",
+    "ru": "Фузидовая кислота",
+    "en": "fusidic acid"
+  },
+  {
+    "id": "fulvestrant",
+    "ru": "Фулвестрант",
+    "en": "fulvestrant"
+  },
+  {
+    "id": "fumaric_acid",
+    "ru": "Фумаровая кислота",
+    "en": "fumaric acid"
+  },
+  {
+    "id": "furagin",
+    "ru": "Фурагин",
+    "en": "Furagin"
+  },
+  {
+    "id": "furadonin",
+    "ru": "Фурадонин",
+    "en": "Furadonin"
+  },
+  {
+    "id": "furazolidone",
+    "ru": "Фуразолидон",
+    "en": "furazolidone"
+  },
+  {
+    "id": "furosemide",
+    "ru": "Фуросемид",
+    "en": "furosemide"
+  },
+  {
+    "id": "chenodiol",
+    "ru": "Хенодезоксихолевая кислота",
+    "en": "chenodiol"
+  },
+  {
+    "id": "hylak_forte",
+    "ru": "Хилак форте",
+    "en": "Hylak Forte"
+  },
+  {
+    "id": "hilo_comod",
+    "ru": "Хило-Комод",
+    "en": "Hilo-Comod"
+  },
+  {
+    "id": "chymotrypsin",
+    "ru": "Химотрипсин",
+    "en": "chymotrypsin"
+  },
+  {
+    "id": "quinidine",
+    "ru": "Хинидин",
+    "en": "quinidine"
+  },
+  {
+    "id": "quinine",
+    "ru": "Хинин",
+    "en": "quinine"
+  },
+  {
+    "id": "quifenadine",
+    "ru": "Хифенадин",
+    "en": "quifenadine"
+  },
+  {
+    "id": "chloral_hydrate",
+    "ru": "Хлоральгидрат",
+    "en": "chloral hydrate"
+  },
+  {
+    "id": "chlorambucil",
+    "ru": "Хлорамбуцил",
+    "en": "chlorambucil"
+  },
+  {
+    "id": "chloramphenicol",
+    "ru": "Хлорамфеникол",
+    "en": "chloramphenicol"
+  },
+  {
+    "id": "chlorhexidine",
+    "ru": "Хлоргексидин",
+    "en": "chlorhexidine"
+  },
+  {
+    "id": "chlordiazepoxide",
+    "ru": "Хлордиазепоксид",
+    "en": "chlordiazepoxide"
+  },
+  {
+    "id": "aluminum_chloride",
+    "ru": "Хлорид алюминия",
+    "en": "aluminum chloride"
+  },
+  {
+    "id": "ammonium_chloride",
+    "ru": "Хлорид аммония",
+    "en": "ammonium chloride"
+  },
+  {
+    "id": "dequalinium_chloride",
+    "ru": "Хлорид деквалиния",
+    "en": "dequalinium chloride"
+  },
+  {
+    "id": "ferrous_chloride",
+    "ru": "Хлорид железа(II)",
+    "en": "ferrous chloride"
+  },
+  {
+    "id": "potassium_chloride",
+    "ru": "Хлорид калия",
+    "en": "potassium chloride"
+  },
+  {
+    "id": "calcium_chloride",
+    "ru": "Хлорид кальция",
+    "en": "calcium chloride"
+  },
+  {
+    "id": "magnesium_chloride",
+    "ru": "Хлорид магния",
+    "en": "magnesium chloride"
+  },
+  {
+    "id": "sodium_chloride",
+    "ru": "Хлорид натрия",
+    "en": "sodium chloride"
+  },
+  {
+    "id": "mercuric_chloride",
+    "ru": "Хлорид ртути(II)",
+    "en": "mercuric chloride"
+  },
+  {
+    "id": "zinc_chloride",
+    "ru": "Хлорид цинка",
+    "en": "zinc chloride"
+  },
+  {
+    "id": "sodium_chlorite",
+    "ru": "Хлорит натрия",
+    "en": "sodium chlorite"
+  },
+  {
+    "id": "chloropyramine",
+    "ru": "Хлоропирамин",
+    "en": "chloropyramine"
+  },
+  {
+    "id": "chloroform",
+    "ru": "Хлороформ",
+    "en": "chloroform"
+  },
+  {
+    "id": "metrifonate",
+    "ru": "Хлорофос",
+    "en": "metrifonate"
+  },
+  {
+    "id": "chloroquine",
+    "ru": "Хлорохин",
+    "en": "chloroquine"
+  },
+  {
+    "id": "chloroprocaine",
+    "ru": "Хлорпрокаин",
+    "en": "chloroprocaine"
+  },
+  {
+    "id": "chlorpromazine",
+    "ru": "Хлорпромазин",
+    "en": "chlorpromazine"
+  },
+  {
+    "id": "e_chlorprothixene_z_according_to_who_inn_rl_40_conflated_wikidata",
+    "ru": "Хлорпротиксен",
+    "en": "(E)-chlorprothixene (Z according to WHO INN RL 40, conflated wikidata)"
+  },
+  {
+    "id": "chlorthalidone",
+    "ru": "Хлорталидон",
+    "en": "chlorthalidone"
+  },
+  {
+    "id": "chlortetracycline",
+    "ru": "Хлортетрациклин",
+    "en": "chlortetracycline"
+  },
+  {
+    "id": "chlorpheniramine",
+    "ru": "Хлорфенамин",
+    "en": "chlorpheniramine"
+  },
+  {
+    "id": "chlorquinaldol",
+    "ru": "Хлорхинальдол",
+    "en": "chlorquinaldol"
+  },
+  {
+    "id": "chloroethane",
+    "ru": "Хлорэтан",
+    "en": "chloroethane"
+  },
+  {
+    "id": "cholic_acid",
+    "ru": "Холевая кислота",
+    "en": "cholic acid"
+  },
+  {
+    "id": "cholecalciferol",
+    "ru": "Холекальциферол",
+    "en": "cholecalciferol"
+  },
+  {
+    "id": "cholestyramine",
+    "ru": "Холестирамин",
+    "en": "Cholestyramine"
+  },
+  {
+    "id": "cholecystokinin",
+    "ru": "Холецистокинин",
+    "en": "cholecystokinin"
+  },
+  {
+    "id": "choline_salicylate",
+    "ru": "Холина салицилат",
+    "en": "choline salicylate"
+  },
+  {
+    "id": "anticholinergic",
+    "ru": "Холинолитические средства",
+    "en": "anticholinergic"
+  },
+  {
+    "id": "cholinesterase",
+    "ru": "Холинэстераза",
+    "en": "cholinesterase"
+  },
+  {
+    "id": "chondroitin",
+    "ru": "Хондроитин",
+    "en": "Chondroitin"
+  },
+  {
+    "id": "chondroitin_sulfate",
+    "ru": "Хондроитина сульфат",
+    "en": "chondroitin sulfate"
+  },
+  {
+    "id": "choragon",
+    "ru": "Хорагон",
+    "en": "Choragon"
+  },
+  {
+    "id": "chorionic_gonadotropin",
+    "ru": "Хорионический гонадотропин",
+    "en": "chorionic gonadotropin"
+  },
+  {
+    "id": "hofitol",
+    "ru": "Хофитол",
+    "en": "Hofitol"
+  },
+  {
+    "id": "humalog",
+    "ru": "Хумалог",
+    "en": "Humalog"
+  },
+  {
+    "id": "humira",
+    "ru": "Хумира",
+    "en": "Humira"
+  },
+  {
+    "id": "celebrex",
+    "ru": "Целебрекс",
+    "en": "Celebrex"
+  },
+  {
+    "id": "celecoxib",
+    "ru": "Целекоксиб",
+    "en": "celecoxib"
+  },
+  {
+    "id": "cenegermin",
+    "ru": "Ценегермин",
+    "en": "cenegermin"
+  },
+  {
+    "id": "centrum",
+    "ru": "Центрум",
+    "en": "Centrum"
+  },
+  {
+    "id": "ceratonia",
+    "ru": "Цератония",
+    "en": "Ceratonia"
+  },
+  {
+    "id": "cervarix",
+    "ru": "Церварикс",
+    "en": "Cervarix"
+  },
+  {
+    "id": "cerebrolysin",
+    "ru": "Церебролизин",
+    "en": "Cerebrolysin"
+  },
+  {
+    "id": "certolizumab_pegol",
+    "ru": "Цертолизумаб пегол",
+    "en": "certolizumab pegol"
+  },
+  {
+    "id": "cerucal",
+    "ru": "Церукал",
+    "en": "Cerucal"
+  },
+  {
+    "id": "cetirizine",
+    "ru": "Цетиризин",
+    "en": "cetirizine"
+  },
+  {
+    "id": "cetuximab",
+    "ru": "Цетуксимаб",
+    "en": "cetuximab"
+  },
+  {
+    "id": "cefazolin",
+    "ru": "Цефазолин",
+    "en": "cefazolin"
+  },
+  {
+    "id": "cephalexin",
+    "ru": "Цефалексин",
+    "en": "cephalexin"
+  },
+  {
+    "id": "cephalosporin_antibiotic",
+    "ru": "Цефалоспорины",
+    "en": "cephalosporin antibiotic"
+  },
+  {
+    "id": "cefepime",
+    "ru": "Цефепим",
+    "en": "cefepime"
+  },
+  {
+    "id": "cefoxitin",
+    "ru": "Цефокситин",
+    "en": "cefoxitin"
+  },
+  {
+    "id": "cefotaxime",
+    "ru": "Цефотаксим",
+    "en": "cefotaxime"
+  },
+  {
+    "id": "cefpiramide",
+    "ru": "Цефпирамид",
+    "en": "cefpiramide"
+  },
+  {
+    "id": "cefpirome",
+    "ru": "Цефпиром",
+    "en": "cefpirome"
+  },
+  {
+    "id": "ceftazidime",
+    "ru": "Цефтазидим",
+    "en": "ceftazidime"
+  },
+  {
+    "id": "ceftazidime_avibactam",
+    "ru": "Цефтазидим/Авибактам",
+    "en": "ceftazidime/avibactam"
+  },
+  {
+    "id": "ceftaroline_fosamil",
+    "ru": "Цефтаролин",
+    "en": "ceftaroline fosamil"
+  },
+  {
+    "id": "ceftriaxone",
+    "ru": "Цефтриаксон",
+    "en": "ceftriaxone"
+  },
+  {
+    "id": "cefuroxime",
+    "ru": "Цефуроксим",
+    "en": "cefuroxime"
+  },
+  {
+    "id": "calcium_cyanamide",
+    "ru": "Цианамид кальция",
+    "en": "calcium cyanamide"
+  },
+  {
+    "id": "cyanocobalamin",
+    "ru": "Цианокобаламин",
+    "en": "cyanocobalamin"
+  },
+  {
+    "id": "cisapride",
+    "ru": "Цизаприд",
+    "en": "cisapride"
+  },
+  {
+    "id": "ciclesonide",
+    "ru": "Циклесонид",
+    "en": "ciclesonide"
+  },
+  {
+    "id": "cyclizine",
+    "ru": "Циклизин",
+    "en": "cyclizine"
+  },
+  {
+    "id": "cyclobarbital",
+    "ru": "Циклобарбитал",
+    "en": "cyclobarbital"
+  },
+  {
+    "id": "cyclobenzaprine",
+    "ru": "Циклобензаприн",
+    "en": "cyclobenzaprine"
+  },
+  {
+    "id": "cyclopentolate_rs",
+    "ru": "Циклопентолат",
+    "en": "cyclopentolate-(RS)"
+  },
+  {
+    "id": "ciclopirox",
+    "ru": "Циклопирокс",
+    "en": "ciclopirox"
+  },
+  {
+    "id": "cycloserine",
+    "ru": "Циклосерин",
+    "en": "cycloserine"
+  },
+  {
+    "id": "sodium_zirconium_cyclosilicate",
+    "ru": "Циклосиликат циркония-натрия",
+    "en": "sodium zirconium cyclosilicate"
+  },
+  {
+    "id": "cyclosporine",
+    "ru": "Циклоспорин",
+    "en": "cyclosporine"
+  },
+  {
+    "id": "cycloferon",
+    "ru": "Циклоферон",
+    "en": "Cycloferon"
+  },
+  {
+    "id": "rs_cyclophosphamide",
+    "ru": "Циклофосфамид",
+    "en": "(RS)-cyclophosphamide"
+  },
+  {
+    "id": "cimetidine",
+    "ru": "Циметидин",
+    "en": "cimetidine"
+  },
+  {
+    "id": "eucalyptol",
+    "ru": "Цинеол",
+    "en": "eucalyptol"
+  },
+  {
+    "id": "zinc",
+    "ru": "Цинк",
+    "en": "Zinc"
+  },
+  {
+    "id": "pyrithione_zinc",
+    "ru": "Цинк пиритион",
+    "en": "pyrithione zinc"
+  },
+  {
+    "id": "cinnabsin",
+    "ru": "Циннабсин",
+    "en": "Cinnabsin"
+  },
+  {
+    "id": "cinnarizine",
+    "ru": "Циннаризин",
+    "en": "cinnarizine"
+  },
+  {
+    "id": "cypermethrin",
+    "ru": "Циперметрин",
+    "en": "cypermethrin"
+  },
+  {
+    "id": "cipralex",
+    "ru": "Ципралекс",
+    "en": "Cipralex"
+  },
+  {
+    "id": "cyproheptadine",
+    "ru": "Ципрогептадин",
+    "en": "cyproheptadine"
+  },
+  {
+    "id": "ciprolet",
+    "ru": "Ципролет",
+    "en": "Ciprolet"
+  },
+  {
+    "id": "cipromed",
+    "ru": "Ципромед",
+    "en": "Cipromed"
+  },
+  {
+    "id": "ciprofloxacin",
+    "ru": "Ципрофлоксацин",
+    "en": "ciprofloxacin"
+  },
+  {
+    "id": "cisplatin",
+    "ru": "Цисплатин",
+    "en": "cisplatin"
+  },
+  {
+    "id": "cystone",
+    "ru": "Цистон",
+    "en": "Cystone"
+  },
+  {
+    "id": "rs_citalopram",
+    "ru": "Циталопрам",
+    "en": "(RS)-citalopram"
+  },
+  {
+    "id": "cytarabine",
+    "ru": "Цитарабин",
+    "en": "cytarabine"
+  },
+  {
+    "id": "cytisine",
+    "ru": "Цитизин",
+    "en": "cytisine"
+  },
+  {
+    "id": "citicoline",
+    "ru": "Цитиколин",
+    "en": "citicoline"
+  },
+  {
+    "id": "citramon",
+    "ru": "Цитрамон",
+    "en": "Citramon"
+  },
+  {
+    "id": "iron_iii_citrate",
+    "ru": "Цитрат железа(III)",
+    "en": "iron(III) citrate"
+  },
+  {
+    "id": "tripotassium_citrate",
+    "ru": "Цитрат калия",
+    "en": "tripotassium citrate"
+  },
+  {
+    "id": "calcium_citrate",
+    "ru": "Цитрат кальция",
+    "en": "calcium citrate"
+  },
+  {
+    "id": "magnesium_citrate",
+    "ru": "Цитрат магния",
+    "en": "magnesium citrate"
+  },
+  {
+    "id": "ammonium_ferric_citrate",
+    "ru": "Цитраты аммония-железа",
+    "en": "ammonium ferric citrate"
+  },
+  {
+    "id": "quaternary_ammonium_cation",
+    "ru": "Четвертичные аммонийные соединения",
+    "en": "quaternary ammonium cation"
+  },
+  {
+    "id": "ebastine",
+    "ru": "Эбастин",
+    "en": "ebastine"
+  },
+  {
+    "id": "silver_sulfadiazine",
+    "ru": "Эбермин",
+    "en": "silver sulfadiazine"
+  },
+  {
+    "id": "everolimus",
+    "ru": "Эверолимус",
+    "en": "everolimus"
+  },
+  {
+    "id": "evolocumab",
+    "ru": "Эволокумаб",
+    "en": "evolocumab"
+  },
+  {
+    "id": "edarbi",
+    "ru": "Эдарби",
+    "en": "Edarbi"
+  },
+  {
+    "id": "ezetimibe",
+    "ru": "Эзетимиб",
+    "en": "ezetimibe"
+  },
+  {
+    "id": "ezetrol",
+    "ru": "Эзетрол",
+    "en": "Ezetrol"
+  },
+  {
+    "id": "esomeprazole",
+    "ru": "Эзомепразол",
+    "en": "esomeprazole"
+  },
+  {
+    "id": "equator",
+    "ru": "Экватор",
+    "en": "Equator"
+  },
+  {
+    "id": "exagamglogene_autotemcel",
+    "ru": "Эксагамглоген аутотемцел",
+    "en": "exagamglogene autotemcel"
+  },
+  {
+    "id": "exelon",
+    "ru": "Экселон",
+    "en": "Exelon"
+  },
+  {
+    "id": "exenatide",
+    "ru": "Эксенатид",
+    "en": "exenatide"
+  },
+  {
+    "id": "eleutherococcus_extract",
+    "ru": "Экстракт элеутерококка",
+    "en": "Eleutherococcus extract"
+  },
+  {
+    "id": "eculizumab",
+    "ru": "Экулизумаб",
+    "en": "eculizumab"
+  },
+  {
+    "id": "elvitegravir",
+    "ru": "Элвитегравир",
+    "en": "elvitegravir"
+  },
+  {
+    "id": "elvitegravir_cobicistat_emtricitabine_tenofovir_disoproxil",
+    "ru": "Элвитегравир/кобицистат/эмтрицитабин/тенофовир",
+    "en": "elvitegravir/cobicistat/emtricitabine/tenofovir disoproxil"
+  },
+  {
+    "id": "elevit_pronatal",
+    "ru": "Элевит Пронаталь",
+    "en": "Elevit Pronatal"
+  },
+  {
+    "id": "eliglustat",
+    "ru": "Элиглустат",
+    "en": "eliglustat"
+  },
+  {
+    "id": "elidel",
+    "ru": "Элидел",
+    "en": "Elidel"
+  },
+  {
+    "id": "eliquis",
+    "ru": "Эликвис",
+    "en": "Eliquis"
+  },
+  {
+    "id": "elocom",
+    "ru": "Элоком",
+    "en": "Elocom"
+  },
+  {
+    "id": "elosulfase_alfa",
+    "ru": "Элосульфаза альфа",
+    "en": "elosulfase alfa"
+  },
+  {
+    "id": "elotuzumab",
+    "ru": "Элотузумаб",
+    "en": "elotuzumab"
+  },
+  {
+    "id": "emetine",
+    "ru": "Эметин",
+    "en": "emetine"
+  },
+  {
+    "id": "moisturizer",
+    "ru": "Эмоллиент",
+    "en": "moisturizer"
+  },
+  {
+    "id": "empagliflozin",
+    "ru": "Эмпаглифлозин",
+    "en": "Empagliflozin"
+  },
+  {
+    "id": "emtricitabine",
+    "ru": "Эмтрицитабин",
+    "en": "emtricitabine"
+  },
+  {
+    "id": "enalapril",
+    "ru": "Эналаприл",
+    "en": "enalapril"
+  },
+  {
+    "id": "enbrel",
+    "ru": "Энбрел",
+    "en": "Enbrel"
+  },
+  {
+    "id": "enisamium_iodide",
+    "ru": "Энисамия йодид",
+    "en": "enisamium iodide"
+  },
+  {
+    "id": "enoxaparin",
+    "ru": "Эноксапарин",
+    "en": "Enoxaparin"
+  },
+  {
+    "id": "entacapone",
+    "ru": "Энтакапон",
+    "en": "Entacapone"
+  },
+  {
+    "id": "enterol",
+    "ru": "Энтерол",
+    "en": "Enterol"
+  },
+  {
+    "id": "enflurane",
+    "ru": "Энфлуран",
+    "en": "enflurane"
+  },
+  {
+    "id": "enfuvirtide",
+    "ru": "Энфувиртид",
+    "en": "enfuvirtide"
+  },
+  {
+    "id": "eosin",
+    "ru": "Эозин",
+    "en": "eosin"
+  },
+  {
+    "id": "epirubicin",
+    "ru": "Эпирубицин",
+    "en": "epirubicin"
+  },
+  {
+    "id": "eplerenone",
+    "ru": "Эплеренон",
+    "en": "Eplerenone"
+  },
+  {
+    "id": "epoxide",
+    "ru": "Эпоксиды",
+    "en": "epoxide"
+  },
+  {
+    "id": "epoetin",
+    "ru": "Эпоэтин",
+    "en": "Epoetin"
+  },
+  {
+    "id": "eptifibatide",
+    "ru": "Эптифибатид",
+    "en": "eptifibatide"
+  },
+  {
+    "id": "ergocalciferol",
+    "ru": "Эргокальциферол",
+    "en": "ergocalciferol"
+  },
+  {
+    "id": "ergometrine",
+    "ru": "Эргометрин",
+    "en": "ergometrine"
+  },
+  {
+    "id": "ergotamine",
+    "ru": "Эрготамин",
+    "en": "ergotamine"
+  },
+  {
+    "id": "erdosteine",
+    "ru": "Эрдостеин",
+    "en": "erdosteine"
+  },
+  {
+    "id": "erespal",
+    "ru": "Эреспал",
+    "en": "Erespal"
+  },
+  {
+    "id": "erythromycin",
+    "ru": "Эритромицин",
+    "en": "erythromycin"
+  },
+  {
+    "id": "erythropoietin",
+    "ru": "Эритропоэтин",
+    "en": "Erythropoietin"
+  },
+  {
+    "id": "red_blood_cell",
+    "ru": "Эритроциты",
+    "en": "red blood cell"
+  },
+  {
+    "id": "aerius",
+    "ru": "Эриус",
+    "en": "Aerius"
+  },
+  {
+    "id": "escapelle",
+    "ru": "Эскапел",
+    "en": "Escapelle"
+  },
+  {
+    "id": "esketamine",
+    "ru": "Эскетамин",
+    "en": "esketamine"
+  },
+  {
+    "id": "espumisan",
+    "ru": "Эспумизан",
+    "en": "Espumisan"
+  },
+  {
+    "id": "essentiale_forte",
+    "ru": "Эссенциале форте",
+    "en": "Essentiale Forte"
+  },
+  {
+    "id": "17_estradiol",
+    "ru": "Эстрадиол",
+    "en": "17β-estradiol"
+  },
+  {
+    "id": "estramustine",
+    "ru": "Эстрамустин",
+    "en": "estramustine"
+  },
+  {
+    "id": "estriol",
+    "ru": "Эстриол",
+    "en": "estriol"
+  },
+  {
+    "id": "estrone",
+    "ru": "Эстрон",
+    "en": "estrone"
+  },
+  {
+    "id": "escitalopram",
+    "ru": "Эсциталопрам",
+    "en": "escitalopram"
+  },
+  {
+    "id": "ethacrynic_acid",
+    "ru": "Этакриновая кислота",
+    "en": "ethacrynic acid"
+  },
+  {
+    "id": "ethambutol",
+    "ru": "Этамбутол",
+    "en": "ethambutol"
+  },
+  {
+    "id": "ethamsylate",
+    "ru": "Этамзилат",
+    "en": "ethamsylate"
+  },
+  {
+    "id": "etanercept",
+    "ru": "Этанерцепт",
+    "en": "etanercept"
+  },
+  {
+    "id": "ethanol",
+    "ru": "Этанол",
+    "en": "ethanol"
+  },
+  {
+    "id": "etilefrine",
+    "ru": "Этафедрин",
+    "en": "etilefrine"
+  },
+  {
+    "id": "eteplirsen",
+    "ru": "Этеплирсен",
+    "en": "eteplirsen"
+  },
+  {
+    "id": "ethyl_loflazepate",
+    "ru": "Этил лофлазепат",
+    "en": "ethyl loflazepate"
+  },
+  {
+    "id": "ethylmorphine",
+    "ru": "Этилморфин",
+    "en": "ethylmorphine"
+  },
+  {
+    "id": "ethinylestradiol",
+    "ru": "Этинилэстрадиол",
+    "en": "ethinylestradiol"
+  },
+  {
+    "id": "ethionamide",
+    "ru": "Этионамид",
+    "en": "ethionamide"
+  },
+  {
+    "id": "etifoxine",
+    "ru": "Этифоксин",
+    "en": "etifoxine"
+  },
+  {
+    "id": "ethchlorvynol",
+    "ru": "Этихлорвинол",
+    "en": "ethchlorvynol"
+  },
+  {
+    "id": "rs_etodolac",
+    "ru": "Этодолак",
+    "en": "(RS)-etodolac"
+  },
+  {
+    "id": "etomidate",
+    "ru": "Этомидат",
+    "en": "etomidate"
+  },
+  {
+    "id": "etoposide",
+    "ru": "Этопозид",
+    "en": "etoposide"
+  },
+  {
+    "id": "etoricoxib_2",
+    "ru": "Эторикоксиб",
+    "en": "Etoricoxib"
+  },
+  {
+    "id": "ethosuximide",
+    "ru": "Этосуксимид",
+    "en": "ethosuximide"
+  },
+  {
+    "id": "ethotoin",
+    "ru": "Этотоин",
+    "en": "ethotoin"
+  },
+  {
+    "id": "etravirine",
+    "ru": "Этравирин",
+    "en": "etravirine"
+  },
+  {
+    "id": "euthyrox",
+    "ru": "Эутирокс",
+    "en": "Euthyrox"
+  },
+  {
+    "id": "aminophylline_2",
+    "ru": "Эуфиллин",
+    "en": "aminophylline"
+  },
+  {
+    "id": "efavirenz",
+    "ru": "Эфавиренз",
+    "en": "efavirenz"
+  },
+  {
+    "id": "echinacea",
+    "ru": "Эхинацея",
+    "en": "Echinacea"
+  },
+  {
+    "id": "entresto",
+    "ru": "Юперио",
+    "en": "Entresto"
+  },
+  {
+    "id": "xeljanz",
+    "ru": "Яквинус",
+    "en": "Xeljanz"
+  },
+  {
+    "id": "januvia",
+    "ru": "Янувия",
+    "en": "Januvia"
+  },
+  {
+    "id": "yarina",
+    "ru": "Ярина",
+    "en": "Yarina"
+  }
+]
