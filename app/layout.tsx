@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import { LanguageRuntime } from "@/app/LanguageRuntime";
 
 export const metadata: Metadata = {
   title: "Karta — карта здоровья",
@@ -22,5 +23,5 @@ export const viewport: Viewport = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="ru"><body>{children}</body></html>;
+  return <html lang="ru"><body><LanguageRuntime />{children}</body></html>;
 }

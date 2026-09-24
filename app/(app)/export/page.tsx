@@ -18,7 +18,7 @@ export default async function ExportPage({ searchParams }: { searchParams: Promi
   const profile = data.profile;
   return <div className="print-page" style={{ maxWidth: 760, margin: "0 auto", padding: "24px 18px 48px", color: "#1A2050" }}>
     <div className="no-print" style={{ marginBottom: 16 }}><Link href="/" style={{ color: "#5C7CFA", textDecoration: "none", fontSize: 14 }}>← Вернуться в Karta</Link></div>
-    <PdfExportControls />
+    <PdfExportControls lang={lang} />
     <header style={{ display: "flex", alignItems: "center", gap: 14, borderBottom: "2px solid #DCE3FF", paddingBottom: 18, marginBottom: 20 }}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src="/karta-icon.png" alt="Karta" width={58} height={58} style={{ borderRadius: 14 }} />
