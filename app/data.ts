@@ -34,6 +34,9 @@ export async function ensureProfile(user: AppUser) {
     countryCurrent: null,
     countryCode: null,
     regionCurrent: null,
+    remindersEnabled: true,
+    remindersMorning: "08:00",
+    remindersEvening: "21:00",
     createdAt: now,
     updatedAt: now,
   };

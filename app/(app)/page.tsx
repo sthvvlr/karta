@@ -6,6 +6,7 @@ import healthFacts from "@/app/health_facts.json";
 import rules from "@/app/monitoring_rules.json";
 import catalog from "@/app/vaccinations_catalog.json";
 import { dateKey, medicationTasksForDate, monitoringTasksForDate, recommendedVaccines, vaccinationScore, upcomingVaccineTasks } from "@/app/tasks";
+import { ScoreDetails } from "@/app/ScoreDetails";
 import { getDb } from "@/db";
 import { labResults, medicationLogs, monitoringCompletions } from "@/db/schema";
 import { and, eq, gte, lt } from "drizzle-orm";
@@ -70,7 +71,7 @@ export default async function HomePage() {
       </div>
 
       <div style={{ background: "rgba(255,255,255,0.58)", border: `1px solid ${C.border}`, borderRadius: 16, padding: "13px 16px", marginBottom: 10 }}><div style={{ fontSize: 11, color: "#5C7CFA", fontWeight: 700, marginBottom: 5 }}>💡 ИНТЕРЕСНЫЙ ФАКТ</div><div style={{ fontSize: 13, lineHeight: 1.45, color: C.text }}>{todayFact.ru}</div></div>
-      <details style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 16, padding: "12px 14px", marginBottom: 10 }}><summary style={{ cursor: "pointer", fontSize: 12, fontWeight: 700 }}>Подробнее о Karta Score · {score}/100</summary><div style={{ marginTop: 8, color: C.muted, fontSize: 11, lineHeight: 1.45 }}>{recommended.length ? <>Осталось проверить: {recommended.map((item) => item.nameRu).join(", ")}.</> : "По текущим данным обязательных рекомендаций не осталось."}<br />Оценка пересчитывается после добавления прививок и заполнения профиля.</div></details>
+      <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 16, padding: "12px 14px", marginBottom: 10, fontSize: 12, fontWeight: 700 }}><ScoreDetails score={score} pending={recommended.map((item) => item.nameRu)} /></div>
 
       <Link href="/export" style={{ textDecoration: "none" }}><div style={{ display: "flex", alignItems: "center", gap: 10, background: "rgba(92,124,250,0.09)", border: "1px solid rgba(92,124,250,0.16)", borderRadius: 14, padding: "12px 14px", marginBottom: 20, color: "#4C6EF5" }}><span style={{ fontSize: 20 }}>📄</span><div style={{ flex: 1 }}><div style={{ fontSize: 13, fontWeight: 700 }}>Моя карта здоровья</div><div style={{ fontSize: 11, marginTop: 2, opacity: 0.75 }}>Открыть и сохранить в PDF</div></div><span style={{ fontSize: 18 }}>›</span></div></Link>
 

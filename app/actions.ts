@@ -46,6 +46,17 @@ export async function loginAccount(formData: FormData) {
   redirect(returnTo.startsWith("/") ? returnTo : "/");
 }
 
+export async function changePassword(formData: FormData) {
+  const auth = await requireChatGPTUser("/profile");
+  const nextPassword = String(formData.get("newPassword") || "");
+  if (auth.userId.startsWith("email:") && nextPassword.length >= 6) {
+    const salt = crypto.randomUUID();
+    const passwordHash = `${salt}:${await hashPassword(nextPassword, salt)}`;
+    await getDb().update(authAccounts).set({ passwordHash }).where(eq(authAccounts.id, auth.userId));
+  }
+  revalidatePath("/profile");
+}
+
 export async function signOutAccount() {
   await clearAppSession();
   redirect("/");
@@ -241,6 +252,15 @@ export async function saveProfile(formData: FormData) {
     else await db.insert(profileLocations).values({ id: crypto.randomUUID(), userId: auth.userId, city, country, region, countryCode, fromYear: null, toYear: null, isCurrent: true });
   }
   revalidatePath("/");
+  revalidatePath("/profile");
+}
+
+export async function saveReminderSettings(formData: FormData) {
+  const auth = await requireChatGPTUser("/profile");
+  const enabled = String(formData.get("enabled") || "false") === "true";
+  const morning = String(formData.get("morning") || "08:00").match(/^([01]\d|2[0-3]):[0-5]\d$/)?.[0] || "08:00";
+  const evening = String(formData.get("evening") || "21:00").match(/^([01]\d|2[0-3]):[0-5]\d$/)?.[0] || "21:00";
+  await getDb().update(profiles).set({ remindersEnabled: enabled, remindersMorning: morning, remindersEvening: evening, updatedAt: new Date().toISOString() }).where(eq(profiles.userId, auth.userId));
   revalidatePath("/profile");
 }
 

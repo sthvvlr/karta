@@ -98,7 +98,16 @@ export type VaccineForTasks = {
   audience?: string;
   ageMin?: number;
   requiresEndemicCheck?: boolean;
-  regions?: Record<string, { scheduleRu?: string | null; noteRu?: string | null; disclaimerRu?: string | null; audience?: string | null }>;
+  pregnancyRelevant?: boolean;
+  pregnancyNoteRu?: string | null;
+  infantContactNoteRu?: string | null;
+  tags?: string[];
+  descriptionRu?: string | null;
+  noteRu?: string | null;
+  disclaimerRu?: string | null;
+  scheduleRu?: string | null;
+  whoRu?: string | null;
+  regions?: Record<string, { scheduleRu?: string | null; noteRu?: string | null; disclaimerRu?: string | null; audience?: string | null; whoRu?: string | null }>;
 };
 
 export type VaccinationForTasks = {
@@ -169,6 +178,8 @@ export type ProfileForRecommendations = {
   birthDate?: string | null;
   gender?: string | null;
   countryCode?: string | null;
+  regionCurrent?: string | null;
+  cityCurrent?: string | null;
 };
 
 const regionCountries: Record<string, string> = {
@@ -192,6 +203,25 @@ export function catalogRegion(countryCode: string | null | undefined): string | 
   return regionCountries[code] || (euCountries.has(code) ? "EU" : null);
 }
 
+type TbeRisk = "high" | "moderate" | "low" | "none";
+
+function tbeRisk(countryCode: string | null | undefined, adminArea: string | null | undefined): TbeRisk {
+  const code = (countryCode || "").toUpperCase();
+  const area = `${adminArea || ""}`.toLowerCase();
+  if (["US", "CA", "AU", "NZ", "GB", "IE", "FR", "ES", "PT", "NL", "BE", "LU", "DK", "MT", "CY", "IT", "GR", "ZA", "NG", "KE", "MA", "EG", "BR", "AR", "MX", "IN", "VN", "TH", "ID", "MY", "PH", "SG", "KH", "MM", "LA", "BN", "KR"].includes(code)) return "none";
+  if (["EE", "LV", "LT", "AT", "CZ", "SI", "SK"].includes(code)) return "high";
+  if (["DE", "CH", "SE", "FI", "PL", "HU", "HR", "BY", "UA", "CN", "MN", "KZ"].includes(code)) return "moderate";
+  if (["NO", "BG", "RO"].includes(code)) return "low";
+  if (code === "JP") return /hokkaido|хоккайдо/.test(area) ? "moderate" : "none";
+  if (code === "RU") {
+    if (/свердлов|тюмен|курган|челябин|пермск|новосибир|томск|кемеров|иркутск|краснояр|алтай|бурят|тыва|хакас|забайкал|читин|примор|хабаров|сахалин|амур|еврейск|удмурт|марий|башкорт|оренбург|самар|архангел/.test(area)) return "high";
+    if (/киров|вологод|костром|ярослав|твер|псков|новгород|ленинград|санкт-петербург|карел|коми|нижегород|владимир|калининград|московская область/.test(area)) return "moderate";
+    if (/москва|краснодар|ставропол|ростов|волгоград|астрахан|дагестан|чечен|ингушет/.test(area)) return "low";
+    return "moderate";
+  }
+  return "none";
+}
+
 export function recommendedVaccines(profile: ProfileForRecommendations | null | undefined, records: VaccinationForTasks[], catalog: VaccineForTasks[], today = new Date()): VaccineForTasks[] {
   const age = ageFromBirthDate(profile?.birthDate, today);
   const region = catalogRegion(profile?.countryCode);
@@ -201,10 +231,19 @@ export function recommendedVaccines(profile: ProfileForRecommendations | null | 
     if (vaccine.ageMin && age !== null && age < vaccine.ageMin) return false;
     if (vaccine.audience === "female" && profile?.gender === "male") return false;
     if (vaccine.audience === "60plus" && age !== null && age < 60) return false;
-    if (vaccine.requiresEndemicCheck && region !== "RU" && region !== "EU" && region !== "EAST_ASIA") return false;
+    if (vaccine.requiresEndemicCheck && tbeRisk(profile?.countryCode, profile?.regionCurrent || profile?.cityCurrent) === "none") return false;
     if (region && vaccine.regions && !vaccine.regions[region]) return false;
     return true;
   });
+}
+
+export function nextDoseDate(vaccine: VaccineForTasks, doseNumber: number, dateGiven: string): string | null {
+  const date = dateOnly(dateGiven);
+  if (!date) return null;
+  const offset = vaccine.doseScheduleDays?.[doseNumber - 1];
+  if (vaccine.totalDoses > doseNumber && offset != null) return isoDate(addDays(date, offset));
+  if ((vaccine.frequencyType === "annual" || vaccine.frequencyType === "recurring") && vaccine.intervalYears) return isoDate(addYears(date, vaccine.intervalYears));
+  return null;
 }
 
 export function vaccinationScore(profile: ProfileForRecommendations | null | undefined, records: VaccinationForTasks[], catalog: VaccineForTasks[], today = new Date()): number {

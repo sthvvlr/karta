@@ -29,6 +29,13 @@
       "when": 1790232410364,
       "tag": "0003_exotic_corsair",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1790233803372,
+      "tag": "0004_stiff_ken_ellis",
+      "breakpoints": true
     }
   ]
 }
