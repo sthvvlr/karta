@@ -86,6 +86,17 @@ export const medicationLogs = sqliteTable("medication_logs", {
   takenAt: text("taken_at"),
 });
 
+export const monitoringCompletions = sqliteTable("monitoring_completions", {
+  id: text("id").primaryKey(),
+  userId: text("user_id").notNull(),
+  medicationId: text("medication_id").notNull(),
+  ruleId: text("rule_id").notNull(),
+  nextDue: text("next_due").notNull(),
+  completedAt: text("completed_at").notNull(),
+}, (table) => ({
+  userRuleMedicationIdx: uniqueIndex("monitoring_user_rule_med_idx").on(table.userId, table.ruleId, table.medicationId),
+}));
+
 export const labResults = sqliteTable("lab_results", {
   id: text("id").primaryKey(),
   userId: text("user_id").notNull(),

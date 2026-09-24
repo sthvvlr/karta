@@ -1,0 +1,355 @@
+[
+  {
+    "id": "statins",
+    "drug_codes": [
+      "lipimar",
+      "lovastatin",
+      "fluvastatin",
+      "krestor",
+      "livalo",
+      "pravastatin",
+      "atorvastatin",
+      "crestor",
+      "rosuvastatin",
+      "simvastatin",
+      "pitavastatin"
+    ],
+    "title_ru": "Липидный профиль и печёночные ферменты",
+    "title_en": "Lipid profile and liver enzymes",
+    "reason_ru": "На статинах",
+    "reason_en": "On statins",
+    "tests_ru": [
+      "АЛТ",
+      "АСТ",
+      "КФК",
+      "Общий холестерин",
+      "ЛПНП",
+      "ЛПВП",
+      "Триглицериды"
+    ],
+    "tests_en": [
+      "ALT",
+      "AST",
+      "CPK",
+      "Total cholesterol",
+      "LDL",
+      "HDL",
+      "Triglycerides"
+    ],
+    "schedule_ru": "Через 3 мес после начала, затем раз в год",
+    "schedule_en": "3 months after starting, then annually",
+    "first_check_days": 90,
+    "repeat_days": 365
+  },
+  {
+    "id": "iron_supplements",
+    "drug_codes": [
+      "gyno_tardyferon_b9",
+      "ferrous_chloride",
+      "iron_ii_sulfate",
+      "tardyferon",
+      "ferrous_sulfate",
+      "iron",
+      "ferretab",
+      "tardyferon_b9",
+      "iron_ii_gluconate",
+      "maltofer",
+      "ferrum_lek",
+      "gyno_tardyferon",
+      "sorbifer_durules",
+      "totema"
+    ],
+    "title_ru": "Показатели железа и ОАК",
+    "title_en": "Iron panel and CBC",
+    "reason_ru": "Приём препаратов железа",
+    "reason_en": "Iron supplementation",
+    "tests_ru": [
+      "Гемоглобин",
+      "Ферритин",
+      "Сывороточное железо",
+      "ОЖСС",
+      "Трансферрин",
+      "MCV",
+      "Эритроциты"
+    ],
+    "tests_en": [
+      "Hemoglobin",
+      "Ferritin",
+      "Serum iron",
+      "TIBC",
+      "Transferrin",
+      "MCV",
+      "RBC"
+    ],
+    "schedule_ru": "Через 2-3 мес после начала",
+    "schedule_en": "2-3 months after starting",
+    "first_check_days": 75,
+    "repeat_days": 0
+  },
+  {
+    "id": "levothyroxine",
+    "drug_codes": [
+      "levothyroxine",
+      "l_thyroxine",
+      "euthyrox",
+      "thyroxin"
+    ],
+    "title_ru": "Функция щитовидной железы",
+    "title_en": "Thyroid function",
+    "reason_ru": "Приём левотироксина",
+    "reason_en": "On levothyroxine",
+    "tests_ru": [
+      "ТТГ",
+      "Св. Т4"
+    ],
+    "tests_en": [
+      "TSH",
+      "Free T4"
+    ],
+    "schedule_ru": "Через 6-8 нед после начала или смены дозы, затем раз в год",
+    "schedule_en": "6-8 weeks after starting or dose change, then annually",
+    "first_check_days": 45,
+    "repeat_days": 365
+  },
+  {
+    "id": "metformin",
+    "drug_codes": [
+      "glucophage",
+      "siofor",
+      "metformin"
+    ],
+    "title_ru": "Функция почек и витамин B12",
+    "title_en": "Kidney function and vitamin B12",
+    "reason_ru": "Приём метформина",
+    "reason_en": "On metformin",
+    "tests_ru": [
+      "Креатинин",
+      "СКФ (рСКФ)",
+      "АЛТ",
+      "АСТ",
+      "Витамин B12 (раз в год)"
+    ],
+    "tests_en": [
+      "Creatinine",
+      "eGFR",
+      "ALT",
+      "AST",
+      "Vitamin B12 (annually)"
+    ],
+    "schedule_ru": "Функция почек раз в 6 мес, B12 раз в год",
+    "schedule_en": "Kidney function every 6 months, B12 annually",
+    "first_check_days": 180,
+    "repeat_days": 180
+  },
+  {
+    "id": "warfarin",
+    "drug_codes": [
+      "rac_warfarin"
+    ],
+    "title_ru": "Свёртываемость крови",
+    "title_en": "Blood coagulation",
+    "reason_ru": "Приём варфарина",
+    "reason_en": "On warfarin",
+    "tests_ru": [
+      "МНО (протромбиновое время)"
+    ],
+    "tests_en": [
+      "INR (prothrombin time)"
+    ],
+    "schedule_ru": "Каждые 2-4 нед, при стабильном МНО — раз в месяц",
+    "schedule_en": "Every 2-4 weeks, monthly when INR is stable",
+    "first_check_days": 14,
+    "repeat_days": 30
+  },
+  {
+    "id": "acei_arb",
+    "drug_codes": [
+      "lisinopril",
+      "prestarium",
+      "enalapril",
+      "berlipril",
+      "telmisartan",
+      "valsartan_2",
+      "losartan",
+      "valsartan",
+      "sacubitril_valsartan",
+      "perindopril",
+      "ramipril"
+    ],
+    "title_ru": "Функция почек и электролиты",
+    "title_en": "Kidney function and electrolytes",
+    "reason_ru": "На ИАПФ / сартанах",
+    "reason_en": "On ACE inhibitor / ARB",
+    "tests_ru": [
+      "Калий",
+      "Креатинин",
+      "СКФ (рСКФ)"
+    ],
+    "tests_en": [
+      "Potassium",
+      "Creatinine",
+      "eGFR"
+    ],
+    "schedule_ru": "Через 1-4 нед после начала, затем раз в 6 мес",
+    "schedule_en": "1-4 weeks after starting, then every 6 months",
+    "first_check_days": 21,
+    "repeat_days": 180
+  },
+  {
+    "id": "isotretinoin",
+    "drug_codes": [
+      "isotretinoin",
+      "acnecutane",
+      "roaccutane"
+    ],
+    "title_ru": "Печень, липиды и кровь",
+    "title_en": "Liver, lipids and CBC",
+    "reason_ru": "Приём изотретиноина",
+    "reason_en": "On isotretinoin",
+    "tests_ru": [
+      "АЛТ",
+      "АСТ",
+      "Триглицериды",
+      "Общий холестерин",
+      "ОАК (лейкоциты, тромбоциты)"
+    ],
+    "tests_en": [
+      "ALT",
+      "AST",
+      "Triglycerides",
+      "Total cholesterol",
+      "CBC (WBC, platelets)"
+    ],
+    "schedule_ru": "Ежемесячно на протяжении всего курса",
+    "schedule_en": "Monthly throughout the course",
+    "first_check_days": 30,
+    "repeat_days": 30
+  },
+  {
+    "id": "antipsychotics",
+    "drug_codes": [
+      "paliperidone",
+      "aripiprazole",
+      "ziprasidone",
+      "quetiapine",
+      "olanzapine",
+      "haloperidol",
+      "risperidone",
+      "clozapine"
+    ],
+    "title_ru": "Метаболический профиль",
+    "title_en": "Metabolic profile",
+    "reason_ru": "Приём антипсихотиков",
+    "reason_en": "On antipsychotics",
+    "tests_ru": [
+      "Глюкоза натощак",
+      "HbA1c",
+      "Общий холестерин",
+      "ЛПНП",
+      "Триглицериды",
+      "Вес / ИМТ"
+    ],
+    "tests_en": [
+      "Fasting glucose",
+      "HbA1c",
+      "Total cholesterol",
+      "LDL",
+      "Triglycerides",
+      "Weight / BMI"
+    ],
+    "schedule_ru": "Раз в 3 мес первый год, затем раз в год",
+    "schedule_en": "Every 3 months in the first year, then annually",
+    "first_check_days": 90,
+    "repeat_days": 90
+  },
+  {
+    "id": "methotrexate",
+    "drug_codes": [
+      "methotrexate"
+    ],
+    "title_ru": "ОАК, печень и почки",
+    "title_en": "CBC, liver and kidneys",
+    "reason_ru": "Приём метотрексата",
+    "reason_en": "On methotrexate",
+    "tests_ru": [
+      "ОАК с лейкоцитарной формулой",
+      "АЛТ",
+      "АСТ",
+      "Альбумин",
+      "Креатинин",
+      "СКФ"
+    ],
+    "tests_en": [
+      "CBC with differential",
+      "ALT",
+      "AST",
+      "Albumin",
+      "Creatinine",
+      "eGFR"
+    ],
+    "schedule_ru": "Каждые 4-8 нед",
+    "schedule_en": "Every 4-8 weeks",
+    "first_check_days": 30,
+    "repeat_days": 42
+  },
+  {
+    "id": "hydroxychloroquine",
+    "drug_codes": [
+      "plaquenil",
+      "hydroxychloroquine"
+    ],
+    "title_ru": "Осмотр офтальмолога",
+    "title_en": "Ophthalmology check",
+    "reason_ru": "Приём гидроксихлорохина",
+    "reason_en": "On hydroxychloroquine",
+    "tests_ru": [
+      "Поле зрения",
+      "ОКТ сетчатки"
+    ],
+    "tests_en": [
+      "Visual field test",
+      "OCT retinal scan"
+    ],
+    "schedule_ru": "Раз в год (риск ретинопатии)",
+    "schedule_en": "Annually (retinopathy risk)",
+    "first_check_days": 365,
+    "repeat_days": 365
+  },
+  {
+    "id": "nsaid_long",
+    "drug_codes": [
+      "dexketoprofen",
+      "diclofenac",
+      "meloxicam",
+      "rs_ketoprofen",
+      "etoricoxib",
+      "indomethacin",
+      "etoricoxib_2",
+      "nimesulide",
+      "naproxen",
+      "celecoxib"
+    ],
+    "title_ru": "Функция почек и ЖКТ",
+    "title_en": "Kidney function and GI",
+    "reason_ru": "Длительный приём НПВП",
+    "reason_en": "Long-term NSAID use",
+    "tests_ru": [
+      "Креатинин",
+      "СКФ (рСКФ)",
+      "Калий",
+      "ОАК",
+      "Кал на скрытую кровь"
+    ],
+    "tests_en": [
+      "Creatinine",
+      "eGFR",
+      "Potassium",
+      "CBC",
+      "Fecal occult blood"
+    ],
+    "schedule_ru": "Раз в 6 мес при длительном приёме",
+    "schedule_en": "Every 6 months with long-term use",
+    "first_check_days": 180,
+    "repeat_days": 180
+  }
+]

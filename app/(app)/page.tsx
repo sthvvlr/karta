@@ -1,7 +1,14 @@
 import Link from "next/link";
+import { completeMonitoringTask, completeUpcomingVaccination, toggleMedicationTaken } from "@/app/actions";
 import { getChatGPTUser, chatGPTSignInPath } from "@/app/chatgpt-auth";
 import { getUserData } from "@/app/data";
 import healthFacts from "@/app/health_facts.json";
+import rules from "@/app/monitoring_rules.json";
+import catalog from "@/app/vaccinations_catalog.json";
+import { dateKey, medicationTasksForDate, monitoringTasksForDate, upcomingVaccineTasks } from "@/app/tasks";
+import { getDb } from "@/db";
+import { medicationLogs, monitoringCompletions } from "@/db/schema";
+import { and, eq, gte, lt } from "drizzle-orm";
 
 export const dynamic = "force-dynamic";
 
@@ -20,12 +27,21 @@ export default async function HomePage() {
     return <Landing />;
   }
   const data = await getUserData({ userId: user.userId, email: user.email, displayName: user.displayName });
+  const today = new Date();
+  const todayKey = dateKey(today);
+  const db = getDb();
+  const [logs, completions] = await Promise.all([
+    db.select().from(medicationLogs).where(and(eq(medicationLogs.userId, user.userId), gte(medicationLogs.scheduledAt, `${todayKey}T00:00:00`), lt(medicationLogs.scheduledAt, `${todayKey}T23:59:59`))),
+    db.select().from(monitoringCompletions).where(eq(monitoringCompletions.userId, user.userId)),
+  ]);
+  const medicationTasks = medicationTasksForDate(data.medications, logs, today);
+  const vaccineTasks = upcomingVaccineTasks(data.vaccinations.map(({ record }) => record), catalog, today);
+  const monitoringTasks = monitoringTasksForDate(data.medications, completions, rules, today);
   const name = data.profile?.fullName?.split(" ")[0] || user.displayName.split(" ")[0];
   const hour = new Date().getHours();
   const greeting = hour < 12 ? "Доброе утро" : hour < 18 ? "Добрый день" : "Добрый вечер";
   const profileFields = [data.profile?.fullName, data.profile?.birthDate, data.profile?.cityCurrent, data.vaccinations.length || data.medications.length];
   const profileProgress = Math.round(profileFields.filter(Boolean).length / profileFields.length * 100);
-  const today = new Date();
   const dayOfYear = Math.floor((today.getTime() - new Date(today.getFullYear(), 0, 0).getTime()) / 86400000);
   const todayFact = healthFacts[(dayOfYear - 1) % healthFacts.length];
 
@@ -53,6 +69,12 @@ export default async function HomePage() {
       <div style={{ background: "rgba(255,255,255,0.58)", border: `1px solid ${C.border}`, borderRadius: 16, padding: "13px 16px", marginBottom: 10 }}><div style={{ fontSize: 11, color: "#5C7CFA", fontWeight: 700, marginBottom: 5 }}>💡 ИНТЕРЕСНЫЙ ФАКТ</div><div style={{ fontSize: 13, lineHeight: 1.45, color: C.text }}>{todayFact.ru}</div></div>
 
       <Link href="/export" style={{ textDecoration: "none" }}><div style={{ display: "flex", alignItems: "center", gap: 10, background: "rgba(92,124,250,0.09)", border: "1px solid rgba(92,124,250,0.16)", borderRadius: 14, padding: "12px 14px", marginBottom: 20, color: "#4C6EF5" }}><span style={{ fontSize: 20 }}>📄</span><div style={{ flex: 1 }}><div style={{ fontSize: 13, fontWeight: 700 }}>Моя карта здоровья</div><div style={{ fontSize: 11, marginTop: 2, opacity: 0.75 }}>Открыть и сохранить в PDF</div></div><span style={{ fontSize: 18 }}>›</span></div></Link>
+
+      {medicationTasks.length > 0 && <section style={{ marginBottom: 18 }}><div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 9 }}><div style={{ fontSize: 13, fontWeight: 700 }}>Лекарства сегодня</div><Link href="/medications" style={{ color: "#5C7CFA", fontSize: 11, textDecoration: "none" }}>{medicationTasks.filter((task) => task.taken).length}/{medicationTasks.length}</Link></div><div style={{ display: "grid", gap: 6 }}>{medicationTasks.slice(0, 4).map((task) => <div key={task.key} style={{ display: "flex", alignItems: "center", gap: 9, padding: "10px 12px", background: C.card, border: `1px solid ${C.border}`, borderRadius: 13, opacity: task.taken ? 0.62 : 1 }}><form action={toggleMedicationTaken}><input type="hidden" name="medicationId" value={task.medicationId} /><input type="hidden" name="scheduledAt" value={task.scheduledAt} /><button type="submit" style={{ width: 27, height: 27, borderRadius: "50%", border: task.taken ? 0 : "1.5px solid rgba(26,32,80,0.18)", background: task.taken ? "#5C7CFA" : "transparent", color: "white" }}>{task.taken ? "✓" : ""}</button></form><div style={{ flex: 1, fontSize: 12, fontWeight: 600, textDecoration: task.taken ? "line-through" : "none" }}>{task.name}<span style={{ display: "block", fontSize: 10, color: C.muted, fontWeight: 400, marginTop: 2 }}>{task.time}{task.dosage ? ` · ${task.dosage}` : ""}</span></div></div>)}</div>{medicationTasks.length > 4 && <Link href="/medications" style={{ display: "block", marginTop: 7, color: "#5C7CFA", fontSize: 11, textDecoration: "none" }}>Все задачи →</Link>}</section>}
+
+      {vaccineTasks.length > 0 && <section style={{ marginBottom: 18 }}><div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 9 }}><div style={{ fontSize: 13, fontWeight: 700 }}>Предстоящие прививки</div><Link href="/vaccinations" style={{ color: "#5C7CFA", fontSize: 11, textDecoration: "none" }}>Все →</Link></div><div style={{ display: "grid", gap: 6 }}>{vaccineTasks.slice(0, 3).map((task) => <div key={task.key} style={{ display: "flex", alignItems: "center", gap: 9, padding: "10px 12px", background: "rgba(255,247,230,0.85)", border: "1px solid rgba(217,119,6,0.16)", borderRadius: 13 }}><div style={{ flex: 1, fontSize: 12, fontWeight: 600 }}>{task.nameRu}<span style={{ display: "block", fontSize: 10, color: task.overdue ? "#E03131" : C.muted, fontWeight: 400, marginTop: 2 }}>{task.overdue ? "Просрочено" : "Запланировано"}: {task.dueDate} · доза {task.doseNumber}/{task.totalDoses}</span></div><form action={completeUpcomingVaccination}><input type="hidden" name="vaccineId" value={task.vaccineId} /><input type="hidden" name="doseNumber" value={task.doseNumber} /><input type="hidden" name="dateGiven" value={todayKey} /><button type="submit" style={{ border: 0, borderRadius: 9, padding: "7px 8px", background: "#5C7CFA", color: "white", fontSize: 11, fontWeight: 700 }}>Готово</button></form></div>)}</div></section>}
+
+      {monitoringTasks.length > 0 && <section style={{ marginBottom: 18 }}><div style={{ fontSize: 13, fontWeight: 700, marginBottom: 9 }}>Напоминания курса</div>{monitoringTasks.slice(0, 2).map((item) => <div key={`${item.id}:${item.medicationId}`} style={{ display: "flex", alignItems: "center", gap: 9, padding: "10px 12px", background: C.card, border: `1px solid ${item.overdue ? "rgba(224,49,49,0.24)" : C.border}`, borderRadius: 13, marginBottom: 6 }}><div style={{ flex: 1, fontSize: 12, fontWeight: 600 }}>🧪 {item.title_ru}<span style={{ display: "block", fontSize: 10, color: item.overdue ? "#E03131" : C.muted, fontWeight: 400, marginTop: 2 }}>{item.overdue ? "Просрочено" : "До"} {item.dueDate}</span></div><form action={completeMonitoringTask}><input type="hidden" name="medicationId" value={item.medicationId} /><input type="hidden" name="ruleId" value={item.id} /><input type="hidden" name="repeatDays" value={item.repeat_days} /><button type="submit" style={{ border: 0, background: "transparent", color: "#5C7CFA", fontSize: 11, fontWeight: 700 }}>Готово</button></form></div>)}</section>}
 
       <div style={{ fontSize: 13, fontWeight: 700, color: C.text, marginBottom: 10 }}>Разделы</div>
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 7, marginBottom: 20 }}>
