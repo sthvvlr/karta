@@ -95,6 +95,10 @@ export type VaccineForTasks = {
   intervalYears: number | null;
   frequencyType?: string;
   doseScheduleDays?: number[];
+  audience?: string;
+  ageMin?: number;
+  requiresEndemicCheck?: boolean;
+  regions?: Record<string, { scheduleRu?: string | null; noteRu?: string | null; disclaimerRu?: string | null; audience?: string | null }>;
 };
 
 export type VaccinationForTasks = {
@@ -159,6 +163,55 @@ export function upcomingVaccineTasks(records: VaccinationForTasks[], catalog: Va
     result.push({ key: `${vaccine.id}:recurring`, vaccineId: vaccine.id, nameRu: vaccine.nameRu, doseNumber: 1, totalDoses: 1, dueDate: isoDate(dueDate), overdue: isoDate(dueDate) < todayKey });
   }
   return result.sort((a, b) => a.dueDate.localeCompare(b.dueDate));
+}
+
+export type ProfileForRecommendations = {
+  birthDate?: string | null;
+  gender?: string | null;
+  countryCode?: string | null;
+};
+
+const regionCountries: Record<string, string> = {
+  RU: "RU", US: "US", AU: "AU", NZ: "AU", VN: "SEA", TH: "SEA", ID: "SEA", MY: "SEA", PH: "SEA", SG: "SEA", KH: "SEA", MM: "SEA", LA: "SEA", BN: "SEA",
+  JP: "EAST_ASIA", KR: "EAST_ASIA", CN: "EAST_ASIA", TW: "EAST_ASIA", HK: "EAST_ASIA", MO: "EAST_ASIA",
+};
+const euCountries = new Set(["DE", "FR", "IT", "ES", "NL", "BE", "AT", "PL", "SE", "DK", "FI", "NO", "CH", "GB", "IE", "PT", "CZ", "SK", "HU", "RO", "BG", "HR", "SI", "EE", "LV", "LT", "LU", "MT", "CY", "GR"]);
+
+function ageFromBirthDate(birthDate: string | null | undefined, today = new Date()): number | null {
+  const birth = dateOnly(birthDate);
+  if (!birth) return null;
+  let age = today.getFullYear() - birth.getFullYear();
+  const beforeBirthday = today.getMonth() < birth.getMonth() || (today.getMonth() === birth.getMonth() && today.getDate() < birth.getDate());
+  if (beforeBirthday) age -= 1;
+  return age;
+}
+
+export function catalogRegion(countryCode: string | null | undefined): string | null {
+  if (!countryCode) return null;
+  const code = countryCode.toUpperCase();
+  return regionCountries[code] || (euCountries.has(code) ? "EU" : null);
+}
+
+export function recommendedVaccines(profile: ProfileForRecommendations | null | undefined, records: VaccinationForTasks[], catalog: VaccineForTasks[], today = new Date()): VaccineForTasks[] {
+  const age = ageFromBirthDate(profile?.birthDate, today);
+  const region = catalogRegion(profile?.countryCode);
+  return catalog.filter((vaccine) => {
+    const completed = records.some((record) => record.vaccineId === vaccine.id && record.dateGiven);
+    if (completed) return false;
+    if (vaccine.ageMin && age !== null && age < vaccine.ageMin) return false;
+    if (vaccine.audience === "female" && profile?.gender === "male") return false;
+    if (vaccine.audience === "60plus" && age !== null && age < 60) return false;
+    if (vaccine.requiresEndemicCheck && region !== "RU" && region !== "EU" && region !== "EAST_ASIA") return false;
+    if (region && vaccine.regions && !vaccine.regions[region]) return false;
+    return true;
+  });
+}
+
+export function vaccinationScore(profile: ProfileForRecommendations | null | undefined, records: VaccinationForTasks[], catalog: VaccineForTasks[], today = new Date()): number {
+  const applicable = recommendedVaccines(profile, records, catalog, today).length;
+  const total = applicable + new Set(records.filter((record) => record.dateGiven).map((record) => record.vaccineId)).size;
+  if (total === 0) return 0;
+  return Math.round((total - applicable) / total * 100);
 }
 
 export type MonitoringRule = {

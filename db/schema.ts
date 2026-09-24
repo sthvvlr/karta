@@ -9,6 +9,7 @@ export const profiles = sqliteTable("profiles", {
   cityCurrent: text("city_current"),
   regionCurrent: text("region_current"),
   countryCurrent: text("country_current"),
+  countryCode: text("country_code"),
   createdAt: text("created_at").notNull(),
   updatedAt: text("updated_at").notNull(),
 });
@@ -18,6 +19,8 @@ export const profileLocations = sqliteTable("profile_locations", {
   userId: text("user_id").notNull(),
   city: text("city").notNull(),
   country: text("country"),
+  region: text("region"),
+  countryCode: text("country_code"),
   fromYear: integer("from_year"),
   toYear: integer("to_year"),
   isCurrent: integer("is_current", { mode: "boolean" }).notNull().default(false),
@@ -107,6 +110,22 @@ export const labResults = sqliteTable("lab_results", {
   testedAt: text("tested_at"),
   fileKey: text("file_key"),
   notes: text("notes"),
+  indicators: text("indicators"),
+  createdAt: text("created_at").notNull(),
+});
+
+export const authAccounts = sqliteTable("auth_accounts", {
+  id: text("id").primaryKey(),
+  email: text("email").notNull().unique(),
+  passwordHash: text("password_hash").notNull(),
+  displayName: text("display_name").notNull(),
+  createdAt: text("created_at").notNull(),
+});
+
+export const authSessions = sqliteTable("auth_sessions", {
+  id: text("id").primaryKey(),
+  userId: text("user_id").notNull(),
+  expiresAt: text("expires_at").notNull(),
   createdAt: text("created_at").notNull(),
 });
 

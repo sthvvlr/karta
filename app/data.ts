@@ -32,6 +32,7 @@ export async function ensureProfile(user: AppUser) {
     gender: null,
     cityCurrent: null,
     countryCurrent: null,
+    countryCode: null,
     regionCurrent: null,
     createdAt: now,
     updatedAt: now,

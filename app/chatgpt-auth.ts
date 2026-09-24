@@ -1,5 +1,9 @@
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
+import { and, eq, gt } from "drizzle-orm";
+import { getDb } from "@/db";
+import { authAccounts, authSessions } from "@/db/schema";
 
 export type ChatGPTUser = {
   userId: string;
@@ -22,7 +26,21 @@ export async function getChatGPTUser(): Promise<ChatGPTUser | null> {
   const requestHeaders = await headers();
   const userId = requestHeaders.get(USER_ID_HEADER);
   const email = requestHeaders.get(USER_EMAIL_HEADER);
-  if (!userId || !email) return null;
+  if (!userId || !email) {
+    const token = (await cookies()).get("karta_session")?.value;
+    if (!token) return null;
+    const now = new Date().toISOString();
+    const [session] = await getDb().select({
+      userId: authSessions.userId,
+      email: authAccounts.email,
+      displayName: authAccounts.displayName,
+    }).from(authSessions)
+      .innerJoin(authAccounts, eq(authSessions.userId, authAccounts.id))
+      .where(and(eq(authSessions.id, token), gt(authSessions.expiresAt, now)))
+      .limit(1);
+    if (!session) return null;
+    return { userId: session.userId, email: session.email, displayName: session.displayName, fullName: session.displayName };
+  }
 
   const encodedFullName = requestHeaders.get(USER_FULL_NAME_HEADER);
   const fullName =
@@ -56,6 +74,32 @@ export function chatGPTSignInPath(returnTo: string): string {
 export function chatGPTSignOutPath(returnTo = "/"): string {
   const safeReturnTo = safeRelativeReturnPath(returnTo);
   return `${SIGN_OUT_PATH}?return_to=${encodeURIComponent(safeReturnTo)}`;
+}
+
+export async function createAppSession(userId: string) {
+  const token = crypto.randomUUID();
+  const now = new Date();
+  const expires = new Date(now.getTime() + 1000 * 60 * 60 * 24 * 30);
+  await getDb().insert(authSessions).values({
+    id: token,
+    userId,
+    expiresAt: expires.toISOString(),
+    createdAt: now.toISOString(),
+  });
+  (await cookies()).set("karta_session", token, {
+    httpOnly: true,
+    sameSite: "lax",
+    secure: true,
+    path: "/",
+    expires,
+  });
+}
+
+export async function clearAppSession() {
+  const store = await cookies();
+  const token = store.get("karta_session")?.value;
+  if (token) await getDb().delete(authSessions).where(eq(authSessions.id, token));
+  store.delete("karta_session");
 }
 
 function safeRelativeReturnPath(value: string): string {

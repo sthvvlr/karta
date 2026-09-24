@@ -1,46 +1,11 @@
-import { createServerClient } from '@supabase/ssr'
-import { NextResponse, type NextRequest } from 'next/server'
+import { NextResponse } from "next/server";
 
-export async function middleware(request: NextRequest) {
-  let response = NextResponse.next({ request })
-
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        getAll() { return request.cookies.getAll() },
-        setAll(list) {
-          list.forEach(({ name, value }) => request.cookies.set(name, value))
-          response = NextResponse.next({ request })
-          list.forEach(({ name, value, options }) => response.cookies.set(name, value, options))
-        },
-      },
-    }
-  )
-
-  const { data: { user } } = await supabase.auth.getUser()
-  const { pathname } = request.nextUrl
-
-  const isAuthRoute = pathname === '/login' || pathname === '/register'
-  const isOnboarding = pathname === '/onboarding'
-
-  // Allow public pages without auth
-  if (pathname === '/' || pathname === '/privacy') return response
-
-  // Not logged in → login page
-  if (!user && !isAuthRoute) {
-    return NextResponse.redirect(new URL('/login', request.url))
-  }
-
-  // Logged in → skip auth pages
-  if (user && isAuthRoute) {
-    return NextResponse.redirect(new URL('/', request.url))
-  }
-
-  return response
+// Authentication is resolved in server components/actions from either the
+// Sites ChatGPT identity headers or the Karta email session cookie.
+export function middleware() {
+  return NextResponse.next();
 }
 
 export const config = {
-  matcher: ['/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)'],
-}
+  matcher: ["/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)"],
+};
