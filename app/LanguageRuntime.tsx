@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useSyncExternalStore } from "react";
 import catalog from "./vaccinations_catalog.json";
 import facts from "./health_facts.json";
 import medicines from "./medications_ru.json";
@@ -9,6 +9,20 @@ import rules from "./monitoring_rules.json";
 type Language = "ru" | "en";
 type Pair = [string, string];
 
+const languageListeners = new Set<() => void>();
+const languageStore = {
+  getSnapshot: (): Language => document.cookie.match(/(?:^|; )karta_lang=(en|ru)/)?.[1] === "en" ? "en" : "ru",
+  getServerSnapshot: (): Language => "ru",
+  subscribe: (listener: () => void) => {
+    languageListeners.add(listener);
+    return () => languageListeners.delete(listener);
+  },
+  set: (value: Language) => {
+    document.cookie = `karta_lang=${value}; path=/; max-age=31536000; samesite=lax`;
+    languageListeners.forEach((listener) => listener());
+  },
+};
+
 const pairs: Pair[] = [
   ["Главная", "Home"], ["Прививки", "Vaccinations"], ["Лекарства", "Medications"], ["Профиль", "Profile"], ["Анализы", "Lab tests"], ["Чекапы", "Check-ups"],
   ["Карта здоровья", "Health card"], ["Ваша карта прививок, лекарств и анализов в одном месте.", "Your vaccinations, medications and lab tests in one place."],
@@ -16,8 +30,8 @@ const pairs: Pair[] = [
   ["Имя", "Name"], ["Дата рождения", "Date of birth"], ["Пол", "Gender"], ["Не указан", "Not specified"], ["Женский", "Female"], ["Мужской", "Male"], ["Другой", "Other"],
   ["Текущий город", "Current city"], ["Начните вводить город", "Start typing a city"], ["Поиск…", "Searching…"], ["Сохранить профиль", "Save profile"], ["Регион влияет на каталог и рекомендации по прививкам.", "Your region affects the vaccine catalogue and recommendations."],
   ["История городов", "City history"], ["Добавьте города, где жили раньше, чтобы учитывать региональные риски.", "Add places where you lived before to account for regional risks."], ["Добавить город", "Add city"], ["С какого года", "From year"], ["По какой год", "To year"], ["текущий", "current"], ["Сделать текущим", "Make current"], ["Удалить", "Delete"],
-  ["Напоминания", "Reminders"], ["Напоминания о лекарствах включены", "Medication reminders are enabled"], ["Утро", "Morning"], ["Вечер", "Evening"], ["Сохранить настройки", "Save settings"], ["Разрешить уведомления браузера", "Allow browser notifications"], ["Браузер не поддерживает уведомления", "This browser does not support notifications"], ["Уведомления разрешены", "Notifications allowed"], ["Разрешение не выдано", "Permission was not granted"], ["Настройки сохраняются в базе Karta и доступны на других устройствах.", "Settings are saved in the Karta database and available on other devices."],
-  ["Аккаунт", "Account"], ["Выйти через ChatGPT", "Sign out of ChatGPT"], ["Выйти из email-аккаунта", "Sign out of email account"], ["Изменить пароль", "Change password"], ["Новый пароль, минимум 6 символов", "New password, at least 6 characters"], ["Сохранить новый пароль", "Save new password"], ["Удалить данные Karta", "Delete Karta data"], ["Удалит карту, лекарства, прививки и анализы из базы. Аккаунт ChatGPT не удаляется.", "This deletes your health card, medications, vaccinations and lab tests from the database. Your ChatGPT account is not deleted."],
+  ["🗺 История городов", "🗺 City history"], ["Напоминания", "Reminders"], ["🔔 Напоминания", "🔔 Reminders"], ["Напоминания о лекарствах включены", "Medication reminders are enabled"], ["Утро", "Morning"], ["Вечер", "Evening"], ["Сохранить настройки", "Save settings"], ["Разрешить уведомления браузера", "Allow browser notifications"], ["Браузер не поддерживает уведомления", "This browser does not support notifications"], ["Уведомления разрешены", "Notifications allowed"], ["Разрешение не выдано", "Permission was not granted"], ["Настройки сохраняются в базе Karta и доступны на других устройствах.", "Settings are saved in the Karta database and available on other devices."],
+  ["Аккаунт", "Account"], ["⚙ Аккаунт", "⚙ Account"], ["Выйти через ChatGPT", "Sign out of ChatGPT"], ["Выйти из email-аккаунта", "Sign out of email account"], ["Изменить пароль", "Change password"], ["Новый пароль, минимум 6 символов", "New password, at least 6 characters"], ["Сохранить новый пароль", "Save new password"], ["Удалить данные Karta", "Delete Karta data"], ["Удалит карту, лекарства, прививки и анализы из базы. Аккаунт ChatGPT не удаляется.", "This deletes your health card, medications, vaccinations and lab tests from the database. Your ChatGPT account is not deleted."],
   ["Рекомендовано для вас", "Recommended for you"], ["Предстоящие прививки", "Upcoming vaccinations"], ["Предстоящих доз пока нет.", "There are no upcoming doses."], ["Отметить", "Mark done"], ["Сохранить выполненную дозу", "Save completed dose"], ["Препарат / бренд", "Product / brand"], ["Клиника", "Clinic"], ["Моя история", "My history"], ["Пока нет записей. Добавьте первую прививку ниже.", "No records yet. Add your first vaccination below."], ["Изменить", "Edit"], ["Сохранить изменения", "Save changes"], ["Удалить запись", "Delete record"], ["+ Добавить прививку", "+ Add vaccination"], ["Выберите вакцину", "Choose a vaccine"], ["Номер дозы", "Dose number"], ["Заметки", "Notes"],
   ["Лекарства сегодня", "Medications today"], ["Задачи на сегодня", "Today’s tasks"], ["Приём сегодня", "Today’s doses"], ["Все задачи →", "All tasks →"], ["Сегодня", "Today"], ["Отмечайте каждый отдельный приём", "Mark each dose as you take it"], ["Все задачи на сегодня выполнены 🎉", "All tasks for today are complete 🎉"], ["Нет запланированных приёмов на сегодня", "No doses scheduled for today"], ["Напоминания курса", "Course monitoring"], ["Что проверить", "What to check"], ["Отметить выполненным", "Mark complete"], ["Мои препараты", "My medications"], ["активно", "active"], ["Изменить или удалить", "Edit or delete"], ["Удалить лекарство", "Delete medication"], ["+ Добавить лекарство", "+ Add medication"], ["Пока нет лекарств. Добавьте препарат ниже.", "No medications yet. Add one below."], ["Начните вводить название", "Start typing a name"], ["Дозировка", "Dosage"], ["Неважно", "Any"], ["До еды", "Before food"], ["Во время еды", "With food"], ["После еды", "After food"], ["Сохранить лекарство", "Save medication"], ["По необходимости", "As needed"], ["Несколько раз в неделю", "Several times a week"], ["Каждый день", "Every day"],
   ["Анализы", "Lab tests"], ["Добавить анализ", "Add lab test"], ["Новый анализ", "New lab test"], ["Показатель", "Indicator"], ["Результат", "Result"], ["Единица", "Unit"], ["Референсный диапазон", "Reference range"], ["Дата анализа", "Test date"], ["Добавить показатель", "Add indicator"], ["Сохранить анализ", "Save lab test"], ["Пока нет анализов.", "No lab tests yet."], ["Удалить анализ", "Delete lab test"], ["Открыть файл", "Open file"], ["Примечания", "Notes"],
@@ -49,6 +63,10 @@ function translate(source: string, lang: Language): string {
   let match = /^Дата рождения: (.+)$/.exec(source); if (match) return `Date of birth: ${match[1]}`;
   match = /^Активных лекарств: (\d+)$/.exec(source); if (match) return `Active medications: ${match[1]}`;
   match = /^(\d+) записей$/.exec(source); if (match) return `${match[1]} records`;
+  match = /^(\d+) активных$/.exec(source); if (match) return `${match[1]} active`;
+  match = /^Задачи на сегодня · (.+)$/.exec(source); if (match) return `Today's tasks · ${match[1]}`;
+  match = /^Рекомендовано для вас · (\d+)$/.exec(source); if (match) return `Recommended for you · ${match[1]}`;
+  match = /^Мои препараты · (\d+)$/.exec(source); if (match) return `My medications · ${match[1]}`;
   match = /^Осталось проверить: (.+)\.$/.exec(source); if (match) return `Still to check: ${match[1]}.`;
   match = /^До (\d{4}-\d{2}-\d{2})$/.exec(source); if (match) return `Due ${match[1]}`;
   match = /^Запланировано: (\d{4}-\d{2}-\d{2}) · доза (\d+)\/(\d+)$/.exec(source); if (match) return `Scheduled: ${match[1]} · dose ${match[2]}/${match[3]}`;
@@ -83,23 +101,16 @@ function applyLanguage(lang: Language) {
 }
 
 export function LanguageRuntime() {
-  const [lang, setLang] = useState<Language>(() => typeof document !== "undefined" && document.cookie.match(/(?:^|; )karta_lang=(en|ru)/)?.[1] === "en" ? "en" : "ru");
+  // Keep the server and the first client render identical. The saved cookie is
+  // read after hydration, then applied without producing a hydration warning.
+  const lang = useSyncExternalStore(languageStore.subscribe, languageStore.getSnapshot, languageStore.getServerSnapshot);
   useEffect(() => {
-    const stored = document.cookie.match(/(?:^|; )karta_lang=(en|ru)/)?.[1] as Language | undefined;
-    const initial = stored || "ru";
-    let current: Language = initial;
-    applyLanguage(initial);
-    const eventHandler = (event: Event) => { current = (event as CustomEvent<Language>).detail; };
-    window.addEventListener("karta-language-change", eventHandler);
-    const observer = new MutationObserver(() => applyLanguage(current));
-    observer.observe(document.body, { childList: true, subtree: true, characterData: true });
-    return () => { observer.disconnect(); window.removeEventListener("karta-language-change", eventHandler); };
-  }, []);
-  useEffect(() => {
-    if (typeof document === "undefined") return;
     applyLanguage(lang);
     document.cookie = `karta_lang=${lang}; path=/; max-age=31536000; samesite=lax`;
     window.dispatchEvent(new CustomEvent("karta-language-change", { detail: lang }));
+    const observer = new MutationObserver(() => applyLanguage(lang));
+    observer.observe(document.body, { childList: true, subtree: true, characterData: true });
+    return () => observer.disconnect();
   }, [lang]);
-  return <button type="button" onClick={() => setLang((value) => value === "ru" ? "en" : "ru")} aria-label={lang === "ru" ? "Switch to English" : "Переключить на русский"} style={{ position: "fixed", top: 10, right: "max(12px, calc(50% - 202px))", zIndex: 70, border: "1px solid rgba(92,124,250,.2)", borderRadius: 999, padding: "6px 10px", background: "rgba(255,255,255,.82)", color: "#5C7CFA", fontSize: 11, fontWeight: 700, boxShadow: "0 4px 14px rgba(26,32,80,.08)" }}>{lang === "ru" ? "EN" : "RU"}</button>;
+  return <button type="button" onClick={() => languageStore.set(lang === "ru" ? "en" : "ru")} aria-label={lang === "ru" ? "Switch to English" : "Переключить на русский"} style={{ position: "fixed", top: 10, right: "max(12px, calc(50% - 202px))", zIndex: 70, border: "1px solid rgba(92,124,250,.2)", borderRadius: 999, padding: "6px 10px", background: "rgba(255,255,255,.82)", color: "#5C7CFA", fontSize: 11, fontWeight: 700, boxShadow: "0 4px 14px rgba(26,32,80,.08)" }}>{lang === "ru" ? "EN" : "RU"}</button>;
 }

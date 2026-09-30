@@ -1,18 +1,22 @@
+import Link from "next/link";
 import { addVaccination, completeUpcomingVaccination, deleteVaccination, updateVaccination } from "@/app/actions";
 import { getChatGPTUser } from "@/app/chatgpt-auth";
 import { getUserData } from "@/app/data";
 import catalog from "@/app/vaccinations_catalog.json";
-import { catalogRegion, nextDoseDate, recommendedVaccines, vaccinationScore, upcomingVaccineTasks, dateKey } from "@/app/tasks";
+import { catalogRegion, dateKey, nextDoseDate, recommendedVaccines, vaccinationScore, upcomingVaccineTasks } from "@/app/tasks";
 import brandCatalog from "@/app/vaccine_brands.json";
 
 export const dynamic = "force-dynamic";
+
 const C = { text: "#1A2050", muted: "rgba(26,32,80,0.42)", card: "rgba(255,255,255,0.72)", border: "rgba(255,255,255,0.9)" };
 const input = { width: "100%", padding: "11px 12px", background: "rgba(244,246,255,.8)", border: "1px solid rgba(186,200,255,.4)", borderRadius: 11, fontSize: 16, color: "#1A2050" } as const;
 const brands = Array.from(new Set(Object.values(brandCatalog).flat()));
 
-export default async function VaccinationsPage() {
+export default async function VaccinationsPage({ searchParams }: { searchParams: Promise<{ tab?: string }> }) {
   const user = await getChatGPTUser();
   if (!user) return <div style={{ padding: 24, color: C.text }}>Войдите, чтобы открыть карту.</div>;
+
+  const tab = (await searchParams).tab === "recommendations" ? "recommendations" : "passport";
   const data = await getUserData({ userId: user.userId, email: user.email, displayName: user.displayName });
   const records = data.vaccinations.map(({ record }) => record);
   const upcoming = upcomingVaccineTasks(records, catalog, new Date());
@@ -20,16 +24,74 @@ export default async function VaccinationsPage() {
   const score = vaccinationScore(data.profile, records, catalog);
   const region = catalogRegion(data.profile?.countryCode);
   const today = dateKey(new Date());
-  return <div style={{ padding: "12px 16px 0", color: C.text }}>
-    <div style={{ fontSize: 24, fontWeight: 700, paddingTop: 12 }}>Прививки</div><div style={{ fontSize: 12, color: C.muted, marginBottom: 20 }}>Паспорт вакцинации и персональные рекомендации</div>
-    <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 20, padding: "17px 18px", marginBottom: 14, boxShadow: "0 2px 16px rgba(26,32,80,.06)" }}><div style={{ fontSize: 9, fontWeight: 700, letterSpacing: ".16em", color: C.muted, marginBottom: 10 }}>KARTA · VACCINATION RECORD</div><div style={{ fontSize: 17, fontWeight: 700 }}>{data.profile?.fullName || user.displayName}</div><div style={{ fontSize: 11, color: C.muted, marginTop: 3 }}>{data.profile?.birthDate ? `Дата рождения: ${data.profile.birthDate}` : "Добавьте дату рождения в профиле"}</div><div style={{ display: "flex", gap: 24, marginTop: 17 }}><div><b style={{ fontSize: 22 }}>{data.vaccinations.length}</b><small style={{ display: "block", fontSize: 9, color: C.muted }}>ЗАПИСЕЙ</small></div><div><b style={{ fontSize: 22 }}>{records.reduce((n, x) => n + (x.doseNumber || 1), 0)}</b><small style={{ display: "block", fontSize: 9, color: C.muted }}>ДОЗ</small></div><div><b style={{ fontSize: 22, color: score === 100 ? "#099268" : "#5C7CFA" }}>{score}</b><small style={{ display: "block", fontSize: 9, color: C.muted }}>KARTA SCORE</small></div></div></div>
-    <div style={{ background: upcoming.length ? "rgba(255,247,230,.9)" : "rgba(232,250,241,.8)", border: `1px solid ${upcoming.length ? "rgba(217,119,6,.2)" : "rgba(32,201,151,.2)"}`, borderRadius: 16, padding: "13px 14px", marginBottom: 18 }}><div style={{ display: "flex", justifyContent: "space-between", marginBottom: upcoming.length ? 9 : 0 }}><div style={{ fontSize: 13, fontWeight: 700 }}>Предстоящие прививки</div><div style={{ color: upcoming.length ? "#D97706" : "#0CA678", fontWeight: 700 }}>{upcoming.length}</div></div>{upcoming.length === 0 ? <div style={{ fontSize: 11, color: C.muted }}>Предстоящих доз пока нет.</div> : <div style={{ display: "grid", gap: 8 }}>{upcoming.map((task) => { const vaccine = catalog.find((item) => item.id === task.vaccineId); const previewDate = vaccine ? nextDoseDate(vaccine, task.doseNumber, today) : null; return <details key={task.key} style={{ background: "rgba(255,255,255,.7)", borderRadius: 12, padding: "10px 11px" }}><summary style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: 8 }}><div style={{ flex: 1 }}><div style={{ fontSize: 13, fontWeight: 700 }}>{task.nameRu}</div><div style={{ fontSize: 11, color: task.overdue ? "#E03131" : C.muted }}>{task.overdue ? "Просрочено" : "Запланировано"}: {task.dueDate} · доза {task.doseNumber}/{task.totalDoses}</div></div><span style={{ color: "#5C7CFA", fontSize: 11 }}>Отметить</span></summary><form action={completeUpcomingVaccination} style={{ display: "grid", gap: 7, marginTop: 10 }}><input type="hidden" name="vaccineId" value={task.vaccineId} /><input type="hidden" name="doseNumber" value={task.doseNumber} /><input name="dateGiven" type="date" defaultValue={today} style={input} /><input name="brand" list="vaccine-brands" placeholder="Препарат / бренд" style={input} /><input name="clinic" placeholder="Клиника" style={input} />{previewDate && <div style={{ padding: "8px 10px", borderRadius: 9, background: "rgba(92,124,250,.08)", color: C.muted, fontSize: 11 }}>После этой дозы следующая ориентировочно: {previewDate}</div>}<button type="submit" style={{ padding: 10, border: 0, borderRadius: 10, background: "#5C7CFA", color: "white", fontWeight: 700 }}>Сохранить выполненную дозу</button></form></details>; })}</div>}</div>
 
-    <details open={recommendations.length > 0} style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 16, padding: "13px 14px", marginBottom: 18 }}><summary style={{ cursor: "pointer", fontSize: 13, fontWeight: 700 }}>Рекомендовано для вас · {recommendations.length}</summary><div style={{ marginTop: 10 }}>{!data.profile?.countryCode && <div style={{ padding: 10, background: "rgba(255,247,230,.75)", borderRadius: 10, fontSize: 11, color: "#9A6700", marginBottom: 8 }}>Укажите город в профиле — региональные рекомендации станут точнее.</div>}{recommendations.length === 0 ? <div style={{ color: C.muted, fontSize: 12 }}>Все подходящие записи уже добавлены или данных профиля недостаточно.</div> : <div style={{ display: "grid", gap: 8 }}>{recommendations.map((item) => { const local = region && item.regions?.[region]; const pregnancyNote = item.pregnancyRelevant ? item.pregnancyNoteRu : null; const tags = item.tags || []; return <details key={item.id} style={{ padding: "10px 11px", borderRadius: 12, background: "rgba(244,246,255,.72)" }}><summary style={{ cursor: "pointer", fontSize: 13, fontWeight: 700 }}>{item.nameRu}{tags.length > 0 && <span style={{ display: "block", color: "#5C7CFA", fontSize: 10, fontWeight: 600, marginTop: 3 }}>{tags.map((tag) => tag === "travel" ? "Путешествия" : tag === "60plus" ? "60+" : tag).join(" · ")}</span>}<span style={{ display: "block", color: C.muted, fontSize: 11, fontWeight: 400, marginTop: 3 }}>{local?.scheduleRu || item.scheduleRu || "По назначению врача"}</span></summary><div style={{ fontSize: 11, color: C.muted, lineHeight: 1.45, marginTop: 8 }}><b>Кому:</b> {local?.whoRu || item.whoRu || "Взрослым по показаниям"}<br />{item.descriptionRu}{item.noteRu && <><br /><br /><b>Важно:</b> {local?.noteRu || item.noteRu}</>}{item.disclaimerRu && <><br /><br /><b>Примечание:</b> {item.disclaimerRu}</>}{pregnancyNote && <><br /><br /><b>Беременность:</b> {pregnancyNote}</>}{item.infantContactNoteRu && <><br /><br /><b>Если рядом младенец:</b> {item.infantContactNoteRu}</>}<form action={addVaccination} style={{ marginTop: 9 }}><input type="hidden" name="vaccineId" value={item.id} /><button type="submit" style={{ border: 0, borderRadius: 9, padding: "8px 10px", background: "#5C7CFA", color: "white", fontSize: 11, fontWeight: 700 }}>Добавить в карту</button></form></div></details>; })}</div>}</div></details>
+  return <div style={{ padding: "12px 16px 0", color: C.text }}>
+    <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", paddingTop: 12, marginBottom: 14 }}>
+      <div><div style={{ fontSize: 24, fontWeight: 700 }}>Прививки</div><div style={{ fontSize: 12, color: C.muted, marginTop: 3 }}>{tab === "passport" ? "Паспорт вакцинации" : "Персональные рекомендации"}</div></div>
+      <a href="#add-vaccination" aria-label="Добавить прививку" style={{ width: 36, height: 36, borderRadius: 10, display: "grid", placeItems: "center", background: "linear-gradient(135deg,#748FFC,#5C7CFA)", color: "white", fontSize: 22, textDecoration: "none", boxShadow: "0 4px 12px rgba(92,124,250,.25)" }}>+</a>
+    </div>
+
+    <div style={{ display: "flex", gap: 4, padding: 3, background: C.card, border: `1px solid ${C.border}`, borderRadius: 13, marginBottom: 20 }}>
+      <Link href="/vaccinations?tab=passport" style={{ flex: 1, padding: "10px 8px", borderRadius: 10, textAlign: "center", textDecoration: "none", color: tab === "passport" ? "#5C7CFA" : C.muted, background: tab === "passport" ? "rgba(92,124,250,.1)" : "transparent", fontSize: 13, fontWeight: tab === "passport" ? 700 : 500 }}>Паспорт</Link>
+      <Link href="/vaccinations?tab=recommendations" style={{ flex: 1, padding: "10px 8px", borderRadius: 10, textAlign: "center", textDecoration: "none", color: tab === "recommendations" ? "#5C7CFA" : C.muted, background: tab === "recommendations" ? "rgba(92,124,250,.1)" : "transparent", fontSize: 13, fontWeight: tab === "recommendations" ? 700 : 500 }}>Рекомендации</Link>
+    </div>
+
+    {tab === "passport" ? <PassportContent data={data} records={records} upcoming={upcoming} score={score} today={today} /> : <RecommendationsContent data={data} recommendations={recommendations} region={region} />}
+
+    <datalist id="vaccine-brands">{brands.map((brand) => <option value={brand} key={brand} />)}</datalist>
+    <details id="add-vaccination" style={{ marginTop: 18, background: C.card, border: `1px solid ${C.border}`, borderRadius: 16, padding: "13px 14px" }}>
+      <summary style={{ cursor: "pointer", fontSize: 13, fontWeight: 700 }}>+ Добавить прививку</summary>
+      <form action={addVaccination} style={{ display: "grid", gap: 9, marginTop: 13 }}>
+        <select name="vaccineId" required style={input} defaultValue=""><option value="" disabled>Выберите вакцину</option>{data.vaccines.map((v) => <option value={v.id} key={v.id}>{v.nameRu}</option>)}</select>
+        <input name="dateGiven" type="date" style={input} />
+        <input name="doseNumber" type="number" min="1" defaultValue="1" placeholder="Номер дозы" style={input} />
+        <input name="brand" list="vaccine-brands" placeholder="Препарат / бренд" style={input} />
+        <input name="clinic" placeholder="Клиника" style={input} />
+        <textarea name="notes" placeholder="Заметки" rows={2} style={input} />
+        <button type="submit" style={{ padding: 12, border: 0, borderRadius: 12, background: "linear-gradient(135deg,#748FFC,#5C7CFA)", color: "white", fontWeight: 700 }}>Сохранить запись</button>
+      </form>
+    </details>
+  </div>;
+}
+
+function PassportContent({ data, records, upcoming, score, today }: { data: Awaited<ReturnType<typeof getUserData>>; records: Array<{ id: string; vaccineId: string; dateGiven: string | null; doseNumber: number; brand: string | null; clinic: string | null; notes: string | null }>; upcoming: ReturnType<typeof upcomingVaccineTasks>; score: number; today: string }) {
+  return <>
+    <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 20, padding: "17px 18px", marginBottom: 18, boxShadow: "0 2px 16px rgba(26,32,80,.06)" }}>
+      <div style={{ fontSize: 9, fontWeight: 700, letterSpacing: ".16em", color: C.muted, marginBottom: 10 }}>KARTA · VACCINATION RECORD</div>
+      <div style={{ fontSize: 17, fontWeight: 700 }}>{data.profile?.fullName}</div>
+      <div style={{ fontSize: 11, color: C.muted, marginTop: 3 }}>{data.profile?.birthDate ? `Дата рождения: ${data.profile.birthDate}` : "Добавьте дату рождения в профиле"}</div>
+      <div style={{ display: "flex", gap: 24, marginTop: 17 }}><Stat value={data.vaccinations.length} label="ЗАПИСЕЙ" /><Stat value={records.reduce((n, x) => n + (x.doseNumber || 1), 0)} label="ДОЗ" /><Stat value={score} label="KARTA SCORE" accent={score === 100 ? "#099268" : "#5C7CFA"} /></div>
+    </div>
+
+    <div style={{ background: upcoming.length ? "rgba(255,247,230,.9)" : "rgba(232,250,241,.8)", border: `1px solid ${upcoming.length ? "rgba(217,119,6,.2)" : "rgba(32,201,151,.2)"}`, borderRadius: 16, padding: "13px 14px", marginBottom: 18 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: upcoming.length ? 9 : 0 }}><div style={{ fontSize: 13, fontWeight: 700 }}>Предстоящие прививки</div><div style={{ color: upcoming.length ? "#D97706" : "#0CA678", fontWeight: 700 }}>{upcoming.length}</div></div>
+      {upcoming.length === 0 ? <div style={{ fontSize: 11, color: C.muted }}>Предстоящих доз пока нет.</div> : <div style={{ display: "grid", gap: 8 }}>{upcoming.map((task) => <UpcomingTask key={task.key} task={task} today={today} />)}</div>}
+    </div>
 
     <div style={{ fontSize: 13, fontWeight: 700, marginBottom: 10 }}>Моя история</div>
     {data.vaccinations.length === 0 ? <div style={{ color: C.muted, fontSize: 13, padding: "14px 0" }}>Пока нет записей. Добавьте первую прививку ниже.</div> : data.vaccinations.map(({ record, vaccine }) => <details key={record.id} style={{ marginBottom: 6, background: C.card, border: `1px solid ${C.border}`, borderRadius: 14, padding: "11px 13px" }}><summary style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: 9 }}><div style={{ width: 7, height: 7, borderRadius: "50%", background: "#20C997" }} /><div style={{ flex: 1 }}><div style={{ fontSize: 12, fontWeight: 600 }}>{vaccine?.nameRu || record.vaccineId}</div><div style={{ fontSize: 10, color: C.muted }}>{record.dateGiven || "Дата не указана"} · доза {record.doseNumber}{record.brand ? ` · ${record.brand}` : ""}</div></div><span style={{ color: "#5C7CFA", fontSize: 11 }}>Изменить</span></summary><form action={updateVaccination} style={{ display: "grid", gap: 8, marginTop: 10 }}><input type="hidden" name="id" value={record.id} /><select name="vaccineId" defaultValue={record.vaccineId} style={input}>{data.vaccines.map((v) => <option value={v.id} key={v.id}>{v.nameRu}</option>)}</select><input name="dateGiven" type="date" defaultValue={record.dateGiven || ""} style={input} /><input name="doseNumber" type="number" min="1" defaultValue={record.doseNumber} style={input} /><input name="brand" list="vaccine-brands" defaultValue={record.brand || ""} placeholder="Препарат / бренд" style={input} /><input name="clinic" defaultValue={record.clinic || ""} placeholder="Клиника" style={input} /><textarea name="notes" defaultValue={record.notes || ""} placeholder="Заметки" rows={2} style={input} /><button type="submit" style={{ padding: 10, border: 0, borderRadius: 10, background: "#5C7CFA", color: "white", fontWeight: 700 }}>Сохранить изменения</button></form><form action={deleteVaccination} style={{ marginTop: 7 }}><input type="hidden" name="id" value={record.id} /><button type="submit" style={{ border: 0, background: "transparent", color: "#E03131", fontSize: 12 }}>Удалить запись</button></form></details>)}
-    <datalist id="vaccine-brands">{brands.map((brand) => <option value={brand} key={brand} />)}</datalist>
-    <details style={{ marginTop: 18, background: C.card, border: `1px solid ${C.border}`, borderRadius: 16, padding: "13px 14px" }}><summary style={{ cursor: "pointer", fontSize: 13, fontWeight: 700 }}>+ Добавить прививку</summary><form action={addVaccination} style={{ display: "grid", gap: 9, marginTop: 13 }}><select name="vaccineId" required style={input} defaultValue=""><option value="" disabled>Выберите вакцину</option>{data.vaccines.map((v) => <option value={v.id} key={v.id}>{v.nameRu}</option>)}</select><input name="dateGiven" type="date" style={input} /><input name="doseNumber" type="number" min="1" defaultValue="1" placeholder="Номер дозы" style={input} /><input name="brand" list="vaccine-brands" placeholder="Препарат / бренд" style={input} /><input name="clinic" placeholder="Клиника" style={input} /><textarea name="notes" placeholder="Заметки" rows={2} style={input} /><button type="submit" style={{ padding: 12, border: 0, borderRadius: 12, background: "linear-gradient(135deg,#748FFC,#5C7CFA)", color: "white", fontWeight: 700 }}>Сохранить запись</button></form></details>
+  </>;
+}
+
+function Stat({ value, label, accent = C.text }: { value: number; label: string; accent?: string }) {
+  return <div><b style={{ fontSize: 22, color: accent }}>{value}</b><small style={{ display: "block", fontSize: 9, color: C.muted }}>{label}</small></div>;
+}
+
+function UpcomingTask({ task, today }: { task: ReturnType<typeof upcomingVaccineTasks>[number]; today: string }) {
+  const vaccine = catalog.find((item) => item.id === task.vaccineId);
+  const previewDate = vaccine ? nextDoseDate(vaccine, task.doseNumber, today) : null;
+  return <details style={{ background: "rgba(255,255,255,.7)", borderRadius: 12, padding: "10px 11px" }}>
+    <summary style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: 8 }}><div style={{ flex: 1 }}><div style={{ fontSize: 13, fontWeight: 700 }}>{task.nameRu}</div><div style={{ fontSize: 11, color: task.overdue ? "#E03131" : C.muted }}>{task.overdue ? "Просрочено" : "Запланировано"}: {task.dueDate} · доза {task.doseNumber}/{task.totalDoses}</div></div><span style={{ color: "#5C7CFA", fontSize: 11 }}>Отметить</span></summary>
+    <form action={completeUpcomingVaccination} style={{ display: "grid", gap: 7, marginTop: 10 }}><input type="hidden" name="vaccineId" value={task.vaccineId} /><input type="hidden" name="doseNumber" value={task.doseNumber} /><input name="dateGiven" type="date" defaultValue={today} style={input} /><input name="brand" list="vaccine-brands" placeholder="Препарат / бренд" style={input} /><input name="clinic" placeholder="Клиника" style={input} />{previewDate && <div style={{ padding: "8px 10px", borderRadius: 9, background: "rgba(92,124,250,.08)", color: C.muted, fontSize: 11 }}>После этой дозы следующая ориентировочно: {previewDate}</div>}<button type="submit" style={{ padding: 10, border: 0, borderRadius: 10, background: "#5C7CFA", color: "white", fontWeight: 700 }}>Сохранить выполненную дозу</button></form>
+  </details>;
+}
+
+function RecommendationsContent({ data, recommendations, region }: { data: Awaited<ReturnType<typeof getUserData>>; recommendations: ReturnType<typeof recommendedVaccines>; region: string | undefined }) {
+  return <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 16, padding: "13px 14px", marginBottom: 18 }}>
+    <div style={{ fontSize: 13, fontWeight: 700 }}>Рекомендовано для вас · {recommendations.length}</div>
+    <div style={{ marginTop: 10 }}>
+      {!data.profile?.countryCode && <div style={{ padding: 10, background: "rgba(255,247,230,.75)", borderRadius: 10, fontSize: 11, color: "#9A6700", marginBottom: 8 }}>Укажите город в профиле — региональные рекомендации станут точнее.</div>}
+      {recommendations.length === 0 ? <div style={{ color: C.muted, fontSize: 12 }}>Все подходящие записи уже добавлены или данных профиля недостаточно.</div> : <div style={{ display: "grid", gap: 8 }}>{recommendations.map((item) => { const local = region && item.regions?.[region]; const pregnancyNote = item.pregnancyRelevant ? item.pregnancyNoteRu : null; const tags = item.tags || []; return <details key={item.id} style={{ padding: "10px 11px", borderRadius: 12, background: "rgba(244,246,255,.72)" }}><summary style={{ cursor: "pointer", fontSize: 13, fontWeight: 700 }}>{item.nameRu}{tags.length > 0 && <span style={{ display: "block", color: "#5C7CFA", fontSize: 10, fontWeight: 600, marginTop: 3 }}>{tags.map((tag) => tag === "travel" ? "Путешествия" : tag === "60plus" ? "60+" : tag).join(" · ")}</span>}<span style={{ display: "block", color: C.muted, fontSize: 11, fontWeight: 400, marginTop: 3 }}>{local?.scheduleRu || item.scheduleRu || "По назначению врача"}</span></summary><div style={{ fontSize: 11, color: C.muted, lineHeight: 1.45, marginTop: 8 }}><b>Кому:</b> {local?.whoRu || item.whoRu || "Взрослым по показаниям"}<br />{item.descriptionRu}{item.noteRu && <><br /><br /><b>Важно:</b> {local?.noteRu || item.noteRu}</>}{item.disclaimerRu && <><br /><br /><b>Примечание:</b> {item.disclaimerRu}</>}{pregnancyNote && <><br /><br /><b>Беременность:</b> {pregnancyNote}</>}{item.infantContactNoteRu && <><br /><br /><b>Если рядом младенец:</b> {item.infantContactNoteRu}</>}<form action={addVaccination} style={{ marginTop: 9 }}><input type="hidden" name="vaccineId" value={item.id} /><button type="submit" style={{ border: 0, borderRadius: 9, padding: "8px 10px", background: "#5C7CFA", color: "white", fontSize: 11, fontWeight: 700 }}>Добавить в карту</button></form></div></details>; })}</div>}
+    </div>
   </div>;
 }
