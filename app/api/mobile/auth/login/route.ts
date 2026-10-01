@@ -7,7 +7,7 @@ import { createMobileSession, mobileUserResponse } from "@/app/mobile-auth";
 
 async function hashPassword(password: string, salt: string) {
   const material = await crypto.subtle.importKey("raw", new TextEncoder().encode(password), "PBKDF2", false, ["deriveBits"]);
-  const bits = await crypto.subtle.deriveBits({ name: "PBKDF2", salt: new TextEncoder().encode(salt), iterations: 120000, hash: "SHA-256" }, material, 256);
+  const bits = await crypto.subtle.deriveBits({ name: "PBKDF2", salt: new TextEncoder().encode(salt), iterations: 100000, hash: "SHA-256" }, material, 256);
   return Array.from(new Uint8Array(bits)).map((byte) => byte.toString(16).padStart(2, "0")).join("");
 }
 
@@ -27,4 +27,3 @@ export async function POST(request: Request) {
   const token = await createMobileSession(account.id);
   return NextResponse.json(mobileUserResponse({ userId: account.id, email: account.email, displayName: account.displayName }, token));
 }
-
