@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { ChevronRight, Pencil, Trash2, X } from "lucide-react";
-import { deleteVaccination, updateVaccination } from "@/app/actions";
+import { addVaccination, deleteVaccination, updateVaccination } from "@/app/actions";
 import { readVaccinationMetadata } from "@/app/vaccination-record";
 import { useKartaLanguage } from "@/app/LanguageRuntime";
 import { VaccinationRecordDateField } from "@/app/VaccinationRecordDateField";
@@ -22,14 +22,14 @@ export function VaccinationHistory({ records, vaccines, brands }: { records: Rec
 
   if (!sorted.length) return <div style={{ color: C.muted, fontSize: 13, padding: "14px 0" }}>{en ? "No records yet. Add your first vaccination below." : "Пока нет записей. Добавьте первую прививку ниже."}</div>;
   return <>
-    <div style={{ display: "grid", gap: 6 }}>{sorted.map((record) => {
+    <div style={{ display: "grid", gap: 6, minWidth: 0 }}>{sorted.map((record) => {
       const metadata = readVaccinationMetadata(record.notes);
       const vaccine = catalog.get(record.vaccineId);
       const title = metadata.name || (en ? vaccine?.nameEn : vaccine?.nameRu) || record.vaccineId;
       const date = metadata.dateString || record.dateGiven || (en ? "Date not specified" : "Дата не указана");
       const totalDoses = metadata.totalDoses || vaccine?.totalDoses || 0;
       const progressColor = totalDoses && record.doseNumber < totalDoses ? C.primary : "#0CA678";
-      return <button type="button" key={record.id} onClick={() => { setSelected(record); setEditing(false); }} aria-label={`${title}, ${date}`} style={{ width: "100%", display: "flex", alignItems: "center", gap: 10, padding: "10px 13px", border: `1px solid ${C.border}`, borderRadius: 14, background: C.card, color: C.text, textAlign: "left" }}>
+      return <button type="button" key={record.id} onClick={() => { setSelected(record); setEditing(false); }} aria-label={`${title}, ${date}`} style={{ width: "100%", minWidth: 0, boxSizing: "border-box", display: "flex", alignItems: "center", gap: 10, padding: "10px 13px", border: `1px solid ${C.border}`, borderRadius: 14, background: C.card, color: C.text, textAlign: "left" }}>
         <span aria-hidden="true" style={{ width: 7, height: 7, flex: "0 0 7px", borderRadius: "50%", background: "#20C997", boxShadow: "0 0 7px rgba(32,201,151,.4)" }} />
         <span style={{ flex: 1, minWidth: 0 }}><span style={{ display: "block", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", fontSize: 13, fontWeight: 650 }}>{title}</span><span style={{ display: "block", marginTop: 2, color: C.muted, fontSize: 10 }}>{date}{totalDoses > 0 ? ` · ${record.doseNumber}/${totalDoses}` : ""}{record.brand ? ` · ${record.brand}` : ""}</span></span>
         {totalDoses > 0 ? <span style={{ padding: "3px 8px", borderRadius: 99, border: `1px solid ${progressColor}33`, background: `${progressColor}1A`, color: progressColor, fontSize: 10, fontWeight: 650, whiteSpace: "nowrap" }}>{record.doseNumber}/{totalDoses}</span> : <span style={{ color: "#20C997", fontSize: 15 }}>✓</span>}
@@ -39,16 +39,33 @@ export function VaccinationHistory({ records, vaccines, brands }: { records: Rec
     {selected && <div role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) { setSelected(null); setEditing(false); } }} style={overlay}>
       <section role="dialog" aria-modal="true" aria-label={en ? "Vaccination details" : "Данные о прививке"} style={sheet}>
         <header style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10, marginBottom: 14 }}><button type="button" onClick={() => { setSelected(null); setEditing(false); }} aria-label={en ? "Close" : "Закрыть"} style={iconButton}><X size={18} /></button><h2 style={{ flex: 1, margin: 0, textAlign: "center", fontSize: 17, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{readVaccinationMetadata(selected.notes).name || (en ? catalog.get(selected.vaccineId)?.nameEn : catalog.get(selected.vaccineId)?.nameRu) || selected.vaccineId}</h2><button type="button" onClick={() => setEditing((value) => !value)} aria-label={en ? "Edit vaccination" : "Изменить прививку"} style={{ ...iconButton, color: C.primary }}><Pencil size={16} /></button></header>
-        {editing ? <EditVaccinationForm record={selected} vaccine={catalog.get(selected.vaccineId)} vaccines={vaccines} brands={brands} en={en} onSaved={() => { setEditing(false); setSelected(null); }} /> : <VaccinationDetails record={selected} vaccine={catalog.get(selected.vaccineId)} en={en} onDeleted={() => setSelected(null)} />}
+        {editing ? <EditVaccinationForm record={selected} vaccine={catalog.get(selected.vaccineId)} vaccines={vaccines} brands={brands} en={en} onSaved={() => { setEditing(false); setSelected(null); }} /> : <VaccinationDetails record={selected} vaccine={catalog.get(selected.vaccineId)} doneDoses={records.filter((item) => item.vaccineId === selected.vaccineId).length} firstDoseDate={records.filter((item) => item.vaccineId === selected.vaccineId && item.doseNumber === 1).sort((a, b) => (a.dateGiven || "").localeCompare(b.dateGiven || ""))[0]?.dateGiven || ""} brands={brands} en={en} onClose={() => setSelected(null)} />}
       </section>
     </div>}
   </>;
 }
 
-function VaccinationDetails({ record, vaccine, en, onDeleted }: { record: Record; vaccine?: Vaccine; en: boolean; onDeleted: () => void }) {
+function VaccinationDetails({ record, vaccine, doneDoses, firstDoseDate, brands, en, onClose }: { record: Record; vaccine?: Vaccine; doneDoses: number; firstDoseDate: string; brands: string[]; en: boolean; onClose: () => void }) {
+  const [markingNextDose, setMarkingNextDose] = useState(false);
   const metadata = readVaccinationMetadata(record.notes);
   const details = [[en ? "Date" : "Дата", metadata.dateString || record.dateGiven || (en ? "Not specified" : "Не указана")], [en ? "Dose" : "Доза", `${record.doseNumber}${metadata.totalDoses && metadata.totalDoses > 1 ? ` / ${metadata.totalDoses}` : vaccine?.totalDoses && vaccine.totalDoses > 1 ? ` / ${vaccine.totalDoses}` : ""}`], [en ? "Product / brand" : "Препарат / бренд", record.brand], [en ? "Clinic" : "Клиника", record.clinic], [en ? "Next dose" : "Следующая доза", metadata.nextDue], [en ? "Notes" : "Заметки", metadata.userNotes]] as const;
-  return <><div style={{ overflow: "hidden", borderRadius: 14, background: "white", border: "1px solid rgba(26,32,80,.04)" }}>{details.filter(([, value]) => Boolean(value)).map(([label, value], index) => <div key={label} style={{ padding: "12px 13px", borderBottom: index < details.filter(([, value]) => Boolean(value)).length - 1 ? "1px solid rgba(26,32,80,.07)" : 0 }}><div style={{ color: C.muted, fontSize: 10 }}>{label}</div><div style={{ marginTop: 3, fontSize: 14 }}>{value}</div></div>)}</div><form action={async (formData) => { if (window.confirm(en ? "Delete this vaccination record?" : "Удалить эту запись о прививке?")) { await deleteVaccination(formData); onDeleted(); } }} style={{ marginTop: 16 }}><input type="hidden" name="id" value={record.id} /><button type="submit" style={{ width: "100%", padding: 12, border: 0, borderRadius: 12, background: "rgba(224,49,49,.08)", color: "#E03131", fontSize: 14, fontWeight: 600 }}><Trash2 size={15} style={{ verticalAlign: "-3px", marginRight: 7 }} />{en ? "Delete record" : "Удалить запись"}</button></form></>;
+  const totalDoses = metadata.totalDoses || vaccine?.totalDoses || 1;
+  const nextDoseNumber = doneDoses + 1;
+  const canMarkNextDose = Boolean(vaccine && totalDoses > 1 && doneDoses < totalDoses);
+  const firstDoseISO = /^\d{4}-\d{2}-\d{2}$/.test(firstDoseDate) ? firstDoseDate : "";
+  return <><div style={{ overflow: "hidden", borderRadius: 14, background: "white", border: "1px solid rgba(26,32,80,.04)" }}>{details.filter(([, value]) => Boolean(value)).map(([label, value], index) => <div key={label} style={{ padding: "12px 13px", borderBottom: index < details.filter(([, value]) => Boolean(value)).length - 1 ? "1px solid rgba(26,32,80,.07)" : 0 }}><div style={{ color: C.muted, fontSize: 10 }}>{label}</div><div style={{ marginTop: 3, fontSize: 14 }}>{value}</div></div>)}</div>
+    {canMarkNextDose && vaccine && <section style={{ marginTop: 14, padding: 13, borderRadius: 14, background: "rgba(92,124,250,.06)", border: "1px solid rgba(92,124,250,.12)" }}>
+      {totalDoses > 1 && <><div style={{ display: "flex", justifyContent: "space-between", gap: 8, marginBottom: 8, color: C.muted, fontSize: 11, fontWeight: 700, textTransform: "uppercase" }}><span>{en ? "Course progress" : "Прогресс курса"}</span><span>{en ? `${doneDoses} of ${totalDoses} doses` : `${doneDoses} из ${totalDoses} доз`}</span></div><div style={{ display: "flex", gap: 4, marginBottom: 12 }}>{Array.from({ length: totalDoses }, (_, index) => <span key={index} style={{ height: 6, flex: 1, borderRadius: 4, background: index < doneDoses ? "linear-gradient(135deg,#748FFC,#5C7CFA)" : "rgba(26,32,80,.14)" }} />)}</div></>}
+      {!markingNextDose ? <button type="button" onClick={() => setMarkingNextDose(true)} style={{ width: "100%", minHeight: 44, border: 0, borderRadius: 12, background: "linear-gradient(135deg,#748FFC,#5C7CFA)", color: "white", fontSize: 13, fontWeight: 700 }}>{en ? `Mark dose ${nextDoseNumber} as done` : `Отметить ${nextDoseNumber}-ю дозу как сделанную`}</button> : <form action={async (formData) => { await addVaccination(formData); onClose(); }} style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr)", gap: 8, minWidth: 0 }}>
+        <input type="hidden" name="vaccineId" value={vaccine.id} /><input type="hidden" name="doseNumber" value={nextDoseNumber} /><input type="hidden" name="totalDoses" value={totalDoses} />
+        <VaccinationDateInput initialDate={localToday()} maxDate={localToday()} doseNumber={nextDoseNumber} totalDoses={totalDoses} doseScheduleDays={vaccine.doseScheduleDays || []} firstDoseDate={firstDoseISO} frequencyType={vaccine.frequencyType || ""} intervalYears={vaccine.intervalYears} style={input} />
+        <input name="brand" list={`next-dose-brands-${vaccine.id}`} placeholder={en ? "Product / brand" : "Препарат / бренд"} style={input} /><datalist id={`next-dose-brands-${vaccine.id}`}>{brands.map((brand) => <option value={brand} key={brand} />)}</datalist>
+        <input name="clinic" placeholder={en ? "Clinic" : "Клиника"} style={input} />
+        <button type="submit" style={{ padding: 11, border: 0, borderRadius: 11, background: "linear-gradient(135deg,#748FFC,#5C7CFA)", color: "white", fontSize: 13, fontWeight: 700 }}>{en ? "Save completed dose" : "Сохранить выполненную дозу"}</button>
+        <button type="button" onClick={() => setMarkingNextDose(false)} style={{ padding: 9, border: 0, background: "transparent", color: C.muted, fontSize: 12 }}>{en ? "Cancel" : "Отмена"}</button>
+      </form>}
+    </section>}
+    <form action={async (formData) => { if (window.confirm(en ? "Delete this vaccination record?" : "Удалить эту запись о прививке?")) { await deleteVaccination(formData); onClose(); } }} style={{ marginTop: 16 }}><input type="hidden" name="id" value={record.id} /><button type="submit" style={{ width: "100%", padding: 12, border: 0, borderRadius: 12, background: "rgba(224,49,49,.08)", color: "#E03131", fontSize: 14, fontWeight: 600 }}><Trash2 size={15} style={{ verticalAlign: "-3px", marginRight: 7 }} />{en ? "Delete record" : "Удалить запись"}</button></form></>;
 }
 
 function EditVaccinationForm({ record, vaccine, vaccines, brands, en, onSaved }: { record: Record; vaccine?: Vaccine; vaccines: Vaccine[]; brands: string[]; en: boolean; onSaved: () => void }) {
@@ -70,3 +87,4 @@ const overlay: React.CSSProperties = { position: "fixed", inset: 0, zIndex: 120,
 const sheet: React.CSSProperties = { width: "min(100%, 430px)", maxHeight: "92dvh", overflow: "auto", padding: "10px 18px calc(24px + env(safe-area-inset-bottom))", border: "1px solid rgba(255,255,255,.75)", borderBottom: 0, borderRadius: "24px 24px 0 0", background: "rgba(250,251,255,.98)", boxShadow: "0 -12px 42px rgba(26,32,80,.18)", color: C.text };
 const iconButton: React.CSSProperties = { width: 34, height: 34, flex: "0 0 34px", display: "grid", placeItems: "center", border: 0, borderRadius: 17, background: "rgba(26,32,80,.06)", color: C.text };
 const labelStyle: React.CSSProperties = { display: "grid", gap: 5, color: C.text, fontSize: 12, fontWeight: 600 };
+function localToday() { const today = new Date(); return `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`; }
