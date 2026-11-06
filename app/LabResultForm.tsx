@@ -9,6 +9,11 @@ type Indicator = { name: string; markerCode?: string; value: string; unit: strin
 
 function defaultIndicator(): Indicator { return { name: "", value: "", unit: "", refLow: "", refHigh: "" }; }
 
+function localToday(): string {
+  const today = new Date();
+  return `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
+}
+
 function prefilledIndicator(name: string, gender?: string, en = false): Indicator {
   const query = name.trim().toLocaleLowerCase();
   const source = markers as Marker[];
@@ -28,7 +33,7 @@ export function LabResultForm({ action, initial, prefillTitle, prefillTests = []
     const marker = item.markerCode ? (markers as Marker[]).find((entry) => entry.code === item.markerCode) : undefined;
     return marker ? { ...item, name: en ? marker.en : marker.ru } : item;
   });
-  const [indicators, setIndicators] = useState<Indicator[]>(localizedParsed.length ? localizedParsed : prefillTests.length ? prefillTests.map((name) => prefilledIndicator(name, gender || undefined, en)) : [defaultIndicator()]);
+  const [indicators, setIndicators] = useState<Indicator[]>(localizedParsed.length ? localizedParsed : prefillTests.length ? prefillTests.map((name) => prefilledIndicator(name, gender || undefined, en)) : []);
   const [queries, setQueries] = useState<string[]>(indicators.map(() => ""));
   function update(index: number, patch: Partial<Indicator>) { setIndicators((items) => items.map((item, i) => i === index ? { ...item, ...patch } : item)); }
   function select(index: number, marker: Marker) {
@@ -45,12 +50,13 @@ export function LabResultForm({ action, initial, prefillTitle, prefillTests = []
     {initial?.id && <input type="hidden" name="id" value={initial.id} />}
     {monitoringMedicationId && monitoringRuleId && <><input type="hidden" name="monitoringMedicationId" value={monitoringMedicationId} /><input type="hidden" name="monitoringRuleId" value={monitoringRuleId} /></>}
     <input name="name" required defaultValue={initial?.name || prefillTitle || ""} placeholder={en ? "Test name" : "Название анализа"} style={{ width: "100%", padding: "11px 12px", background: "rgba(244,246,255,.8)", border: "1px solid rgba(186,200,255,.4)", borderRadius: 11, fontSize: 16, color: "#1A2050" }} />
-    <input name="testedAt" type="date" defaultValue={initial?.testedAt || ""} style={{ width: "100%", padding: "11px 12px", background: "rgba(244,246,255,.8)", border: "1px solid rgba(186,200,255,.4)", borderRadius: 11, fontSize: 16, color: "#1A2050" }} />
+    <input name="testedAt" type="date" required defaultValue={initial?.testedAt || localToday()} style={{ width: "100%", padding: "11px 12px", background: "rgba(244,246,255,.8)", border: "1px solid rgba(186,200,255,.4)", borderRadius: 11, fontSize: 16, color: "#1A2050" }} />
     <div style={{ fontSize: 12, fontWeight: 700, color: "#1A2050", marginTop: 4 }}>{en ? "Indicators" : "Показатели"}</div>
+    {indicators.length === 0 && <div style={{ padding: "14px 12px", borderRadius: 12, background: "rgba(244,246,255,.65)", color: "rgba(26,32,80,.48)", fontSize: 13 }}>{en ? "No indicators yet" : "Показатели ещё не добавлены"}</div>}
     {indicators.map((item, index) => { const q = queries[index] ?? item.name; const suggestions = !item.markerCode && q.trim().length >= 2 ? (markers as Marker[]).filter((marker) => `${marker.ru} ${marker.en}`.toLowerCase().includes(q.toLowerCase())).slice(0, 6) : []; return <div key={index} style={{ padding: 10, background: "rgba(244,246,255,.65)", borderRadius: 12, display: "grid", gridTemplateColumns: "minmax(0, 1fr)", gap: 7, position: "relative", minWidth: 0 }}>
       <div style={{ display: "flex", gap: 6 }}><input value={q} onChange={(event) => { setQueries((items) => items.map((value, i) => i === index ? event.target.value : value)); update(index, { name: event.target.value, markerCode: undefined }); }} placeholder={en ? "Start typing a marker" : "Начните вводить показатель"} style={{ flex: 1, minWidth: 0, padding: "8px 10px", border: "1px solid #DCE3FF", borderRadius: 9, fontSize: 16 }} /><button type="button" aria-label={en ? "Remove indicator" : "Удалить показатель"} onClick={() => { setIndicators((items) => items.filter((_, i) => i !== index)); setQueries((items) => items.filter((_, i) => i !== index)); }} style={{ border: 0, background: "transparent", color: "#E03131", fontSize: 16 }}>×</button></div>
       {suggestions.length > 0 && <div style={{ position: "absolute", left: 10, right: 34, top: 48, zIndex: 3, background: "white", border: "1px solid #DCE3FF", borderRadius: 9, boxShadow: "0 8px 20px rgba(26,32,80,.12)", overflow: "hidden" }}>{suggestions.map((marker) => <button type="button" key={marker.code} onClick={() => select(index, marker)} style={{ width: "100%", textAlign: "left", border: 0, borderBottom: "1px solid #EEF1FF", background: "white", padding: "8px 10px", color: "#1A2050" }}><b>{en ? marker.en : marker.ru}</b><small style={{ display: "block", color: "rgba(26,32,80,.5)" }}>{en ? marker.cat_en : marker.cat_ru} · {marker.unit}</small></button>)}</div>}
-      <div style={{ display: "flex", gap: 7 }}><input value={item.value} onChange={(event) => update(index, { value: event.target.value })} placeholder={en ? "Value" : "Значение"} required={index === 0} style={{ flex: 1, minWidth: 0, padding: "8px 10px", border: "1px solid #DCE3FF", borderRadius: 9, fontSize: 16 }} /><input value={item.unit} onChange={(event) => update(index, { unit: event.target.value })} placeholder={en ? "Unit" : "Единицы"} style={{ flex: 1, minWidth: 0, padding: "8px 10px", border: "1px solid #DCE3FF", borderRadius: 9, fontSize: 16 }} /></div>
+      <div style={{ display: "flex", gap: 7 }}><input value={item.value} onChange={(event) => update(index, { value: event.target.value })} placeholder={en ? "Value" : "Значение"} style={{ flex: 1, minWidth: 0, padding: "8px 10px", border: "1px solid #DCE3FF", borderRadius: 9, fontSize: 16 }} /><input value={item.unit} onChange={(event) => update(index, { unit: event.target.value })} placeholder={en ? "Unit" : "Единицы"} style={{ flex: 1, minWidth: 0, padding: "8px 10px", border: "1px solid #DCE3FF", borderRadius: 9, fontSize: 16 }} /></div>
       <div style={{ display: "flex", gap: 7 }}><input value={item.refLow} onChange={(event) => update(index, { refLow: event.target.value })} placeholder={en ? "Reference from" : "Норма от"} style={{ flex: 1, minWidth: 0, padding: "8px 10px", border: "1px solid #DCE3FF", borderRadius: 9, fontSize: 16 }} /><input value={item.refHigh} onChange={(event) => update(index, { refHigh: event.target.value })} placeholder={en ? "Reference to" : "Норма до"} style={{ flex: 1, minWidth: 0, padding: "8px 10px", border: "1px solid #DCE3FF", borderRadius: 9, fontSize: 16 }} /></div>
     </div> })}
     <button type="button" onClick={() => { setIndicators((items) => [...items, defaultIndicator()]); setQueries((items) => [...items, ""]); }} style={{ padding: 9, border: "1px dashed #BAC8FF", borderRadius: 10, background: "transparent", color: "#5C7CFA", fontWeight: 700 }}>{en ? "+ Add indicator" : "+ Добавить показатель"}</button>

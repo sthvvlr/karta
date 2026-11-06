@@ -154,14 +154,16 @@ function GenderPicker({ initial, en }: { initial: string; en: boolean }) {
 
 function ReminderForm({ enabled: initialEnabled, morning: initialMorning, evening: initialEvening, en }: { enabled: boolean; morning: string; evening: string; en: boolean }) {
   const [enabled, setEnabled] = useState(initialEnabled);
+  const [morning, setMorning] = useState(initialMorning);
+  const [evening, setEvening] = useState(initialEvening);
   return <form action={saveReminderSettings} style={{ display: "grid", gap: 14 }}>
     <input type="hidden" name="enabled" value={String(enabled)} />
     <div style={{ ...cardStyle(15, 14), display: "flex", alignItems: "center", gap: 11 }}><Bell size={18} color={C.primary} /><div style={{ flex: 1 }}><div style={{ fontSize: 14, fontWeight: 600 }}>{en ? "Medication reminders" : "Напоминания о лекарствах"}</div><div style={{ fontSize: 11, color: C.muted, marginTop: 2 }}>{en ? "Daily notifications" : "Ежедневные уведомления"}</div></div><button type="button" role="switch" aria-checked={enabled} onClick={() => setEnabled(!enabled)} style={{ width: 46, height: 28, border: 0, borderRadius: 20, padding: 3, background: enabled ? C.primary : "#C9CEDD", transition: "background .16s" }}><span style={{ display: "block", width: 22, height: 22, borderRadius: "50%", background: "white", transform: enabled ? "translateX(18px)" : "translateX(0)", transition: "transform .16s" }} /></button></div>
     {enabled && <>
-      <label style={labelStyle}>{en ? "MORNING REMINDER" : "УТРЕННЕЕ НАПОМИНАНИЕ"}<input type="time" name="morning" defaultValue={initialMorning} style={{ ...field, marginTop: 6 }} /></label>
-      <label style={labelStyle}>{en ? "EVENING REMINDER" : "ВЕЧЕРНЕЕ НАПОМИНАНИЕ"}<input type="time" name="evening" defaultValue={initialEvening} style={{ ...field, marginTop: 6 }} /></label>
+      <label style={labelStyle}>{en ? "MORNING REMINDER" : "УТРЕННЕЕ НАПОМИНАНИЕ"}<input type="time" name="morning" value={morning} onChange={(event) => setMorning(event.target.value)} style={{ ...field, marginTop: 6 }} /></label>
+      <label style={labelStyle}>{en ? "EVENING REMINDER" : "ВЕЧЕРНЕЕ НАПОМИНАНИЕ"}<input type="time" name="evening" value={evening} onChange={(event) => setEvening(event.target.value)} style={{ ...field, marginTop: 6 }} /></label>
     </>}
-    {!enabled && <><input type="hidden" name="morning" value={initialMorning} /><input type="hidden" name="evening" value={initialEvening} /></>}
+    {!enabled && <><input type="hidden" name="morning" value={morning} /><input type="hidden" name="evening" value={evening} /></>}
     <div style={{ fontSize: 11, color: C.muted, lineHeight: 1.4 }}>{en ? "Push notifications will be added in a future version." : "Push-уведомления будут добавлены в следующей версии."}</div>
     <button type="submit" style={primaryButton}>{en ? "Done" : "Готово"}</button>
   </form>;
