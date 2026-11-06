@@ -23,12 +23,8 @@ const SIGN_OUT_PATH = "/signout-with-chatgpt";
 const CALLBACK_PATH = "/callback";
 
 export async function getChatGPTUser(): Promise<ChatGPTUser | null> {
-  const requestHeaders = await headers();
-  const userId = requestHeaders.get(USER_ID_HEADER);
-  const email = requestHeaders.get(USER_EMAIL_HEADER);
-  if (!userId || !email) {
-    const token = (await cookies()).get("karta_session")?.value;
-    if (!token) return null;
+  const token = (await cookies()).get("karta_session")?.value;
+  if (token) {
     const now = new Date().toISOString();
     const [session] = await getDb().select({
       userId: authSessions.userId,
@@ -38,9 +34,13 @@ export async function getChatGPTUser(): Promise<ChatGPTUser | null> {
       .innerJoin(authAccounts, eq(authSessions.userId, authAccounts.id))
       .where(and(eq(authSessions.id, token), gt(authSessions.expiresAt, now)))
       .limit(1);
-    if (!session) return null;
-    return { userId: session.userId, email: session.email, displayName: session.displayName, fullName: session.displayName };
+    if (session) return { userId: session.userId, email: session.email, displayName: session.displayName, fullName: session.displayName };
   }
+
+  const requestHeaders = await headers();
+  const userId = requestHeaders.get(USER_ID_HEADER);
+  const email = requestHeaders.get(USER_EMAIL_HEADER);
+  if (!userId || !email) return null;
 
   const encodedFullName = requestHeaders.get(USER_FULL_NAME_HEADER);
   const fullName =

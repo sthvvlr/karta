@@ -1,13 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
+import { UserRound } from "lucide-react";
 import { CityPicker } from "@/app/CityPicker";
 import { saveOnboarding } from "@/app/actions";
 import { birthDateInputValue } from "@/app/profile-dates";
 
 const C = { text: "#1A2050", muted: "rgba(26,32,80,.48)", primary: "#5C7CFA", border: "rgba(255,255,255,.9)" };
 const input = { width: "100%", padding: "13px 14px", background: "rgba(244,246,255,.8)", border: "1px solid rgba(186,200,255,.45)", borderRadius: 12, fontSize: 16, color: C.text } as const;
-export function OnboardingWizard({ initialName, initialBirthDate = "", initialGender = "", initialCity = "", initialRegion = "", initialCountry = "", initialCountryCode = "", en = false }: { initialName: string; initialBirthDate?: string | null; initialGender?: string | null; initialCity?: string | null; initialRegion?: string | null; initialCountry?: string | null; initialCountryCode?: string | null; en?: boolean }) {
+export function OnboardingWizard({ initialName, initialBirthDate = "", initialGender = "", initialCity = "", initialRegion = "", initialCountry = "", initialCountryCode = "", guest = false, en = false }: { initialName: string; initialBirthDate?: string | null; initialGender?: string | null; initialCity?: string | null; initialRegion?: string | null; initialCountry?: string | null; initialCountryCode?: string | null; guest?: boolean; en?: boolean }) {
   const steps = en
     ? [["What is your name?", "This is the name shown in the app"], ["A little about you", "Used to personalize your recommendations"], ["Where do you live?", "This affects vaccine recommendations"]]
     : [["Как вас зовут?", "Это ваше имя в приложении"], ["Немного о вас", "Нужно для персональных рекомендаций"], ["Где вы живёте?", "Влияет на рекомендации по прививкам"]];
@@ -28,6 +30,7 @@ export function OnboardingWizard({ initialName, initialBirthDate = "", initialGe
 
   return <main style={{ minHeight: "100dvh", display: "flex", flexDirection: "column", justifyContent: "center", padding: "max(22px, env(safe-area-inset-top)) 20px max(22px, env(safe-area-inset-bottom))", color: C.text }}>
     <div style={{ width: "100%", maxWidth: 430, margin: "0 auto" }}>
+      {guest && <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: 12 }}><Link href="/login?return_to=%2Fonboarding&guest=1" style={{ display: "inline-flex", alignItems: "center", gap: 5, padding: "6px 12px", borderRadius: 999, background: "rgba(92,124,250,.08)", color: C.primary, fontSize: 12, fontWeight: 600, textDecoration: "none" }}><UserRound size={14} aria-hidden="true" />{en ? "Sign in" : "Войти в аккаунт"}</Link></div>}
       <div aria-label={en ? `Step ${step + 1} of 3` : `Шаг ${step + 1} из 3`} style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6, marginBottom: 24 }}>
         {steps.map((_, index) => <div key={index} style={{ width: index === step ? 22 : 6, height: 6, borderRadius: 99, background: index === step ? C.primary : index < step ? "rgba(92,124,250,.4)" : "rgba(26,32,80,.12)", transition: "all .2s" }} />)}
       </div>
