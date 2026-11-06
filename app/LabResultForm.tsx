@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { FileText, Image as ImageIcon, X } from "lucide-react";
 import markers from "@/app/lab_markers.json";
 import { useKartaLanguage } from "@/app/LanguageRuntime";
 
@@ -35,7 +36,15 @@ export function LabResultForm({ action, initial, prefillTitle, prefillTests = []
   });
   const [indicators, setIndicators] = useState<Indicator[]>(localizedParsed.length ? localizedParsed : prefillTests.length ? prefillTests.map((name) => prefilledIndicator(name, gender || undefined, en)) : []);
   const [queries, setQueries] = useState<string[]>(indicators.map(() => ""));
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [removeExistingFile, setRemoveExistingFile] = useState(false);
+  const fileInput = useRef<HTMLInputElement>(null);
   function update(index: number, patch: Partial<Indicator>) { setIndicators((items) => items.map((item, i) => i === index ? { ...item, ...patch } : item)); }
+  function pickFile(accept: string) {
+    if (!fileInput.current) return;
+    fileInput.current.accept = accept;
+    fileInput.current.click();
+  }
   function select(index: number, marker: Marker) {
     const ref = gender === "male" || gender === "мужской"
       ? marker.ref_male || marker.ref
@@ -61,9 +70,27 @@ export function LabResultForm({ action, initial, prefillTitle, prefillTests = []
     </div> })}
     <button type="button" onClick={() => { setIndicators((items) => [...items, defaultIndicator()]); setQueries((items) => [...items, ""]); }} style={{ padding: 9, border: "1px dashed #BAC8FF", borderRadius: 10, background: "transparent", color: "#5C7CFA", fontWeight: 700 }}>{en ? "+ Add indicator" : "+ Добавить показатель"}</button>
     <textarea name="notes" defaultValue={initial?.notes || ""} placeholder={en ? "Notes (optional)" : "Заметки (необязательно)"} rows={2} style={{ width: "100%", padding: "11px 12px", background: "rgba(244,246,255,.8)", border: "1px solid rgba(186,200,255,.4)", borderRadius: 11, fontSize: 16, color: "#1A2050" }} />
-    {initial?.fileKey && initial.id && <div style={{ display: "grid", gap: 8, padding: "10px 11px", background: "rgba(244,246,255,.72)", borderRadius: 11 }}><a href={`/api/labs/${initial.id}/file`} target="_blank" rel="noreferrer" style={{ color: "#5C7CFA", fontSize: 12, fontWeight: 600 }}>{en ? "Open attached file" : "Открыть прикреплённый файл"}</a><label style={{ display: "flex", alignItems: "center", gap: 7, color: "#E03131", fontSize: 12 }}><input type="checkbox" name="removeFile" value="true" />{en ? "Remove attached file" : "Удалить прикреплённый файл"}</label></div>}
-    <label style={{ fontSize: 12, color: "rgba(26,32,80,.55)" }}>{en ? "Photo or PDF of result" : "Фото или PDF результата"}<input name="file" type="file" accept="image/*,.pdf" style={{ display: "block", marginTop: 5, width: "100%", fontSize: 13 }} /></label>
+    <div style={{ display: "grid", gap: 8, padding: "10px 11px", background: "rgba(244,246,255,.72)", borderRadius: 11 }}>
+      <input ref={fileInput} name="file" type="file" accept="image/*,.pdf" onChange={(event) => { setSelectedFile(event.currentTarget.files?.[0] || null); setRemoveExistingFile(false); }} style={{ display: "none" }} />
+      {selectedFile ? <div style={{ display: "flex", alignItems: "center", gap: 10, minHeight: 36 }}>
+        {selectedFile.type === "application/pdf" ? <FileText size={17} color="#5C7CFA" /> : <ImageIcon size={17} color="#5C7CFA" />}
+        <span style={{ flex: 1, color: "#1A2050", fontSize: 13 }}>{selectedFile.type === "application/pdf" ? (en ? "PDF attached" : "PDF прикреплён") : (en ? "Photo attached" : "Фото прикреплено")}</span>
+        <button type="button" onClick={() => { setSelectedFile(null); if (fileInput.current) fileInput.current.value = ""; }} aria-label={en ? "Remove attached file" : "Удалить прикреплённый файл"} style={{ width: 32, height: 32, display: "grid", placeItems: "center", border: 0, background: "transparent", color: "rgba(26,32,80,.48)" }}><X size={18} /></button>
+      </div> : initial?.fileKey && !removeExistingFile ? <div style={{ display: "flex", alignItems: "center", gap: 10, minHeight: 36 }}>
+        {initial.fileKey.toLowerCase().endsWith(".pdf") ? <FileText size={17} color="#5C7CFA" /> : <ImageIcon size={17} color="#5C7CFA" />}
+        <span style={{ flex: 1, color: "#1A2050", fontSize: 13 }}>{initial.fileKey.toLowerCase().endsWith(".pdf") ? (en ? "PDF attached" : "PDF прикреплён") : (en ? "Photo attached" : "Фото прикреплено")}</span>
+        <button type="button" onClick={() => setRemoveExistingFile(true)} aria-label={en ? "Remove attached file" : "Удалить прикреплённый файл"} style={{ width: 32, height: 32, display: "grid", placeItems: "center", border: 0, background: "transparent", color: "rgba(26,32,80,.48)" }}><X size={18} /></button>
+      </div> : <div style={{ display: "flex", gap: 10 }}>
+        <button type="button" onClick={() => pickFile("image/*")} style={filePickerStyle()}><ImageIcon size={15} />{en ? "Photo" : "Фото"}</button>
+        <button type="button" onClick={() => pickFile("application/pdf,.pdf")} style={filePickerStyle()}><FileText size={15} />PDF</button>
+      </div>}
+      {removeExistingFile && <input type="hidden" name="removeFile" value="true" />}
+    </div>
     <input type="hidden" name="indicators" value={JSON.stringify(indicators.filter((item) => item.name.trim() || item.value.trim()))} />
     <button type="submit" style={{ padding: 12, border: 0, borderRadius: 12, background: "linear-gradient(135deg,#748FFC,#5C7CFA)", color: "white", fontWeight: 700 }}>{initial?.id ? (en ? "Save changes" : "Сохранить изменения") : (en ? "Save result" : "Сохранить результат")}</button>
   </form>;
+}
+
+function filePickerStyle(): React.CSSProperties {
+  return { display: "flex", flex: 1, alignItems: "center", justifyContent: "center", gap: 7, minHeight: 42, border: 0, borderRadius: 10, background: "rgba(92,124,250,.08)", color: "#5C7CFA", fontSize: 14, fontWeight: 600 };
 }
