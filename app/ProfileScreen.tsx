@@ -25,7 +25,7 @@ export function ProfileScreen({ profile, locations, displayName, email, userId, 
   const [historyCitySelected, setHistoryCitySelected] = useState(false);
   const name = profile.fullName || displayName || "Karta";
   const gender = profile.gender === "female" ? (en ? "Female" : "Женский") : profile.gender === "male" ? (en ? "Male" : "Мужской") : profile.gender === "other" ? (en ? "Other" : "Другой") : "—";
-  const city = [profile.cityCurrent, profile.regionCurrent, profile.countryCurrent].filter(Boolean).join(" · ") || "—";
+  const city = profile.cityCurrent || "—";
   const guest = userId.startsWith("guest:");
 
   return <div style={{ padding: "0 16px", color: C.text }}>
@@ -94,16 +94,10 @@ export function ProfileScreen({ profile, locations, displayName, email, userId, 
       <form action={async (formData) => { await addProfileLocation(formData); setHistoryCitySelected(false); }} style={{ display: "grid", gap: 10, marginTop: 16 }}><div style={labelStyle}>{en ? "ADD CITY" : "ДОБАВИТЬ ГОРОД"}<CityPicker fieldPrefix="historyCity" onSelectionChange={(city) => setHistoryCitySelected(Boolean(city))} en={en} /></div><button type="submit" disabled={!historyCitySelected} style={{ ...secondaryButton, opacity: historyCitySelected ? 1 : .5 }}>{en ? "Add city" : "Добавить город"}</button></form>
     </Sheet>}
 
-    {sheet === "cities" && editingLocation && <Sheet title={en ? "Edit city" : "Редактировать город"} onClose={() => setEditingLocation(null)} en={en} zIndex={130}>
-      <div style={{ marginBottom: 14, fontSize: 15, fontWeight: 700 }}>{editingLocation.city}</div>
-      <form action={async (formData) => { await updateProfileLocation(formData); setEditingLocation(null); }} style={{ display: "grid", gap: 13 }}>
-        <input type="hidden" name="id" value={editingLocation.id} />
-        {(editingLocation.fromYear || editingLocation.toYear) && <div style={{ padding: 10, borderRadius: 10, background: "rgba(92,124,250,.06)", color: C.muted, fontSize: 12 }}>{en ? `Existing year range: ${editingLocation.fromYear || "?"}–${editingLocation.toYear || "now"}` : `Сохранённый период по годам: ${editingLocation.fromYear || "?"}–${editingLocation.toYear || "сейчас"}`}</div>}
-        <label style={labelStyle}>{en ? "START DATE (OPTIONAL)" : "ДАТА НАЧАЛА (НЕОБЯЗАТЕЛЬНО)"}<input type="date" name="fromDate" defaultValue={editingLocation.fromDate || ""} max={localToday()} style={{ ...field, marginTop: 6 }} /></label>
-        {!editingLocation.isCurrent && <label style={labelStyle}>{en ? "END DATE (OPTIONAL)" : "ДАТА ОКОНЧАНИЯ (НЕОБЯЗАТЕЛЬНО)"}<input type="date" name="toDate" defaultValue={editingLocation.toDate || ""} min={editingLocation.fromDate || undefined} max={localToday()} style={{ ...field, marginTop: 6 }} /></label>}
-        <button type="submit" style={primaryButton}>{en ? "Save dates" : "Сохранить даты"}</button>
-      </form>
-      {!editingLocation.isCurrent && <form action={async (formData) => { await setCurrentProfileLocation(formData); setEditingLocation(null); }} style={{ marginTop: 9 }}><input type="hidden" name="id" value={editingLocation.id} /><button type="submit" style={secondaryButton}>{en ? "Set as current city" : "Сделать текущим городом"}</button></form>}
+    {sheet === "cities" && editingLocation && <Sheet title={en ? "Edit city" : "Редактировать"} onClose={() => setEditingLocation(null)} en={en} zIndex={130}
+      leftAction={<button type="button" onClick={() => setEditingLocation(null)} style={navTextButton}>{en ? "Cancel" : "Отмена"}</button>}
+      rightAction={<button type="submit" form="city-edit-form" style={navPrimaryButton}>{en ? "Done" : "Готово"}</button>}>
+      <CityLocationEditor key={editingLocation.id} location={editingLocation} en={en} onSaved={() => setEditingLocation(null)} />
     </Sheet>}
 
     {sheet === "reminders" && <Sheet title={en ? "Reminders" : "Напоминания"} onClose={() => setSheet(null)} en={en}
@@ -140,6 +134,49 @@ function locationPeriod(location: Location, en: boolean) {
   if (from) return en ? `from ${from}` : `с ${from}`;
   if (to) return en ? `until ${to}` : `по ${to}`;
   return en ? "Past city" : "Прошлый город";
+}
+
+function CityLocationEditor({ location, en, onSaved }: { location: Location; en: boolean; onSaved: () => void }) {
+  const [hasFrom, setHasFrom] = useState(Boolean(location.fromDate));
+  const [hasTo, setHasTo] = useState(Boolean(location.toDate));
+  const [fromDate, setFromDate] = useState(location.fromDate || "");
+  const [toDate, setToDate] = useState(location.toDate || "");
+
+  return <div>
+    <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "4px 0 18px" }}>
+      {location.isCurrent ? <MapPin size={19} color={C.primary} /> : <Clock3 size={19} color={C.muted} />}
+      <div style={{ fontSize: 16, fontWeight: 650 }}>{location.city}</div>
+    </div>
+    <div style={{ padding: "12px 0", borderTop: "1px solid rgba(26,32,80,.09)" }}>
+      <div style={{ marginBottom: 10, color: C.muted, fontSize: 12, fontWeight: 650, letterSpacing: ".04em" }}>{en ? "STATUS" : "СТАТУС"}</div>
+      {location.isCurrent
+        ? <div style={{ color: C.primary, fontSize: 14, fontWeight: 600 }}>{en ? "✓ Current city" : "✓ Текущий город"}</div>
+        : <form action={async (formData) => { await setCurrentProfileLocation(formData); onSaved(); }}>
+          <input type="hidden" name="id" value={location.id} />
+          <button type="submit" style={{ ...secondaryButton, width: "100%", textAlign: "left" }}>{en ? "Set as current city" : "Сделать текущим городом"}</button>
+        </form>}
+    </div>
+    <form id="city-edit-form" action={async (formData) => { await updateProfileLocation(formData); onSaved(); }} style={{ display: "grid", gap: 10, padding: "12px 0 4px", borderTop: "1px solid rgba(26,32,80,.09)" }}>
+      <input type="hidden" name="id" value={location.id} />
+      <div style={{ marginBottom: 2, color: C.muted, fontSize: 12, fontWeight: 650, letterSpacing: ".04em" }}>{en ? "PERIOD OF RESIDENCE (OPTIONAL)" : "ПЕРИОД ПРОЖИВАНИЯ (НЕОБЯЗАТЕЛЬНО)"}</div>
+      {(location.fromYear || location.toYear) && <div style={{ padding: 10, borderRadius: 10, background: "rgba(92,124,250,.06)", color: C.muted, fontSize: 12 }}>{en ? `Existing year range: ${location.fromYear || "?"}–${location.toYear || "now"}` : `Сохранённый период по годам: ${location.fromYear || "?"}–${location.toYear || "сейчас"}`}</div>}
+      <CityDateToggle label={en ? "Set start date" : "Указать дату начала"} checked={hasFrom} onChange={setHasFrom} />
+      {hasFrom && <label style={{ ...labelStyle, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, paddingLeft: 12 }}>{en ? "From" : "С"}<input type="date" name="fromDate" value={fromDate} max={localToday()} onChange={(event) => { setFromDate(event.target.value); if (toDate && event.target.value && toDate < event.target.value) setToDate(event.target.value); }} style={{ ...field, width: "auto", marginTop: 0, padding: "9px 10px" }} /></label>}
+      {!location.isCurrent && <>
+        <CityDateToggle label={en ? "Set end date" : "Указать дату окончания"} checked={hasTo} onChange={setHasTo} />
+        {hasTo && <label style={{ ...labelStyle, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, paddingLeft: 12 }}>{en ? "To" : "По"}<input type="date" name="toDate" value={toDate} min={hasFrom ? fromDate || undefined : undefined} max={localToday()} onChange={(event) => setToDate(event.target.value)} style={{ ...field, width: "auto", marginTop: 0, padding: "9px 10px" }} /></label>}
+      </>}
+    </form>
+  </div>;
+}
+
+function CityDateToggle({ label, checked, onChange }: { label: string; checked: boolean; onChange: (value: boolean) => void }) {
+  return <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", minHeight: 42 }}>
+    <span style={{ color: C.text, fontSize: 14 }}>{label}</span>
+    <button type="button" role="switch" aria-label={label} aria-checked={checked} onClick={() => onChange(!checked)} style={{ width: 44, height: 26, padding: 3, border: 0, borderRadius: 13, background: checked ? C.primary : "#D9DCE5", display: "flex", alignItems: "center", justifyContent: checked ? "flex-end" : "flex-start", transition: "background .15s ease" }}>
+      <span aria-hidden="true" style={{ width: 20, height: 20, borderRadius: 10, background: "white", boxShadow: "0 1px 3px rgba(0,0,0,.2)" }} />
+    </button>
+  </div>;
 }
 
 function Sheet({ title, onClose, children, en, zIndex = 120, ariaHidden = false, leftAction, rightAction }: { title: string; onClose: () => void; children: ReactNode; en: boolean; zIndex?: number; ariaHidden?: boolean; leftAction?: ReactNode; rightAction?: ReactNode }) {
