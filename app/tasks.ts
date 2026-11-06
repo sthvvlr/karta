@@ -4,6 +4,7 @@ export type MedicationForTasks = {
   dosage: string | null;
   frequency: string | null;
   timeSlots: string | null;
+  mealRelation?: string | null;
   startDate: string | null;
   endDate: string | null;
   drugCode: string | null;
@@ -21,13 +22,19 @@ export type MedicationTask = {
   medicationId: string;
   name: string;
   dosage: string | null;
+  mealRelation: string | null;
+  endDate: string | null;
+  frequency: string | null;
+  daysOfWeek: number[];
+  timeSlots: MedicationTimeSlot[];
   time: string;
   timeOfDay: string;
   scheduledAt: string;
   taken: boolean;
 };
 
-type TimeSlot = { time: string; label: string; daysOfWeek?: number[] };
+export type MedicationTimeSlot = { time: string; label: string; daysOfWeek?: number[] };
+type TimeSlot = MedicationTimeSlot;
 const defaultMedicationTimes: Record<string, string> = { morning: "08:00", afternoon: "13:00", evening: "20:00" };
 
 function validTime(value: unknown): string | null {
@@ -71,23 +78,30 @@ function dateOnly(value: string | null | undefined): Date | null {
 }
 
 export function medicationTasksForDate(medications: MedicationForTasks[], logs: MedicationLogForTasks[], date = new Date()): MedicationTask[] {
-  const day = date.getDay();
   const key = dateKey(date);
-  const logMap = new Map(logs.map((log) => [`${log.medicationId}:${log.scheduledAt}`, log.status === "taken"]));
+  const takenMedications = new Set(logs.filter((log) => log.status === "taken").map((log) => log.medicationId));
   return medications.flatMap((medication) => {
-    if (!medication.id || medication.frequency === "as_needed") return [];
-    const start = dateOnly(medication.startDate);
-    const end = dateOnly(medication.endDate);
-    const current = dateOnly(key);
-    if (start && current && current < start) return [];
-    if (end && current && current > end) return [];
-    return medicationTimeSlots(medication.timeSlots).filter((slot) => {
-      if (medication.frequency !== "weekly") return true;
-      return slot.daysOfWeek?.includes(day) ?? true;
-    }).map((slot) => {
-      const scheduledAt = `${key}T${slot.time}:00`;
-      return { key: `${medication.id}:${scheduledAt}`, medicationId: medication.id, name: medication.name, dosage: medication.dosage, time: slot.time, timeOfDay: slot.label, scheduledAt, taken: logMap.get(`${medication.id}:${scheduledAt}`) === true };
-    });
+    if (!medication.id) return [];
+    const timeSlots = medicationTimeSlots(medication.timeSlots);
+    const firstSlot = timeSlots[0];
+    const daysOfWeek = timeSlots.find((slot) => slot.daysOfWeek)?.daysOfWeek || [];
+    // iOS stores one taken flag per medication and day. All time-of-day rows
+    // for the same medication share that flag.
+    return [{
+      key: medication.id,
+      medicationId: medication.id,
+      name: medication.name,
+      dosage: medication.dosage,
+      mealRelation: medication.mealRelation || null,
+      endDate: medication.endDate,
+      frequency: medication.frequency,
+      daysOfWeek,
+      timeSlots,
+      time: firstSlot.time,
+      timeOfDay: firstSlot.label,
+      scheduledAt: `${key}T00:00:00`,
+      taken: takenMedications.has(medication.id),
+    }];
   }).sort((a, b) => a.time.localeCompare(b.time));
 }
 

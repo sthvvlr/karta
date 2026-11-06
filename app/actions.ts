@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { and, eq } from "drizzle-orm";
+import { and, eq, gte, lt } from "drizzle-orm";
 import { redirect } from "next/navigation";
 import { env } from "cloudflare:workers";
 import { getChatGPTUser, requireChatGPTUser, createAppSession, clearAppSession } from "./chatgpt-auth";
@@ -154,14 +154,35 @@ export async function deleteMedication(formData: FormData) {
 export async function toggleMedicationTaken(formData: FormData) {
   const auth = await requireChatGPTUser("/medications");
   const medicationId = String(formData.get("medicationId") || "");
-  const today = new Date().toISOString().slice(0, 10);
-  const scheduledAt = String(formData.get("scheduledAt") || `${today}T${String(formData.get("time") || "12:00")}:00`);
+  const candidate = String(formData.get("scheduledAt") || "").slice(0, 10);
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(candidate);
+  const validDay = match && new Date(Date.UTC(Number(match[1]), Number(match[2]) - 1, Number(match[3]))).toISOString().slice(0, 10) === candidate;
+  const day = validDay ? candidate : new Date().toISOString().slice(0, 10);
+  const nextDayDate = new Date(`${day}T00:00:00.000Z`);
+  nextDayDate.setUTCDate(nextDayDate.getUTCDate() + 1);
+  const dayStart = `${day}T00:00:00`;
+  const dayEnd = `${nextDayDate.toISOString().slice(0, 10)}T00:00:00`;
   const db = getDb();
   const [medication] = await db.select({ id: medications.id }).from(medications).where(and(eq(medications.id, medicationId), eq(medications.userId, auth.userId))).limit(1);
   if (!medication) return;
-  const [existing] = await db.select().from(medicationLogs).where(and(eq(medicationLogs.medicationId, medicationId), eq(medicationLogs.userId, auth.userId), eq(medicationLogs.scheduledAt, scheduledAt))).limit(1);
-  if (existing) await db.update(medicationLogs).set({ status: existing.status === "taken" ? "planned" : "taken", takenAt: existing.status === "taken" ? null : new Date().toISOString() }).where(and(eq(medicationLogs.id, existing.id), eq(medicationLogs.userId, auth.userId)));
-  else await db.insert(medicationLogs).values({ id: crypto.randomUUID(), userId: auth.userId, medicationId, scheduledAt, status: "taken", takenAt: new Date().toISOString() });
+  const dayLogs = await db.select({ id: medicationLogs.id, status: medicationLogs.status }).from(medicationLogs).where(and(
+    eq(medicationLogs.medicationId, medicationId),
+    eq(medicationLogs.userId, auth.userId),
+    gte(medicationLogs.scheduledAt, dayStart),
+    lt(medicationLogs.scheduledAt, dayEnd),
+  ));
+  const nextStatus = dayLogs.some((log) => log.status === "taken") ? "planned" : "taken";
+  const takenAt = nextStatus === "taken" ? new Date().toISOString() : null;
+  if (dayLogs.length) {
+    await db.update(medicationLogs).set({ status: nextStatus, takenAt }).where(and(
+      eq(medicationLogs.medicationId, medicationId),
+      eq(medicationLogs.userId, auth.userId),
+      gte(medicationLogs.scheduledAt, dayStart),
+      lt(medicationLogs.scheduledAt, dayEnd),
+    ));
+  } else {
+    await db.insert(medicationLogs).values({ id: crypto.randomUUID(), userId: auth.userId, medicationId, scheduledAt: dayStart, status: nextStatus, takenAt });
+  }
   revalidatePath("/");
   revalidatePath("/medications");
 }
