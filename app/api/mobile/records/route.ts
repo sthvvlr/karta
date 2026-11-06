@@ -14,16 +14,27 @@ function dateOnly(value: unknown) {
   return typeof value === "string" && /^\d{4}-\d{2}-\d{2}/.test(value) ? value.slice(0, 10) : null;
 }
 
-function medicationTimeSlots(value: string | null) {
+function medicationTimeSlots(value: string | null, defaultDays: number[] = []) {
   const parsed = parseJson(value, []);
   if (!Array.isArray(parsed)) return [];
+  const defaults: Record<string, string> = { morning: "08:00", afternoon: "13:00", evening: "20:00" };
   return parsed.flatMap((item) => {
-    if (typeof item === "string") return [{ label: "", customTime: item, hasCustomTime: true }];
+    if (typeof item === "string") return [{ label: "morning", customTime: item, hasCustomTime: true, daysOfWeek: defaultDays }];
     if (!item || typeof item !== "object") return [];
     const source = item as Record<string, unknown>;
-    const time = typeof source.time === "string" ? source.time : typeof source.customTime === "string" ? source.customTime : null;
-    return time ? [{ label: typeof source.label === "string" ? source.label : "", customTime: time, hasCustomTime: true }] : [];
+    const label = typeof source.label === "string" ? source.label : "morning";
+    const time = typeof source.time === "string" ? source.time : typeof source.customTime === "string" ? source.customTime : defaults[label] || "12:00";
+    const hasCustomTime = source.hasCustomTime === true || time !== (defaults[label] || "12:00");
+    const daysOfWeek = Array.isArray(source.daysOfWeek) ? source.daysOfWeek.filter((day): day is number => typeof day === "number") : defaultDays;
+    return [{ label, ...(hasCustomTime ? { customTime: time } : {}), hasCustomTime, daysOfWeek }];
   });
+}
+
+function medicationDaysOfWeek(value: string | null): number[] {
+  const parsed = parseJson(value, []);
+  if (!Array.isArray(parsed)) return [];
+  const slot = parsed.find((item) => item && typeof item === "object" && Array.isArray((item as Record<string, unknown>).daysOfWeek));
+  return slot ? ((slot as Record<string, unknown>).daysOfWeek as number[]).filter((day) => typeof day === "number") : [];
 }
 
 async function loadRecords(userId: string) {
@@ -61,13 +72,13 @@ async function loadRecords(userId: string) {
       drug_code: record.drugCode,
       dosage: record.dosage || "",
       frequency: record.frequency || "daily",
-      days_of_week: [],
-      time_slots: medicationTimeSlots(record.timeSlots),
+      days_of_week: medicationDaysOfWeek(record.timeSlots),
+      time_slots: medicationTimeSlots(record.timeSlots, medicationDaysOfWeek(record.timeSlots)),
       meal_relation: record.mealRelation || "any",
       is_indefinite: !record.endDate,
       end_date: record.endDate,
       is_active: record.isActive,
-      notes: "",
+      notes: record.notes || "",
       created_at: record.createdAt,
     })),
     labResults: labRows.map((record) => ({
@@ -134,7 +145,18 @@ export async function POST(request: Request) {
   }
 
   if (kind === "medication") {
-    const schedule = Array.isArray(record.time_slots) ? record.time_slots : [String(record.time || "12:00")];
+    const rawSlots = Array.isArray(record.time_slots) ? record.time_slots : [String(record.time || "12:00")];
+    const daysOfWeek = Array.isArray(record.days_of_week) ? record.days_of_week.filter((day): day is number => typeof day === "number") : [];
+    const defaults: Record<string, string> = { morning: "08:00", afternoon: "13:00", evening: "20:00" };
+    const schedule = rawSlots.flatMap((item) => {
+      if (typeof item === "string") return [{ label: "morning", time: item, daysOfWeek }];
+      if (!item || typeof item !== "object") return [];
+      const source = item as Record<string, unknown>;
+      const label = typeof source.label === "string" ? source.label : "morning";
+      const time = typeof source.time === "string" ? source.time : typeof source.customTime === "string" ? source.customTime : defaults[label] || "12:00";
+      const slotDays = Array.isArray(source.daysOfWeek) ? source.daysOfWeek.filter((day): day is number => typeof day === "number") : daysOfWeek;
+      return [{ label, time, daysOfWeek: slotDays, hasCustomTime: source.hasCustomTime === true || time !== (defaults[label] || "12:00"), ...(source.hasCustomTime === true ? { customTime: time } : {}) }];
+    });
     const values = {
       userId: user.userId,
       drugCode: String(record.drug_code || record.drugCode || "") || null,
@@ -143,6 +165,7 @@ export async function POST(request: Request) {
       frequency: String(record.frequency || "daily") || "daily",
       timeSlots: JSON.stringify(schedule),
       mealRelation: String(record.meal_relation || record.mealRelation || "any") || "any",
+      notes: String(record.notes || "") || null,
       startDate: dateOnly(record.start_date || record.startDate),
       endDate: record.is_indefinite === true ? null : dateOnly(record.end_date || record.endDate),
       isActive: record.is_active !== false,

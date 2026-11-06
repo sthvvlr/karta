@@ -8,7 +8,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       <BlobBackground />
       <div style={{ position: "relative", zIndex: 1, maxWidth: 430, margin: "0 auto", minHeight: "100dvh" }}>
         <WebMcpTools />
-        <main style={{ paddingBottom: 96 }}>{children}</main>
+        <main style={{ paddingBottom: "calc(100px + env(safe-area-inset-bottom, 0px))" }}>{children}</main>
         <BottomTabBar />
       </div>
     </div>

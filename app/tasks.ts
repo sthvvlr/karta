@@ -22,11 +22,13 @@ export type MedicationTask = {
   name: string;
   dosage: string | null;
   time: string;
+  timeOfDay: string;
   scheduledAt: string;
   taken: boolean;
 };
 
 type TimeSlot = { time: string; label: string; daysOfWeek?: number[] };
+const defaultMedicationTimes: Record<string, string> = { morning: "08:00", afternoon: "13:00", evening: "20:00" };
 
 function validTime(value: unknown): string | null {
   return typeof value === "string" && /^([01]\d|2[0-3]):[0-5]\d$/.test(value) ? value : null;
@@ -38,14 +40,15 @@ export function medicationTimeSlots(raw: string | null): TimeSlot[] {
     const slots = parsed.flatMap((item): TimeSlot[] => {
       if (typeof item === "string") {
         const time = validTime(item);
-        return time ? [{ time, label: "" }] : [];
+        return time ? [{ time, label: "morning" }] : [];
       }
       if (!item || typeof item !== "object") return [];
-      const candidate = item as { time?: unknown; customTime?: unknown; label?: unknown; daysOfWeek?: unknown };
-      const time = validTime(candidate.time) || validTime(candidate.customTime);
+      const candidate = item as { time?: unknown; customTime?: unknown; label?: unknown; hasCustomTime?: unknown; daysOfWeek?: unknown };
+      const label = typeof candidate.label === "string" ? candidate.label : "morning";
+      const time = validTime(candidate.time) || validTime(candidate.customTime) || (candidate.hasCustomTime === false || candidate.customTime == null ? defaultMedicationTimes[label] : null);
       if (!time) return [];
       const daysOfWeek = Array.isArray(candidate.daysOfWeek) ? candidate.daysOfWeek.filter((day): day is number => typeof day === "number") : undefined;
-      return [{ time, label: typeof candidate.label === "string" ? candidate.label : "", daysOfWeek }];
+      return [{ time, label, daysOfWeek }];
     });
     return slots.length ? slots : [{ time: "12:00", label: "" }];
   } catch {
@@ -83,7 +86,7 @@ export function medicationTasksForDate(medications: MedicationForTasks[], logs: 
       return slot.daysOfWeek?.includes(day) ?? true;
     }).map((slot) => {
       const scheduledAt = `${key}T${slot.time}:00`;
-      return { key: `${medication.id}:${scheduledAt}`, medicationId: medication.id, name: medication.name, dosage: medication.dosage, time: slot.time, scheduledAt, taken: logMap.get(`${medication.id}:${scheduledAt}`) === true };
+      return { key: `${medication.id}:${scheduledAt}`, medicationId: medication.id, name: medication.name, dosage: medication.dosage, time: slot.time, timeOfDay: slot.label, scheduledAt, taken: logMap.get(`${medication.id}:${scheduledAt}`) === true };
     });
   }).sort((a, b) => a.time.localeCompare(b.time));
 }
@@ -237,12 +240,16 @@ export function recommendedVaccines(profile: ProfileForRecommendations | null | 
   });
 }
 
-export function nextDoseDate(vaccine: VaccineForTasks, doseNumber: number, dateGiven: string): string | null {
+export function nextDoseDate(vaccine: VaccineForTasks, doseNumber: number, dateGiven: string, firstDoseDate = dateGiven): string | null {
   const date = dateOnly(dateGiven);
   if (!date) return null;
   const offset = vaccine.doseScheduleDays?.[doseNumber - 1];
-  if (vaccine.totalDoses > doseNumber && offset != null) return isoDate(addDays(date, offset));
-  if ((vaccine.frequencyType === "annual" || vaccine.frequencyType === "recurring") && vaccine.intervalYears) return isoDate(addYears(date, vaccine.intervalYears));
+  if (vaccine.totalDoses > doseNumber && offset != null) {
+    const base = dateOnly(doseNumber === 1 ? dateGiven : firstDoseDate);
+    return base ? isoDate(addDays(base, offset)) : null;
+  }
+  if (vaccine.frequencyType === "annual") return isoDate(addYears(date, 1));
+  if (vaccine.frequencyType === "recurring" && vaccine.intervalYears) return isoDate(addYears(date, vaccine.intervalYears));
   return null;
 }
 

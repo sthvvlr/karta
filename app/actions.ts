@@ -129,6 +129,7 @@ export async function addMedication(formData: FormData) {
     frequency: String(formData.get("frequency") || "") || null,
     timeSlots: JSON.stringify(schedule),
     mealRelation: String(formData.get("mealRelation") || "") || null,
+    notes: String(formData.get("notes") || "").trim() || null,
     startDate: String(formData.get("startDate") || "") || null,
     endDate: String(formData.get("endDate") || "") || null,
     isActive: true,

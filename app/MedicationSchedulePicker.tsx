@@ -13,7 +13,10 @@ function parseInitial(raw: string | undefined): Slot[] {
       if (typeof item === "string") return [{ label: "morning", time: item }];
       if (!item || typeof item !== "object") return [];
       const value = item as { label?: unknown; time?: unknown; customTime?: unknown; daysOfWeek?: unknown };
-      return typeof (value.time || value.customTime) === "string" ? [{ label: typeof value.label === "string" ? value.label : "morning", time: String(value.time || value.customTime), daysOfWeek: Array.isArray(value.daysOfWeek) ? value.daysOfWeek as number[] : undefined }] : [];
+      const label = typeof value.label === "string" ? value.label : "morning";
+      const fallbackTime = slotLabels.find((slot) => slot.label === label)?.defaultTime || "12:00";
+      const time = typeof (value.time || value.customTime) === "string" ? String(value.time || value.customTime) : fallbackTime;
+      return [{ label, time, daysOfWeek: Array.isArray(value.daysOfWeek) ? value.daysOfWeek as number[] : undefined }];
     });
     return slots;
   } catch { return []; }

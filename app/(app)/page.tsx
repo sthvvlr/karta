@@ -5,8 +5,11 @@ import { getUserData } from "@/app/data";
 import healthFacts from "@/app/health_facts.json";
 import rules from "@/app/monitoring_rules.json";
 import catalog from "@/app/vaccinations_catalog.json";
-import { dateKey, medicationTasksForDate, monitoringTasksForDate, recommendedVaccines, vaccinationScore, upcomingVaccineTasks } from "@/app/tasks";
+import brandCatalog from "@/app/vaccine_brands.json";
+import { dateKey, medicationTasksForDate, monitoringTasksForDate, recommendedVaccines, vaccinationScore, upcomingVaccineTasks, type VaccineForTasks } from "@/app/tasks";
 import { OnboardingCard } from "@/app/OnboardingCard";
+import { ScoreDetails } from "@/app/ScoreDetails";
+import { VaccinationDateInput } from "@/app/VaccinationDateInput";
 import { getDb } from "@/db";
 import { labResults, medicationLogs, monitoringCompletions } from "@/db/schema";
 import { and, eq, gte, lt } from "drizzle-orm";
@@ -14,6 +17,8 @@ import { and, eq, gte, lt } from "drizzle-orm";
 export const dynamic = "force-dynamic";
 
 const C = { text: "#1A2050", muted: "rgba(26,32,80,0.42)", card: "rgba(255,255,255,0.72)", border: "rgba(255,255,255,0.9)" };
+const input = { width: "100%", padding: "11px 12px", background: "rgba(244,246,255,.8)", border: "1px solid rgba(186,200,255,.4)", borderRadius: 11, fontSize: 16, color: "#1A2050" } as const;
+const taskCatalog = catalog as unknown as VaccineForTasks[];
 
 const tiles = [
   { href: "/vaccinations", icon: "💉", label: "Прививки", blob: "#BAC8FF" },
@@ -37,9 +42,9 @@ export default async function HomePage() {
     db.select({ id: labResults.id }).from(labResults).where(eq(labResults.userId, user.userId)),
   ]);
   const medicationTasks = medicationTasksForDate(data.medications, logs, today);
-  const vaccineTasks = upcomingVaccineTasks(data.vaccinations.map(({ record }) => record), catalog, today);
-  const recommended = recommendedVaccines(data.profile, data.vaccinations.map(({ record }) => record), catalog, today);
-  const score = vaccinationScore(data.profile, data.vaccinations.map(({ record }) => record), catalog, today);
+  const vaccineTasks = upcomingVaccineTasks(data.vaccinations.map(({ record }) => record), taskCatalog, today);
+  const recommended = recommendedVaccines(data.profile, data.vaccinations.map(({ record }) => record), taskCatalog, today);
+  const score = vaccinationScore(data.profile, data.vaccinations.map(({ record }) => record), taskCatalog, today);
   const monitoringTasks = monitoringTasksForDate(data.medications, completions, rules, today);
   const name = data.profile?.fullName?.split(" ")[0] || user.displayName.split(" ")[0];
   const hour = new Date().getHours();
@@ -49,7 +54,6 @@ export default async function HomePage() {
   const dayOfYear = Math.floor((today.getTime() - new Date(today.getFullYear(), 0, 0).getTime()) / 86400000);
   const todayFact = healthFacts[(dayOfYear - 1) % healthFacts.length];
   const profileComplete = profileProgress === 100;
-  const scoreHref = profileComplete ? "/vaccinations" : "/profile";
 
   return (
     <div style={{ padding: "12px 16px 0" }}>
@@ -62,13 +66,14 @@ export default async function HomePage() {
 
       <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 20, boxShadow: "0 2px 16px rgba(26,32,80,0.06)", padding: "18px 20px", marginBottom: 14, position: "relative", overflow: "hidden" }}>
         <div style={{ position: "absolute", width: 130, height: 130, borderRadius: "50%", background: "linear-gradient(135deg,#BAC8FF,#D0BFFF)", top: -35, right: -35, filter: "blur(30px)", opacity: 0.6 }} />
-        <Link href={scoreHref} style={{ position: "relative", zIndex: 1, display: "flex", alignItems: "center", gap: 16, textDecoration: "none", color: "inherit" }}>
+        <div style={{ position: "relative", zIndex: 1, display: "flex", alignItems: "center", gap: 16 }}>
           <div style={{ width: 56, height: 56, borderRadius: "50%", padding: 5, background: `conic-gradient(#748FFC ${profileComplete ? score : profileProgress}%, rgba(26,32,80,0.08) 0)`, flexShrink: 0 }}>
             <div style={{ width: "100%", height: "100%", borderRadius: "50%", background: "rgba(255,255,255,.86)", display: "grid", placeItems: "center", color: "#5C7CFA", fontWeight: 700, fontSize: profileComplete ? 17 : 12 }}>{profileComplete ? score : `${profileProgress}%`}</div>
           </div>
           <div style={{ flex: 1 }}><div style={{ fontSize: 15, fontWeight: 700, color: C.text, marginBottom: 2 }}>{profileComplete ? "Karta Score" : "Заполните профиль"}</div><div style={{ fontSize: 11, color: C.muted }}>{profileComplete ? (recommended.length ? `${recommended.length} рекомендаций требуют внимания` : "Все доступные рекомендации учтены") : `Профиль заполнен на ${profileProgress}%`}</div></div>
-          <span style={{ color: C.muted, fontSize: 16 }}>›</span>
-        </Link>
+          {!profileComplete && <Link href="/profile" aria-label="Заполнить профиль" style={{ color: C.muted, fontSize: 16, textDecoration: "none" }}>›</Link>}
+        </div>
+        {profileComplete && <div style={{ position: "relative", zIndex: 1, marginTop: 12, padding: "0 4px", fontSize: 12, color: C.muted }}><ScoreDetails score={score} pending={recommended.map((item) => ({ id: item.id, name: item.nameRu, description: item.descriptionRu }))} overdue={vaccineTasks.filter((task) => task.overdue)} /></div>}
 
         <div style={{ position: "relative", zIndex: 1, height: 1, background: "rgba(26,32,80,0.08)", margin: "14px 0" }} />
         <div style={{ position: "relative", zIndex: 1, display: "flex", alignItems: "flex-start", gap: 8 }}><span style={{ fontSize: 13, lineHeight: 1 }}>💡</span><div><div style={{ fontSize: 10, color: "#5C7CFA", fontWeight: 700, marginBottom: 4 }}>ИНТЕРЕСНЫЙ ФАКТ</div><div style={{ fontSize: 12, lineHeight: 1.45, color: C.muted }}>{todayFact.ru}</div></div></div>
@@ -86,11 +91,12 @@ export default async function HomePage() {
 
       {medicationTasks.length > 0 && <section style={{ marginBottom: 18 }}><div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 9 }}><div style={{ fontSize: 13, fontWeight: 700 }}>Лекарства сегодня</div><Link href="/medications" style={{ color: "#5C7CFA", fontSize: 11, textDecoration: "none" }}>{medicationTasks.filter((task) => task.taken).length}/{medicationTasks.length}</Link></div><div style={{ display: "grid", gap: 6 }}>{medicationTasks.slice(0, 4).map((task) => <div key={task.key} style={{ display: "flex", alignItems: "center", gap: 9, padding: "10px 12px", background: C.card, border: `1px solid ${C.border}`, borderRadius: 13, opacity: task.taken ? 0.62 : 1 }}><form action={toggleMedicationTaken}><input type="hidden" name="medicationId" value={task.medicationId} /><input type="hidden" name="scheduledAt" value={task.scheduledAt} /><button type="submit" style={{ width: 27, height: 27, borderRadius: "50%", border: task.taken ? 0 : "1.5px solid rgba(26,32,80,0.18)", background: task.taken ? "#5C7CFA" : "transparent", color: "white" }}>{task.taken ? "✓" : ""}</button></form><div style={{ flex: 1, fontSize: 12, fontWeight: 600, textDecoration: task.taken ? "line-through" : "none" }}>{task.name}<span style={{ display: "block", fontSize: 10, color: C.muted, fontWeight: 400, marginTop: 2 }}>{task.time}{task.dosage ? ` · ${task.dosage}` : ""}</span></div></div>)}</div>{medicationTasks.length > 4 && <Link href="/medications" style={{ display: "block", marginTop: 7, color: "#5C7CFA", fontSize: 11, textDecoration: "none" }}>Все задачи →</Link>}</section>}
 
-      {vaccineTasks.length > 0 && <section style={{ marginBottom: 18 }}><div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 9 }}><div style={{ fontSize: 13, fontWeight: 700 }}>Предстоящие прививки</div><Link href="/vaccinations" style={{ color: "#5C7CFA", fontSize: 11, textDecoration: "none" }}>Все →</Link></div><div style={{ display: "grid", gap: 6 }}>{vaccineTasks.slice(0, 3).map((task) => <div key={task.key} style={{ display: "flex", alignItems: "center", gap: 9, padding: "10px 12px", background: "rgba(255,247,230,0.85)", border: "1px solid rgba(217,119,6,0.16)", borderRadius: 13 }}><div style={{ flex: 1, fontSize: 12, fontWeight: 600 }}>{task.nameRu}<span style={{ display: "block", fontSize: 10, color: task.overdue ? "#E03131" : C.muted, fontWeight: 400, marginTop: 2 }}>{task.overdue ? "Просрочено" : "Запланировано"}: {task.dueDate} · доза {task.doseNumber}/{task.totalDoses}</span></div><form action={completeUpcomingVaccination}><input type="hidden" name="vaccineId" value={task.vaccineId} /><input type="hidden" name="doseNumber" value={task.doseNumber} /><input type="hidden" name="dateGiven" value={todayKey} /><button type="submit" style={{ border: 0, borderRadius: 9, padding: "7px 8px", background: "#5C7CFA", color: "white", fontSize: 11, fontWeight: 700 }}>Готово</button></form></div>)}</div></section>}
+      {vaccineTasks.length > 0 && <section style={{ marginBottom: 18 }}><div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 9 }}><div style={{ fontSize: 13, fontWeight: 700 }}>Предстоящие прививки</div><Link href="/vaccinations" style={{ color: "#5C7CFA", fontSize: 11, textDecoration: "none" }}>Все →</Link></div><div style={{ display: "grid", gap: 6 }}>{vaccineTasks.slice(0, 3).map((task) => { const vaccine = taskCatalog.find((item) => item.id === task.vaccineId); const firstDoseDate = data.vaccinations.find(({ record }) => record.vaccineId === task.vaccineId && record.doseNumber === 1)?.record.dateGiven || ""; return <details key={task.key} style={{ padding: "10px 12px", background: "rgba(255,247,230,0.85)", border: "1px solid rgba(217,119,6,0.16)", borderRadius: 13 }}><summary style={{ display: "flex", alignItems: "center", gap: 8, cursor: "pointer", listStyle: "none" }}><div style={{ flex: 1, fontSize: 12, fontWeight: 600 }}>{task.nameRu}<span style={{ display: "block", fontSize: 10, color: task.overdue ? "#E03131" : C.muted, fontWeight: 400, marginTop: 2 }}>{task.overdue ? "Просрочено" : "Запланировано"}: {task.dueDate} · доза {task.doseNumber}/{task.totalDoses}</span></div><span style={{ borderRadius: 9, padding: "7px 8px", background: "#5C7CFA", color: "white", fontSize: 11, fontWeight: 700, whiteSpace: "nowrap" }}>Отметить</span></summary><form action={completeUpcomingVaccination} style={{ display: "grid", gap: 7, marginTop: 10 }}><input type="hidden" name="vaccineId" value={task.vaccineId} /><input type="hidden" name="doseNumber" value={task.doseNumber} /><VaccinationDateInput initialDate={todayKey} maxDate={todayKey} doseNumber={task.doseNumber} totalDoses={task.totalDoses} doseScheduleDays={vaccine?.doseScheduleDays} firstDoseDate={firstDoseDate} frequencyType={vaccine?.frequencyType} intervalYears={vaccine?.intervalYears} style={input} /><input name="brand" list="vaccine-brands" placeholder="Препарат / бренд" style={input} /><input name="clinic" placeholder="Клиника" style={input} /><button type="submit" style={{ padding: 10, border: 0, borderRadius: 10, background: "#5C7CFA", color: "white", fontWeight: 700 }}>Сохранить выполненную дозу</button></form></details>; })}</div></section>}
 
       {monitoringTasks.length > 0 && <section style={{ marginBottom: 18 }}><div style={{ fontSize: 13, fontWeight: 700, marginBottom: 9 }}>Напоминания курса</div>{monitoringTasks.slice(0, 2).map((item) => <div key={`${item.id}:${item.medicationId}`} style={{ display: "flex", alignItems: "center", gap: 9, padding: "10px 12px", background: C.card, border: `1px solid ${item.overdue ? "rgba(224,49,49,0.24)" : C.border}`, borderRadius: 13, marginBottom: 6 }}><div style={{ flex: 1, fontSize: 12, fontWeight: 600 }}>🧪 {item.title_ru}<span style={{ display: "block", fontSize: 10, color: item.overdue ? "#E03131" : C.muted, fontWeight: 400, marginTop: 2 }}>{item.overdue ? "Просрочено" : "До"} {item.dueDate}</span></div><form action={completeMonitoringTask}><input type="hidden" name="medicationId" value={item.medicationId} /><input type="hidden" name="ruleId" value={item.id} /><input type="hidden" name="repeatDays" value={item.repeat_days} /><button type="submit" style={{ border: 0, background: "transparent", color: "#5C7CFA", fontSize: 11, fontWeight: 700 }}>Готово</button></form></div>)}</section>}
 
       {data.medications.length === 0 ? <Link href="/medications" style={{ textDecoration: "none" }}><div style={{ padding: "14px 16px", background: C.card, border: "1px dashed rgba(186,200,255,0.5)", borderRadius: 16, fontSize: 13, color: C.muted, textAlign: "center" }}>+ Добавьте первое лекарство</div></Link> : <div style={{ fontSize: 13, color: C.muted }}>Активных лекарств: {data.medications.length}</div>}
+      <datalist id="vaccine-brands">{Array.from(new Set(Object.values(brandCatalog).flat())).map((brand) => <option value={brand} key={brand} />)}</datalist>
     </div>
   );
 }

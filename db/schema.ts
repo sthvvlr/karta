@@ -77,6 +77,7 @@ export const medications = sqliteTable("medications", {
   frequency: text("frequency"),
   timeSlots: text("time_slots"),
   mealRelation: text("meal_relation"),
+  notes: text("notes"),
   startDate: text("start_date"),
   endDate: text("end_date"),
   isActive: integer("is_active", { mode: "boolean" }).notNull().default(true),
