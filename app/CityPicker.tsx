@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 type City = { id: string; city: string; region: string; country: string; countryCode: string; label: string };
 
-export function CityPicker({ initialCity = "", initialRegion = "", initialCountry = "", initialCountryCode = "", fieldPrefix = "cityCurrent" }: { initialCity?: string; initialRegion?: string; initialCountry?: string; initialCountryCode?: string; fieldPrefix?: string }) {
+export function CityPicker({ initialCity = "", initialRegion = "", initialCountry = "", initialCountryCode = "", fieldPrefix = "cityCurrent", onSelectionChange }: { initialCity?: string; initialRegion?: string; initialCountry?: string; initialCountryCode?: string; fieldPrefix?: string; onSelectionChange?: (city: City | null) => void }) {
   const [value, setValue] = useState(initialCity);
   const [selected, setSelected] = useState<City | null>(initialCity ? { id: "initial", city: initialCity, region: initialRegion, country: initialCountry, countryCode: initialCountryCode, label: "" } : null);
   const [results, setResults] = useState<City[]>([]);
@@ -29,10 +29,11 @@ export function CityPicker({ initialCity = "", initialRegion = "", initialCountr
     setValue(city.city);
     setSelected(city);
     setResults([]);
+    onSelectionChange?.(city);
   }
 
   return <div style={{ position: "relative" }}>
-    <input value={value} onChange={(event) => { setValue(event.target.value); setSelected(null); setResults([]); }} placeholder="Начните вводить город" autoComplete="address-level2" style={{ width: "100%", padding: "12px 13px", background: "rgba(244,246,255,0.8)", border: "1px solid rgba(186,200,255,0.4)", borderRadius: 11, fontSize: 16, color: "#1A2050" }} />
+    <input value={value} onChange={(event) => { setValue(event.target.value); setSelected(null); setResults([]); onSelectionChange?.(null); }} placeholder="Начните вводить город" autoComplete="address-level2" style={{ width: "100%", padding: "12px 13px", background: "rgba(244,246,255,0.8)", border: "1px solid rgba(186,200,255,0.4)", borderRadius: 11, fontSize: 16, color: "#1A2050" }} />
     <input type="hidden" name={fieldPrefix} value={selected?.city || value} />
     <input type="hidden" name={fieldPrefix === "cityCurrent" ? "regionCurrent" : `${fieldPrefix}Region`} value={selected?.region || ""} />
     <input type="hidden" name={fieldPrefix === "cityCurrent" ? "countryCurrent" : `${fieldPrefix}Country`} value={selected?.country || ""} />

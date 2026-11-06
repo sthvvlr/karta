@@ -256,6 +256,55 @@ export async function saveProfile(formData: FormData) {
   revalidatePath("/profile");
 }
 
+export async function saveOnboarding(formData: FormData) {
+  const auth = await requireChatGPTUser("/onboarding");
+  const current = await getChatGPTUser();
+  const fullName = String(formData.get("fullName") || current?.displayName || auth.email).trim();
+  const birthDate = String(formData.get("birthDate") || "") || null;
+  const gender = String(formData.get("gender") || "") || null;
+  const city = String(formData.get("cityCurrent") || "").trim();
+  const region = String(formData.get("regionCurrent") || "") || null;
+  const country = String(formData.get("countryCurrent") || "") || null;
+  const countryCode = String(formData.get("countryCode") || "") || null;
+  const pastCity = String(formData.get("historyCity") || "").trim();
+  const pastRegion = String(formData.get("historyCityRegion") || "") || null;
+  const pastCountry = String(formData.get("historyCityCountry") || "") || null;
+  const pastCountryCode = String(formData.get("historyCityCountryCode") || "") || null;
+  if (fullName.length < 2 || !city) redirect("/onboarding");
+
+  const db = getDb();
+  await db.update(profiles).set({
+    fullName, birthDate, gender, cityCurrent: city, regionCurrent: region,
+    countryCurrent: country, countryCode, onboardingCompleted: true,
+    updatedAt: new Date().toISOString(),
+  }).where(eq(profiles.userId, auth.userId));
+
+  await db.update(profileLocations).set({ isCurrent: false }).where(eq(profileLocations.userId, auth.userId));
+  const currentLocation = await db.select({ id: profileLocations.id }).from(profileLocations)
+    .where(and(eq(profileLocations.userId, auth.userId), eq(profileLocations.city, city))).limit(1);
+  if (currentLocation[0]) {
+    await db.update(profileLocations).set({ country, region, countryCode, isCurrent: true })
+      .where(eq(profileLocations.id, currentLocation[0].id));
+  } else {
+    await db.insert(profileLocations).values({ id: crypto.randomUUID(), userId: auth.userId, city, country, region, countryCode, fromYear: null, toYear: null, isCurrent: true });
+  }
+
+  if (pastCity && pastCity.toLocaleLowerCase() !== city.toLocaleLowerCase()) {
+    const previousLocation = await db.select({ id: profileLocations.id }).from(profileLocations)
+      .where(and(eq(profileLocations.userId, auth.userId), eq(profileLocations.city, pastCity))).limit(1);
+    if (previousLocation[0]) {
+      await db.update(profileLocations).set({ country: pastCountry, region: pastRegion, countryCode: pastCountryCode, isCurrent: false })
+        .where(eq(profileLocations.id, previousLocation[0].id));
+    } else {
+      await db.insert(profileLocations).values({ id: crypto.randomUUID(), userId: auth.userId, city: pastCity, country: pastCountry, region: pastRegion, countryCode: pastCountryCode, fromYear: null, toYear: null, isCurrent: false });
+    }
+  }
+
+  revalidatePath("/");
+  revalidatePath("/profile");
+  redirect("/");
+}
+
 export async function saveReminderSettings(formData: FormData) {
   const auth = await requireChatGPTUser("/profile");
   const enabled = String(formData.get("enabled") || "false") === "true";

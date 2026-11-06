@@ -33,6 +33,7 @@ export async function ensureProfile(user: AppUser) {
     cityCurrent: null,
     countryCurrent: null,
     countryCode: null,
+    onboardingCompleted: false,
     regionCurrent: null,
     remindersEnabled: true,
     remindersMorning: "08:00",

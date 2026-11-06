@@ -43,6 +43,13 @@
       "when": 1793936764583,
       "tag": "0005_fantastic_mikhail_rasputin",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "6",
+      "when": 1793937831251,
+      "tag": "0006_romantic_mauler",
+      "breakpoints": true
     }
   ]
 }

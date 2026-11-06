@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { completeMonitoringTask, completeUpcomingVaccination, toggleMedicationTaken } from "@/app/actions";
 import { getChatGPTUser, chatGPTSignInPath } from "@/app/chatgpt-auth";
 import { getUserData } from "@/app/data";
@@ -7,7 +8,6 @@ import rules from "@/app/monitoring_rules.json";
 import catalog from "@/app/vaccinations_catalog.json";
 import brandCatalog from "@/app/vaccine_brands.json";
 import { dateKey, medicationTasksForDate, monitoringTasksForDate, recommendedVaccines, vaccinationScore, upcomingVaccineTasks, type VaccineForTasks } from "@/app/tasks";
-import { OnboardingCard } from "@/app/OnboardingCard";
 import { ScoreDetails } from "@/app/ScoreDetails";
 import { VaccinationDateInput } from "@/app/VaccinationDateInput";
 import { getDb } from "@/db";
@@ -33,6 +33,9 @@ export default async function HomePage() {
     return <Landing />;
   }
   const data = await getUserData({ userId: user.userId, email: user.email, displayName: user.displayName });
+  if (!data.profile?.onboardingCompleted && (!data.profile?.fullName || !data.profile?.cityCurrent)) {
+    redirect("/onboarding");
+  }
   const today = new Date();
   const todayKey = dateKey(today);
   const db = getDb();
@@ -61,8 +64,6 @@ export default async function HomePage() {
         <div><div style={{ fontSize: 12, color: C.muted, marginBottom: 2 }}>{greeting}</div><div style={{ fontSize: 24, fontWeight: 700, color: C.text }}>{name}</div></div>
         <Link href="/profile" style={{ textDecoration: "none" }}><div style={{ width: 36, height: 36, borderRadius: "50%", background: "linear-gradient(135deg,#BAC8FF,#D0BFFF)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 17, color: C.text }}>{name[0]?.toUpperCase()}</div></Link>
       </div>
-
-      {(!data.profile?.birthDate || !data.profile?.cityCurrent) && <OnboardingCard name={data.profile?.fullName || user.displayName} birthDate={data.profile?.birthDate} gender={data.profile?.gender} city={data.profile?.cityCurrent} region={data.profile?.regionCurrent} country={data.profile?.countryCurrent} countryCode={data.profile?.countryCode} />}
 
       <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 20, boxShadow: "0 2px 16px rgba(26,32,80,0.06)", padding: "18px 20px", marginBottom: 14, position: "relative", overflow: "hidden" }}>
         <div style={{ position: "absolute", width: 130, height: 130, borderRadius: "50%", background: "linear-gradient(135deg,#BAC8FF,#D0BFFF)", top: -35, right: -35, filter: "blur(30px)", opacity: 0.6 }} />

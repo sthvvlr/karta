@@ -24,6 +24,7 @@ const languageStore = {
 };
 
 const pairs: Pair[] = [
+  ["Настроим вашу карту", "Let's set up your health card"], ["Шаг", "Step"], ["Как вас зовут?", "What's your name?"], ["Это ваше имя в приложении", "This is your name in the app"], ["Немного о вас", "A bit about you"], ["Нужно для персональных рекомендаций", "Needed for personal recommendations"], ["Где вы живёте?", "Where do you live?"], ["Влияет на рекомендации по прививкам", "Affects vaccination recommendations"], ["Дата необязательна", "Date of birth is optional"], ["Город сейчас", "Current city"], ["Регион учитывается при подборе прививок.", "Your region is used to tailor vaccine recommendations."], ["Где жили последние 10 лет", "Where you lived in the last 10 years"], ["Укажите тот же или другой город — это влияет на региональные риски.", "Enter the same or another city to account for regional risks."], ["Далее", "Next"], ["Назад", "Back"], ["Готово", "Done"], ["ШАГ", "STEP"], ["из", "of"],
   ["Главная", "Home"], ["Прививки", "Vaccinations"], ["Лекарства", "Medications"], ["Профиль", "Profile"], ["Анализы", "Lab tests"], ["Чекапы", "Check-ups"],
   ["Карта здоровья", "Health card"], ["Ваша карта прививок, лекарств и анализов в одном месте.", "Your vaccinations, medications and lab tests in one place."],
   ["Паспорт вакцинации и персональные рекомендации", "Vaccination record and personal recommendations"], ["Личные данные, регионы и настройки", "Personal data, regions and settings"],
@@ -60,7 +61,8 @@ function translate(source: string, lang: Language): string {
   if (lang === "ru") return source;
   const direct = exact.get(source);
   if (direct) return direct;
-  let match = /^Дата рождения: (.+)$/.exec(source); if (match) return `Date of birth: ${match[1]}`;
+  let match = /^ШАГ (\d+) ИЗ (\d+)$/.exec(source); if (match) return `STEP ${match[1]} OF ${match[2]}`;
+  match = /^Дата рождения: (.+)$/.exec(source); if (match) return `Date of birth: ${match[1]}`;
   match = /^Активных лекарств: (\d+)$/.exec(source); if (match) return `Active medications: ${match[1]}`;
   match = /^(\d+) записей$/.exec(source); if (match) return `${match[1]} records`;
   match = /^(\d+) активных$/.exec(source); if (match) return `${match[1]} active`;

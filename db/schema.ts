@@ -10,6 +10,7 @@ export const profiles = sqliteTable("profiles", {
   regionCurrent: text("region_current"),
   countryCurrent: text("country_current"),
   countryCode: text("country_code"),
+  onboardingCompleted: integer("onboarding_completed", { mode: "boolean" }).notNull().default(false),
   remindersEnabled: integer("reminders_enabled", { mode: "boolean" }).notNull().default(true),
   remindersMorning: text("reminders_morning").notNull().default("08:00"),
   remindersEvening: text("reminders_evening").notNull().default("21:00"),
