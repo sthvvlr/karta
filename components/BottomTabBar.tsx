@@ -14,6 +14,8 @@ const tabs = [
 export function BottomTabBar() {
   const pathname = usePathname()
 
+  if (pathname === '/labs') return null
+
   return (
     <nav aria-label="Основная навигация" className="no-print" style={{
       position: 'fixed',
