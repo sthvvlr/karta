@@ -41,7 +41,7 @@ export default async function LabsPage({ searchParams }: { searchParams: Promise
       <TestTube2 size={40} color={C.primary} style={{ opacity: .35 }} />
       <div style={{ marginTop: 14, fontSize: 15, fontWeight: 700 }}>{en ? "No lab results yet" : "Пока нет анализов"}</div>
       <div style={{ marginTop: 6, maxWidth: 280, fontSize: 13, lineHeight: 1.45, color: C.muted }}>{en ? "Add a result and enter your values — out-of-range values will be flagged." : "Загрузите результат и внесите показатели — система отметит отклонения от нормы."}</div>
-      <LabResultSheet gender={profile?.gender} prefillTitle={monitoringPrefill?.title} prefillTests={monitoringPrefill?.tests} monitoringMedicationId={monitoringPrefill?.medicationId} monitoringRuleId={monitoringPrefill?.ruleId} />
+      <LabResultSheet primary gender={profile?.gender} prefillTitle={monitoringPrefill?.title} prefillTests={monitoringPrefill?.tests} monitoringMedicationId={monitoringPrefill?.medicationId} monitoringRuleId={monitoringPrefill?.ruleId} />
     </div> : <LabResultsList rows={rows} gender={profile?.gender} />}
   </div>;
 }
