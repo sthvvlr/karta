@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { Pill, Share, Trash2 } from "lucide-react";
 import { cookies } from "next/headers";
 import { completeMonitoringTask, deleteMedication, toggleMedicationTaken } from "@/app/actions";
@@ -20,7 +21,7 @@ export default async function MedicationsPage({ searchParams }: { searchParams: 
   const en = (await cookies()).get("karta_lang")?.value === "en";
   const initialAdd = (await searchParams).add === "1";
   const user = await getChatGPTUser();
-  if (!user) return <div style={{ padding: 24, color: C.text }}>{en ? "Sign in to open medications." : "Войдите через ChatGPT, чтобы открыть лекарства."}</div>;
+  if (!user) redirect(`/login?return_to=${encodeURIComponent(initialAdd ? "/medications?add=1" : "/medications")}`);
   const db = getDb();
   const rows = await db.select().from(medications).where(and(eq(medications.userId, user.userId), eq(medications.isActive, true))).orderBy(desc(medications.createdAt));
   const today = new Date();

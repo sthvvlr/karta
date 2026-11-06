@@ -57,6 +57,22 @@ export async function getChatGPTUser(): Promise<ChatGPTUser | null> {
   };
 }
 
+export async function getGuestUserFromSession(): Promise<ChatGPTUser | null> {
+  const token = (await cookies()).get("karta_session")?.value;
+  if (!token) return null;
+  const now = new Date().toISOString();
+  const [session] = await getDb().select({
+    userId: authSessions.userId,
+    email: authAccounts.email,
+    displayName: authAccounts.displayName,
+  }).from(authSessions)
+    .innerJoin(authAccounts, eq(authSessions.userId, authAccounts.id))
+    .where(and(eq(authSessions.id, token), gt(authSessions.expiresAt, now)))
+    .limit(1);
+  if (!session?.userId.startsWith("guest:")) return null;
+  return { userId: session.userId, email: session.email, displayName: session.displayName, fullName: session.displayName };
+}
+
 export async function requireChatGPTUser(
   returnTo: string,
 ): Promise<ChatGPTUser> {

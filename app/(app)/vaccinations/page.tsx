@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { Globe2, MapPin, Syringe } from "lucide-react";
 import { addVaccination, completeUpcomingVaccination, deleteVaccination } from "@/app/actions";
@@ -23,7 +24,7 @@ const taskCatalog = catalog as unknown as VaccineForTasks[];
 export default async function VaccinationsPage({ searchParams }: { searchParams: Promise<{ tab?: string }> }) {
   const en = (await cookies()).get("karta_lang")?.value === "en";
   const user = await getChatGPTUser();
-  if (!user) return <div style={{ padding: 24, color: C.text }}>{en ? "Sign in to open your vaccination card." : "Войдите, чтобы открыть карту."}</div>;
+  if (!user) redirect(`/login?return_to=${encodeURIComponent("/vaccinations")}`);
 
   const tab = (await searchParams).tab === "recommendations" ? "recommendations" : "passport";
   const data = await getUserData({ userId: user.userId, email: user.email, displayName: user.displayName });

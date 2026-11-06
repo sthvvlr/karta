@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { Pill, Syringe } from "lucide-react";
 import { getChatGPTUser } from "@/app/chatgpt-auth";
@@ -29,7 +30,8 @@ export default async function ExportPage({ searchParams }: { searchParams: Promi
   const scope = params.scope === "vaccinations" || params.scope === "medications" ? params.scope : "full";
   const en = lang === "en";
   const user = await getChatGPTUser();
-  if (!user) return <div style={{ padding: 24, color: ink }}>{en ? "Sign in to export your health card." : "Войдите, чтобы выгрузить карту."}</div>;
+  const exportPath = `/export?${new URLSearchParams({ lang, scope }).toString()}`;
+  if (!user) redirect(`/login?return_to=${encodeURIComponent(exportPath)}`);
   const data = await getUserData({ userId: user.userId, email: user.email, displayName: user.displayName });
   const activeMeds = data.medications.filter((med) => med.isActive);
   const generated = new Date().toLocaleDateString(en ? "en-US" : "ru-RU", { dateStyle: "long" });

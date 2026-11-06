@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type ReactNode } from "react";
+import Link from "next/link";
 import { CalendarDays, ChevronRight, Clock3, Map, MapPin, Bell, Pencil, PersonStanding, Settings, Trash2, UserRound, X } from "lucide-react";
 import { CityPicker } from "@/app/CityPicker";
 import { DeleteDataForm } from "@/app/DeleteDataForm";
@@ -23,14 +24,17 @@ export function ProfileScreen({ profile, locations, displayName, email, userId, 
   const name = profile.fullName || displayName || "Karta";
   const gender = profile.gender === "female" ? (en ? "Female" : "Женский") : profile.gender === "male" ? (en ? "Male" : "Мужской") : profile.gender === "other" ? (en ? "Other" : "Другой") : "—";
   const city = [profile.cityCurrent, profile.regionCurrent, profile.countryCurrent].filter(Boolean).join(" · ") || "—";
+  const guest = userId.startsWith("guest:");
 
   return <div style={{ padding: "12px 16px 0", color: C.text }}>
     <header style={{ paddingTop: 16, paddingBottom: 22 }}><h1 style={{ margin: 0, fontSize: 26, lineHeight: 1.2, fontWeight: 700 }}>{en ? "Profile" : "Профиль"}</h1><div style={{ fontSize: 13, color: C.muted, marginTop: 4 }}>{en ? "Personal info" : "Личные данные"}</div></header>
 
+    {guest && <div style={{ ...cardStyle(16, 14), marginBottom: 20, borderColor: "rgba(92,124,250,.16)" }}><div style={{ fontSize: 13, fontWeight: 700 }}>{en ? "Guest mode" : "Гостевой режим"}</div><div style={{ marginTop: 4, color: C.muted, fontSize: 11, lineHeight: 1.4 }}>{en ? "Your data is stored securely and linked to this browser. Create an account to access it on other devices." : "Данные хранятся в базе Karta и связаны с этим браузером. Создайте аккаунт, чтобы открыть их на других устройствах."}</div><div style={{ display: "flex", gap: 8, marginTop: 12 }}><Link href="/register?return_to=%2Fprofile" style={{ ...secondaryButton, flex: 1, boxSizing: "border-box", textAlign: "center", textDecoration: "none" }}>{en ? "Create account" : "Создать аккаунт"}</Link><Link href="/login?return_to=%2Fprofile&guest=1" style={{ ...secondaryButton, flex: 1, boxSizing: "border-box", textAlign: "center", textDecoration: "none" }}>{en ? "Sign in" : "Войти"}</Link></div></div>}
+
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginBottom: 22 }}>
       <div style={{ width: 72, height: 72, borderRadius: "50%", background: "linear-gradient(135deg,#BAC8FF,#D0BFFF)", display: "grid", placeItems: "center", fontSize: 30, color: C.text, boxShadow: "0 4px 12px rgba(92,124,250,.15)" }}>{name[0]?.toUpperCase() || "K"}</div>
       <div style={{ fontSize: 18, fontWeight: 700, marginTop: 10 }}>{name}</div>
-      {email && <div style={{ fontSize: 12, color: C.muted, marginTop: 2 }}>{email}</div>}
+      {email && !guest && <div style={{ fontSize: 12, color: C.muted, marginTop: 2 }}>{email}</div>}
     </div>
 
     <SectionTitle>{en ? "PERSONAL INFO" : "ЛИЧНЫЕ ДАННЫЕ"}</SectionTitle>
@@ -55,7 +59,7 @@ export function ProfileScreen({ profile, locations, displayName, email, userId, 
     </div>
 
     <div style={{ ...cardStyle(20, 0), marginTop: 14, marginBottom: 32 }}>
-      <a href={chatSignOutUrl} style={{ ...accountButton, textDecoration: "none", boxSizing: "border-box" }}><span style={{ color: "#E03131", width: 28 }}>↪</span><span>{en ? "Sign out of ChatGPT" : "Выйти через ChatGPT"}</span></a>
+      {guest ? <form action={signOutAccount}><button type="submit" style={accountButton}><span style={{ color: "#E03131", width: 28 }}>↪</span><span>{en ? "Exit guest mode" : "Выйти из гостевого режима"}</span></button></form> : <a href={chatSignOutUrl} style={{ ...accountButton, textDecoration: "none", boxSizing: "border-box" }}><span style={{ color: "#E03131", width: 28 }}>↪</span><span>{en ? "Sign out of ChatGPT" : "Выйти через ChatGPT"}</span></a>}
       {userId.startsWith("email:") && <><Divider /><form action={signOutAccount}><button type="submit" style={accountButton}><span style={{ color: "#E03131", width: 28 }}>↪</span><span>{en ? "Sign out of email account" : "Выйти из email-аккаунта"}</span></button></form></>}
       <Divider />
       <div style={{ padding: 14 }}><DeleteDataForm en={en} /></div>

@@ -5,12 +5,13 @@ import { and, eq, gte, lt } from "drizzle-orm";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { env } from "cloudflare:workers";
-import { getChatGPTUser, requireChatGPTUser, createAppSession, clearAppSession } from "./chatgpt-auth";
+import { getChatGPTUser, getGuestUserFromSession, requireChatGPTUser, createAppSession, clearAppSession } from "./chatgpt-auth";
 import { getDb } from "@/db";
 import { authAccounts, authSessions, labResults, medicationLogs, medications, monitoringCompletions, profileLocations, profiles, vaccinations, vaccines } from "@/db/schema";
 import { readVaccinationMetadata, writeVaccinationMetadata } from "./vaccination-record";
 import { ensureCatalog, ensureProfile } from "./data";
 import monitoringRules from "./monitoring_rules.json";
+import { verifyAppleIdentityToken } from "./apple-auth";
 
 async function removeUpcomingVaccineRows(userId: string, vaccineId: string, exceptId?: string) {
   const db = getDb();
@@ -23,6 +24,54 @@ async function hashPassword(password: string, salt: string) {
   const material = await crypto.subtle.importKey("raw", new TextEncoder().encode(password), "PBKDF2", false, ["deriveBits"]);
   const bits = await crypto.subtle.deriveBits({ name: "PBKDF2", salt: new TextEncoder().encode(salt), iterations: 100000, hash: "SHA-256" }, material, 256);
   return Array.from(new Uint8Array(bits)).map((byte) => byte.toString(16).padStart(2, "0")).join("");
+}
+
+async function moveGuestData(guestId: string, userId: string, displayName: string, newAccount: boolean) {
+  if (!guestId.startsWith("guest:") || guestId === userId) return;
+  const db = getDb();
+  const [guestAccount] = await db.select({ id: authAccounts.id }).from(authAccounts).where(eq(authAccounts.id, guestId)).limit(1);
+  if (!guestAccount) return;
+  const [guestProfile] = await db.select().from(profiles).where(eq(profiles.userId, guestId)).limit(1);
+  const [userProfile] = await db.select().from(profiles).where(eq(profiles.userId, userId)).limit(1);
+  if (!userProfile) return;
+
+  const [currentLocation] = await db.select({ id: profileLocations.id }).from(profileLocations).where(and(eq(profileLocations.userId, userId), eq(profileLocations.isCurrent, true))).limit(1);
+  if (currentLocation) await db.update(profileLocations).set({ isCurrent: false }).where(and(eq(profileLocations.userId, guestId), eq(profileLocations.isCurrent, true)));
+  await db.update(profileLocations).set({ userId }).where(eq(profileLocations.userId, guestId));
+
+  const guestVaccinations = await db.select().from(vaccinations).where(eq(vaccinations.userId, guestId));
+  const userVaccinations = await db.select({ dateGiven: vaccinations.dateGiven }).from(vaccinations).where(eq(vaccinations.userId, userId));
+  const occupiedDates = new Set(userVaccinations.map((row) => row.dateGiven).filter((value): value is string => Boolean(value)));
+  for (const record of guestVaccinations) {
+    if (!record.dateGiven || !occupiedDates.has(record.dateGiven)) continue;
+    const metadata = readVaccinationMetadata(record.notes);
+    await db.update(vaccinations).set({
+      dateGiven: null,
+      notes: writeVaccinationMetadata({ ...metadata, dateString: metadata.dateString || record.dateGiven, dateDoneISO: metadata.dateDoneISO || record.dateGiven, userNotes: metadata.userNotes || record.notes }),
+    }).where(and(eq(vaccinations.id, record.id), eq(vaccinations.userId, guestId)));
+  }
+
+  await db.update(vaccinations).set({ userId }).where(eq(vaccinations.userId, guestId));
+  await db.update(medications).set({ userId }).where(eq(medications.userId, guestId));
+  await db.update(medicationLogs).set({ userId }).where(eq(medicationLogs.userId, guestId));
+  await db.update(monitoringCompletions).set({ userId }).where(eq(monitoringCompletions.userId, guestId));
+  await db.update(labResults).set({ userId }).where(eq(labResults.userId, guestId));
+  if (guestProfile) {
+    await db.update(profiles).set({
+      fullName: newAccount ? displayName : userProfile.fullName || guestProfile.fullName || displayName,
+      birthDate: userProfile.birthDate || guestProfile.birthDate,
+      gender: userProfile.gender || guestProfile.gender,
+      cityCurrent: userProfile.cityCurrent || guestProfile.cityCurrent,
+      regionCurrent: userProfile.regionCurrent || guestProfile.regionCurrent,
+      countryCurrent: userProfile.countryCurrent || guestProfile.countryCurrent,
+      countryCode: userProfile.countryCode || guestProfile.countryCode,
+      onboardingCompleted: userProfile.onboardingCompleted || guestProfile.onboardingCompleted,
+      updatedAt: new Date().toISOString(),
+    }).where(eq(profiles.userId, userId));
+    await db.delete(profiles).where(eq(profiles.userId, guestId));
+  }
+  await db.delete(authSessions).where(eq(authSessions.userId, guestId));
+  await db.delete(authAccounts).where(eq(authAccounts.id, guestId));
 }
 
 const monthLabels = {
@@ -99,9 +148,10 @@ function parseVaccinationDate(raw: string, en: boolean) {
 export async function registerAccount(formData: FormData) {
   const email = String(formData.get("email") || "").trim().toLowerCase();
   const password = String(formData.get("password") || "");
+  const confirmPassword = String(formData.get("confirmPassword") || "");
   const displayName = String(formData.get("displayName") || "").trim();
   const returnTo = String(formData.get("returnTo") || "/");
-  if (!email.includes("@") || password.length < 6 || displayName.length < 2) redirect(`/register?error=${encodeURIComponent("Проверьте имя, email и пароль (минимум 6 символов).")}`);
+  if (!email.includes("@") || password.length < 6 || displayName.length < 2 || password !== confirmPassword) redirect(`/register?error=${encodeURIComponent(password !== confirmPassword ? "Пароли не совпадают." : "Проверьте имя, email и пароль (минимум 6 символов).")}`);
   const db = getDb();
   const [existing] = await db.select({ id: authAccounts.id }).from(authAccounts).where(eq(authAccounts.email, email)).limit(1);
   if (existing) redirect(`/login?error=${encodeURIComponent("Аккаунт с таким email уже существует.")}`);
@@ -110,6 +160,8 @@ export async function registerAccount(formData: FormData) {
   const passwordHash = `${salt}:${await hashPassword(password, salt)}`;
   await db.insert(authAccounts).values({ id, email, passwordHash, displayName, createdAt: new Date().toISOString() });
   await ensureProfile({ userId: id, email, displayName });
+  const guest = await getGuestUserFromSession();
+  if (guest) await moveGuestData(guest.userId, id, displayName, true);
   await createAppSession(id);
   redirect(returnTo.startsWith("/") ? returnTo : "/");
 }
@@ -123,8 +175,57 @@ export async function loginAccount(formData: FormData) {
   const [salt, expected] = account.passwordHash.split(":");
   const actual = await hashPassword(password, salt);
   if (actual !== expected) redirect(`/login?error=${encodeURIComponent("Неверный email или пароль.")}`);
+  await ensureProfile({ userId: account.id, email: account.email, displayName: account.displayName });
+  const guest = await getGuestUserFromSession();
+  if (guest) await moveGuestData(guest.userId, account.id, account.displayName, false);
   await createAppSession(account.id);
   redirect(returnTo.startsWith("/") ? returnTo : "/");
+}
+
+export async function startGuestSession(formData: FormData) {
+  const deviceId = String(formData.get("deviceId") || "").trim().toLowerCase();
+  const returnTo = String(formData.get("returnTo") || "/");
+  if (!/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(deviceId)) redirect("/login");
+  const userId = `guest:${deviceId}`;
+  const email = `guest-${deviceId}@guest.karta.invalid`;
+  const db = getDb();
+  let [account] = await db.select().from(authAccounts).where(eq(authAccounts.id, userId)).limit(1);
+  if (!account) {
+    account = { id: userId, email, passwordHash: `guest:${crypto.randomUUID()}`, displayName: "Guest", createdAt: new Date().toISOString() };
+    await db.insert(authAccounts).values(account);
+  }
+  await ensureProfile({ userId, email, displayName: account.displayName });
+  await createAppSession(userId);
+  redirect(returnTo.startsWith("/") && !returnTo.startsWith("//") ? returnTo : "/");
+}
+
+export async function loginWithApple(formData: FormData) {
+  const identityToken = String(formData.get("identityToken") || "");
+  const fullName = String(formData.get("fullName") || "").trim();
+  const returnTo = String(formData.get("returnTo") || "/");
+  const appleWebClientId = (env as unknown as Record<string, string | undefined>).APPLE_WEB_CLIENT_ID || "";
+  if (!appleWebClientId || !identityToken) redirect(`/login?error=${encodeURIComponent("Вход через Apple пока не настроен для веб-версии.")}`);
+  let claims;
+  try { claims = await verifyAppleIdentityToken(identityToken, [appleWebClientId]); }
+  catch { redirect(`/login?error=${encodeURIComponent("Не удалось проверить вход через Apple.")}`); }
+
+  const db = getDb();
+  const accountId = `apple:${claims.sub}`;
+  let [account] = await db.select().from(authAccounts).where(eq(authAccounts.id, accountId)).limit(1);
+  if (!account && claims.email) [account] = await db.select().from(authAccounts).where(eq(authAccounts.email, claims.email.toLowerCase())).limit(1);
+  if (!account) {
+    const email = (claims.email || `${claims.sub}@apple.karta`).toLowerCase();
+    account = { id: accountId, email, passwordHash: `apple:${crypto.randomUUID()}`, displayName: fullName || email, createdAt: new Date().toISOString() };
+    await db.insert(authAccounts).values(account);
+  } else if (fullName && account.displayName !== fullName) {
+    await db.update(authAccounts).set({ displayName: fullName }).where(eq(authAccounts.id, account.id));
+    account.displayName = fullName;
+  }
+  await ensureProfile({ userId: account.id, email: account.email, displayName: account.displayName });
+  const guest = await getGuestUserFromSession();
+  if (guest) await moveGuestData(guest.userId, account.id, account.displayName, false);
+  await createAppSession(account.id);
+  redirect(returnTo.startsWith("/") && !returnTo.startsWith("//") ? returnTo : "/");
 }
 
 export async function changePassword(formData: FormData) {

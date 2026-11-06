@@ -16,7 +16,7 @@ function decodeJson<T>(value: string): T {
   return JSON.parse(new TextDecoder().decode(decodePart(value))) as T;
 }
 
-export async function verifyAppleIdentityToken(identityToken: string): Promise<Required<Pick<AppleClaims, "sub">> & AppleClaims> {
+export async function verifyAppleIdentityToken(identityToken: string, allowedAudiences = ["com.astakhova.karta"]): Promise<Required<Pick<AppleClaims, "sub">> & AppleClaims> {
   const parts = identityToken.split(".");
   if (parts.length !== 3) throw new Error("Invalid Apple identity token");
   const header = decodeJson<{ alg?: string; kid?: string }>(parts[0]);
@@ -24,7 +24,7 @@ export async function verifyAppleIdentityToken(identityToken: string): Promise<R
   if (header.alg !== "ES256" || !header.kid || !claims.sub) throw new Error("Invalid Apple identity token");
   if (claims.iss !== "https://appleid.apple.com") throw new Error("Invalid Apple identity token issuer");
   const audience = Array.isArray(claims.aud) ? claims.aud : [claims.aud];
-  if (!audience.includes("com.astakhova.karta")) throw new Error("Invalid Apple identity token audience");
+  if (!audience.some((value) => allowedAudiences.includes(value || ""))) throw new Error("Invalid Apple identity token audience");
   if (!claims.exp || claims.exp <= Math.floor(Date.now() / 1000)) throw new Error("Apple identity token expired");
 
   const keysResponse = await fetch("https://appleid.apple.com/auth/keys", { cf: { cacheTtl: 3600, cacheEverything: true } });
