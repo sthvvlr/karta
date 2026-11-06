@@ -55,8 +55,8 @@ export async function GET(request: Request) {
   pdf.registerFontkit(fontkit);
   const fontBytes = await fontResponse.arrayBuffer();
   const boldFontBytes = await boldFontResponse.arrayBuffer();
-  const regular = await pdf.embedFont(fontBytes, { subset: true });
-  const bold = await pdf.embedFont(boldFontBytes, { subset: true });
+  const regular = await pdf.embedFont(fontBytes, { subset: false });
+  const bold = await pdf.embedFont(boldFontBytes, { subset: false });
   const icon = iconResponse.ok ? await pdf.embedPng(await iconResponse.arrayBuffer()) : null;
   let page: PDFPage;
   let y = 0;
