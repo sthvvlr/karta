@@ -110,6 +110,7 @@ export function medicationTasksForDate(medications: MedicationForTasks[], logs: 
 export type VaccineForTasks = {
   id: string;
   nameRu: string;
+  nameEn?: string;
   totalDoses: number;
   intervalYears: number | null;
   frequencyType?: string;
@@ -122,11 +123,22 @@ export type VaccineForTasks = {
   infantContactNoteRu?: string | null;
   tags?: string[];
   descriptionRu?: string | null;
+  descriptionEn?: string | null;
   noteRu?: string | null;
+  noteEn?: string | null;
   disclaimerRu?: string | null;
+  disclaimerEn?: string | null;
   scheduleRu?: string | null;
+  scheduleEn?: string | null;
   whoRu?: string | null;
-  regions?: Record<string, { scheduleRu?: string | null; noteRu?: string | null; disclaimerRu?: string | null; audience?: string | null; whoRu?: string | null }>;
+  whoEn?: string | null;
+  pregnancyNoteRu?: string | null;
+  pregnancyNoteEn?: string | null;
+  infantContactNoteRu?: string | null;
+  infantContactNoteEn?: string | null;
+  pregnancyRelevant?: boolean;
+  requiresEndemicCheck?: boolean;
+  regions?: Record<string, { scheduleRu?: string | null; scheduleEn?: string | null; noteRu?: string | null; noteEn?: string | null; disclaimerRu?: string | null; disclaimerEn?: string | null; audience?: string | null; whoRu?: string | null; whoEn?: string | null }>;
 };
 
 export type VaccinationForTasks = {

@@ -9,6 +9,7 @@ import { VaccinationDateInput } from "@/app/VaccinationDateInput";
 import { isCustomVaccineId, readVaccinationMetadata } from "@/app/vaccination-record";
 import brandCatalog from "@/app/vaccine_brands.json";
 import { AddVaccinationSheet } from "@/app/AddVaccinationSheet";
+import { VaccineRecommendationSheet } from "@/app/VaccineRecommendationSheet";
 
 export const dynamic = "force-dynamic";
 
@@ -97,44 +98,11 @@ function UpcomingTask({ task, today, firstDoseDate }: { task: ReturnType<typeof 
 
 function RecommendationsContent({ data, recommendations, region, today }: { data: Awaited<ReturnType<typeof getUserData>>; recommendations: ReturnType<typeof recommendedVaccines>; region: string | undefined; today: string }) {
   const travelAdvisory = tbeRisk(data.profile?.countryCode, data.profile?.regionCurrent) === "low";
-  const endemicRegions = [
-    { flag: "🇪🇪🇱🇻🇱🇹🇦🇹🇨🇿🇸🇮🇸🇰", title: "Высокий риск", regions: "Эстония, Латвия, Литва, Австрия, Чехия, Словения, Словакия", color: "#EF4444" },
-    { flag: "🇩🇪🇨🇭🇸🇪🇫🇮🇵🇱🇭🇺🇭🇷", title: "Умеренный риск", regions: "Германия, Швейцария, Швеция, Финляндия, Польша, Венгрия, Хорватия, Беларусь, Украина", color: "#D97706" },
-    { flag: "🇷🇺", title: "Россия (высокий/умеренный риск)", regions: "Урал, Сибирь, Дальний Восток, Поволжье, Северо-Западный регион", color: "#EF4444" },
-    { flag: "🇨🇳🇲🇳🇰🇿", title: "Умеренный риск", regions: "Северо-восточный Китай, Монголия, Казахстан", color: "#D97706" },
-    { flag: "🇯🇵", title: "Низкий риск", regions: "Япония: только Хоккайдо", color: "#6B7280" },
-  ];
   return <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 16, padding: "13px 14px", marginBottom: 18 }}>
     <div style={{ fontSize: 13, fontWeight: 700 }}>Рекомендовано для вас · {recommendations.length}</div>
     <div style={{ marginTop: 10 }}>
       {!data.profile?.countryCode && <div style={{ padding: 10, background: "rgba(255,247,230,.75)", borderRadius: 10, fontSize: 11, color: "#9A6700", marginBottom: 8 }}>Укажите город в профиле — региональные рекомендации станут точнее.</div>}
-      {recommendations.length === 0 ? <div style={{ color: C.muted, fontSize: 12 }}>Все подходящие записи уже добавлены или данных профиля недостаточно.</div> : <div style={{ display: "grid", gap: 8 }}>{recommendations.map((item) => {
-        const local = region ? item.regions?.[region] : undefined;
-        const pregnancyNote = item.pregnancyRelevant ? item.pregnancyNoteRu : null;
-        const tags = item.tags || [];
-        const isTravelAdvisory = item.requiresEndemicCheck && travelAdvisory;
-        const schedule = local?.scheduleRu || item.scheduleRu || "По назначению врача";
-        const note = local?.noteRu || item.noteRu;
-        const disclaimer = local?.disclaimerRu || item.disclaimerRu;
-        return <details key={item.id} style={{ padding: "10px 11px", borderRadius: 12, background: "rgba(244,246,255,.72)" }}>
-          <summary style={{ cursor: "pointer", fontSize: 13, fontWeight: 700 }}>{item.nameRu}{tags.length > 0 && <span style={{ display: "block", color: "#5C7CFA", fontSize: 10, fontWeight: 600, marginTop: 3 }}>{tags.map((tag) => tag === "travel" ? "Путешествия" : tag === "pregnancy" ? "Беременность" : tag === "infant_contact" ? "Контакт с младенцами" : tag === "60plus" ? "60+" : tag).join(" · ")}</span>}<span style={{ display: "block", color: C.muted, fontSize: 11, fontWeight: 400, marginTop: 3 }}>{schedule}</span></summary>
-          <div style={{ fontSize: 11, color: C.muted, lineHeight: 1.45, marginTop: 8 }}>
-            {isTravelAdvisory && <div style={{ padding: "7px 9px", marginBottom: 8, borderRadius: 8, color: "#0B7285", background: "rgba(6,182,212,.08)" }}>⌖ Рекомендуется при поездке в эндемичные регионы</div>}
-            <b>О вакцине:</b> {item.descriptionRu}<br /><br />
-            <b>Кому делать:</b> {local?.whoRu || item.whoRu || "Взрослым по показаниям"}<br /><br />
-            <b>Схема вакцинации:</b> {schedule}
-            {note && <><br /><br /><b>Важно знать:</b> {note}</>}
-            {disclaimer && <><br /><br /><b>Примечание:</b> {disclaimer}</>}
-            {pregnancyNote && <><br /><br /><b>Беременность:</b> {pregnancyNote}</>}
-            {item.infantContactNoteRu && <><br /><br /><b>Если рядом младенец:</b> {item.infantContactNoteRu}</>}
-            {item.requiresEndemicCheck && <div style={{ marginTop: 12, padding: "10px 11px", borderRadius: 11, background: "rgba(255,255,255,.76)", border: `1px solid ${C.border}` }}>
-              <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: ".08em", color: C.muted, textTransform: "uppercase", marginBottom: 8 }}>Эндемичные регионы</div>
-              <div style={{ display: "grid", gap: 8 }}>{endemicRegions.map((entry) => <div key={entry.title + entry.flag} style={{ display: "flex", gap: 8, alignItems: "flex-start" }}><span style={{ width: 29, flexShrink: 0 }}>{entry.flag}</span><div><b style={{ display: "block", color: entry.color }}>{entry.title}</b>{entry.regions}</div></div>)}</div>
-            </div>}
-            <form action={addVaccination} style={{ display: "grid", gap: 7, marginTop: 10 }}><input type="hidden" name="vaccineId" value={item.id} /><VaccinationDateInput initialDate={today} maxDate={today} doseNumber={1} totalDoses={item.totalDoses} doseScheduleDays={item.doseScheduleDays} frequencyType={item.frequencyType} intervalYears={item.intervalYears} style={input} /><input name="brand" list="vaccine-brands" placeholder="Препарат / бренд" style={input} /><input name="clinic" placeholder="Клиника" style={input} /><button type="submit" style={{ border: 0, borderRadius: 9, padding: "9px 10px", background: "#5C7CFA", color: "white", fontSize: 12, fontWeight: 700 }}>Сохранить выполненную дозу</button></form>
-          </div>
-        </details>;
-      })}</div>}
+      {recommendations.length === 0 ? <div style={{ color: C.muted, fontSize: 12 }}>Все подходящие записи уже добавлены или данных профиля недостаточно.</div> : <div style={{ display: "grid", gap: 8 }}>{recommendations.map((item) => <VaccineRecommendationSheet key={item.id} vaccine={item} region={region} today={today} brands={brandCatalog[item.id] || []} travelAdvisory={Boolean(item.requiresEndemicCheck && travelAdvisory)} />)}</div>}
     </div>
   </div>;
 }

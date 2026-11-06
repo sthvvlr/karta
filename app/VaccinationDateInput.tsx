@@ -46,6 +46,7 @@ export function VaccinationDateInput({ initialDate, maxDate, doseNumber, totalDo
   }, [date, doseNumber, doseScheduleDays, firstDoseDate, frequencyType, intervalYears, totalDoses]);
   const formattedNextDate = nextDate ? new Intl.DateTimeFormat(language === "en" ? "en-US" : "ru-RU", { day: "numeric", month: "short", year: "numeric" }).format(toDate(nextDate)!) : "";
   return <>
+    <input type="hidden" name="nextDue" value={nextDate || ""} />
     <label style={{ fontSize: 11, color: "rgba(26,32,80,.55)" }}>Дата прививки<input name="dateGiven" type="date" required value={date} max={maxDate} onChange={(event) => setDate(event.target.value)} style={{ ...style, marginTop: 4 }} /></label>
     {formattedNextDate && <div style={{ padding: "8px 10px", borderRadius: 9, background: "rgba(92,124,250,.08)", color: "rgba(26,32,80,.55)", fontSize: 11 }}>{doseNumber < totalDoses ? "Следующая доза:" : "Следующая ревакцинация:"} {formattedNextDate}</div>}
   </>;
