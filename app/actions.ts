@@ -26,6 +26,17 @@ async function hashPassword(password: string, salt: string) {
   return Array.from(new Uint8Array(bits)).map((byte) => byte.toString(16).padStart(2, "0")).join("");
 }
 
+function safeLocalReturnTo(value: string) {
+  if (!value.startsWith("/") || value.startsWith("//")) return "/";
+  try {
+    const target = new URL(value, "https://karta.local");
+    if (target.origin !== "https://karta.local") return "/";
+    return `${target.pathname}${target.search}${target.hash}`;
+  } catch {
+    return "/";
+  }
+}
+
 async function moveGuestData(guestId: string, userId: string, displayName: string, newAccount: boolean) {
   if (!guestId.startsWith("guest:") || guestId === userId) return;
   const db = getDb();
@@ -150,7 +161,7 @@ export async function registerAccount(formData: FormData) {
   const password = String(formData.get("password") || "");
   const confirmPassword = String(formData.get("confirmPassword") || "");
   const displayName = String(formData.get("displayName") || "").trim();
-  const returnTo = String(formData.get("returnTo") || "/");
+  const returnTo = safeLocalReturnTo(String(formData.get("returnTo") || "/"));
   if (!email.includes("@") || password.length < 6 || displayName.length < 2 || password !== confirmPassword) redirect(`/register?error=${encodeURIComponent(password !== confirmPassword ? "Пароли не совпадают." : "Проверьте имя, email и пароль (минимум 6 символов).")}`);
   const db = getDb();
   const [existing] = await db.select({ id: authAccounts.id }).from(authAccounts).where(eq(authAccounts.email, email)).limit(1);
@@ -163,13 +174,13 @@ export async function registerAccount(formData: FormData) {
   const guest = await getGuestUserFromSession();
   if (guest) await moveGuestData(guest.userId, id, displayName, true);
   await createAppSession(id);
-  redirect(returnTo.startsWith("/") ? returnTo : "/");
+  redirect(returnTo);
 }
 
 export async function loginAccount(formData: FormData) {
   const email = String(formData.get("email") || "").trim().toLowerCase();
   const password = String(formData.get("password") || "");
-  const returnTo = String(formData.get("returnTo") || "/");
+  const returnTo = safeLocalReturnTo(String(formData.get("returnTo") || "/"));
   const [account] = await getDb().select().from(authAccounts).where(eq(authAccounts.email, email)).limit(1);
   if (!account) redirect(`/login?error=${encodeURIComponent("Неверный email или пароль.")}`);
   const [salt, expected] = account.passwordHash.split(":");
@@ -179,7 +190,7 @@ export async function loginAccount(formData: FormData) {
   const guest = await getGuestUserFromSession();
   if (guest) await moveGuestData(guest.userId, account.id, account.displayName, false);
   await createAppSession(account.id);
-  redirect(returnTo.startsWith("/") ? returnTo : "/");
+  redirect(returnTo);
 }
 
 export async function startGuestSession(formData: FormData) {
