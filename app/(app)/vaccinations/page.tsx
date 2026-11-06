@@ -86,7 +86,7 @@ function PassportContent({ data, records, upcoming, recommendedCount, today, en,
 
       {history.length > 0 && <>
         <div style={{ fontSize: 13, fontWeight: 700, marginTop: 6, marginBottom: 10 }}>{en ? "Done" : "Сделаны"}</div>
-        <VaccinationHistory records={history.map(({ record }) => record)} vaccines={vaccines} brands={brands} />
+        <VaccinationHistory records={history.map(({ record }) => record)} vaccines={vaccines} catalogDetails={taskCatalog} region={region || undefined} brands={brands} />
       </>}
     </>}
 
