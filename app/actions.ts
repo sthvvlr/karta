@@ -376,12 +376,16 @@ export async function addLabResult(formData: FormData) {
   const id = String(formData.get("id") || "") || crypto.randomUUID();
   const db = getDb();
   const [existing] = await db.select({ fileKey: labResults.fileKey }).from(labResults).where(and(eq(labResults.id, id), eq(labResults.userId, auth.userId))).limit(1);
-  let fileKey = existing?.fileKey || null;
+  const removeExistingFile = String(formData.get("removeFile") || "") === "true";
+  const previousFileKey = existing?.fileKey || null;
+  let fileKey = removeExistingFile ? null : previousFileKey;
   const file = formData.get("file");
   if (file instanceof File && file.size > 0 && env.BUCKET) {
-    fileKey = `labs/${auth.userId}/${id}/${file.name.replace(/[^a-zA-Z0-9._-]/g, "_")}`;
-    await env.BUCKET.put(fileKey, await file.arrayBuffer(), { httpMetadata: { contentType: file.type || "application/octet-stream" } });
+    const nextFileKey = `labs/${auth.userId}/${id}/${file.name.replace(/[^a-zA-Z0-9._-]/g, "_")}`;
+    await env.BUCKET.put(nextFileKey, await file.arrayBuffer(), { httpMetadata: { contentType: file.type || "application/octet-stream" } });
+    fileKey = nextFileKey;
   }
+  if (previousFileKey && previousFileKey !== fileKey && env.BUCKET) await env.BUCKET.delete(previousFileKey);
   const values = {
     userId: auth.userId,
     name: String(formData.get("name") || "Анализ").trim(),
