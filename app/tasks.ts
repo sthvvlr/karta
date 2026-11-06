@@ -220,9 +220,9 @@ export function catalogRegion(countryCode: string | null | undefined): string | 
   return regionCountries[code] || (euCountries.has(code) ? "EU" : null);
 }
 
-type TbeRisk = "high" | "moderate" | "low" | "none";
+export type TbeRisk = "high" | "moderate" | "low" | "none";
 
-function tbeRisk(countryCode: string | null | undefined, adminArea: string | null | undefined): TbeRisk {
+export function tbeRisk(countryCode: string | null | undefined, adminArea: string | null | undefined): TbeRisk {
   const code = (countryCode || "").toUpperCase();
   const area = `${adminArea || ""}`.toLowerCase();
   if (["US", "CA", "AU", "NZ", "GB", "IE", "FR", "ES", "PT", "NL", "BE", "LU", "DK", "MT", "CY", "IT", "GR", "ZA", "NG", "KE", "MA", "EG", "BR", "AR", "MX", "IN", "VN", "TH", "ID", "MY", "PH", "SG", "KH", "MM", "LA", "BN", "KR"].includes(code)) return "none";
@@ -231,9 +231,9 @@ function tbeRisk(countryCode: string | null | undefined, adminArea: string | nul
   if (["NO", "BG", "RO"].includes(code)) return "low";
   if (code === "JP") return /hokkaido|хоккайдо/.test(area) ? "moderate" : "none";
   if (code === "RU") {
-    if (/свердлов|тюмен|курган|челябин|пермск|новосибир|томск|кемеров|иркутск|краснояр|алтай|бурят|тыва|хакас|забайкал|читин|примор|хабаров|сахалин|амур|еврейск|удмурт|марий|башкорт|оренбург|самар|архангел/.test(area)) return "high";
-    if (/киров|вологод|костром|ярослав|твер|псков|новгород|ленинград|санкт-петербург|карел|коми|нижегород|владимир|калининград|московская область/.test(area)) return "moderate";
-    if (/москва|краснодар|ставропол|ростов|волгоград|астрахан|дагестан|чечен|ингушет/.test(area)) return "low";
+    if (/свердловск|sverdlovsk|тюмен|tyumen|курган|kurgan|челябинск|chelyabinsk|пермск|\bperm\b|новосибирск|novosibirsk|томск|tomsk|кемерово|kemerovo|иркутск|irkutsk|красноярск|krasnoyarsk|алтай|altai|бурятия|buryatia|тыва|tuva|хакасия|khakassia|забайкал|zabaykalsky|zabaikalsky|читинск|\bchita\b|приморск|primorsky|хабаровск|khabarovsk|сахалин|sakhalin|амурск|amurskaya|еврейская|jewish autonomous|удмуртия|udmurtia|марий эл|mari el|башкорт|bashkortostan|оренбург|orenburg|самарск|\bsamara\b|архангельск|arkhangelsk/.test(area)) return "high";
+    if (/кировск|kirovskaya|киров oblast|вологодск|vologda|костромск|kostroma|ярославск|yaroslavl|тверск|\btver\b|псковск|pskov|новгородск|novgorod|ленинградск|leningrad|санкт-петербург|saint petersburg|st\.? petersburg|карел|karelia|коми|\bkomi\b|нижегород|nizhny novgorod|владимирск|vladimirskaya|калининград|kaliningrad|московская область|moscow oblast|moskovskaya oblast/.test(area)) return "moderate";
+    if (/москва|moscow city|краснодарск|krasnodar|ставрополь|stavropol|ростовск|rostov|волгоградск|volgograd|астраханск|astrakhan|дагестан|dagestan|чечен|chechen|ингушет|ingushetia/.test(area)) return "low";
     return "moderate";
   }
   return "none";
@@ -248,7 +248,7 @@ export function recommendedVaccines(profile: ProfileForRecommendations | null | 
     if (vaccine.ageMin && age !== null && age < vaccine.ageMin) return false;
     if (vaccine.audience === "female" && profile?.gender === "male") return false;
     if (vaccine.audience === "60plus" && age !== null && age < 60) return false;
-    if (vaccine.requiresEndemicCheck && tbeRisk(profile?.countryCode, profile?.regionCurrent || profile?.cityCurrent) === "none") return false;
+    if (vaccine.requiresEndemicCheck && tbeRisk(profile?.countryCode, profile?.regionCurrent) === "none") return false;
     if (region && vaccine.regions && !vaccine.regions[region]) return false;
     return true;
   });
