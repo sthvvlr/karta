@@ -15,7 +15,6 @@ export const metadata: Metadata = {
     title: "Karta",
     statusBarStyle: "default",
   },
-  other: { "codex-preview": "development" },
 };
 
 export const viewport: Viewport = {

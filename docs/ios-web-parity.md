@@ -20,10 +20,13 @@ Use the iOS app as the source of truth for screens, layout, controls, and behavi
 
 ## Recent evidence
 
-- Local production build passed before the latest onboarding and session-priority edits; rebuild before publishing them.
+- Production Site version 70 is live at `https://karta-health.lera-wt.chatgpt.site` (HTTP 200); it includes guest onboarding sign-in, app-session priority, and validated return paths.
+- The local production build passed for version 70. The next local patch adds locale-aware month/year dates to both PDF export paths and removes preview-only metadata; it still needs a build and release.
 - At 320×844, local onboarding showed the guest sign-in link, card, input, and primary action without overlap.
-- Production Site version 68 is live at `https://karta-health.lera-wt.chatgpt.site` (HTTP 200). It predates the latest local onboarding and session-priority edits.
-- Local email/guest sessions now take precedence over ChatGPT identity headers in source; verify this on the deployed Sites runtime.
+- Guest-to-email sign-in was exercised with a synthetic local profile; its pre-existing vaccination record remained visible afterward.
+- All six Russian/English full, vaccination-only, and medication-only PDFs downloaded as A4, one-page files from the current local source. Their layout was visually reviewed; a large multi-page dataset remains unverified.
+- A month/year record exports as `May 2025` in English and `Май 2025` in Russian, even when the stored note was originally Russian.
+- Live unauthenticated `/onboarding` redirects to `/login` with the requested onboarding return path.
 
 ## Release criteria
 

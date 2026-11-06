@@ -7,19 +7,13 @@ import { getUserData } from "@/app/data";
 import { PdfExportControls } from "@/app/PdfExportControls";
 import medicationCatalog from "@/app/medications_ru.json";
 import { birthDateDisplayValue } from "@/app/profile-dates";
-import { readVaccinationMetadata } from "@/app/vaccination-record";
+import { displayVaccinationDate, readVaccinationMetadata } from "@/app/vaccination-record";
 
 export const dynamic = "force-dynamic";
 
 const ink = "#1A2050";
 const muted = "rgba(26,32,80,.48)";
 const line = "rgba(26,32,80,.09)";
-
-function formatDate(value: string | null, lang: "ru" | "en") {
-  if (!value) return lang === "ru" ? "Дата не указана" : "Date not specified";
-  const date = new Date(`${value.slice(0, 10)}T00:00:00`);
-  return Number.isNaN(date.getTime()) ? value : date.toLocaleDateString(lang === "ru" ? "ru-RU" : "en-US", { day: "numeric", month: "short", year: "numeric" });
-}
 
 export default async function ExportPage({ searchParams }: { searchParams: Promise<{ lang?: string; scope?: string }> }) {
   const params = await searchParams;
@@ -72,7 +66,7 @@ export default async function ExportPage({ searchParams }: { searchParams: Promi
         const name = en ? vaccine?.nameEn || metadata.name || record.vaccineId : metadata.name || vaccine?.nameRu || record.vaccineId;
         const totalDoses = metadata.totalDoses ?? vaccine?.totalDoses ?? 1;
         const dose = totalDoses > 1 ? (en ? ` (dose ${record.doseNumber} of ${totalDoses})` : ` (доза ${record.doseNumber} из ${totalDoses})`) : "";
-        const date = formatDate(metadata.dateString || record.dateGiven, lang);
+        const date = displayVaccinationDate(metadata, record.dateGiven, lang);
         return <div key={record.id} className="passport-vax-row" style={{ display: "flex", alignItems: "flex-start", gap: 8, minHeight: record.brand ? 38 : 26, padding: "4px 0", borderBottom: `1px solid ${line}` }}><span style={{ width: 14, flex: "none", color: "#20C997", fontSize: 14, lineHeight: "18px" }}>✓</span><div style={{ flex: 1, minWidth: 0 }}><div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 8 }}><span style={{ fontSize: 12, fontWeight: 600 }}>{name}{dose}</span><span style={{ color: muted, fontSize: 11, whiteSpace: "nowrap" }}>{date}</span></div>{record.brand && <div style={{ marginTop: 3, color: "rgba(92,124,250,.7)", fontSize: 10 }}>{record.brand}</div>}</div></div>;
       }) : <div className="passport-empty">{en ? "No vaccination records" : "Нет записей о прививках"}</div>}
     </section>}

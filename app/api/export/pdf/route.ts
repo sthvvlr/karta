@@ -3,7 +3,7 @@ import { degrees, PDFDocument, rgb, type PDFFont, type PDFPage } from "pdf-lib";
 import { getChatGPTUser } from "@/app/chatgpt-auth";
 import { getUserData } from "@/app/data";
 import medicationCatalog from "@/app/medications_ru.json";
-import { readVaccinationMetadata } from "@/app/vaccination-record";
+import { displayVaccinationDate, readVaccinationMetadata } from "@/app/vaccination-record";
 import { birthDateDisplayValue } from "@/app/profile-dates";
 
 export const dynamic = "force-dynamic";
@@ -27,18 +27,6 @@ const ROW_RULE = rgb(0.937, 0.94, 0.952);
 const FOOTER_RULE = rgb(0.91, 0.913, 0.931);
 
 type Language = "ru" | "en";
-
-function formatDate(value: string | null | undefined, lang: Language): string {
-  if (!value) return lang === "ru" ? "Дата не указана" : "Date not specified";
-  const date = new Date(`${value.slice(0, 10)}T00:00:00`);
-  if (Number.isNaN(date.getTime())) return value;
-  return new Intl.DateTimeFormat(lang === "ru" ? "ru-RU" : "en-US", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-    timeZone: "UTC",
-  }).format(date);
-}
 
 export async function GET(request: Request) {
   const user = await getChatGPTUser();
@@ -266,7 +254,7 @@ export async function GET(request: Request) {
       const title = en ? (vaccine?.nameEn || metadata.name || record.vaccineId) : (metadata.name || vaccine?.nameRu || record.vaccineId);
       const totalDoses = metadata.totalDoses ?? vaccine?.totalDoses ?? 1;
       const dose = totalDoses > 1 ? (en ? ` (dose ${record.doseNumber} of ${totalDoses})` : ` (доза ${record.doseNumber} из ${totalDoses})`) : "";
-      vaccineRow(title, dose, formatDate(metadata.dateString || record.dateGiven, lang), record.brand);
+      vaccineRow(title, dose, displayVaccinationDate(metadata, record.dateGiven, lang), record.brand);
     }
     y -= 8;
   }
