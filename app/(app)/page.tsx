@@ -8,7 +8,7 @@ import healthFacts from "@/app/health_facts.json";
 import rules from "@/app/monitoring_rules.json";
 import catalog from "@/app/vaccinations_catalog.json";
 import brandCatalog from "@/app/vaccine_brands.json";
-import { dateKey, medicationTasksForDate, monitoringTasksForDate, recommendedVaccines, vaccinationScore, upcomingVaccineTasks, type VaccineForTasks } from "@/app/tasks";
+import { dateKey, medicationTasksForDate, monitoringTasksForDate, plannedVaccinationDateKey, recommendedVaccines, vaccinationScore, upcomingVaccineTasks, type VaccineForTasks } from "@/app/tasks";
 import { ScoreDetails } from "@/app/ScoreDetails";
 import { MedicationPrompt } from "@/app/MedicationPrompt";
 import { VaccinationDateInput } from "@/app/VaccinationDateInput";
@@ -53,7 +53,7 @@ export default async function HomePage() {
   const manualVaccineTasks = data.vaccinations.flatMap(({ record, vaccine }) => {
     const metadata = readVaccinationMetadata(record.notes);
     if (!metadata.isUpcoming) return [];
-    const dueDate = metadata.nextDue || "";
+    const dueDate = plannedVaccinationDateKey(metadata);
     return [{ key: record.id, recordId: record.id, vaccineId: record.vaccineId, nameRu: metadata.name || vaccine?.nameRu || record.vaccineId, doseNumber: record.doseNumber, totalDoses: metadata.totalDoses ?? vaccine?.totalDoses ?? 1, dueDate, overdue: /^\d{4}-\d{2}-\d{2}$/.test(dueDate) && dueDate < todayKey }];
   });
   const manualVaccineTaskKeys = new Set(manualVaccineTasks.map((task) => `${task.vaccineId}:${task.doseNumber}`));
@@ -88,7 +88,7 @@ export default async function HomePage() {
         <div style={{ flex: 1 }}><div style={{ fontSize: 15, fontWeight: 700, color: C.text, marginBottom: 2 }}>{profileComplete ? "Karta Score" : en ? "Complete your profile" : "Заполните профиль"}</div><div style={{ fontSize: 11, color: C.muted }}>{profileComplete ? (score === 100 ? (en ? "All vaccinations done 🎉" : "Все прививки сделаны 🎉") : (en ? "Tap to see what's left" : "Нажмите, чтобы узнать что сделать")) : en ? `Profile ${profileProgress}% complete` : `Профиль заполнен на ${profileProgress}%`}</div></div>
           {!profileComplete && <Link href="/profile" aria-label="Заполнить профиль" style={{ color: C.muted, fontSize: 16, textDecoration: "none" }}>›</Link>}
         </div>
-        {profileComplete && score < 100 && <div style={{ position: "relative", zIndex: 1, marginTop: 12, padding: "0 4px", fontSize: 12, color: C.muted }}><ScoreDetails score={score} pending={recommended.map((item) => ({ id: item.id, name: item.nameRu, nameEn: item.nameEn, description: item.descriptionRu, descriptionEn: item.descriptionEn }))} overdue={vaccineTasks.filter((task) => task.overdue).map((task) => ({ ...task, nameEn: taskCatalog.find((vaccine) => vaccine.id === task.vaccineId)?.nameEn }))} /></div>}
+        {profileComplete && score < 100 && <div style={{ position: "relative", zIndex: 1, marginTop: 12, padding: "0 4px", fontSize: 12, color: C.muted }}><ScoreDetails score={score} pending={recommended.map((item) => ({ id: item.id, name: item.nameRu, nameEn: item.nameEn, description: item.descriptionRu, descriptionEn: item.descriptionEn }))} overdue={manualVaccineTasks.filter((task) => task.overdue).map((task) => ({ ...task, nameEn: taskCatalog.find((vaccine) => vaccine.id === task.vaccineId)?.nameEn }))} /></div>}
 
         <div style={{ position: "relative", zIndex: 1, height: 1, background: "rgba(26,32,80,0.08)", margin: "14px 0" }} />
         <div style={{ position: "relative", zIndex: 1, display: "flex", alignItems: "flex-start", gap: 8 }}><span style={{ fontSize: 13, lineHeight: 1 }}>💡</span><div><div style={{ fontSize: 10, color: "#5C7CFA", fontWeight: 700, marginBottom: 4 }}>{en ? "INTERESTING FACT" : "ИНТЕРЕСНЫЙ ФАКТ"}</div><div style={{ fontSize: 12, lineHeight: 1.45, color: C.muted }}>{en ? todayFact.en : todayFact.ru}</div></div></div>

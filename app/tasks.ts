@@ -1,4 +1,5 @@
 import { birthDateParts } from "@/app/profile-dates";
+import { readVaccinationMetadata } from "@/app/vaccination-record";
 
 export type MedicationForTasks = {
   id: string;
@@ -146,6 +147,7 @@ export type VaccinationForTasks = {
   vaccineId: string;
   dateGiven: string | null;
   doseNumber: number;
+  notes?: string | null;
 };
 
 export type UpcomingVaccineTask = {
@@ -254,17 +256,64 @@ export function tbeRisk(countryCode: string | null | undefined, adminArea: strin
 }
 
 export function recommendedVaccines(profile: ProfileForRecommendations | null | undefined, records: VaccinationForTasks[], catalog: VaccineForTasks[], today = new Date()): VaccineForTasks[] {
+  const doneIds = completedCatalogIds(records);
+  return applicableVaccines(profile, catalog, today).filter((vaccine) => !doneIds.has(vaccine.id));
+}
+
+function applicableVaccines(profile: ProfileForRecommendations | null | undefined, catalog: VaccineForTasks[], today: Date): VaccineForTasks[] {
   const age = ageFromBirthDate(profile?.birthDate, today);
-  const region = catalogRegion(profile?.countryCode);
   return catalog.filter((vaccine) => {
-    const completed = records.some((record) => record.vaccineId === vaccine.id && record.dateGiven);
-    if (completed) return false;
-    if (vaccine.ageMin && age !== null && age < vaccine.ageMin) return false;
-    if (vaccine.audience === "female" && profile?.gender === "male") return false;
-    if (vaccine.audience === "60plus" && age !== null && age < 60) return false;
     if (vaccine.requiresEndemicCheck && tbeRisk(profile?.countryCode, profile?.regionCurrent) === "none") return false;
-    if (region && vaccine.regions && !vaccine.regions[region]) return false;
+    if (vaccine.ageMin && age !== null && age < vaccine.ageMin) return false;
     return true;
+  });
+}
+
+function completedCatalogIds(records: VaccinationForTasks[]): Set<string> {
+  return new Set(records.filter((record) => !readVaccinationMetadata(record.notes).isUpcoming).map((record) => record.vaccineId));
+}
+
+const monthNames: Record<string, number> = {
+  jan: 0, january: 0, янв: 0, январ: 0, feb: 1, february: 1, фев: 1, феврал: 1,
+  mar: 2, march: 2, март: 2, apr: 3, april: 3, апр: 3, апрел: 3, may: 4, май: 4,
+  jun: 5, june: 5, июн: 5, jul: 6, july: 6, июл: 6, aug: 7, august: 7, авг: 7, август: 7,
+  sep: 8, sept: 8, september: 8, сен: 8, сентябр: 8, oct: 9, october: 9, окт: 9, октябр: 9,
+  nov: 10, november: 10, ноя: 10, ноябр: 10, dec: 11, december: 11, дек: 11, декабр: 11,
+};
+
+function plannedDate(metadata: ReturnType<typeof readVaccinationMetadata>): Date | null {
+  const iso = metadata.dateDoneISO || metadata.nextDue;
+  if (iso) {
+    const parsed = dateOnly(iso);
+    if (parsed) return parsed;
+  }
+  const raw = (metadata.dateString || "").trim().replace(/,/g, "");
+  const dayMonth = /^(\d{1,2})\s+([\p{L}.]+)\s+(\d{4})$/u.exec(raw);
+  const monthDay = /^([\p{L}.]+)\s+(\d{1,2})\s+(\d{4})$/u.exec(raw);
+  const monthYear = /^([\p{L}.]+)\s+(\d{4})$/u.exec(raw);
+  const match = dayMonth || monthDay || monthYear;
+  if (!match) return null;
+  const monthText = (dayMonth ? dayMonth[2] : match[1]).toLocaleLowerCase().replace(/\.$/, "");
+  const month = monthNames[monthText] ?? monthNames[monthText.slice(0, 3)];
+  if (month == null) return null;
+  const day = dayMonth ? Number(dayMonth[1]) : monthDay ? Number(monthDay[2]) : 1;
+  const year = Number(match[3] || match[2]);
+  const result = new Date(year, month, day);
+  return result.getFullYear() === year && result.getMonth() === month && result.getDate() === day ? result : null;
+}
+
+export function plannedVaccinationDateKey(metadata: ReturnType<typeof readVaccinationMetadata>): string {
+  const parsed = plannedDate(metadata);
+  return parsed ? dateKey(parsed) : metadata.nextDue || metadata.dateDoneISO || "";
+}
+
+export function overduePlannedVaccinations(records: VaccinationForTasks[], today = new Date()): VaccinationForTasks[] {
+  const startOfToday = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+  return records.filter((record) => {
+    const metadata = readVaccinationMetadata(record.notes);
+    if (!metadata.isUpcoming) return false;
+    const due = plannedDate(metadata);
+    return Boolean(due && due < startOfToday);
   });
 }
 
@@ -282,11 +331,12 @@ export function nextDoseDate(vaccine: VaccineForTasks, doseNumber: number, dateG
 }
 
 export function vaccinationScore(profile: ProfileForRecommendations | null | undefined, records: VaccinationForTasks[], catalog: VaccineForTasks[], today = new Date()): number {
-  const applicable = recommendedVaccines(profile, records, catalog, today).length;
-  const catalogIds = new Set(catalog.map((vaccine) => vaccine.id));
-  const total = applicable + new Set(records.filter((record) => record.dateGiven && catalogIds.has(record.vaccineId)).map((record) => record.vaccineId)).size;
-  if (total === 0) return 0;
-  return Math.round((total - applicable) / total * 100);
+  const applicable = applicableVaccines(profile, catalog, today);
+  if (applicable.length === 0) return 100;
+  const doneIds = completedCatalogIds(records);
+  const doneApplicable = applicable.filter((vaccine) => doneIds.has(vaccine.id)).length;
+  const overdueCount = overduePlannedVaccinations(records, today).length;
+  return Math.round(100 * doneApplicable / (applicable.length + overdueCount));
 }
 
 export type MonitoringRule = {

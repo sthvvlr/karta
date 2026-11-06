@@ -5,7 +5,7 @@ import { addVaccination, completeUpcomingVaccination, deleteVaccination, updateV
 import { getChatGPTUser } from "@/app/chatgpt-auth";
 import { getUserData } from "@/app/data";
 import catalog from "@/app/vaccinations_catalog.json";
-import { catalogRegion, dateKey, recommendedVaccines, tbeRisk, vaccinationScore, upcomingVaccineTasks, type VaccineForTasks } from "@/app/tasks";
+import { catalogRegion, dateKey, plannedVaccinationDateKey, recommendedVaccines, tbeRisk, vaccinationScore, upcomingVaccineTasks, type VaccineForTasks } from "@/app/tasks";
 import { VaccinationDateInput } from "@/app/VaccinationDateInput";
 import { isCustomVaccineId, readVaccinationMetadata } from "@/app/vaccination-record";
 import brandCatalog from "@/app/vaccine_brands.json";
@@ -32,7 +32,7 @@ export default async function VaccinationsPage({ searchParams }: { searchParams:
   const manualUpcoming = data.vaccinations.flatMap(({ record, vaccine }) => {
     const metadata = readVaccinationMetadata(record.notes);
     if (!metadata.isUpcoming) return [];
-    const dueDate = metadata.nextDue || "";
+    const dueDate = plannedVaccinationDateKey(metadata);
     return [{ key: record.id, recordId: record.id, vaccineId: record.vaccineId, nameRu: metadata.name || vaccine?.nameRu || record.vaccineId, doseNumber: record.doseNumber, totalDoses: metadata.totalDoses || vaccine?.totalDoses || 1, dueDate, overdue: /^\d{4}-\d{2}-\d{2}$/.test(dueDate) && dueDate < dateKey(todayDate) }];
   });
   const manualKeys = new Set(manualUpcoming.map((task) => `${task.vaccineId}:${task.doseNumber}`));
