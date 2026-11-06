@@ -150,14 +150,17 @@
 }
 
 @media print {
-  @page { size: A4; margin: 0 0 30pt; }
+  @page { size: A4; margin: 0 0 46pt; }
   .no-print { display: none !important; }
   body { background: white !important; color: #1A2050 !important; }
   .print-page { width: auto !important; max-width: none !important; margin: 0 !important; padding: 0 36pt !important; }
   .passport-header { margin-left: -36pt !important; margin-right: -36pt !important; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
   .passport-section-title, .passport-profile, .passport-med-row, .passport-vax-row { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
   .print-card { break-inside: avoid; box-shadow: none !important; background: white !important; }
-  .passport-footer { position: fixed; right: 36pt; bottom: -22pt; left: 36pt; display: flex; justify-content: space-between; padding-top: 7pt; border-top: .5pt solid rgba(26,32,80,.1); color: rgba(26,32,80,.48); font-size: 9pt; }
+  .passport-footer { display: none !important; }
+  .passport-section { break-inside: auto !important; page-break-inside: auto !important; }
+  .passport-section-title { break-inside: avoid; page-break-inside: avoid; break-after: avoid; page-break-after: avoid; }
+  .passport-med-row, .passport-vax-row { break-inside: avoid; page-break-inside: avoid; }
 }
 
 .passport-section-title { display: flex; align-items: center; gap: 8px; height: 28px; padding: 0 10px; border: 1px solid; border-radius: 7px; font-size: 9px; font-weight: 700; letter-spacing: 1.5px; }
