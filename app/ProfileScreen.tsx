@@ -26,7 +26,7 @@ export function ProfileScreen({ profile, locations, displayName, email, userId, 
   const city = [profile.cityCurrent, profile.regionCurrent, profile.countryCurrent].filter(Boolean).join(" · ") || "—";
   const guest = userId.startsWith("guest:");
 
-  return <div style={{ padding: "12px 16px 0", color: C.text }}>
+  return <div style={{ padding: "0 16px", color: C.text }}>
     <header style={{ paddingTop: 16, paddingBottom: 22 }}><h1 style={{ margin: 0, fontSize: 26, lineHeight: 1.2, fontWeight: 700 }}>{en ? "Profile" : "Профиль"}</h1><div style={{ fontSize: 13, color: C.muted, marginTop: 4 }}>{en ? "Personal info" : "Личные данные"}</div></header>
 
     {guest && <div style={{ ...cardStyle(16, 14), marginBottom: 20, borderColor: "rgba(92,124,250,.16)" }}><div style={{ fontSize: 13, fontWeight: 700 }}>{en ? "Guest mode" : "Гостевой режим"}</div><div style={{ marginTop: 4, color: C.muted, fontSize: 11, lineHeight: 1.4 }}>{en ? "Your data is stored securely and linked to this browser. Create an account to access it on other devices." : "Данные хранятся в базе Karta и связаны с этим браузером. Создайте аккаунт, чтобы открыть их на других устройствах."}</div><div style={{ display: "flex", gap: 8, marginTop: 12 }}><Link href="/register?return_to=%2Fprofile" style={{ ...secondaryButton, flex: 1, boxSizing: "border-box", textAlign: "center", textDecoration: "none" }}>{en ? "Create account" : "Создать аккаунт"}</Link><Link href="/login?return_to=%2Fprofile&guest=1" style={{ ...secondaryButton, flex: 1, boxSizing: "border-box", textAlign: "center", textDecoration: "none" }}>{en ? "Sign in" : "Войти"}</Link></div></div>}

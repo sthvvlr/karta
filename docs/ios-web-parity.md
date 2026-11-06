@@ -20,9 +20,9 @@ Use the iOS app as the source of truth for screens, layout, controls, and behavi
 
 ## Recent evidence
 
-- Production Site version 72 is live at `https://karta-health.lera-wt.chatgpt.site`; the Sites deployment completed successfully. Unauthenticated private app routes redirect to sign-in.
-- Version 72 aligns the home screen with iOS: no extra top inset, the fact remains inside the score card without a separate heading, and the PDF export uses the native row and badge. The production build passed before deployment.
-- Source comparison found the same upcoming-dose and medication section groupings in iOS and web. Those screens still need phone screenshots and interaction-state verification.
+- Production Site version 73 is live at `https://karta-health.lera-wt.chatgpt.site`; the Sites deployment completed successfully. Unauthenticated app routes redirect to sign-in.
+- Versions 72–73 align the home card hierarchy and the top insets on home, vaccination, medication, and lab screens with the iOS source. Production builds passed before deployment.
+- A synthetic profile was used for local 390×844 screenshots of home, vaccination passport/detail/recommendation detail, medication empty state, and profile edit/reminder/city-history sheets. These confirm the web layout fits the phone viewport; direct paired iOS screenshots and remaining states are still pending.
 - At 320×844, local onboarding showed the guest sign-in link, card, input, and primary action without overlap.
 - Guest-to-email sign-in was exercised with a synthetic local profile; its pre-existing vaccination record remained visible afterward.
 - All six Russian/English full, vaccination-only, and medication-only PDFs downloaded as A4, one-page files from the current local source. Their layout was visually reviewed; a large multi-page dataset remains unverified.
