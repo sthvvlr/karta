@@ -71,7 +71,7 @@ export default async function HomePage() {
   const recommended = recommendedVaccines(data.profile, data.vaccinations.map(({ record }) => record), taskCatalog, today);
   const score = vaccinationScore(data.profile, data.vaccinations.map(({ record }) => record), taskCatalog, today);
   const activeMedicationCount = data.medications.filter((medication) => medication.isActive).length;
-  const upcomingVaccineCount = manualVaccineTasks.length;
+  const upcomingVaccineCount = vaccineTasks.length;
   const recommendedVaccineCount = recommended.length;
   const monitoringTasks = monitoringTasksForDate(data.medications, completions, rules, today);
   const name = data.profile?.fullName?.split(" ")[0] || user.displayName.split(" ")[0];
