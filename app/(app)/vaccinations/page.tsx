@@ -117,7 +117,7 @@ function RecommendationsContent({ data, recommendations, region, today }: { data
         const note = local?.noteRu || item.noteRu;
         const disclaimer = local?.disclaimerRu || item.disclaimerRu;
         return <details key={item.id} style={{ padding: "10px 11px", borderRadius: 12, background: "rgba(244,246,255,.72)" }}>
-          <summary style={{ cursor: "pointer", fontSize: 13, fontWeight: 700 }}>{item.nameRu}{tags.length > 0 && <span style={{ display: "block", color: "#5C7CFA", fontSize: 10, fontWeight: 600, marginTop: 3 }}>{tags.map((tag) => tag === "travel" ? "Путешествия" : tag === "60plus" ? "60+" : tag).join(" · ")}</span>}<span style={{ display: "block", color: C.muted, fontSize: 11, fontWeight: 400, marginTop: 3 }}>{schedule}</span></summary>
+          <summary style={{ cursor: "pointer", fontSize: 13, fontWeight: 700 }}>{item.nameRu}{tags.length > 0 && <span style={{ display: "block", color: "#5C7CFA", fontSize: 10, fontWeight: 600, marginTop: 3 }}>{tags.map((tag) => tag === "travel" ? "Путешествия" : tag === "pregnancy" ? "Беременность" : tag === "infant_contact" ? "Контакт с младенцами" : tag === "60plus" ? "60+" : tag).join(" · ")}</span>}<span style={{ display: "block", color: C.muted, fontSize: 11, fontWeight: 400, marginTop: 3 }}>{schedule}</span></summary>
           <div style={{ fontSize: 11, color: C.muted, lineHeight: 1.45, marginTop: 8 }}>
             {isTravelAdvisory && <div style={{ padding: "7px 9px", marginBottom: 8, borderRadius: 8, color: "#0B7285", background: "rgba(6,182,212,.08)" }}>⌖ Рекомендуется при поездке в эндемичные регионы</div>}
             <b>О вакцине:</b> {item.descriptionRu}<br /><br />
