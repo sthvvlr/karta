@@ -6,9 +6,9 @@ Use the iOS app as the source of truth for screens, layout, controls, and behavi
 
 | iOS surface | iOS reference | Web surface | Current audit state | Remaining evidence or gap |
 |---|---|---|---|---|
-| Sign in | `Karta/LoginView.swift` | `app/login/page.tsx`, `app/AppleWebSignInButton.tsx`, `app/GuestModeButton.tsx` | Partial | Compare layout and all states with iPhone; web Apple sign-in needs an Apple Web Services ID and return URL. |
-| Registration | `Karta/RegisterView.swift` | `app/register/page.tsx`, `app/actions.ts` | Partial | Compare field order, validation/error states, and successful registration. |
-| Onboarding | `Karta/OnboardingView.swift` | `app/OnboardingWizard.tsx`, `app/onboarding/page.tsx` | Partial | Guest sign-in control is implemented locally; compare all three steps, city history, and keyboard behavior against iOS. Publish after review. |
+| Sign in | `Karta/LoginView.swift` | `app/login/page.tsx`, `app/AppleWebSignInButton.tsx`, `app/GuestModeButton.tsx` | Partial | Compare layout and all states with iPhone; web Apple sign-in cannot be activated until an Apple Web Services ID and return URL are configured. |
+| Registration | `Karta/RegisterView.swift` | `app/register/page.tsx`, `app/actions.ts` | Flow verified; visual pending | Web registration succeeds and return flow was exercised with a temporary local account; compare error and loading states with iOS. Registration layout now follows native close/header/glass-card structure. |
+| Onboarding | `Karta/OnboardingView.swift` | `app/OnboardingWizard.tsx`, `app/onboarding/page.tsx` | Flow verified; visual pending | All three steps saved name, gender, current city, and city history on a temporary local account; verify optional birth date, keyboard behavior, and direct iOS comparison. |
 | Home and score | `Karta/HomeView.swift`, `Karta/ScoreDetailSheet.swift` | `app/(app)/page.tsx`, `app/ScoreDetails.tsx` | Source-reviewed; visual pending | Nested fact/score/export card now follows iOS structure; verify screenshots, task states, score details, and navigation on iPhone. |
 | Vaccination passport | `Karta/VaccinationsView.swift` | `app/(app)/vaccinations/page.tsx`, `app/VaccinationHistory.tsx` | Partial | Empty-name validation now stays open and matches iOS; source review covered record/upcoming CRUD and next-dose controls. Compare all populated states, date precision, and narrow-width layout visually. |
 | Vaccine recommendations and detail | `Karta/VaccinationsView.swift`, `Karta/VaccineCatalogDetailSheet.swift`, `Karta/MarkVaccineDoneSheet.swift` | `app/(app)/vaccinations/page.tsx`, `app/VaccineRecommendationSheet.tsx`, `app/AddVaccinationSheet.tsx` | Partial | Compare every detail, regional/endemic disclosure, brand suggestions, dose schedule, and save/cancel behavior. |
@@ -20,9 +20,10 @@ Use the iOS app as the source of truth for screens, layout, controls, and behavi
 
 ## Recent evidence
 
-- Production Site version 75 is live at `https://karta-health.lera-wt.chatgpt.site`; the Sites deployment completed successfully. Unauthenticated app routes redirect to sign-in.
+- Production Site version 76 is live at `https://karta-health.lera-wt.chatgpt.site`; the Sites deployment completed successfully. Unauthenticated app routes redirect to sign-in.
 - Versions 72–74 align the home card hierarchy and the top insets on home, vaccination, medication, lab, and profile screens with the iOS source. Production builds passed before deployment.
 - A synthetic profile was used for local phone-sized screenshots of home, vaccination passport/detail/recommendation detail, medication and lab empty states, and profile edit/reminder/city-history sheets. The lab empty-state action was corrected. Blank vaccination submit was exercised and now shows an inline error without closing the form. Direct paired iOS screenshots and remaining states are still pending.
+- Registration and the three-step onboarding flow were completed with a temporary account in local Wrangler D1; profile and city-history values were verified, then that account was removed with the app's delete-data flow. The registration screen is now styled to follow the native composition.
 - At 320×844, local onboarding showed the guest sign-in link, card, input, and primary action without overlap.
 - Guest-to-email sign-in was exercised with a synthetic local profile; its pre-existing vaccination record remained visible afterward.
 - All six Russian/English full, vaccination-only, and medication-only PDFs downloaded as A4, one-page files from the current local source. Their layout was visually reviewed; a large multi-page dataset remains unverified.
