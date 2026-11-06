@@ -28,7 +28,7 @@ export default async function ProfilePage() {
       remindersMorning: profile?.remindersMorning || "08:00",
       remindersEvening: profile?.remindersEvening || "21:00",
     }}
-    locations={locations.map(({ id, city, country, region, fromYear, toYear, isCurrent }) => ({ id, city, country, region, fromYear, toYear, isCurrent }))}
+    locations={locations.map(({ id, city, country, region, fromDate, toDate, fromYear, toYear, isCurrent }) => ({ id, city, country, region, fromDate, toDate, fromYear, toYear, isCurrent }))}
     displayName={user.displayName}
     email={user.email}
     userId={user.userId}

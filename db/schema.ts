@@ -25,6 +25,8 @@ export const profileLocations = sqliteTable("profile_locations", {
   country: text("country"),
   region: text("region"),
   countryCode: text("country_code"),
+  fromDate: text("from_date"),
+  toDate: text("to_date"),
   fromYear: integer("from_year"),
   toYear: integer("to_year"),
   isCurrent: integer("is_current", { mode: "boolean" }).notNull().default(false),

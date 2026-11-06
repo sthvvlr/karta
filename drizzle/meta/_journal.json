@@ -50,6 +50,13 @@
       "when": 1793937831251,
       "tag": "0006_romantic_mauler",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "6",
+      "when": 1793949964984,
+      "tag": "0007_outgoing_puck",
+      "breakpoints": true
     }
   ]
 }

@@ -411,17 +411,54 @@ export async function addProfileLocation(formData: FormData) {
     country: String(formData.get("historyCityCountry") || "") || null,
     region: String(formData.get("historyCityRegion") || "") || null,
     countryCode: String(formData.get("historyCityCountryCode") || "") || null,
-    fromYear: Number(formData.get("fromYear") || 0) || null,
-    toYear: Number(formData.get("toYear") || 0) || null,
+    fromDate: null,
+    toDate: null,
+    fromYear: null,
+    toYear: null,
     isCurrent: false,
   });
+  revalidatePath("/profile");
+}
+
+export async function updateProfileLocation(formData: FormData) {
+  const auth = await requireChatGPTUser("/profile");
+  const id = String(formData.get("id") || "");
+  const [location] = await getDb().select().from(profileLocations)
+    .where(and(eq(profileLocations.id, id), eq(profileLocations.userId, auth.userId))).limit(1);
+  if (!location) return;
+
+  const fromDate = String(formData.get("fromDate") || "").trim();
+  const requestedToDate = String(formData.get("toDate") || "").trim();
+  const validDate = (value: string) => {
+    if (!value) return true;
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+    const parsed = new Date(`${value}T00:00:00Z`);
+    return !Number.isNaN(parsed.getTime()) && parsed.toISOString().slice(0, 10) === value;
+  };
+  if (!validDate(fromDate) || !validDate(requestedToDate) || (fromDate && requestedToDate && requestedToDate < fromDate)) return;
+
+  const toDate = location.isCurrent ? null : requestedToDate || null;
+  await getDb().update(profileLocations).set({ fromDate: fromDate || null, toDate })
+    .where(and(eq(profileLocations.id, id), eq(profileLocations.userId, auth.userId)));
   revalidatePath("/profile");
 }
 
 export async function deleteProfileLocation(formData: FormData) {
   const auth = await requireChatGPTUser("/profile");
   const id = String(formData.get("id") || "");
-  if (id) await getDb().delete(profileLocations).where(and(eq(profileLocations.id, id), eq(profileLocations.userId, auth.userId)));
+  if (id) {
+    const db = getDb();
+    const [location] = await db.select({ isCurrent: profileLocations.isCurrent }).from(profileLocations)
+      .where(and(eq(profileLocations.id, id), eq(profileLocations.userId, auth.userId))).limit(1);
+    if (location) {
+      await db.delete(profileLocations).where(and(eq(profileLocations.id, id), eq(profileLocations.userId, auth.userId)));
+      if (location.isCurrent) {
+        await db.update(profiles).set({ cityCurrent: null, regionCurrent: null, countryCurrent: null, countryCode: null, updatedAt: new Date().toISOString() })
+          .where(eq(profiles.userId, auth.userId));
+      }
+    }
+  }
+  revalidatePath("/");
   revalidatePath("/profile");
 }
 
@@ -431,7 +468,7 @@ export async function setCurrentProfileLocation(formData: FormData) {
   const [location] = await getDb().select().from(profileLocations).where(and(eq(profileLocations.id, id), eq(profileLocations.userId, auth.userId))).limit(1);
   if (!location) return;
   await getDb().update(profileLocations).set({ isCurrent: false }).where(eq(profileLocations.userId, auth.userId));
-  await getDb().update(profileLocations).set({ isCurrent: true }).where(and(eq(profileLocations.id, id), eq(profileLocations.userId, auth.userId)));
+  await getDb().update(profileLocations).set({ isCurrent: true, toDate: null }).where(and(eq(profileLocations.id, id), eq(profileLocations.userId, auth.userId)));
   await getDb().update(profiles).set({ cityCurrent: location.city, regionCurrent: location.region, countryCurrent: location.country, countryCode: location.countryCode, updatedAt: new Date().toISOString() }).where(eq(profiles.userId, auth.userId));
   revalidatePath("/");
   revalidatePath("/profile");

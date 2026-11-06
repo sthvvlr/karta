@@ -4,7 +4,7 @@ import { useState, type ReactNode } from "react";
 import { CalendarDays, ChevronRight, Clock3, Map, MapPin, Bell, Pencil, PersonStanding, Settings, Trash2, UserRound, X } from "lucide-react";
 import { CityPicker } from "@/app/CityPicker";
 import { DeleteDataForm } from "@/app/DeleteDataForm";
-import { addProfileLocation, changePassword, deleteProfileLocation, saveProfile, saveReminderSettings, setCurrentProfileLocation, signOutAccount } from "@/app/actions";
+import { addProfileLocation, changePassword, deleteProfileLocation, saveProfile, saveReminderSettings, setCurrentProfileLocation, signOutAccount, updateProfileLocation } from "@/app/actions";
 import { birthDateInputValue } from "@/app/profile-dates";
 
 type Profile = {
@@ -12,13 +12,14 @@ type Profile = {
   cityCurrent: string | null; regionCurrent: string | null; countryCurrent: string | null; countryCode: string | null;
   remindersEnabled: boolean; remindersMorning: string; remindersEvening: string;
 };
-type Location = { id: string; city: string; country: string | null; region: string | null; fromYear: number | null; toYear: number | null; isCurrent: boolean };
+type Location = { id: string; city: string; country: string | null; region: string | null; fromDate: string | null; toDate: string | null; fromYear: number | null; toYear: number | null; isCurrent: boolean };
 
 const C = { text: "#1A2050", muted: "rgba(26,32,80,.48)", card: "rgba(255,255,255,.72)", border: "rgba(255,255,255,.9)", primary: "#5C7CFA" };
 const field = { width: "100%", padding: "12px 13px", background: "rgba(244,246,255,.8)", border: "1px solid rgba(186,200,255,.4)", borderRadius: 11, fontSize: 16, color: C.text } as const;
 
 export function ProfileScreen({ profile, locations, displayName, email, userId, chatSignOutUrl, en = false }: { profile: Profile; locations: Location[]; displayName: string; email: string; userId: string; chatSignOutUrl: string; en?: boolean }) {
   const [sheet, setSheet] = useState<"edit" | "cities" | "reminders" | "account" | null>(null);
+  const [editingLocation, setEditingLocation] = useState<Location | null>(null);
   const name = profile.fullName || displayName || "Karta";
   const gender = profile.gender === "female" ? (en ? "Female" : "Женский") : profile.gender === "male" ? (en ? "Male" : "Мужской") : profile.gender === "other" ? (en ? "Other" : "Другой") : "—";
   const city = [profile.cityCurrent, profile.regionCurrent, profile.countryCurrent].filter(Boolean).join(" · ") || "—";
@@ -72,17 +73,30 @@ export function ProfileScreen({ profile, locations, displayName, email, userId, 
       </form>
     </Sheet>}
 
-    {sheet === "cities" && <Sheet title={en ? "City history" : "История городов"} onClose={() => setSheet(null)} en={en}>
+    {sheet === "cities" && <Sheet title={en ? "City history" : "История городов"} onClose={() => setSheet(null)} en={en} ariaHidden={Boolean(editingLocation)}>
       {locations.length === 0 ? <div style={{ textAlign: "center", padding: "36px 16px", color: C.muted }}><Map size={34} color="#5C7CFA" style={{ opacity: .45, marginBottom: 12 }} /><div style={{ color: C.text, fontWeight: 700, fontSize: 15 }}>{en ? "No cities yet" : "Нет городов"}</div><p style={{ fontSize: 13, lineHeight: 1.45 }}>{en ? "Add cities where you live or have lived. This affects vaccine recommendations." : "Добавьте города, где вы живёте или жили. Это влияет на рекомендации по прививкам."}</p></div> : <>
         <div style={{ background: "rgba(92,124,250,.06)", borderRadius: 11, padding: 12, color: C.muted, fontSize: 11, lineHeight: 1.45, marginBottom: 8 }}>{en ? "Cities affect regional vaccine recommendations." : "Города влияют на региональные рекомендации по прививкам."}</div>
-        {locations.map((location) => <div key={location.id} style={{ display: "flex", alignItems: "center", gap: 10, padding: "12px 3px", borderBottom: "1px solid rgba(26,32,80,.08)" }}>
+        {locations.map((location) => <div key={location.id} style={{ display: "flex", alignItems: "center", gap: 8, padding: "12px 3px", borderBottom: "1px solid rgba(26,32,80,.08)" }}>
           <div style={{ color: location.isCurrent ? C.primary : C.muted }}>{location.isCurrent ? <MapPin size={19} /> : <Clock3 size={19} />}</div>
-          <div style={{ minWidth: 0, flex: 1 }}><div style={{ fontSize: 14, fontWeight: 600 }}>{location.city}{location.isCurrent && <span style={{ marginLeft: 6, color: "white", background: C.primary, borderRadius: 9, padding: "2px 6px", fontSize: 9 }}>{en ? "current" : "текущий"}</span>}</div><div style={{ fontSize: 11, color: C.muted, marginTop: 2 }}>{[location.region, location.country].filter(Boolean).join(" · ")}{location.fromYear || location.toYear ? ` · ${location.fromYear || "?"}–${location.toYear || (en ? "now" : "сейчас")}` : ""}</div></div>
+          <button type="button" onClick={() => setEditingLocation(location)} aria-label={en ? `Edit ${location.city}` : `Редактировать ${location.city}`} style={{ minWidth: 0, flex: 1, border: 0, padding: 0, background: "transparent", color: "inherit", textAlign: "left" }}><div style={{ fontSize: 14, fontWeight: 600 }}>{location.city}{location.isCurrent && <span style={{ marginLeft: 6, color: "white", background: C.primary, borderRadius: 9, padding: "2px 6px", fontSize: 9 }}>{en ? "current" : "текущий"}</span>}</div><div style={{ fontSize: 11, color: C.muted, marginTop: 2 }}>{[location.region, location.country].filter(Boolean).join(" · ")}<span style={{ display: "block" }}>{locationPeriod(location, en)}</span></div></button>
+          <button type="button" onClick={() => setEditingLocation(location)} aria-label={en ? `Edit dates for ${location.city}` : `Изменить даты для города ${location.city}`} style={iconButton}><Pencil size={14} /></button>
           {!location.isCurrent && <form action={setCurrentProfileLocation}><input type="hidden" name="id" value={location.id} /><button type="submit" aria-label={en ? `Set ${location.city} as current city` : `Сделать город ${location.city} текущим`} style={iconButton}><MapPin size={15} /></button></form>}
           <form action={deleteProfileLocation}><input type="hidden" name="id" value={location.id} /><button type="submit" aria-label={en ? `Delete city ${location.city}` : `Удалить город ${location.city}`} style={{ ...iconButton, color: "#E03131" }}><Trash2 size={15} /></button></form>
         </div>)}
       </>}
-      <form action={addProfileLocation} style={{ display: "grid", gap: 10, marginTop: 16 }}><div style={labelStyle}>{en ? "ADD CITY" : "ДОБАВИТЬ ГОРОД"}<CityPicker fieldPrefix="historyCity" en={en} requireSelection /></div><div style={{ display: "flex", gap: 8 }}><input name="fromYear" type="number" min="1900" max="2100" placeholder={en ? "From year" : "С какого года"} style={{ ...field, flex: 1, minWidth: 0 }} /><input name="toYear" type="number" min="1900" max="2100" placeholder={en ? "To year" : "По какой год"} style={{ ...field, flex: 1, minWidth: 0 }} /></div><button type="submit" style={secondaryButton}>{en ? "Add city" : "Добавить город"}</button></form>
+      <form action={addProfileLocation} style={{ display: "grid", gap: 10, marginTop: 16 }}><div style={labelStyle}>{en ? "ADD CITY" : "ДОБАВИТЬ ГОРОД"}<CityPicker fieldPrefix="historyCity" en={en} requireSelection /></div><button type="submit" style={secondaryButton}>{en ? "Add city" : "Добавить город"}</button></form>
+    </Sheet>}
+
+    {sheet === "cities" && editingLocation && <Sheet title={en ? "Edit city" : "Редактировать город"} onClose={() => setEditingLocation(null)} en={en} zIndex={130}>
+      <div style={{ marginBottom: 14, fontSize: 15, fontWeight: 700 }}>{editingLocation.city}</div>
+      <form action={async (formData) => { await updateProfileLocation(formData); setEditingLocation(null); }} style={{ display: "grid", gap: 13 }}>
+        <input type="hidden" name="id" value={editingLocation.id} />
+        {(editingLocation.fromYear || editingLocation.toYear) && <div style={{ padding: 10, borderRadius: 10, background: "rgba(92,124,250,.06)", color: C.muted, fontSize: 12 }}>{en ? `Existing year range: ${editingLocation.fromYear || "?"}–${editingLocation.toYear || "now"}` : `Сохранённый период по годам: ${editingLocation.fromYear || "?"}–${editingLocation.toYear || "сейчас"}`}</div>}
+        <label style={labelStyle}>{en ? "START DATE (OPTIONAL)" : "ДАТА НАЧАЛА (НЕОБЯЗАТЕЛЬНО)"}<input type="date" name="fromDate" defaultValue={editingLocation.fromDate || ""} max={localToday()} style={{ ...field, marginTop: 6 }} /></label>
+        {!editingLocation.isCurrent && <label style={labelStyle}>{en ? "END DATE (OPTIONAL)" : "ДАТА ОКОНЧАНИЯ (НЕОБЯЗАТЕЛЬНО)"}<input type="date" name="toDate" defaultValue={editingLocation.toDate || ""} min={editingLocation.fromDate || undefined} max={localToday()} style={{ ...field, marginTop: 6 }} /></label>}
+        <button type="submit" style={primaryButton}>{en ? "Save dates" : "Сохранить даты"}</button>
+      </form>
+      {!editingLocation.isCurrent && <form action={async (formData) => { await setCurrentProfileLocation(formData); setEditingLocation(null); }} style={{ marginTop: 9 }}><input type="hidden" name="id" value={editingLocation.id} /><button type="submit" style={secondaryButton}>{en ? "Set as current city" : "Сделать текущим городом"}</button></form>}
     </Sheet>}
 
     {sheet === "reminders" && <Sheet title={en ? "Reminders" : "Напоминания"} onClose={() => setSheet(null)} en={en}>
@@ -102,8 +116,25 @@ function displayBirth(value: string) {
   return `${day}.${month}.${year}`;
 }
 
-function Sheet({ title, onClose, children, en }: { title: string; onClose: () => void; children: ReactNode; en: boolean }) {
-  return <div role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) onClose(); }} style={{ position: "fixed", inset: 0, zIndex: 120, display: "flex", alignItems: "flex-end", justifyContent: "center", background: "rgba(20,25,55,.38)", backdropFilter: "blur(7px)" }}>
+function localToday() {
+  const today = new Date();
+  return `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
+}
+
+function locationPeriod(location: Location, en: boolean) {
+  const locale = en ? "en-US" : "ru-RU";
+  const format = (value: string) => new Date(`${value.slice(0, 10)}T00:00:00`).toLocaleDateString(locale, { month: "short", year: "numeric" });
+  const from = location.fromDate ? format(location.fromDate) : location.fromYear ? String(location.fromYear) : "";
+  const to = location.toDate ? format(location.toDate) : location.toYear ? String(location.toYear) : "";
+  if (location.isCurrent) return from ? (en ? `since ${from}` : `с ${from}`) : (en ? "Current city" : "Текущий город");
+  if (from && to) return `${from} — ${to}`;
+  if (from) return en ? `from ${from}` : `с ${from}`;
+  if (to) return en ? `until ${to}` : `по ${to}`;
+  return en ? "Past city" : "Прошлый город";
+}
+
+function Sheet({ title, onClose, children, en, zIndex = 120, ariaHidden = false }: { title: string; onClose: () => void; children: ReactNode; en: boolean; zIndex?: number; ariaHidden?: boolean }) {
+  return <div role="presentation" aria-hidden={ariaHidden || undefined} onMouseDown={(event) => { if (event.target === event.currentTarget) onClose(); }} style={{ position: "fixed", inset: 0, zIndex, display: "flex", alignItems: "flex-end", justifyContent: "center", background: "rgba(20,25,55,.38)", backdropFilter: "blur(7px)" }}>
     <section role="dialog" aria-modal="true" aria-label={title} style={{ width: "min(100%, 430px)", maxHeight: "91dvh", overflow: "auto", padding: "10px 20px calc(24px + env(safe-area-inset-bottom))", border: "1px solid rgba(255,255,255,.75)", borderBottom: 0, borderRadius: "24px 24px 0 0", background: "rgba(250,251,255,.98)", boxShadow: "0 -12px 42px rgba(26,32,80,.18)", color: C.text }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}><span style={{ width: 34 }} /><h2 style={{ margin: 0, fontSize: 17, fontWeight: 700 }}>{title}</h2><button type="button" onClick={onClose} aria-label={en ? "Close" : "Закрыть"} style={{ width: 34, height: 34, display: "grid", placeItems: "center", border: 0, borderRadius: 17, background: "rgba(26,32,80,.06)", color: C.text }}><X size={18} /></button></div>
       {children}

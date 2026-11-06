@@ -55,19 +55,19 @@ export default async function VaccinationsPage({ searchParams }: { searchParams:
 
     <datalist id="vaccine-brands">{brands.map((brand) => <option value={brand} key={brand} />)}</datalist>
 
-    {tab === "passport" ? <PassportContent data={data} records={records} upcoming={upcoming} score={score} today={today} /> : <RecommendationsContent data={data} recommendations={recommendations} region={region || undefined} today={today} />}
+    {tab === "passport" ? <PassportContent data={data} records={records} upcoming={upcoming} score={score} today={today} en={en} /> : <RecommendationsContent data={data} recommendations={recommendations} region={region || undefined} today={today} />}
 
   </div>;
 }
 
-function PassportContent({ data, records, upcoming, score, today }: { data: Awaited<ReturnType<typeof getUserData>>; records: Array<{ id: string; vaccineId: string; dateGiven: string | null; doseNumber: number; brand: string | null; clinic: string | null; notes: string | null }>; upcoming: Array<ReturnType<typeof upcomingVaccineTasks>[number] & { recordId?: string }>; score: number; today: string }) {
+function PassportContent({ data, records, upcoming, score, today, en }: { data: Awaited<ReturnType<typeof getUserData>>; records: Array<{ id: string; vaccineId: string; dateGiven: string | null; doseNumber: number; brand: string | null; clinic: string | null; notes: string | null }>; upcoming: Array<ReturnType<typeof upcomingVaccineTasks>[number] & { recordId?: string }>; score: number; today: string; en: boolean }) {
   const history = data.vaccinations.filter(({ record }) => !readVaccinationMetadata(record.notes).isUpcoming);
   return <>
     <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 20, padding: "17px 18px", marginBottom: 18, boxShadow: "0 2px 16px rgba(26,32,80,.06)" }}>
       <div style={{ fontSize: 9, fontWeight: 700, letterSpacing: ".16em", color: C.muted, marginBottom: 10 }}>KARTA · VACCINATION RECORD</div>
       <div style={{ fontSize: 17, fontWeight: 700 }}>{data.profile?.fullName}</div>
       <div style={{ fontSize: 11, color: C.muted, marginTop: 3 }}>{data.profile?.birthDate ? `Дата рождения: ${data.profile.birthDate}` : "Добавьте дату рождения в профиле"}</div>
-      <div style={{ display: "flex", gap: 24, marginTop: 17 }}><Stat value={history.length} label="ЗАПИСЕЙ" /><Stat value={history.reduce((n, { record }) => n + (record.doseNumber || 1), 0)} label="ДОЗ" /><Stat value={score} label="KARTA SCORE" accent={score === 100 ? "#099268" : "#5C7CFA"} /></div>
+      <div style={{ display: "flex", gap: 24, marginTop: 17 }}><Stat value={history.length} label={en ? "RECORDS" : "ЗАПИСЕЙ"} /><Stat value={history.reduce((n, { record }) => n + (record.doseNumber || 1), 0)} label={en ? "DOSES" : "ДОЗ"} /><Stat value={score} label="KARTA SCORE" accent={score === 100 ? "#099268" : "#5C7CFA"} /></div>
     </div>
 
     <div style={{ background: upcoming.length ? "rgba(255,247,230,.9)" : "rgba(232,250,241,.8)", border: `1px solid ${upcoming.length ? "rgba(217,119,6,.2)" : "rgba(32,201,151,.2)"}`, borderRadius: 16, padding: "13px 14px", marginBottom: 18 }}>
