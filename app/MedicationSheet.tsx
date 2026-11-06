@@ -30,8 +30,8 @@ const input: React.CSSProperties = {
   fontSize: 16,
 };
 
-export function MedicationSheet({ med, primary = false }: { med?: MedicationDraft; primary?: boolean }) {
-  const [open, setOpen] = useState(false);
+export function MedicationSheet({ med, primary = false, initialOpen = false }: { med?: MedicationDraft; primary?: boolean; initialOpen?: boolean }) {
+  const [open, setOpen] = useState(initialOpen);
   const [language, setLanguage] = useState<"ru" | "en">("ru");
   const en = language === "en";
 

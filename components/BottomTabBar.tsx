@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { House, Syringe, Pill, UserRound } from 'lucide-react'
+import { useKartaLanguage } from '@/app/LanguageRuntime'
 
 const tabs = [
   { href: '/',             Icon: House,     label: 'Главная'  },
@@ -13,11 +14,12 @@ const tabs = [
 
 export function BottomTabBar() {
   const pathname = usePathname()
+  const en = useKartaLanguage() === 'en'
 
   if (pathname === '/labs') return null
 
   return (
-    <nav aria-label="Основная навигация" className="no-print" style={{
+    <nav aria-label={en ? "Main navigation" : "Основная навигация"} className="no-print" style={{
       position: 'fixed',
       bottom: 0,
       left: '50%',
@@ -58,7 +60,7 @@ export function BottomTabBar() {
               color: active ? '#5C7CFA' : '#1A2050',
               letterSpacing: '0.02em',
             }}>
-              {tab.label}
+              {en ? ({ 'Главная': 'Home', 'Прививки': 'Vaccines', 'Лекарства': 'Medications', 'Профиль': 'Profile' }[tab.label] || tab.label) : tab.label}
             </span>
           </Link>
         )
