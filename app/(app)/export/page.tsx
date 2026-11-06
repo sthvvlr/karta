@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { cookies } from "next/headers";
 import { Pill, Syringe } from "lucide-react";
 import { getChatGPTUser } from "@/app/chatgpt-auth";
 import { getUserData } from "@/app/data";
@@ -21,7 +22,10 @@ function formatDate(value: string | null, lang: "ru" | "en") {
 
 export default async function ExportPage({ searchParams }: { searchParams: Promise<{ lang?: string; scope?: string }> }) {
   const params = await searchParams;
-  const lang = params.lang === "en" ? "en" : "ru";
+  const preferredLanguage = (await cookies()).get("karta_lang")?.value;
+  const lang = params.lang === "en" || params.lang === "ru"
+    ? params.lang
+    : preferredLanguage === "en" ? "en" : "ru";
   const scope = params.scope === "vaccinations" || params.scope === "medications" ? params.scope : "full";
   const en = lang === "en";
   const user = await getChatGPTUser();
