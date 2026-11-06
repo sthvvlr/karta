@@ -284,6 +284,10 @@ export type MonitoringRule = {
   reason_ru: string;
   tests_ru: string[];
   schedule_ru: string;
+  title_en?: string;
+  reason_en?: string;
+  tests_en?: string[];
+  schedule_en?: string;
   first_check_days: number;
   repeat_days: number;
 };
