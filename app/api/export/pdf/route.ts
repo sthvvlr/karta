@@ -13,12 +13,18 @@ const PAGE_H = 841.89;
 const MARGIN = 36;
 const FOOTER_H = 30;
 const INK = rgb(0.102, 0.125, 0.314);
-const MUTED = rgb(0.461, 0.475, 0.588);
+// iOS draws #1A2050 at 40% opacity. These PDF colors are the equivalent
+// composited on the white page; pdf-lib does not apply UIKit alpha here.
+const MUTED = rgb(0.641, 0.65, 0.726);
+const PROFILE_MUTED = rgb(0.615, 0.629, 0.726);
 const BLUE = rgb(0.361, 0.486, 0.98);
 const PURPLE = rgb(0.545, 0.361, 0.98);
 const SUCCESS = rgb(0.125, 0.784, 0.592);
 const PALE = rgb(0.957, 0.965, 1);
-const BORDER = rgb(0.87, 0.89, 0.96);
+const BORDER = rgb(0.854, 0.864, 0.918);
+// iOS row/footer rules use #1A2050 at 7%/10% opacity over white.
+const ROW_RULE = rgb(0.937, 0.94, 0.952);
+const FOOTER_RULE = rgb(0.91, 0.913, 0.931);
 
 type Language = "ru" | "en";
 
@@ -74,7 +80,7 @@ export async function GET(request: Request) {
       page.drawEllipse({ x: leafX + 2, y: leafY + 1.5, xScale: 3.5, yScale: 1.7, rotate: degrees(42), color: BLUE });
       page.drawLine({ start: { x: leafX - 3, y: leafY - 3 }, end: { x: leafX + 5, y: leafY + 5 }, thickness: 0.8, color: BLUE });
       page.drawText("KARTA", { x: MARGIN + 20, y: PAGE_H - 45, size: 10, font: bold, color: BLUE, characterSpacing: 2 });
-      page.drawLine({ start: { x: MARGIN, y: PAGE_H - 58 }, end: { x: PAGE_W - MARGIN, y: PAGE_H - 58 }, thickness: 0.6, color: BORDER });
+      page.drawLine({ start: { x: MARGIN, y: PAGE_H - 58 }, end: { x: PAGE_W - MARGIN, y: PAGE_H - 58 }, thickness: 0.6, color: FOOTER_RULE });
     }
   };
 
@@ -156,7 +162,7 @@ export async function GET(request: Request) {
     page.drawText(date, { x: PAGE_W - MARGIN - dateWidth, y: top - 11, size: 11, font: regular, color: MUTED });
     if (brand) page.drawText(brand, { x: MARGIN + 22, y: top - 29, size: 10, font: regular, color: rgb(0.586, 0.665, 0.987) });
     y = top - height;
-    page.drawLine({ start: { x: MARGIN + 22, y }, end: { x: PAGE_W - MARGIN, y }, thickness: 0.5, color: BORDER });
+    page.drawLine({ start: { x: MARGIN + 22, y }, end: { x: PAGE_W - MARGIN, y }, thickness: 0.5, color: ROW_RULE });
     y -= 4;
   };
 
@@ -169,7 +175,7 @@ export async function GET(request: Request) {
     const detailWidth = regular.widthOfTextAtSize(detail, 10);
     page.drawText(detail, { x: PAGE_W - MARGIN - detailWidth, y: top - 10, size: 10, font: regular, color: MUTED });
     y = top - 22;
-    page.drawLine({ start: { x: MARGIN + 18, y }, end: { x: PAGE_W - MARGIN, y }, thickness: 0.5, color: BORDER });
+    page.drawLine({ start: { x: MARGIN + 18, y }, end: { x: PAGE_W - MARGIN, y }, thickness: 0.5, color: ROW_RULE });
     y -= 4;
   };
 
@@ -190,7 +196,7 @@ export async function GET(request: Request) {
       textY -= 12;
     }
     y = top - height;
-    page.drawLine({ start: { x: MARGIN + 22, y }, end: { x: PAGE_W - MARGIN, y }, thickness: 0.5, color: BORDER });
+    page.drawLine({ start: { x: MARGIN + 22, y }, end: { x: PAGE_W - MARGIN, y }, thickness: 0.5, color: ROW_RULE });
     y -= 4;
   };
 
@@ -227,7 +233,7 @@ export async function GET(request: Request) {
   const name = data.profile?.fullName || user.displayName || (en ? "Name not specified" : "Имя не указано");
   page.drawText(name, { x: MARGIN + 14, y: profileTop - 22, size: 15, font: bold, color: INK, maxWidth: contentW - 28 });
   const profileLine = [birthDateDisplayValue(data.profile?.birthDate), data.profile?.cityCurrent].filter(Boolean).join("  ·  ") || (en ? "Location not set" : "Город не указан");
-  page.drawText(profileLine, { x: MARGIN + 14, y: profileTop - 42, size: 11, font: regular, color: MUTED, maxWidth: contentW - 28 });
+  page.drawText(profileLine, { x: MARGIN + 14, y: profileTop - 42, size: 11, font: regular, color: PROFILE_MUTED, maxWidth: contentW - 28 });
   const generated = `${en ? "Generated" : "Выгружено"} ${new Intl.DateTimeFormat(en ? "en-US" : "ru-RU", { dateStyle: "long" }).format(new Date())}`;
   page.drawText(generated, { x: PAGE_W - MARGIN - regular.widthOfTextAtSize(generated, 9) - 14, y: profileTop - 57, size: 9, font: regular, color: MUTED });
   y -= 82;
@@ -258,7 +264,7 @@ export async function GET(request: Request) {
   }
 
   for (const [index, pdfPage] of pdf.getPages().entries()) {
-    pdfPage.drawLine({ start: { x: MARGIN, y: 28 }, end: { x: PAGE_W - MARGIN, y: 28 }, thickness: 0.5, color: BORDER });
+    pdfPage.drawLine({ start: { x: MARGIN, y: 28 }, end: { x: PAGE_W - MARGIN, y: 28 }, thickness: 0.5, color: FOOTER_RULE });
     pdfPage.drawText("Karta", { x: MARGIN, y: 15, size: 8, font: regular, color: MUTED });
     const label = en ? `Page ${index + 1}` : `Стр. ${index + 1}`;
     pdfPage.drawText(label, { x: PAGE_W - MARGIN - regular.widthOfTextAtSize(label, 8), y: 15, size: 8, font: regular, color: MUTED });
