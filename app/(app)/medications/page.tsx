@@ -38,11 +38,11 @@ export default async function MedicationsPage({ searchParams }: { searchParams: 
     { key: "other", title: en ? "Other time" : "Другое время" },
   ].map((section) => ({ ...section, tasks: tasks.filter((task) => section.key === "other" ? !task.timeSlots.some((slot) => ["morning", "afternoon", "evening"].includes(slot.label)) : task.timeSlots.some((slot) => slot.label === section.key)) })).filter((section) => section.tasks.length);
   const locale = en ? "en-US" : "ru-RU";
-  const todayLabel = today.toLocaleDateString(locale, { weekday: "long", day: "numeric", month: "long" });
+  const todayLabel = today.toLocaleDateString(locale, { day: "numeric", month: "long" });
 
   return <div style={{ padding: "0 16px 100px", color: C.text }}>
     <header style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingTop: 16, paddingBottom: 20 }}>
-      <div><div style={{ fontSize: 26, fontWeight: 700 }}>{en ? "Medications" : "Лекарства"}</div><div style={{ fontSize: 13, color: C.muted, marginTop: 4 }}>{en ? `Today, ${todayLabel}` : `Сегодня, ${todayLabel.replace(/^\S+,?\s*/, "")}`}</div></div>
+      <div><div style={{ fontSize: 26, fontWeight: 700 }}>{en ? "Medications" : "Лекарства"}</div><div style={{ fontSize: 13, color: C.muted, marginTop: 4 }}>{en ? `Today, ${todayLabel}` : `Сегодня, ${todayLabel}`}</div></div>
       <div style={{ display: "flex", gap: 10, alignItems: "center" }}>{rows.length > 0 && <a href="/export?scope=medications" aria-label={en ? "Export medications as PDF" : "Выгрузить лекарства в PDF"} style={{ display: "grid", placeItems: "center", width: 36, height: 36, borderRadius: 10, background: "rgba(92,124,250,0.1)", color: "#5C7CFA" }}><Share size={18} strokeWidth={2.2} /></a>}<MedicationSheet initialOpen={initialAdd && rows.length > 0} /></div>
     </header>
 

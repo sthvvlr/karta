@@ -37,6 +37,7 @@ export function MedicationSheet({ med, primary = false, initialOpen = false }: {
   const [isIndefinite, setIsIndefinite] = useState(!med?.endDate);
   const [nameError, setNameError] = useState(false);
   const en = useKartaLanguage() === "en";
+  function close() { setOpen(false); setNameError(false); }
   const mealOptions = [
     { value: "any", ru: "Неважно", en: "Any time" },
     { value: "before", ru: "До еды", en: "Before meal" },
@@ -45,13 +46,13 @@ export function MedicationSheet({ med, primary = false, initialOpen = false }: {
   ];
 
   return <>
-    <button type="button" onClick={() => setOpen(true)} aria-label={en ? (med ? `Edit ${med.name}` : "Add medication") : (med ? `Изменить ${med.name}` : "Добавить лекарство")} style={primary ? { display: "flex", alignItems: "center", justifyContent: "center", gap: 7, minHeight: 42, padding: "0 16px", border: 0, borderRadius: 12, background: "linear-gradient(135deg,#748FFC,#5C7CFA)", color: "white", fontWeight: 700, boxShadow: "0 4px 10px rgba(92,124,250,.24)" } : med ? { display: "grid", placeItems: "center", width: 30, height: 30, padding: 0, border: 0, borderRadius: 9, background: "transparent", color: "rgba(26,32,80,.48)" } : { display: "grid", placeItems: "center", width: 36, height: 36, padding: 0, border: 0, borderRadius: 10, background: "linear-gradient(135deg,#748FFC,#5C7CFA)", color: "white", boxShadow: "0 4px 10px rgba(92,124,250,.24)" }}>
+    <button type="button" onClick={() => { setNameError(false); setOpen(true); }} aria-label={en ? (med ? `Edit ${med.name}` : "Add medication") : (med ? `Изменить ${med.name}` : "Добавить лекарство")} style={primary ? { display: "flex", alignItems: "center", justifyContent: "center", gap: 7, minHeight: 42, padding: "0 16px", border: 0, borderRadius: 12, background: "linear-gradient(135deg,#748FFC,#5C7CFA)", color: "white", fontWeight: 700, boxShadow: "0 4px 10px rgba(92,124,250,.24)" } : med ? { display: "grid", placeItems: "center", width: 30, height: 30, padding: 0, border: 0, borderRadius: 9, background: "transparent", color: "rgba(26,32,80,.48)" } : { display: "grid", placeItems: "center", width: 36, height: 36, padding: 0, border: 0, borderRadius: 10, background: "linear-gradient(135deg,#748FFC,#5C7CFA)", color: "white", boxShadow: "0 4px 10px rgba(92,124,250,.24)" }}>
       {primary ? <><Plus size={18} />{en ? "Add medication" : "Добавить лекарство"}</> : med ? <Pencil size={14} /> : <Plus size={18} />}
     </button>
-    {open && <div role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setOpen(false); }} style={{ position: "fixed", inset: 0, zIndex: 100, display: "flex", alignItems: "flex-end", justifyContent: "center", background: "rgba(20,25,55,.38)", backdropFilter: "blur(7px)" }}>
+    {open && <div role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) close(); }} style={{ position: "fixed", inset: 0, zIndex: 100, display: "flex", alignItems: "flex-end", justifyContent: "center", background: "rgba(20,25,55,.38)", backdropFilter: "blur(7px)" }}>
       <section role="dialog" aria-modal="true" aria-labelledby="medication-sheet-title" style={{ width: "min(100%, 430px)", height: "min(94dvh, 780px)", display: "flex", flexDirection: "column", overflow: "hidden", border: "1px solid rgba(255,255,255,.8)", borderBottom: 0, borderRadius: "16px 16px 0 0", background: "#F4F6FF", boxShadow: "0 -12px 42px rgba(26,32,80,.18)", color: "#1A2050" }}>
         <header style={{ height: 44, flex: "0 0 44px", display: "grid", gridTemplateColumns: "1fr auto 1fr", alignItems: "center", padding: "0 16px", borderBottom: "1px solid rgba(26,32,80,.08)", background: "rgba(250,251,255,.98)" }}>
-          <button type="button" onClick={() => setOpen(false)} style={{ justifySelf: "start", padding: "6px 0", border: 0, background: "transparent", color: "#5C7CFA", fontSize: 15 }}>{en ? "Cancel" : "Отмена"}</button>
+          <button type="button" onClick={close} style={{ justifySelf: "start", padding: "6px 0", border: 0, background: "transparent", color: "#5C7CFA", fontSize: 15 }}>{en ? "Cancel" : "Отмена"}</button>
           <h2 id="medication-sheet-title" style={{ margin: 0, fontSize: 16, fontWeight: 650, textAlign: "center", whiteSpace: "nowrap" }}>{med ? (en ? "Edit medication" : "Редактировать") : (en ? "Add medication" : "Добавить лекарство")}</h2>
           <button type="submit" form="medication-form" style={{ justifySelf: "end", padding: "6px 0", border: 0, background: "transparent", color: "#5C7CFA", fontSize: 15, fontWeight: 650 }}>{en ? "Save" : "Сохранить"}</button>
         </header>
