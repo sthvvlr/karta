@@ -1,0 +1,84 @@
+- generic [ref=e61]:
+  - main [ref=e62]:
+    - generic [ref=e165]:
+      - generic [ref=e166]:
+        - generic [ref=e167]:
+          - generic [ref=e168]: Прививки
+          - generic [ref=e169]: Паспорт вакцинации
+        - button "Добавить прививку" [active] [ref=e170]: +
+        - dialog [ref=e189]:
+          - generic [ref=e191]:
+            - heading "Добавить прививку" [level=2] [ref=e192]
+            - button "Закрыть" [ref=e193]
+          - generic [ref=e197]:
+            - generic [ref=e198]:
+              - text: Название прививки
+              - textbox "Название прививки" [ref=e199]:
+                - /placeholder: Корь, грипп, COVID-19…
+            - generic [ref=e200]:
+              - text: Или выберите из справочника
+              - combobox "Или выберите из справочника" [ref=e201]:
+                - option "Выбрать вакцину" [selected]
+                - option "ВПЧ (вирус папилломы человека)"
+                - option "Ветряная оспа"
+                - option "Гепатит А"
+                - option "Гепатит В"
+                - option "Грипп"
+                - option "Дифтерия и столбняк"
+                - option "Клещевой энцефалит"
+                - option "Коклюш"
+                - option "Корь, краснуха, паротит (КПК)"
+                - option "Менингококковая инфекция"
+                - option "Опоясывающий герпес"
+                - option "Пневмококковая инфекция"
+            - generic [ref=e202]:
+              - checkbox "Запланирована (ещё не сделана)" [ref=e203]
+              - text: Запланирована (ещё не сделана)
+            - generic [ref=e204]:
+              - text: Дата прививки
+              - textbox "Дата прививки" [ref=e205]:
+                - /placeholder: Мес ГГГГ, напр. Апр 2024
+            - generic [ref=e206]:
+              - text: Следующая ревакцинация (необязательно)
+              - textbox "Следующая ревакцинация (необязательно)" [ref=e207]
+            - generic [ref=e208]:
+              - generic [ref=e209]:
+                - text: Номер дозы
+                - spinbutton "Номер дозы" [ref=e210]: "1"
+              - generic [ref=e211]:
+                - text: Всего доз
+                - spinbutton "Всего доз" [ref=e212]: "1"
+            - combobox "Препарат / бренд" [ref=e213]
+            - textbox "Клиника" [ref=e214]
+            - textbox "Заметки" [ref=e215]
+            - button "Сохранить" [ref=e216]
+      - generic [ref=e171]:
+        - link "Паспорт" [ref=e172] [cursor=pointer]:
+          - /url: /vaccinations?tab=passport
+        - link "Рекомендации" [ref=e173] [cursor=pointer]:
+          - /url: /vaccinations?tab=recommendations
+      - generic [ref=e175]:
+        - link "0 предстоящих" [ref=e176] [cursor=pointer]:
+          - /url: "#upcoming-doses"
+          - generic [ref=e177]: "0"
+          - generic [ref=e178]: предстоящих
+        - link "12 рекомендованных" [ref=e179] [cursor=pointer]:
+          - /url: /vaccinations?tab=recommendations
+          - generic [ref=e180]: "12"
+          - generic [ref=e181]: рекомендованных
+      - generic [ref=e182]:
+        - generic [ref=e183]:
+          - generic [ref=e184]: Предстоящие прививки
+          - generic [ref=e185]: "0"
+        - generic [ref=e186]: Предстоящих доз пока нет.
+      - generic [ref=e187]: Моя история
+      - generic [ref=e188]: Пока нет записей. Добавьте первую прививку ниже.
+  - navigation "Основная навигация" [ref=e140]:
+    - link "Главная" [ref=e141] [cursor=pointer]:
+      - /url: /
+    - link "Прививки" [ref=e146] [cursor=pointer]:
+      - /url: /vaccinations
+    - link "Лекарства" [ref=e155] [cursor=pointer]:
+      - /url: /medications
+    - link "Профиль" [ref=e160] [cursor=pointer]:
+      - /url: /profile

@@ -1,0 +1,42 @@
+- generic [ref=f9e3]:
+  - main [ref=f9e4]:
+    - generic [ref=f9e5]:
+      - generic [ref=f9e6]:
+        - generic [ref=f9e7]:
+          - generic [ref=f9e8]: Прививки
+          - generic [ref=f9e9]: Паспорт вакцинации
+        - button "Добавить прививку" [ref=f9e10]: +
+      - generic [ref=f9e11]:
+        - link "Паспорт" [ref=f9e12] [cursor=pointer]:
+          - /url: /vaccinations?tab=passport
+        - link "Рекомендации" [ref=f9e13] [cursor=pointer]:
+          - /url: /vaccinations?tab=recommendations
+      - generic [ref=f9e15]:
+        - link "0 предстоящих" [ref=f9e16] [cursor=pointer]:
+          - /url: "#upcoming-doses"
+          - generic [ref=f9e17]: "0"
+          - generic [ref=f9e18]: предстоящих
+        - link "12 рекомендованных" [ref=f9e19] [cursor=pointer]:
+          - /url: /vaccinations?tab=recommendations
+          - generic [ref=f9e20]: "12"
+          - generic [ref=f9e21]: рекомендованных
+      - generic [ref=f9e22]:
+        - generic [ref=f9e23]:
+          - generic [ref=f9e24]: Предстоящие прививки
+          - generic [ref=f9e25]: "0"
+        - generic [ref=f9e26]: Предстоящих доз пока нет.
+      - generic [ref=f9e27]: Моя история
+      - button "Грипп, Апр. 2024" [ref=f9e29]:
+        - generic [ref=f9e31]:
+          - generic [ref=f9e32]: Грипп
+          - generic [ref=f9e33]: Апр. 2024 · 1/1 · Ваксигрипп
+        - generic [ref=f9e34]: 1/1
+  - navigation "Основная навигация" [ref=f9e37]:
+    - link "Главная" [ref=f9e38] [cursor=pointer]:
+      - /url: /
+    - link "Прививки" [ref=f9e43] [cursor=pointer]:
+      - /url: /vaccinations
+    - link "Лекарства" [ref=f9e52] [cursor=pointer]:
+      - /url: /medications
+    - link "Профиль" [ref=f9e57] [cursor=pointer]:
+      - /url: /profile

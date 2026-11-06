@@ -1,0 +1,37 @@
+- main [ref=f2e4]:
+  - generic [ref=f2e5]:
+    - generic [ref=f2e6]:
+      - link "Назад" [ref=f2e7] [cursor=pointer]:
+        - /url: /
+      - generic [ref=f2e10]:
+        - generic [ref=f2e11]: Анализы
+        - generic [ref=f2e12]: Ваши показатели в динамике
+      - button "Добавить анализ" [ref=f2e13]
+    - generic [ref=f2e17]:
+      - generic [ref=f2e21]: Пока нет анализов
+      - generic [ref=f2e22]: Загрузите результат и внесите показатели — система отметит отклонения от нормы.
+      - button "Добавить анализ" [active] [ref=f2e23]
+      - dialog "Новый анализ" [ref=f2e27]:
+        - generic [ref=f2e28]:
+          - heading "Новый анализ" [level=2] [ref=f2e29]
+          - button "Закрыть" [ref=f2e30]
+        - generic [ref=f2e34]:
+          - textbox "Название анализа" [ref=f2e35]
+          - textbox [ref=f2e36]
+          - generic [ref=f2e37]: Показатели
+          - generic [ref=f2e38]:
+            - generic [ref=f2e39]:
+              - textbox "Начните вводить показатель" [ref=f2e40]
+              - button "Удалить показатель" [ref=f2e41]: ×
+            - generic [ref=f2e42]:
+              - textbox "Значение" [ref=f2e43]
+              - textbox "Единицы" [ref=f2e44]
+            - generic [ref=f2e45]:
+              - textbox "Норма от" [ref=f2e46]
+              - textbox "Норма до" [ref=f2e47]
+          - button "+ Добавить показатель" [ref=f2e48]
+          - textbox "Заметки (необязательно)" [ref=f2e49]
+          - generic [ref=f2e50]:
+            - text: Фото или PDF результата
+            - button "Фото или PDF результата" [ref=f2e51]
+          - button "Сохранить результат" [ref=f2e52]

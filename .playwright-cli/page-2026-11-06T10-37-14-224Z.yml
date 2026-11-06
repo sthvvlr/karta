@@ -1,0 +1,32 @@
+- generic [ref=e61]:
+  - main [ref=e62]:
+    - generic [ref=e225]:
+      - generic [ref=e226]:
+        - generic [ref=e227]:
+          - generic [ref=e228]: Лекарства
+          - generic [ref=e229]: Сегодня, 6 ноября
+        - generic [ref=e230]:
+          - link "Выгрузить лекарства в PDF" [ref=e335] [cursor=pointer]:
+            - /url: /export?scope=medications
+          - button "Добавить лекарство" [ref=e231]
+      - generic [ref=e340]:
+        - generic [ref=e341]: ☀ Утро
+        - article [ref=e342]:
+          - generic [ref=e343]:
+            - button "Отметить приём" [ref=e345]
+            - generic [ref=e346]:
+              - generic [ref=e347]: Парацетамол
+              - generic [ref=e348]:
+                - generic [ref=e349]: 500 мг ·
+                - generic [ref=e350]: Неважно
+            - button "Изменить Парацетамол" [ref=e351]
+            - button "Удалить Парацетамол" [ref=e356]
+  - navigation "Основная навигация" [ref=e140]:
+    - link "Главная" [ref=e141] [cursor=pointer]:
+      - /url: /
+    - link "Прививки" [ref=e146] [cursor=pointer]:
+      - /url: /vaccinations
+    - link "Лекарства" [ref=e155] [cursor=pointer]:
+      - /url: /medications
+    - link "Профиль" [ref=e160] [cursor=pointer]:
+      - /url: /profile

@@ -1,0 +1,14 @@
+- main [ref=e2]:
+  - generic [ref=e3]:
+    - img "Karta" [ref=e4]
+    - heading "Создать аккаунт" [level=1] [ref=e5]
+    - paragraph [ref=e6]: Сохраним карту в постоянной базе Karta.
+    - generic [ref=e7]:
+      - textbox "Имя" [ref=e8]
+      - textbox "Email" [ref=e9]
+      - textbox "Пароль (минимум 6 символов)" [ref=e10]
+      - button "Создать аккаунт" [ref=e11]
+    - generic [ref=e12]:
+      - text: Уже есть аккаунт?
+      - link "Войти" [ref=e13] [cursor=pointer]:
+        - /url: /login?return_to=%2F

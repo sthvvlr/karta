@@ -1,0 +1,63 @@
+- generic [ref=f3e3]:
+  - main [ref=f3e4]:
+    - generic [ref=f3e5]:
+      - generic [ref=f3e6]:
+        - generic [ref=f3e7]:
+          - generic [ref=f3e8]: Доброе утро
+          - generic [ref=f3e9]: QA
+        - link "Q" [ref=f3e10] [cursor=pointer]:
+          - /url: /profile
+      - generic [ref=f3e12]:
+        - button "Открыть подробности Karta Score" [ref=f3e14] [cursor=pointer]:
+          - generic [ref=f3e15]:
+            - generic [ref=f3e16]: "0"
+            - generic [ref=f3e18]:
+              - generic [ref=f3e19]: Karta Score
+              - generic [ref=f3e20]: Нажмите, чтобы узнать что сделать
+            - generic [aria-hidden] [ref=f3e21]: ›
+        - generic [ref=f3e26]:
+          - generic [ref=f3e27]: ИНТЕРЕСНЫЙ ФАКТ
+          - generic [ref=f3e28]: Нервные импульсы по миелинизированным волокнам распространяются со скоростью до 120 м/с — быстрее большинства скоростных поездов.
+        - link "Моя карта здоровья Открыть и сохранить в PDF ›" [ref=f3e30] [cursor=pointer]:
+          - /url: /export
+          - generic [ref=f3e34]:
+            - generic [ref=f3e35]: Моя карта здоровья
+            - generic [ref=f3e36]: Открыть и сохранить в PDF
+          - generic [ref=f3e37]: ›
+      - generic [ref=f3e38]: Разделы
+      - generic [ref=f3e39]:
+        - 'link "Прививки Рекомендован.: 12" [ref=f3e40] [cursor=pointer]':
+          - /url: /vaccinations
+          - generic [ref=f3e41]:
+            - generic [ref=f3e51]: Прививки
+            - generic [ref=f3e52]: "Рекомендован.: 12"
+        - link "Лекарства 1 лекарство" [ref=f3e53] [cursor=pointer]:
+          - /url: /medications
+          - generic [ref=f3e54]:
+            - generic [ref=f3e60]: Лекарства
+            - generic [ref=f3e61]: 1 лекарство
+        - link "Анализы Добавьте результат" [ref=f3e62] [cursor=pointer]:
+          - /url: /labs
+          - generic [ref=f3e63]:
+            - generic [ref=f3e69]: Анализы
+            - generic [ref=f3e70]: Добавьте результат
+        - generic:
+          - generic:
+            - generic: Чекапы
+            - generic: Скоро
+      - generic [ref=f3e71]:
+        - generic [ref=f3e72]: Сегодня
+        - generic [ref=f3e74]:
+          - button "Отметить приём" [ref=f3e76]
+          - generic [ref=f3e77]: Парацетамол500 мг
+          - generic [ref=f3e78]: 08:00
+      - generic [ref=f3e79]: "Активных лекарств: 1"
+  - navigation "Основная навигация" [ref=f3e80]:
+    - link "Главная" [ref=f3e81] [cursor=pointer]:
+      - /url: /
+    - link "Прививки" [ref=f3e86] [cursor=pointer]:
+      - /url: /vaccinations
+    - link "Лекарства" [ref=f3e95] [cursor=pointer]:
+      - /url: /medications
+    - link "Профиль" [ref=f3e100] [cursor=pointer]:
+      - /url: /profile

@@ -1,0 +1,88 @@
+- generic [ref=f13e3]:
+  - main [ref=f13e4]:
+    - generic [ref=f13e5]:
+      - generic [ref=f13e6]:
+        - generic [ref=f13e7]:
+          - generic [ref=f13e8]: Прививки
+          - generic [ref=f13e9]: Паспорт вакцинации
+        - button "Добавить прививку" [active] [ref=f13e10]: +
+        - dialog [ref=f13e62]:
+          - generic [ref=f13e64]:
+            - heading "Добавить прививку" [level=2] [ref=f13e65]
+            - button "Закрыть" [ref=f13e66]
+          - generic [ref=f13e70]:
+            - generic [ref=f13e71]:
+              - text: Название прививки
+              - textbox "Название прививки" [ref=f13e72]:
+                - /placeholder: Корь, грипп, COVID-19…
+            - generic [ref=f13e73]:
+              - text: Или выберите из справочника
+              - combobox "Или выберите из справочника" [ref=f13e74]:
+                - option "Выбрать вакцину"
+                - option "ВПЧ (вирус папилломы человека)" [selected]
+                - option "Ветряная оспа"
+                - option "Гепатит А"
+                - option "Гепатит В"
+                - option "Грипп"
+                - option "Дифтерия и столбняк"
+                - option "Клещевой энцефалит"
+                - option "Коклюш"
+                - option "Корь, краснуха, паротит (КПК)"
+                - option "Менингококковая инфекция"
+                - option "Опоясывающий герпес"
+                - option "Пневмококковая инфекция"
+            - generic [ref=f13e75]:
+              - checkbox "Запланирована (ещё не сделана)" [ref=f13e76]
+              - text: Запланирована (ещё не сделана)
+            - generic [ref=f13e77]:
+              - text: Дата прививки
+              - textbox "Дата прививки" [ref=f13e78]:
+                - /placeholder: Мес ГГГГ, напр. Апр 2024
+            - generic [ref=f13e79]:
+              - text: Следующая ревакцинация (необязательно)
+              - textbox "Следующая ревакцинация (необязательно)" [ref=f13e80]
+            - generic [ref=f13e81]:
+              - generic [ref=f13e82]:
+                - text: Номер дозы
+                - spinbutton "Номер дозы" [ref=f13e83]: "1"
+              - generic [ref=f13e84]:
+                - text: Всего доз
+                - spinbutton "Всего доз" [ref=f13e85]: "1"
+            - combobox "Препарат / бренд" [ref=f13e86]
+            - textbox "Клиника" [ref=f13e87]
+            - textbox "Заметки" [ref=f13e88]
+            - button "Сохранить" [ref=f13e89]
+      - generic [ref=f13e11]:
+        - link "Паспорт" [ref=f13e12] [cursor=pointer]:
+          - /url: /vaccinations?tab=passport
+        - link "Рекомендации" [ref=f13e13] [cursor=pointer]:
+          - /url: /vaccinations?tab=recommendations
+      - generic [ref=f13e15]:
+        - link "0 предстоящих" [ref=f13e16] [cursor=pointer]:
+          - /url: "#upcoming-doses"
+          - generic [ref=f13e17]: "0"
+          - generic [ref=f13e18]: предстоящих
+        - link "12 рекомендованных" [ref=f13e19] [cursor=pointer]:
+          - /url: /vaccinations?tab=recommendations
+          - generic [ref=f13e20]: "12"
+          - generic [ref=f13e21]: рекомендованных
+      - generic [ref=f13e22]:
+        - generic [ref=f13e23]:
+          - generic [ref=f13e24]: Предстоящие прививки
+          - generic [ref=f13e25]: "0"
+        - generic [ref=f13e26]: Предстоящих доз пока нет.
+      - generic [ref=f13e27]: Моя история
+      - button "Грипп, Апр. 2024" [ref=f13e29]:
+        - generic [ref=f13e31]:
+          - generic [ref=f13e32]: Грипп
+          - generic [ref=f13e33]: Апр. 2024 · 1/1 · Ваксигрипп
+        - generic [ref=f13e34]: 1/1
+  - navigation "Основная навигация" [ref=f13e37]:
+    - link "Главная" [ref=f13e38] [cursor=pointer]:
+      - /url: /
+    - link "Прививки" [ref=f13e43] [cursor=pointer]:
+      - /url: /vaccinations
+    - link "Лекарства" [ref=f13e52] [cursor=pointer]:
+      - /url: /medications
+    - link "Профиль" [ref=f13e57] [cursor=pointer]:
+      - /url: /profile

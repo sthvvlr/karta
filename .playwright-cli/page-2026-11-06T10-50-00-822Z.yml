@@ -1,0 +1,52 @@
+- generic [active] [ref=f12e1]:
+  - button "Switch to English" [ref=f12e2]: EN
+  - generic [ref=f12e4]:
+    - main [ref=f12e5]:
+      - generic [ref=f12e6]:
+        - generic [ref=f12e7]:
+          - heading "Профиль" [level=1] [ref=f12e8]
+          - generic [ref=f12e9]: Личные данные
+        - generic [ref=f12e10]:
+          - generic [ref=f12e11]: Q
+          - generic [ref=f12e12]: QA Preview
+          - generic [ref=f12e13]: karta.audit.20261106@invalid.test
+        - generic [ref=f12e14]: ЛИЧНЫЕ ДАННЫЕ
+        - generic [ref=f12e15]:
+          - generic [ref=f12e16]:
+            - generic [ref=f12e21]: Имя
+            - generic [ref=f12e22]: QA Preview
+          - generic [ref=f12e24]:
+            - generic [ref=f12e28]: Дата рождения
+            - generic [ref=f12e29]: —
+          - generic [ref=f12e31]:
+            - generic [ref=f12e37]: Пол
+            - generic [ref=f12e38]: —
+          - generic [ref=f12e40]:
+            - generic [ref=f12e45]: Город
+            - generic [ref=f12e46]: Москва · Москва · Россия
+        - generic [ref=f12e47]: НАСТРОЙКИ
+        - generic [ref=f12e48]:
+          - button "Редактировать профиль" [ref=f12e49]
+          - button "История городов" [ref=f12e58]
+          - button "Напоминания" [ref=f12e66]
+          - button "Настройки аккаунта" [ref=f12e75]
+        - generic [ref=f12e83]:
+          - link "↪ Выйти через ChatGPT" [ref=f12e84] [cursor=pointer]:
+            - /url: /signout-with-chatgpt?return_to=%2F
+            - generic [ref=f12e85]: ↪
+            - generic [ref=f12e86]: Выйти через ChatGPT
+          - button "↪ Выйти из email-аккаунта" [ref=f12e89]:
+            - generic [ref=f12e90]: ↪
+            - generic [ref=f12e91]: Выйти из email-аккаунта
+          - generic [ref=f12e94]:
+            - button "Удалить данные Karta" [ref=f12e95]
+            - generic [ref=f12e96]: Удалятся профиль, города, прививки, лекарства, анализы и email-вход. Аккаунт ChatGPT останется.
+    - navigation "Основная навигация" [ref=f12e97]:
+      - link "Главная" [ref=f12e98] [cursor=pointer]:
+        - /url: /
+      - link "Прививки" [ref=f12e103] [cursor=pointer]:
+        - /url: /vaccinations
+      - link "Лекарства" [ref=f12e112] [cursor=pointer]:
+        - /url: /medications
+      - link "Профиль" [ref=f12e117] [cursor=pointer]:
+        - /url: /profile
