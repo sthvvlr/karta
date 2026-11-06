@@ -16,6 +16,7 @@ import { readVaccinationMetadata } from "@/app/vaccination-record";
 import { getDb } from "@/db";
 import { labResults, medicationLogs, monitoringCompletions } from "@/db/schema";
 import { and, eq, gte, lt } from "drizzle-orm";
+import { Lightbulb, ListChecks, Pill, Share, Syringe, TestTube2 } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
@@ -23,11 +24,20 @@ const C = { text: "#1A2050", muted: "rgba(26,32,80,0.42)", card: "rgba(255,255,2
 const input = { width: "100%", padding: "11px 12px", background: "rgba(244,246,255,.8)", border: "1px solid rgba(186,200,255,.4)", borderRadius: 11, fontSize: 16, color: "#1A2050" } as const;
 const taskCatalog = catalog as unknown as VaccineForTasks[];
 
+function medicationPlural(count: number, en: boolean) {
+  if (en) return count === 1 ? "medication" : "medications";
+  const mod10 = count % 10;
+  const mod100 = count % 100;
+  if (mod10 === 1 && mod100 !== 11) return "лекарство";
+  if (mod10 >= 2 && mod10 <= 4 && (mod100 < 12 || mod100 > 14)) return "лекарства";
+  return "лекарств";
+}
+
 const tiles = [
-  { href: "/vaccinations", icon: "💉", label: "Прививки", blob: "#BAC8FF" },
-  { href: "/medications", icon: "💊", label: "Лекарства", blob: "#D0BFFF" },
-  { href: "/labs", icon: "🧪", label: "Анализы", blob: "#A5F3FC" },
-  { href: "#coming-soon", icon: "📋", label: "Чекапы", blob: "#C7F5E8" },
+  { href: "/vaccinations", Icon: Syringe, label: "Прививки", blob: "#BAC8FF" },
+  { href: "/medications", Icon: Pill, label: "Лекарства", blob: "#D0BFFF" },
+  { href: "/labs", Icon: TestTube2, label: "Анализы", blob: "#A5F3FC" },
+  { href: "#coming-soon", Icon: ListChecks, label: "Чекапы", blob: "#C7F5E8" },
 ];
 
 export default async function HomePage() {
@@ -60,6 +70,9 @@ export default async function HomePage() {
   const vaccineTasks = [...manualVaccineTasks, ...generatedVaccineTasks.filter((task) => !manualVaccineTaskKeys.has(`${task.vaccineId}:${task.doseNumber}`))].sort((a, b) => a.dueDate.localeCompare(b.dueDate));
   const recommended = recommendedVaccines(data.profile, data.vaccinations.map(({ record }) => record), taskCatalog, today);
   const score = vaccinationScore(data.profile, data.vaccinations.map(({ record }) => record), taskCatalog, today);
+  const activeMedicationCount = data.medications.filter((medication) => medication.isActive).length;
+  const upcomingVaccineCount = manualVaccineTasks.length;
+  const recommendedVaccineCount = recommended.length;
   const monitoringTasks = monitoringTasksForDate(data.medications, completions, rules, today);
   const name = data.profile?.fullName?.split(" ")[0] || user.displayName.split(" ")[0];
   const hour = new Date().getHours();
@@ -71,37 +84,55 @@ export default async function HomePage() {
   const dayOfYear = Math.floor((today.getTime() - new Date(today.getFullYear(), 0, 0).getTime()) / 86400000);
   const todayFact = healthFacts[(dayOfYear - 1) % healthFacts.length];
   const profileComplete = profileProgress === 100;
+  const scoreHeader = <div style={{ position: "relative", zIndex: 1, display: "flex", alignItems: "center", gap: 14, width: "100%" }}>
+    <div style={{ width: 52, height: 52, borderRadius: "50%", padding: 5, background: `conic-gradient(#748FFC ${profileComplete ? score : profileProgress}%, rgba(26,32,80,0.08) 0)`, flexShrink: 0 }}><div style={{ width: "100%", height: "100%", borderRadius: "50%", background: "rgba(255,255,255,.86)", display: "grid", placeItems: "center", color: "#5C7CFA", fontWeight: 700, fontSize: profileComplete ? 13 : 11 }}>{profileComplete ? score : `${profileProgress}%`}</div></div>
+    <div style={{ flex: 1, textAlign: "left" }}><div style={{ fontSize: 15, fontWeight: 700, color: C.text, marginBottom: 2 }}>{profileComplete ? "Karta Score" : en ? "Complete your profile" : "Заполните профиль"}</div><div style={{ fontSize: 11, color: C.muted }}>{profileComplete ? (score === 100 ? (en ? "All vaccinations done 🎉" : "Все прививки сделаны 🎉") : (en ? "Tap to see what's left" : "Нажмите, чтобы узнать что сделать")) : en ? `Profile ${profileProgress}% complete` : `Профиль заполнен на ${profileProgress}%`}</div></div>
+    {profileComplete ? (score < 100 ? <span aria-hidden="true" style={{ color: "rgba(26,32,80,.35)", fontSize: 20 }}>›</span> : null) : <Link href="/profile" aria-label={en ? "Complete profile" : "Заполнить профиль"} style={{ color: C.muted, fontSize: 16, textDecoration: "none" }}>›</Link>}
+  </div>;
 
   return (
     <div style={{ padding: "12px 16px 0" }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 18, paddingTop: 12 }}>
-        <div><div style={{ fontSize: 12, color: C.muted, marginBottom: 2 }}>{greeting}</div><div style={{ fontSize: 24, fontWeight: 700, color: C.text }}>{name}</div></div>
-        <Link href="/profile" style={{ textDecoration: "none" }}><div style={{ width: 36, height: 36, borderRadius: "50%", background: "linear-gradient(135deg,#BAC8FF,#D0BFFF)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 17, color: C.text }}>{name[0]?.toUpperCase()}</div></Link>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 18, paddingTop: 16 }}>
+        <div><div style={{ fontSize: 13, color: C.muted, marginBottom: 2 }}>{greeting}</div><div style={{ fontSize: 26, fontWeight: 700, color: C.text }}>{name}</div></div>
+        <Link href="/profile" style={{ textDecoration: "none" }}><div style={{ width: 38, height: 38, borderRadius: "50%", background: "linear-gradient(135deg,#BAC8FF,#D0BFFF)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, color: C.text }}>{name[0]?.toUpperCase()}</div></Link>
       </div>
 
-      <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 20, boxShadow: "0 2px 16px rgba(26,32,80,0.06)", padding: "18px 20px", marginBottom: 14, position: "relative", overflow: "hidden" }}>
+      <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 20, boxShadow: "0 2px 16px rgba(26,32,80,0.06)", padding: 16, marginBottom: 14, position: "relative", overflow: "hidden" }}>
         <div style={{ position: "absolute", width: 130, height: 130, borderRadius: "50%", background: "linear-gradient(135deg,#BAC8FF,#D0BFFF)", top: -35, right: -35, filter: "blur(30px)", opacity: 0.6 }} />
-        <div style={{ position: "relative", zIndex: 1, display: "flex", alignItems: "center", gap: 16 }}>
-          <div style={{ width: 56, height: 56, borderRadius: "50%", padding: 5, background: `conic-gradient(#748FFC ${profileComplete ? score : profileProgress}%, rgba(26,32,80,0.08) 0)`, flexShrink: 0 }}>
-            <div style={{ width: "100%", height: "100%", borderRadius: "50%", background: "rgba(255,255,255,.86)", display: "grid", placeItems: "center", color: "#5C7CFA", fontWeight: 700, fontSize: profileComplete ? 17 : 12 }}>{profileComplete ? score : `${profileProgress}%`}</div>
-          </div>
-        <div style={{ flex: 1 }}><div style={{ fontSize: 15, fontWeight: 700, color: C.text, marginBottom: 2 }}>{profileComplete ? "Karta Score" : en ? "Complete your profile" : "Заполните профиль"}</div><div style={{ fontSize: 11, color: C.muted }}>{profileComplete ? (score === 100 ? (en ? "All vaccinations done 🎉" : "Все прививки сделаны 🎉") : (en ? "Tap to see what's left" : "Нажмите, чтобы узнать что сделать")) : en ? `Profile ${profileProgress}% complete` : `Профиль заполнен на ${profileProgress}%`}</div></div>
-          {!profileComplete && <Link href="/profile" aria-label={en ? "Complete profile" : "Заполнить профиль"} style={{ color: C.muted, fontSize: 16, textDecoration: "none" }}>›</Link>}
-        </div>
-        {profileComplete && score < 100 && <div style={{ position: "relative", zIndex: 1, marginTop: 12, padding: "0 4px", fontSize: 12, color: C.muted }}><ScoreDetails score={score} pending={recommended.map((item) => ({ id: item.id, name: item.nameRu, nameEn: item.nameEn, description: item.descriptionRu, descriptionEn: item.descriptionEn }))} overdue={manualVaccineTasks.filter((task) => task.overdue).map((task) => ({ ...task, nameEn: taskCatalog.find((vaccine) => vaccine.id === task.vaccineId)?.nameEn }))} /></div>}
+        {profileComplete && score < 100 ? <ScoreDetails score={score} pending={recommended.map((item) => ({ id: item.id, name: item.nameRu, nameEn: item.nameEn, description: item.descriptionRu, descriptionEn: item.descriptionEn }))} overdue={manualVaccineTasks.filter((task) => task.overdue).map((task) => ({ ...task, nameEn: taskCatalog.find((vaccine) => vaccine.id === task.vaccineId)?.nameEn }))}>{scoreHeader}</ScoreDetails> : scoreHeader}
 
-        <div style={{ position: "relative", zIndex: 1, height: 1, background: "rgba(26,32,80,0.08)", margin: "14px 0" }} />
-        <div style={{ position: "relative", zIndex: 1, display: "flex", alignItems: "flex-start", gap: 8 }}><span style={{ fontSize: 13, lineHeight: 1 }}>💡</span><div><div style={{ fontSize: 10, color: "#5C7CFA", fontWeight: 700, marginBottom: 4 }}>{en ? "INTERESTING FACT" : "ИНТЕРЕСНЫЙ ФАКТ"}</div><div style={{ fontSize: 12, lineHeight: 1.45, color: C.muted }}>{en ? todayFact.en : todayFact.ru}</div></div></div>
+        <div style={{ position: "relative", zIndex: 1, height: 1, background: "rgba(26,32,80,0.08)", margin: "12px 0" }} />
+        <div style={{ position: "relative", zIndex: 1, display: "flex", alignItems: "flex-start", gap: 8 }}><Lightbulb size={16} color="#748FFC" strokeWidth={1.8} /><div><div style={{ fontSize: 10, color: "#5C7CFA", fontWeight: 700, marginBottom: 4 }}>{en ? "INTERESTING FACT" : "ИНТЕРЕСНЫЙ ФАКТ"}</div><div style={{ fontSize: 12, lineHeight: 1.45, color: C.muted }}>{en ? todayFact.en : todayFact.ru}</div></div></div>
 
-        <div style={{ position: "relative", zIndex: 1, height: 1, background: "rgba(26,32,80,0.08)", margin: "14px 0" }} />
-        <Link href="/export" style={{ position: "relative", zIndex: 1, display: "flex", alignItems: "center", gap: 10, textDecoration: "none", color: "#4C6EF5" }}><span style={{ fontSize: 18 }}>📄</span><div style={{ flex: 1 }}><div style={{ fontSize: 13, fontWeight: 700 }}>{en ? "My health card" : "Моя карта здоровья"}</div><div style={{ fontSize: 11, marginTop: 2, opacity: 0.75 }}>{en ? "Open and save as PDF" : "Открыть и сохранить в PDF"}</div></div><span style={{ fontSize: 17 }}>›</span></Link>
+        <div style={{ position: "relative", zIndex: 1, height: 1, background: "rgba(26,32,80,0.08)", margin: "12px 0" }} />
+        <Link href="/export" style={{ position: "relative", zIndex: 1, display: "flex", alignItems: "center", gap: 10, textDecoration: "none", color: "#4C6EF5" }}><Share size={16} strokeWidth={2.2} /><div style={{ flex: 1 }}><div style={{ fontSize: 13, fontWeight: 700 }}>{en ? "My health card" : "Моя карта здоровья"}</div><div style={{ fontSize: 11, marginTop: 2, opacity: 0.75 }}>{en ? "Open and save as PDF" : "Открыть и сохранить в PDF"}</div></div><span style={{ fontSize: 17 }}>›</span></Link>
       </div>
 
       {data.medications.length === 0 && <MedicationPrompt en={en} />}
 
       <div style={{ fontSize: 13, fontWeight: 700, color: C.text, marginBottom: 10 }}>{en ? "Sections" : "Разделы"}</div>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 7, marginBottom: 20 }}>
-        {tiles.map((tile) => { const label = tile.label; const displayLabel = en ? ({ "Прививки": "Vaccinations", "Лекарства": "Medications", "Анализы": "Lab tests", "Чекапы": "Check-ups" }[label] || label) : label; const subtitle = label === "Прививки" ? en ? `${data.vaccinations.length} records` : `${data.vaccinations.length} записей` : label === "Лекарства" ? en ? `${data.medications.length} active` : `${data.medications.length} активных` : label === "Анализы" ? en ? `${labs.length} records` : `${labs.length} записей` : en ? "Coming soon" : "Скоро"; return <Link key={label} href={tile.href} style={{ textDecoration: "none" }}><div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 14, padding: 13, position: "relative", overflow: "hidden", boxShadow: "0 1px 6px rgba(26,32,80,0.04)" }}><div style={{ position: "absolute", width: 55, height: 55, borderRadius: "50%", background: tile.blob, top: -14, right: -14, filter: "blur(14px)", opacity: 0.5 }} /><div style={{ fontSize: 20, marginBottom: 7, position: "relative" }}>{tile.icon}</div><div style={{ fontSize: 12, fontWeight: 700, color: C.text, position: "relative" }}>{displayLabel}</div><div style={{ fontSize: 10, color: C.muted, position: "relative" }}>{subtitle}</div></div></Link>; })}
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 20 }}>
+        {tiles.map((tile) => {
+          const label = tile.label;
+          const displayLabel = en ? ({ "Прививки": "Vaccinations", "Лекарства": "Medications", "Анализы": "Lab tests", "Чекапы": "Check-ups" }[label] || label) : label;
+          const vaccineSubtitle = data.vaccinations.length === 0 && recommendedVaccineCount === 0
+            ? en ? "Add your records" : "Добавьте записи"
+            : upcomingVaccineCount > 0 && recommendedVaccineCount > 0
+              ? en ? `Upcoming: ${upcomingVaccineCount} · Recs: ${recommendedVaccineCount}` : `Предст.: ${upcomingVaccineCount} · Рек.: ${recommendedVaccineCount}`
+              : upcomingVaccineCount > 0
+                ? en ? `Upcoming: ${upcomingVaccineCount}` : `Предстоящих: ${upcomingVaccineCount}`
+                : recommendedVaccineCount > 0
+                  ? en ? `Recs: ${recommendedVaccineCount}` : `Рекомендован.: ${recommendedVaccineCount}`
+                  : en ? "All done ✓" : "Всё сделано ✓";
+          const subtitle = label === "Прививки" ? vaccineSubtitle
+            : label === "Лекарства" ? activeMedicationCount === 0 ? (en ? "None active" : "Нет активных") : `${activeMedicationCount} ${medicationPlural(activeMedicationCount, en)}`
+            : label === "Анализы" ? labs.length === 0 ? (en ? "Add a result" : "Добавьте результат") : en ? `${labs.length} records` : `Записей: ${labs.length}`
+            : en ? "Coming soon" : "Скоро";
+          const card = <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 14, padding: 13, position: "relative", overflow: "hidden", boxShadow: "0 1px 6px rgba(26,32,80,0.04)" }}><div style={{ position: "absolute", width: 55, height: 55, borderRadius: "50%", background: tile.blob, top: -14, right: -14, filter: "blur(14px)", opacity: 0.5 }} /><div style={{ position: "relative", marginBottom: 7, height: 25, display: "flex", alignItems: "center" }}><tile.Icon size={22} color="#5C7CFA" strokeWidth={2.2} aria-hidden="true" /></div><div style={{ fontSize: 13, fontWeight: 700, color: C.text, position: "relative" }}>{displayLabel}</div><div style={{ fontSize: 10, color: C.muted, position: "relative" }}>{subtitle}</div></div>;
+          return label === "Чекапы"
+            ? <div key={label} aria-disabled="true" style={{ opacity: 0.6, pointerEvents: "none" }}>{card}</div>
+            : <Link key={label} href={tile.href} style={{ textDecoration: "none" }}>{card}</Link>;
+        })}
       </div>
 
       {medicationTasks.length > 0 && <section style={{ marginBottom: 18 }}><div style={{ fontSize: 13, fontWeight: 700, color: C.text, marginBottom: 10 }}>{en ? "Today" : "Сегодня"}</div><div style={{ display: "grid", gap: 6 }}>{medicationTasks.slice(0, 3).map((task) => <div key={task.key} style={{ display: "flex", alignItems: "center", gap: 10, padding: "8px 12px", background: C.card, border: `1px solid ${C.border}`, borderRadius: 14, opacity: task.taken ? 0.55 : 1 }}><form action={toggleMedicationTaken}><input type="hidden" name="medicationId" value={task.medicationId} /><input type="hidden" name="scheduledAt" value={task.scheduledAt} /><button type="submit" aria-label={task.taken ? (en ? "Undo intake" : "Отменить приём") : (en ? "Mark as taken" : "Отметить приём")} style={{ display: "grid", placeItems: "center", width: 22, height: 22, borderRadius: "50%", border: `1.5px solid ${task.taken ? "#5C7CFA" : "rgba(26,32,80,0.22)"}`, background: task.taken ? "linear-gradient(135deg,#748FFC,#5C7CFA)" : "transparent", color: "white", padding: 0 }}>{task.taken ? "✓" : ""}</button></form><div style={{ flex: 1, fontSize: 13, fontWeight: 500, textDecoration: task.taken ? "line-through" : "none", color: task.taken ? C.muted : C.text }}>{task.name}{task.dosage && <span style={{ fontSize: 11, color: C.muted, marginLeft: 6 }}>{task.dosage}</span>}</div><span style={{ fontSize: 11, color: C.muted }}>{task.time}</span></div>)}</div></section>}
