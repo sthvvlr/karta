@@ -232,7 +232,7 @@ export async function GET(request: Request) {
 
   const profileTop = y;
   drawRoundedRect(MARGIN, profileTop - 64, contentW, 64, 10, PALE, BORDER, 0.5);
-  const name = data.profile?.fullName || user.displayName || (en ? "Name not specified" : "Имя не указано");
+  const name = data.profile?.fullName || user.displayName || (en ? "Name not set" : "Имя не указано");
   page.drawText(name, { x: MARGIN + 14, y: profileTop - 22, size: 15, font: bold, color: INK, maxWidth: contentW - 28 });
   const profileLine = [birthDateDisplayValue(data.profile?.birthDate), data.profile?.cityCurrent].filter(Boolean).join("  ·  ") || (en ? "Location not set" : "Город не указан");
   page.drawText(profileLine, { x: MARGIN + 14, y: profileTop - 42, size: 11, font: regular, color: PROFILE_MUTED, maxWidth: contentW - 28 });
