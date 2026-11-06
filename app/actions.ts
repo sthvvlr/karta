@@ -30,15 +30,70 @@ const monthLabels = {
   ru: ["янв.", "февр.", "мар.", "апр.", "май", "июн.", "июл.", "авг.", "сент.", "окт.", "нояб.", "дек."],
 };
 
-function isMonthOnlyDate(value: string) {
-  return /^\d{4}-(0[1-9]|1[0-2])$/.test(value);
+const monthAliases = [
+  ["jan", "january", "янв", "январ", "январь"], ["feb", "february", "фев", "февр", "феврал", "февраль"],
+  ["mar", "march", "мар", "март"], ["apr", "april", "апр", "апрел", "апрель"],
+  ["may", "май"], ["jun", "june", "июн", "июнь"], ["jul", "july", "июл", "июль"],
+  ["aug", "august", "авг", "август"], ["sep", "sept", "september", "сен", "сент", "сентябр", "сентябрь"],
+  ["oct", "october", "окт", "октябр", "октябрь"], ["nov", "november", "ноя", "нояб", "ноябр", "ноябрь"],
+  ["dec", "december", "дек", "декабр", "декабрь"],
+];
+
+function exactDateLabel(value: string, en: boolean) {
+  return new Intl.DateTimeFormat(en ? "en-US" : "ru-RU", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" }).format(new Date(`${value}T00:00:00Z`));
 }
 
-function monthOnlyDateLabel(value: string, en: boolean) {
-  if (!isMonthOnlyDate(value)) return value;
+function monthDateLabel(value: string, en: boolean) {
   const [year, month] = value.split("-").map(Number);
   const label = monthLabels[en ? "en" : "ru"][month - 1];
-  return `${en ? label : label[0].toLocaleUpperCase(en ? "en-US" : "ru-RU") + label.slice(1)} ${year}`;
+  return `${en ? label : label[0].toLocaleUpperCase("ru-RU") + label.slice(1)} ${year}`;
+}
+
+function parseVaccinationDate(raw: string, en: boolean) {
+  const value = raw.trim();
+  if (!value) return { dateGiven: null, dateString: "", dateMonthISO: null, dateDoneISO: null };
+
+  const isoDay = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value);
+  const monthYear = /^(\d{4})-(0[1-9]|1[0-2])$/.exec(value);
+  let year: number | null = null;
+  let month: number | null = null;
+  let day: number | null = null;
+
+  if (isoDay) {
+    year = Number(isoDay[1]); month = Number(isoDay[2]); day = Number(isoDay[3]);
+  } else if (monthYear) {
+    year = Number(monthYear[1]); month = Number(monthYear[2]);
+  } else {
+    const numericDay = /^(\d{1,2})[./-](\d{1,2})[./-](\d{4})$/.exec(value);
+    const namedMonthYear = /^([\p{L}.]+)\s+(\d{4})$/u.exec(value);
+    const namedDayMonth = /^(\d{1,2})\s+([\p{L}.]+)\s+(\d{4})$/u.exec(value);
+    const namedMonthDay = /^([\p{L}.]+)\s+(\d{1,2}),?\s+(\d{4})$/u.exec(value);
+    if (numericDay) { day = Number(numericDay[1]); month = Number(numericDay[2]); year = Number(numericDay[3]); }
+    else if (namedMonthYear || namedDayMonth || namedMonthDay) {
+      const match = namedMonthYear || namedDayMonth || namedMonthDay!;
+      const monthText = (namedDayMonth ? namedDayMonth[2] : match[1]).toLocaleLowerCase().replace(/\.$/, "");
+      const monthIndex = monthAliases.findIndex((aliases) => aliases.includes(monthText));
+      if (monthIndex >= 0) {
+        month = monthIndex + 1;
+        year = Number(namedMonthYear ? namedMonthYear[2] : namedDayMonth ? namedDayMonth[3] : namedMonthDay![3]);
+        if (namedDayMonth) day = Number(namedDayMonth[1]);
+        if (namedMonthDay) day = Number(namedMonthDay[2]);
+      }
+    }
+  }
+
+  if (year && month && day) {
+    const date = new Date(Date.UTC(year, month - 1, day));
+    if (date.getUTCFullYear() === year && date.getUTCMonth() === month - 1 && date.getUTCDate() === day) {
+      const iso = `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+      return { dateGiven: iso, dateString: exactDateLabel(iso, en), dateMonthISO: null, dateDoneISO: iso };
+    }
+  }
+  if (year && month && !day && month >= 1 && month <= 12) {
+    const iso = `${year}-${String(month).padStart(2, "0")}`;
+    return { dateGiven: iso, dateString: monthDateLabel(iso, en), dateMonthISO: iso, dateDoneISO: null };
+  }
+  return { dateGiven: null, dateString: value, dateMonthISO: null, dateDoneISO: null };
 }
 
 export async function registerAccount(formData: FormData) {
@@ -116,8 +171,8 @@ export async function addVaccination(formData: FormData) {
   if (!customName && !vaccineId) return;
   const isUpcoming = formData.get("isUpcoming") === "true";
   const dateInput = String(formData.get("dateGiven") || "");
-  const monthOnly = isMonthOnlyDate(dateInput);
-  const dateGiven = dateInput || null;
+  const parsedDate = parseVaccinationDate(dateInput, (await cookies()).get("karta_lang")?.value === "en");
+  const dateGiven = parsedDate.dateGiven;
   const [catalogVaccine] = vaccineId ? await getDb().select({ totalDoses: vaccines.totalDoses }).from(vaccines).where(eq(vaccines.id, vaccineId)).limit(1) : [];
   const totalDoses = Math.max(1, Math.min(10, Number(customName ? formData.get("totalDoses") || 1 : catalogVaccine?.totalDoses || 1)));
   const nextDue = String(formData.get("nextDue") || "") || null;
@@ -131,7 +186,7 @@ export async function addVaccination(formData: FormData) {
     doseNumber: Number(formData.get("doseNumber") || 1),
     brand: String(formData.get("brand") || "") || null,
     clinic: String(formData.get("clinic") || "") || null,
-    notes: writeVaccinationMetadata({ name: customName || undefined, isUpcoming, totalDoses, nextDue, dateString: isUpcoming ? "" : monthOnly ? monthOnlyDateLabel(dateInput, (await cookies()).get("karta_lang")?.value === "en") : dateInput, dateMonthISO: monthOnly ? dateInput : null, dateDoneISO: isUpcoming || monthOnly ? null : dateInput, userNotes }),
+    notes: writeVaccinationMetadata({ name: customName || undefined, isUpcoming, totalDoses, nextDue, dateString: isUpcoming ? "" : parsedDate.dateString, dateMonthISO: isUpcoming ? null : parsedDate.dateMonthISO, dateDoneISO: isUpcoming ? null : parsedDate.dateDoneISO, userNotes }),
     createdAt: new Date().toISOString(),
   });
   revalidatePath("/");
@@ -149,8 +204,8 @@ export async function updateVaccination(formData: FormData) {
   const vaccineId = customName ? `custom:${id}` : String(formData.get("vaccineId") || existing.vaccineId);
   const [catalogVaccine] = vaccineId.startsWith("custom:") ? [] : await db.select({ totalDoses: vaccines.totalDoses }).from(vaccines).where(eq(vaccines.id, vaccineId)).limit(1);
   const dateInput = String(formData.get("dateGiven") || "");
-  const monthOnly = isMonthOnlyDate(dateInput);
-  const dateGiven = dateInput || null;
+  const parsedDate = parseVaccinationDate(dateInput, (await cookies()).get("karta_lang")?.value === "en");
+  const dateGiven = parsedDate.dateGiven;
   await db.update(vaccinations).set({
     vaccineId,
     dateGiven,
@@ -162,9 +217,9 @@ export async function updateVaccination(formData: FormData) {
       isUpcoming: false,
       totalDoses: Math.max(1, Math.min(10, Number(customName ? formData.get("totalDoses") || 1 : catalogVaccine?.totalDoses || 1))),
       nextDue: String(formData.get("nextDue") || "") || null,
-      dateString: monthOnly ? monthOnlyDateLabel(dateInput, (await cookies()).get("karta_lang")?.value === "en") : dateInput,
-      dateMonthISO: monthOnly ? dateInput : null,
-      dateDoneISO: monthOnly ? null : dateGiven,
+      dateString: parsedDate.dateString,
+      dateMonthISO: parsedDate.dateMonthISO,
+      dateDoneISO: parsedDate.dateDoneISO,
       userNotes: String(formData.get("notes") || "") || null,
     }),
   }).where(and(eq(vaccinations.id, id), eq(vaccinations.userId, auth.userId)));
