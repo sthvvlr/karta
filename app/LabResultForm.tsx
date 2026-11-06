@@ -26,7 +26,11 @@ export function LabResultForm({ action, initial, prefillTitle, prefillTests = []
   const [queries, setQueries] = useState<string[]>(indicators.map(() => ""));
   function update(index: number, patch: Partial<Indicator>) { setIndicators((items) => items.map((item, i) => i === index ? { ...item, ...patch } : item)); }
   function select(index: number, marker: Marker) {
-    const ref = marker.ref || marker.ref_female || marker.ref_male;
+    const ref = gender === "male" || gender === "мужской"
+      ? marker.ref_male || marker.ref
+      : gender === "female" || gender === "женский"
+        ? marker.ref_female || marker.ref
+        : marker.ref || marker.ref_male || marker.ref_female;
     update(index, { name: marker.ru, markerCode: marker.code, unit: marker.unit, refLow: ref ? String(ref.low) : "", refHigh: ref ? String(ref.high) : "" });
     setQueries((items) => items.map((item, i) => i === index ? marker.ru : item));
   }

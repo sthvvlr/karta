@@ -10,7 +10,7 @@ export const dynamic = "force-dynamic";
 const C = { text: "#1A2050", muted: "rgba(26,32,80,0.42)", card: "rgba(255,255,255,0.72)", border: "rgba(255,255,255,0.9)" };
 type Indicator = { name: string; value: string; unit?: string; refLow?: string; refHigh?: string };
 function parseIndicators(raw: string | null): Indicator[] { try { return JSON.parse(raw || "[]") as Indicator[]; } catch { return []; } }
-function indicatorStatus(item: Indicator) { const value = Number(String(item.value).replace(",", ".")); const low = Number(item.refLow); const high = Number(item.refHigh); if (!Number.isFinite(value)) return ""; if (Number.isFinite(low) && value < low) return "ниже нормы"; if (Number.isFinite(high) && value > high) return "выше нормы"; return Number.isFinite(low) || Number.isFinite(high) ? "в норме" : ""; }
+function indicatorStatus(item: Indicator) { const normalized = String(item.value).replace(/,/g, ".").replace(/\s/g, ""); const numeric = normalized.match(/[0-9]+(?:\.[0-9]+)?/); const value = numeric ? Number(numeric[0]) : Number.NaN; const low = Number(item.refLow); const high = Number(item.refHigh); if (!Number.isFinite(value)) return ""; if (Number.isFinite(low) && value < low) return "ниже нормы"; if (Number.isFinite(high) && value > high) return "выше нормы"; return Number.isFinite(low) || Number.isFinite(high) ? "в норме" : ""; }
 
 export default async function LabsPage({ searchParams }: { searchParams: Promise<{ monitoringMedicationId?: string; monitoringRuleId?: string }> }) {
   const user = await getChatGPTUser();
