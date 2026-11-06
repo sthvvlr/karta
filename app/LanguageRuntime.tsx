@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, type ReactNode } from "react";
+import { usePathname } from "next/navigation";
 import catalog from "./vaccinations_catalog.json";
 import facts from "./health_facts.json";
 import medicines from "./medications_ru.json";
@@ -103,6 +104,7 @@ function applyLanguage(lang: Language) {
 
 export function LanguageRuntime({ initialLanguage, children }: { initialLanguage: Language; children: ReactNode }) {
   const lang = initialLanguage;
+  const pathname = usePathname();
   useEffect(() => {
     applyLanguage(lang);
     const observer = new MutationObserver(() => applyLanguage(lang));
@@ -115,7 +117,7 @@ export function LanguageRuntime({ initialLanguage, children }: { initialLanguage
     window.location.assign(`/api/preferences/language?language=${next}&return_to=${encodeURIComponent(returnTo)}`);
   }
 
-  return <LanguageContext.Provider value={lang}><button type="button" onClick={changeLanguage} aria-label={lang === "ru" ? "Switch to English" : "Переключить на русский"} style={{ position: "fixed", top: 10, left: "50%", transform: "translateX(-50%)", zIndex: 70, border: "1px solid rgba(92,124,250,.2)", borderRadius: 999, padding: "6px 10px", background: "rgba(255,255,255,.82)", color: "#5C7CFA", fontSize: 11, fontWeight: 700, boxShadow: "0 4px 14px rgba(26,32,80,.08)" }}>{lang === "ru" ? "EN" : "RU"}</button>{children}</LanguageContext.Provider>;
+  return <LanguageContext.Provider value={lang}>{pathname === "/profile" && <button type="button" onClick={changeLanguage} aria-label={lang === "ru" ? "Switch to English" : "Переключить на русский"} style={{ position: "fixed", top: 12, right: "max(16px, calc((100vw - 430px) / 2 + 16px))", zIndex: 70, border: "1px solid rgba(92,124,250,.2)", borderRadius: 999, padding: "6px 10px", background: "rgba(255,255,255,.82)", color: "#5C7CFA", fontSize: 11, fontWeight: 700, boxShadow: "0 4px 14px rgba(26,32,80,.08)" }}>{lang === "ru" ? "EN" : "RU"}</button>}{children}</LanguageContext.Provider>;
 }
 
 export function useKartaLanguage(): Language {

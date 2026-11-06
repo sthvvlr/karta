@@ -26,13 +26,14 @@ export function BottomTabBar() {
       transform: 'translateX(-50%)',
       width: '100%',
       maxWidth: 430,
-      height: 'calc(80px + env(safe-area-inset-bottom, 0px))',
+      height: 'calc(62px + env(safe-area-inset-bottom, 0px))',
+      boxSizing: 'border-box',
       background: 'rgba(244,246,255,0.88)',
       backdropFilter: 'blur(20px)',
       borderTop: '1px solid rgba(186,200,255,0.25)',
       display: 'flex',
       alignItems: 'flex-start',
-      paddingTop: 10,
+      paddingTop: 8,
       paddingBottom: 'env(safe-area-inset-bottom, 0px)',
       justifyContent: 'space-around',
       zIndex: 50,
@@ -50,12 +51,12 @@ export function BottomTabBar() {
               gap: 3,
               flex: 1,
               textDecoration: 'none',
-              opacity: active ? 1 : 0.3,
+              opacity: active ? 1 : 0.48,
             }}
           >
-            <tab.Icon size={20} strokeWidth={active ? 2.4 : 2} color={active ? '#5C7CFA' : '#1A2050'} aria-hidden="true" />
+            <tab.Icon size={21} strokeWidth={active ? 2.1 : 1.8} fill="currentColor" color={active ? '#5C7CFA' : '#68708A'} aria-hidden="true" />
             <span style={{
-              fontSize: 9,
+              fontSize: 10,
               fontWeight: active ? 700 : 500,
               color: active ? '#5C7CFA' : '#1A2050',
               letterSpacing: '0.02em',
