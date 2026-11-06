@@ -3,6 +3,7 @@ import { and, eq } from "drizzle-orm";
 import { getDb } from "@/db";
 import { ensureCatalog, ensureProfile } from "@/app/data";
 import { getMobileUser } from "@/app/mobile-auth";
+import { isCustomVaccineId, readVaccinationMetadata, writeVaccinationMetadata } from "@/app/vaccination-record";
 import { labResults, medicationLogs, medications, monitoringCompletions, vaccinations, vaccines } from "@/db/schema";
 
 function parseJson(value: string | null, fallback: unknown) {
@@ -50,22 +51,26 @@ async function loadRecords(userId: string) {
   ]);
 
   return {
-    vaccinations: vaccinationRows.map(({ record, vaccine }) => ({
-      id: record.id,
-      name: vaccine?.nameRu || record.vaccineId,
-      catalogId: record.vaccineId,
-      dateString: record.dateGiven || "",
-      dateDoneISO: dateOnly(record.dateGiven),
-      doses: record.doseNumber,
-      totalDoses: vaccine?.totalDoses || 1,
-      nextDue: null,
-      isUpcoming: false,
-      vaccineBrand: record.brand,
-      brand: record.brand,
-      clinic: record.clinic,
-      notes: record.notes,
-      createdAt: record.createdAt,
-    })),
+    vaccinations: vaccinationRows.map(({ record, vaccine }) => {
+      const metadata = readVaccinationMetadata(record.notes);
+      const customId = isCustomVaccineId(record.vaccineId);
+      return {
+        id: record.id,
+        name: metadata.name || vaccine?.nameRu || (customId ? "" : record.vaccineId),
+        catalogId: customId ? null : record.vaccineId,
+        dateString: metadata.dateString || record.dateGiven || "",
+        dateDoneISO: metadata.dateDoneISO || dateOnly(record.dateGiven),
+        doses: record.doseNumber,
+        totalDoses: metadata.totalDoses ?? vaccine?.totalDoses ?? 1,
+        nextDue: metadata.nextDue || null,
+        isUpcoming: metadata.isUpcoming === true,
+        vaccineBrand: record.brand,
+        brand: record.brand,
+        clinic: record.clinic,
+        notes: metadata.userNotes || null,
+        createdAt: record.createdAt,
+      };
+    }),
     medications: medicationRows.map((record) => ({
       id: record.id,
       name: record.name,
@@ -126,16 +131,28 @@ export async function POST(request: Request) {
   const now = new Date().toISOString();
 
   if (kind === "vaccination") {
-    if (record.isUpcoming === true) return NextResponse.json({ status: "skipped_upcoming", id });
     await ensureCatalog();
+    const rawVaccineId = String(record.catalogId || record.vaccineId || "");
+    const isUpcoming = record.isUpcoming === true;
+    const vaccineId = rawVaccineId || `custom:${id}`;
+    const dateDoneISO = dateOnly(record.dateDoneISO) || dateOnly(record.dateString);
+    const rawTotalDoses = Number(record.totalDoses);
     const values = {
       userId: user.userId,
-      vaccineId: String(record.catalogId || record.vaccineId || ""),
-      dateGiven: dateOnly(record.dateDoneISO) || dateOnly(record.dateString),
+      vaccineId,
+      dateGiven: isUpcoming ? null : dateDoneISO,
       doseNumber: Math.max(1, Number(record.doses || record.doseNumber || 1)),
       brand: String(record.vaccineBrand || record.brand || "") || null,
       clinic: String(record.clinic || "") || null,
-      notes: String(record.notes || "") || null,
+      notes: writeVaccinationMetadata({
+        name: isCustomVaccineId(vaccineId) || !rawVaccineId ? String(record.name || "").trim() : undefined,
+        isUpcoming,
+        totalDoses: Number.isFinite(rawTotalDoses) ? Math.max(0, rawTotalDoses) : 1,
+        nextDue: String(record.nextDue || "") || null,
+        dateString: String(record.dateString || ""),
+        dateDoneISO,
+        userNotes: String(record.notes || "") || null,
+      }),
       createdAt: String(record.createdAt || now),
     };
     const [existing] = await db.select({ id: vaccinations.id }).from(vaccinations).where(and(eq(vaccinations.id, id), eq(vaccinations.userId, user.userId))).limit(1);

@@ -269,7 +269,8 @@ export function nextDoseDate(vaccine: VaccineForTasks, doseNumber: number, dateG
 
 export function vaccinationScore(profile: ProfileForRecommendations | null | undefined, records: VaccinationForTasks[], catalog: VaccineForTasks[], today = new Date()): number {
   const applicable = recommendedVaccines(profile, records, catalog, today).length;
-  const total = applicable + new Set(records.filter((record) => record.dateGiven).map((record) => record.vaccineId)).size;
+  const catalogIds = new Set(catalog.map((vaccine) => vaccine.id));
+  const total = applicable + new Set(records.filter((record) => record.dateGiven && catalogIds.has(record.vaccineId)).map((record) => record.vaccineId)).size;
   if (total === 0) return 0;
   return Math.round((total - applicable) / total * 100);
 }

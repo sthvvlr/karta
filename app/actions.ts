@@ -6,9 +6,17 @@ import { redirect } from "next/navigation";
 import { env } from "cloudflare:workers";
 import { getChatGPTUser, requireChatGPTUser, createAppSession, clearAppSession } from "./chatgpt-auth";
 import { getDb } from "@/db";
-import { authAccounts, authSessions, labResults, medicationLogs, medications, monitoringCompletions, profileLocations, profiles, vaccinations } from "@/db/schema";
+import { authAccounts, authSessions, labResults, medicationLogs, medications, monitoringCompletions, profileLocations, profiles, vaccinations, vaccines } from "@/db/schema";
+import { readVaccinationMetadata, writeVaccinationMetadata } from "./vaccination-record";
 import { ensureCatalog, ensureProfile } from "./data";
 import monitoringRules from "./monitoring_rules.json";
+
+async function removeUpcomingVaccineRows(userId: string, vaccineId: string, exceptId?: string) {
+  const db = getDb();
+  const candidates = await db.select({ id: vaccinations.id, notes: vaccinations.notes }).from(vaccinations).where(and(eq(vaccinations.userId, userId), eq(vaccinations.vaccineId, vaccineId)));
+  const ids = candidates.filter((row) => row.id !== exceptId && readVaccinationMetadata(row.notes).isUpcoming).map((row) => row.id);
+  for (const id of ids) await db.delete(vaccinations).where(and(eq(vaccinations.id, id), eq(vaccinations.userId, userId)));
+}
 
 async function hashPassword(password: string, salt: string) {
   const material = await crypto.subtle.importKey("raw", new TextEncoder().encode(password), "PBKDF2", false, ["deriveBits"]);
@@ -82,15 +90,25 @@ export async function deleteAccountData() {
 export async function addVaccination(formData: FormData) {
   const auth = await requireChatGPTUser("/vaccinations");
   await ensureCatalog();
+  const customName = String(formData.get("customName") || "").trim();
+  const vaccineId = String(formData.get("vaccineId") || "");
+  if (!customName && !vaccineId) return;
+  const isUpcoming = formData.get("isUpcoming") === "true";
+  const dateGiven = String(formData.get("dateGiven") || "") || null;
+  const [catalogVaccine] = vaccineId ? await getDb().select({ totalDoses: vaccines.totalDoses }).from(vaccines).where(eq(vaccines.id, vaccineId)).limit(1) : [];
+  const totalDoses = Math.max(1, Math.min(10, Number(customName ? formData.get("totalDoses") || 1 : catalogVaccine?.totalDoses || 1)));
+  const nextDue = String(formData.get("nextDue") || "") || null;
+  const userNotes = String(formData.get("notes") || "") || null;
+  const id = crypto.randomUUID();
   await getDb().insert(vaccinations).values({
-    id: crypto.randomUUID(),
+    id,
     userId: auth.userId,
-    vaccineId: String(formData.get("vaccineId") || ""),
-    dateGiven: String(formData.get("dateGiven") || "") || null,
+    vaccineId: customName ? `custom:${id}` : vaccineId,
+    dateGiven: isUpcoming ? null : dateGiven,
     doseNumber: Number(formData.get("doseNumber") || 1),
     brand: String(formData.get("brand") || "") || null,
     clinic: String(formData.get("clinic") || "") || null,
-    notes: String(formData.get("notes") || "") || null,
+    notes: writeVaccinationMetadata({ name: customName || undefined, isUpcoming, totalDoses, nextDue, dateString: isUpcoming ? "" : dateGiven || "", dateDoneISO: isUpcoming ? null : dateGiven, userNotes }),
     createdAt: new Date().toISOString(),
   });
   revalidatePath("/");
@@ -101,13 +119,28 @@ export async function updateVaccination(formData: FormData) {
   const auth = await requireChatGPTUser("/vaccinations");
   const id = String(formData.get("id") || "");
   if (!id) return;
-  await getDb().update(vaccinations).set({
-    vaccineId: String(formData.get("vaccineId") || ""),
-    dateGiven: String(formData.get("dateGiven") || "") || null,
+  const db = getDb();
+  const [existing] = await db.select().from(vaccinations).where(and(eq(vaccinations.id, id), eq(vaccinations.userId, auth.userId))).limit(1);
+  if (!existing) return;
+  const customName = String(formData.get("customName") || "").trim();
+  const vaccineId = customName ? `custom:${id}` : String(formData.get("vaccineId") || existing.vaccineId);
+  const [catalogVaccine] = vaccineId.startsWith("custom:") ? [] : await db.select({ totalDoses: vaccines.totalDoses }).from(vaccines).where(eq(vaccines.id, vaccineId)).limit(1);
+  const dateGiven = String(formData.get("dateGiven") || "") || null;
+  await db.update(vaccinations).set({
+    vaccineId,
+    dateGiven,
     doseNumber: Number(formData.get("doseNumber") || 1),
     brand: String(formData.get("brand") || "") || null,
     clinic: String(formData.get("clinic") || "") || null,
-    notes: String(formData.get("notes") || "") || null,
+    notes: writeVaccinationMetadata({
+      name: customName || undefined,
+      isUpcoming: false,
+      totalDoses: Math.max(1, Math.min(10, Number(customName ? formData.get("totalDoses") || 1 : catalogVaccine?.totalDoses || 1))),
+      nextDue: String(formData.get("nextDue") || "") || null,
+      dateString: dateGiven || "",
+      dateDoneISO: dateGiven,
+      userNotes: String(formData.get("notes") || "") || null,
+    }),
   }).where(and(eq(vaccinations.id, id), eq(vaccinations.userId, auth.userId)));
   revalidatePath("/");
   revalidatePath("/vaccinations");
@@ -190,20 +223,41 @@ export async function toggleMedicationTaken(formData: FormData) {
 
 export async function completeUpcomingVaccination(formData: FormData) {
   const auth = await requireChatGPTUser("/vaccinations");
+  const id = String(formData.get("id") || "");
   const vaccineId = String(formData.get("vaccineId") || "");
+  const dateGiven = String(formData.get("dateGiven") || new Date().toISOString().slice(0, 10));
+  if (id) {
+    const db = getDb();
+    const [existing] = await db.select().from(vaccinations).where(and(eq(vaccinations.id, id), eq(vaccinations.userId, auth.userId))).limit(1);
+    if (!existing) return;
+    const metadata = readVaccinationMetadata(existing.notes);
+    if (!existing.vaccineId.startsWith("custom:")) await removeUpcomingVaccineRows(auth.userId, existing.vaccineId, id);
+    await db.update(vaccinations).set({
+      dateGiven,
+      notes: writeVaccinationMetadata({ ...metadata, isUpcoming: false, dateString: dateGiven, dateDoneISO: dateGiven }),
+      brand: String(formData.get("brand") || "") || existing.brand,
+      clinic: String(formData.get("clinic") || "") || existing.clinic,
+    }).where(and(eq(vaccinations.id, id), eq(vaccinations.userId, auth.userId)));
+    revalidatePath("/");
+    revalidatePath("/vaccinations");
+    return;
+  }
   if (!vaccineId) return;
   await ensureCatalog();
+  const doseNumber = Math.max(1, Number(formData.get("doseNumber") || 1));
+  const totalDoses = Math.max(1, Number(formData.get("totalDoses") || 1));
   await getDb().insert(vaccinations).values({
     id: crypto.randomUUID(),
     userId: auth.userId,
     vaccineId,
-    dateGiven: String(formData.get("dateGiven") || new Date().toISOString().slice(0, 10)) || null,
-    doseNumber: Number(formData.get("doseNumber") || 1),
+    dateGiven,
+    doseNumber,
     brand: String(formData.get("brand") || "") || null,
     clinic: String(formData.get("clinic") || "") || null,
-    notes: String(formData.get("notes") || "Отмечено из списка предстоящих задач"),
+    notes: writeVaccinationMetadata({ isUpcoming: false, totalDoses, nextDue: null, dateString: dateGiven, dateDoneISO: dateGiven, userNotes: String(formData.get("notes") || "Отмечено из списка предстоящих задач") }),
     createdAt: new Date().toISOString(),
   });
+  await removeUpcomingVaccineRows(auth.userId, vaccineId);
   revalidatePath("/");
   revalidatePath("/vaccinations");
 }
@@ -230,7 +284,19 @@ export async function completeMonitoringTask(formData: FormData) {
 export async function deleteVaccination(formData: FormData) {
   const auth = await requireChatGPTUser("/vaccinations");
   const id = String(formData.get("id") || "");
-  if (id) await getDb().delete(vaccinations).where(and(eq(vaccinations.id, id), eq(vaccinations.userId, auth.userId)));
+  if (id) {
+    const db = getDb();
+    const [record] = await db.select().from(vaccinations).where(and(eq(vaccinations.id, id), eq(vaccinations.userId, auth.userId))).limit(1);
+    if (record) {
+      const metadata = readVaccinationMetadata(record.notes);
+      if (!metadata.isUpcoming && !record.vaccineId.startsWith("custom:")) {
+        const related = await db.select({ id: vaccinations.id, notes: vaccinations.notes }).from(vaccinations).where(and(eq(vaccinations.userId, auth.userId), eq(vaccinations.vaccineId, record.vaccineId)));
+        const pendingIds = related.filter((row) => readVaccinationMetadata(row.notes).isUpcoming).map((row) => row.id);
+        for (const pendingId of pendingIds) await db.delete(vaccinations).where(and(eq(vaccinations.id, pendingId), eq(vaccinations.userId, auth.userId)));
+      }
+      await db.delete(vaccinations).where(and(eq(vaccinations.id, id), eq(vaccinations.userId, auth.userId)));
+    }
+  }
   revalidatePath("/");
   revalidatePath("/vaccinations");
 }

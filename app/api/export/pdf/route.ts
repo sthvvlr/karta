@@ -3,6 +3,7 @@ import { PDFDocument, rgb, type PDFFont, type PDFPage } from "pdf-lib";
 import { getChatGPTUser } from "@/app/chatgpt-auth";
 import { getUserData } from "@/app/data";
 import medicationCatalog from "@/app/medications_ru.json";
+import { readVaccinationMetadata } from "@/app/vaccination-record";
 
 export const dynamic = "force-dynamic";
 
@@ -210,11 +211,14 @@ export async function GET(request: Request) {
 
   if (showVaccinations) {
     section(en ? "Completed vaccinations" : "Сделанные прививки", "vaccine", rgb(0.93, 0.95, 1));
-    if (data.vaccinations.length === 0) drawText(en ? "No vaccination records" : "Нет записей о прививках", { size: 11, color: MUTED, x: MARGIN + 22 });
-    for (const { record, vaccine } of data.vaccinations) {
-      const title = en ? (vaccine?.nameEn || record.vaccineId) : (vaccine?.nameRu || record.vaccineId);
-      const dose = vaccine?.totalDoses && vaccine.totalDoses > 1 ? (en ? ` (dose ${record.doseNumber} of ${vaccine.totalDoses})` : ` (доза ${record.doseNumber} из ${vaccine.totalDoses})`) : "";
-      vaccineRow(title, dose, formatDate(record.dateGiven, lang), record.brand);
+    const completedVaccinations = data.vaccinations.filter(({ record }) => !readVaccinationMetadata(record.notes).isUpcoming);
+    if (completedVaccinations.length === 0) drawText(en ? "No vaccination records" : "Нет записей о прививках", { size: 11, color: MUTED, x: MARGIN + 22 });
+    for (const { record, vaccine } of completedVaccinations) {
+      const metadata = readVaccinationMetadata(record.notes);
+      const title = en ? (vaccine?.nameEn || metadata.name || record.vaccineId) : (metadata.name || vaccine?.nameRu || record.vaccineId);
+      const totalDoses = metadata.totalDoses ?? vaccine?.totalDoses ?? 1;
+      const dose = totalDoses > 1 ? (en ? ` (dose ${record.doseNumber} of ${totalDoses})` : ` (доза ${record.doseNumber} из ${totalDoses})`) : "";
+      vaccineRow(title, dose, formatDate(metadata.dateString || record.dateGiven, lang), record.brand);
     }
   }
 
