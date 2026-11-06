@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
-import { Pencil, Plus } from "lucide-react";
+import { useCallback, useState } from "react";
+import { ArrowUpLeft, Pencil, Pill, Plus } from "lucide-react";
 import { addMedication } from "@/app/actions";
 import { useKartaLanguage } from "@/app/LanguageRuntime";
 import { MedicationPicker } from "@/app/MedicationPicker";
+import type { MedicationCatalogEntry } from "@/app/MedicationPicker";
 import { MedicationSchedulePicker } from "@/app/MedicationSchedulePicker";
 
 export type MedicationDraft = {
@@ -36,8 +37,14 @@ export function MedicationSheet({ med, primary = false, initialOpen = false }: {
   const [mealRelation, setMealRelation] = useState(med?.mealRelation || "any");
   const [isIndefinite, setIsIndefinite] = useState(!med?.endDate);
   const [nameError, setNameError] = useState(false);
+  const [medicationSuggestions, setMedicationSuggestions] = useState<MedicationCatalogEntry[]>([]);
+  const [selectMedicationSuggestion, setSelectMedicationSuggestion] = useState<((item: MedicationCatalogEntry) => void) | null>(null);
   const en = useKartaLanguage() === "en";
-  function close() { setOpen(false); setNameError(false); }
+  const receiveMedicationSuggestions = useCallback((items: MedicationCatalogEntry[], select: (item: MedicationCatalogEntry) => void) => {
+    setMedicationSuggestions(items);
+    setSelectMedicationSuggestion(() => select);
+  }, []);
+  function close() { setOpen(false); setNameError(false); setMedicationSuggestions([]); }
   const mealOptions = [
     { value: "any", ru: "Неважно", en: "Any time" },
     { value: "before", ru: "До еды", en: "Before meal" },
@@ -57,9 +64,24 @@ export function MedicationSheet({ med, primary = false, initialOpen = false }: {
           <button type="submit" form="medication-form" style={{ justifySelf: "end", padding: "6px 0", border: 0, background: "transparent", color: "#5C7CFA", fontSize: 15, fontWeight: 650 }}>{en ? "Save" : "Сохранить"}</button>
         </header>
         <div style={{ flex: 1, minHeight: 0, overflowY: "auto", padding: "8px 16px calc(20px + env(safe-area-inset-bottom))" }}>
-        <form id="medication-form" action={addMedication} onSubmit={(event) => { const name = String(new FormData(event.currentTarget).get("name") || "").trim(); if (!name) { event.preventDefault(); setNameError(true); return; } setNameError(false); setOpen(false); }} style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr)", gap: 16, minWidth: 0, textAlign: "left" }}>
+        <form id="medication-form" action={addMedication} onSubmit={(event) => { const name = String(new FormData(event.currentTarget).get("name") || "").trim(); if (!name) { event.preventDefault(); setNameError(true); return; } setNameError(false); setMedicationSuggestions([]); setOpen(false); }} style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr)", gap: 16, minWidth: 0, textAlign: "left" }}>
           {med && <input type="hidden" name="id" value={med.id} />}
-          <section style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr)", gap: 0, minWidth: 0, padding: 12, border: "1px solid rgba(186,200,255,.26)", borderRadius: 14, background: "rgba(255,255,255,.75)" }}><label style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr)", minWidth: 0, gap: 5, fontSize: 12, fontWeight: 600, marginBottom: 8 }}>{en ? "Name *" : "Название *"}<MedicationPicker initialName={med?.name || ""} initialCode={med?.drugCode || ""} nameError={nameError} onNameChange={() => setNameError(false)} />{nameError && <span role="alert" style={{ color: "#E03131", fontSize: 11, fontWeight: 400 }}>{en ? "Enter a medication name" : "Введите название лекарства"}</span>}</label><div style={{ height: 1, background: "rgba(26,32,80,.08)", margin: "0 0 8px" }} /><label style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr)", minWidth: 0, gap: 5, fontSize: 12, fontWeight: 600 }}>{en ? "Dosage" : "Дозировка"}<input name="dosage" defaultValue={med?.dosage || ""} placeholder={en ? "e.g. 400 mg, 1 tablet" : "Например, 400 мг, 1 таблетка"} style={{ ...input, minHeight: 40, padding: "8px 0", border: 0, background: "transparent" }} /></label></section>
+          <section style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr)", gap: 0, minWidth: 0, padding: 0, borderRadius: 14, background: "white", boxShadow: "0 2px 8px rgba(0,0,0,.04)", overflow: "hidden" }}>
+            <div style={{ minWidth: 0, paddingTop: 12 }}>
+              <div style={{ padding: "0 16px 4px", color: "rgba(26,32,80,.48)", fontSize: 11, fontWeight: 500 }}>{en ? "Name" : "Название"}<span style={{ color: "#E03131" }}> *</span></div>
+              <MedicationPicker label={en ? "Name" : "Название"} initialName={med?.name || ""} initialCode={med?.drugCode || ""} nameError={nameError} onNameChange={() => setNameError(false)} onSuggestionsChange={receiveMedicationSuggestions} renderSuggestions={false} />
+              {nameError && <div role="alert" style={{ padding: "0 16px 8px", color: "#E03131", fontSize: 11 }}>{en ? "Enter a medication name" : "Введите название лекарства"}</div>}
+            </div>
+            <div style={{ height: 1, background: "rgba(26,32,80,.08)", margin: "0 16px" }} />
+            <label style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr)", minWidth: 0, gap: 4, padding: "10px 16px 12px", color: "rgba(26,32,80,.48)", fontSize: 11, fontWeight: 500 }}>{en ? "Dosage" : "Дозировка"}<input name="dosage" defaultValue={med?.dosage || ""} placeholder={en ? "e.g. 400 mg, 1 tablet" : "Например, 400 мг, 1 таблетка"} style={{ ...input, minHeight: 28, padding: "0", border: 0, background: "transparent", color: "#1A2050", fontSize: 15 }} /></label>
+          </section>
+          {medicationSuggestions.length > 0 && <section style={{ marginTop: -12, padding: 12, borderRadius: 14, background: "white", boxShadow: "0 2px 8px rgba(0,0,0,.04)" }}>
+            {medicationSuggestions.map((item, index) => <button type="button" key={item.id} onMouseDown={(event) => event.preventDefault()} onClick={() => selectMedicationSuggestion?.(item)} style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", padding: "10px 4px", border: 0, borderBottom: index < medicationSuggestions.length - 1 ? "1px solid rgba(26,32,80,.08)" : 0, background: "white", color: "#1A2050", textAlign: "left" }}>
+              <Pill size={14} color="rgba(92,124,250,.55)" />
+              <span style={{ flex: 1, fontSize: 14 }}>{en ? item.en : item.ru}</span>
+              <ArrowUpLeft size={12} color="rgba(26,32,80,.35)" />
+            </button>)}
+          </section>}
           <MedicationSchedulePicker initialFrequency={med?.frequency || "daily"} initialSchedule={med?.timeSlots || ""} />
           <section>
             <div style={{ margin: "0 4px 7px", color: "rgba(26,32,80,.48)", fontSize: 10, fontWeight: 750, letterSpacing: ".06em" }}>{en ? "RELATIVE TO MEALS" : "ОТНОСИТЕЛЬНО ЕДЫ"}</div>
