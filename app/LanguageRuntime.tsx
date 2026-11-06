@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useSyncExternalStore } from "react";
+import { createContext, useContext, useEffect, type ReactNode } from "react";
 import catalog from "./vaccinations_catalog.json";
 import facts from "./health_facts.json";
 import medicines from "./medications_ru.json";
@@ -9,20 +9,7 @@ import markers from "./lab_markers.json";
 
 type Language = "ru" | "en";
 type Pair = [string, string];
-
-const languageListeners = new Set<() => void>();
-const languageStore = {
-  getSnapshot: (): Language => document.cookie.match(/(?:^|; )karta_lang=(en|ru)/)?.[1] === "en" ? "en" : "ru",
-  getServerSnapshot: (): Language => "ru",
-  subscribe: (listener: () => void) => {
-    languageListeners.add(listener);
-    return () => languageListeners.delete(listener);
-  },
-  set: (value: Language) => {
-    document.cookie = `karta_lang=${value}; path=/; max-age=31536000; samesite=lax`;
-    languageListeners.forEach((listener) => listener());
-  },
-};
+const LanguageContext = createContext<Language>("ru");
 
 const pairs: Pair[] = [
   ["Настроим вашу карту", "Let's set up your health card"], ["Шаг", "Step"], ["Как вас зовут?", "What's your name?"], ["Это ваше имя в приложении", "This is your name in the app"], ["Немного о вас", "A bit about you"], ["Нужно для персональных рекомендаций", "Needed for personal recommendations"], ["Где вы живёте?", "Where do you live?"], ["Влияет на рекомендации по прививкам", "Affects vaccination recommendations"], ["Дата необязательна", "Date of birth is optional"], ["Город сейчас", "Current city"], ["Регион учитывается при подборе прививок.", "Your region is used to tailor vaccine recommendations."], ["Где жили последние 10 лет", "Where you lived in the last 10 years"], ["Укажите тот же или другой город — это влияет на региональные риски.", "Enter the same or another city to account for regional risks."], ["Далее", "Next"], ["Назад", "Back"], ["Готово", "Done"], ["ШАГ", "STEP"], ["из", "of"],
@@ -114,13 +101,10 @@ function applyLanguage(lang: Language) {
   }
 }
 
-export function LanguageRuntime() {
-  // Keep the server and the first client render identical. The saved cookie is
-  // read after hydration, then applied without producing a hydration warning.
-  const lang = useSyncExternalStore(languageStore.subscribe, languageStore.getSnapshot, languageStore.getServerSnapshot);
+export function LanguageRuntime({ initialLanguage, children }: { initialLanguage: Language; children: ReactNode }) {
+  const lang = initialLanguage;
   useEffect(() => {
     applyLanguage(lang);
-    document.cookie = `karta_lang=${lang}; path=/; max-age=31536000; samesite=lax`;
     window.dispatchEvent(new CustomEvent("karta-language-change", { detail: lang }));
     const observer = new MutationObserver(() => applyLanguage(lang));
     observer.observe(document.body, { childList: true, subtree: true, characterData: true });
@@ -132,9 +116,9 @@ export function LanguageRuntime() {
     window.location.assign(`/api/preferences/language?language=${next}&return_to=${encodeURIComponent(returnTo)}`);
   }
 
-  return <button type="button" onClick={changeLanguage} aria-label={lang === "ru" ? "Switch to English" : "Переключить на русский"} style={{ position: "fixed", top: 10, left: "50%", transform: "translateX(-50%)", zIndex: 70, border: "1px solid rgba(92,124,250,.2)", borderRadius: 999, padding: "6px 10px", background: "rgba(255,255,255,.82)", color: "#5C7CFA", fontSize: 11, fontWeight: 700, boxShadow: "0 4px 14px rgba(26,32,80,.08)" }}>{lang === "ru" ? "EN" : "RU"}</button>;
+  return <LanguageContext.Provider value={lang}><button type="button" onClick={changeLanguage} aria-label={lang === "ru" ? "Switch to English" : "Переключить на русский"} style={{ position: "fixed", top: 10, left: "50%", transform: "translateX(-50%)", zIndex: 70, border: "1px solid rgba(92,124,250,.2)", borderRadius: 999, padding: "6px 10px", background: "rgba(255,255,255,.82)", color: "#5C7CFA", fontSize: 11, fontWeight: 700, boxShadow: "0 4px 14px rgba(26,32,80,.08)" }}>{lang === "ru" ? "EN" : "RU"}</button>{children}</LanguageContext.Provider>;
 }
 
 export function useKartaLanguage(): Language {
-  return useSyncExternalStore(languageStore.subscribe, languageStore.getSnapshot, languageStore.getServerSnapshot);
+  return useContext(LanguageContext);
 }

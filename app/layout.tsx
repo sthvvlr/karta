@@ -25,5 +25,5 @@ export const viewport: Viewport = {
 
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const lang = (await cookies()).get("karta_lang")?.value === "en" ? "en" : "ru";
-  return <html lang={lang}><body><LanguageRuntime />{children}</body></html>;
+  return <html lang={lang}><body><LanguageRuntime initialLanguage={lang}>{children}</LanguageRuntime></body></html>;
 }
