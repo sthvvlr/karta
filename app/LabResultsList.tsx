@@ -62,6 +62,9 @@ export function LabResultsList({ rows, gender }: { rows: Result[]; gender?: stri
 
 function LabResultDetailSheet({ result, gender, en, onClose, onDeleted }: { result: Result; gender?: string | null; en: boolean; onClose: () => void; onDeleted: () => void }) {
   const [showFile, setShowFile] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [deleteError, setDeleteError] = useState(false);
   const locale = en ? "en-US" : "ru-RU";
   const indicators = parseIndicators(result.indicators);
   const groups: Array<{ label: string; items: Indicator[] }> = [];
@@ -102,12 +105,27 @@ function LabResultDetailSheet({ result, gender, en, onClose, onDeleted }: { resu
       })}</div></section>)}
       {indicators.length === 0 && <div style={{ marginBottom: 16, color: C.muted, fontSize: 13 }}>{result.result || (en ? "No values added" : "Показатели не добавлены")}{result.unit ? ` ${result.unit}` : ""}</div>}
       {result.notes && <section style={{ margin: "12px 0 18px" }}><div style={{ marginBottom: 5, color: C.muted, fontSize: 10, fontWeight: 700, letterSpacing: ".06em" }}>{en ? "NOTE" : "ЗАМЕТКА"}</div><div style={{ fontSize: 13, lineHeight: 1.5 }}>{result.notes}</div></section>}
-      <form action={async (formData) => { await deleteLabResult(formData); onDeleted(); }} onSubmit={(event) => { if (!window.confirm(en ? "Delete this lab result?" : "Удалить этот анализ?")) event.preventDefault(); }}>
-        <input type="hidden" name="id" value={result.id} />
-        <button type="submit" style={{ width: "100%", padding: 12, border: 0, borderRadius: 12, background: "rgba(224,49,49,.08)", color: "#E03131", fontSize: 14, fontWeight: 600 }}><Trash2 size={15} style={{ verticalAlign: "-3px", marginRight: 7 }} />{en ? "Delete result" : "Удалить анализ"}</button>
-      </form>
+      <button type="button" onClick={() => { setDeleteError(false); setShowDeleteConfirm(true); }} style={{ width: "100%", padding: 12, border: 0, borderRadius: 12, background: "rgba(224,49,49,.08)", color: "#E03131", fontSize: 14, fontWeight: 600 }}><Trash2 size={15} style={{ verticalAlign: "-3px", marginRight: 7 }} />{en ? "Delete result" : "Удалить анализ"}</button>
     </section>
   </div>
+  {showDeleteConfirm && <div role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget && !isDeleting) setShowDeleteConfirm(false); }} style={{ position: "fixed", inset: 0, zIndex: 160, display: "flex", alignItems: "flex-end", justifyContent: "center", padding: "12px 12px calc(12px + env(safe-area-inset-bottom))", background: "rgba(20,25,55,.48)", backdropFilter: "blur(7px)" }}>
+    <section role="alertdialog" aria-modal="true" aria-labelledby="lab-delete-title" aria-describedby="lab-delete-description" style={{ width: "min(100%, 430px)", padding: 12, border: "1px solid rgba(255,255,255,.8)", borderRadius: 22, background: "rgba(250,251,255,.98)", boxShadow: "0 -12px 42px rgba(26,32,80,.18)", color: C.text, textAlign: "center" }}>
+      <div style={{ padding: "12px 10px 16px" }}>
+        <h2 id="lab-delete-title" style={{ margin: 0, fontSize: 16, fontWeight: 700 }}>{en ? "Delete this result?" : "Удалить этот анализ?"}</h2>
+        <p id="lab-delete-description" style={{ margin: "6px 0 0", color: C.muted, fontSize: 13 }}>{en ? "This action can't be undone." : "Это действие нельзя отменить."}</p>
+        {deleteError && <p role="alert" style={{ margin: "10px 0 0", color: "#E03131", fontSize: 12 }}>{en ? "Couldn't delete the result. Try again." : "Не удалось удалить анализ. Попробуйте ещё раз."}</p>}
+      </div>
+      <button type="button" disabled={isDeleting} onClick={async () => {
+        const formData = new FormData();
+        formData.set("id", result.id);
+        setIsDeleting(true);
+        setDeleteError(false);
+        try { await deleteLabResult(formData); onDeleted(); }
+        catch { setIsDeleting(false); setDeleteError(true); }
+      }} style={{ width: "100%", minHeight: 48, border: 0, borderRadius: 14, background: "white", color: "#E03131", fontSize: 16, fontWeight: 650, opacity: isDeleting ? .55 : 1 }}>{isDeleting ? (en ? "Deleting…" : "Удаление…") : (en ? "Delete result" : "Удалить анализ")}</button>
+      <button type="button" disabled={isDeleting} onClick={() => setShowDeleteConfirm(false)} style={{ width: "100%", minHeight: 48, marginTop: 8, border: 0, borderRadius: 14, background: "white", color: C.text, fontSize: 16, fontWeight: 650, opacity: isDeleting ? .55 : 1 }}>{en ? "Cancel" : "Отмена"}</button>
+    </section>
+  </div>}
   {showFile && <div role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setShowFile(false); }} style={{ position: "fixed", inset: 0, zIndex: 140, display: "flex", alignItems: "flex-end", justifyContent: "center", background: "rgba(20,25,55,.48)", backdropFilter: "blur(7px)" }}><section role="dialog" aria-modal="true" aria-label={en ? "Source file" : "Исходный файл"} style={{ width: "min(100%, 430px)", height: "92dvh", display: "flex", flexDirection: "column", overflow: "hidden", border: "1px solid rgba(255,255,255,.75)", borderBottom: 0, borderRadius: "24px 24px 0 0", background: "rgba(250,251,255,.98)", color: C.text }}><header style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10, padding: "10px 16px" }}><span style={{ width: 34 }} /><h2 style={{ margin: 0, fontSize: 17, fontWeight: 700 }}>{en ? "File" : "Файл"}</h2><button type="button" onClick={() => setShowFile(false)} aria-label={en ? "Close" : "Закрыть"} style={iconButton()}><X size={18} /></button></header><iframe src={endpoint} title={en ? "Lab result source file" : "Исходный файл анализа"} style={{ width: "100%", flex: 1, border: 0, background: "white" }} /></section></div>}
   </>;
 }
