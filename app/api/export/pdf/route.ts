@@ -2,9 +2,7 @@ import fontkit from "@pdf-lib/fontkit";
 import { PDFDocument, rgb, type PDFFont, type PDFPage } from "pdf-lib";
 import { getChatGPTUser } from "@/app/chatgpt-auth";
 import { getUserData } from "@/app/data";
-import { getDb } from "@/db";
-import { labResults } from "@/db/schema";
-import { desc, eq } from "drizzle-orm";
+import medicationCatalog from "@/app/medications_ru.json";
 
 export const dynamic = "force-dynamic";
 
@@ -37,15 +35,12 @@ export async function GET(request: Request) {
   if (!user) return new Response("Sign in required", { status: 401 });
 
   const data = await getUserData({ userId: user.userId, email: user.email, displayName: user.displayName });
-  const labs = await getDb().select().from(labResults)
-    .where(eq(labResults.userId, user.userId)).orderBy(desc(labResults.testedAt));
   const params = new URL(request.url).searchParams;
   const lang: Language = params.get("lang") === "en" ? "en" : "ru";
   const requestedScope = params.get("scope");
   const scope = requestedScope === "vaccinations" || requestedScope === "medications" ? requestedScope : "full";
   const showVaccinations = scope !== "medications";
   const showMedications = scope !== "vaccinations";
-  const showLabs = scope === "full";
   const en = lang === "en";
   const fontResponse = await fetch(new URL("/fonts/NotoSans-Variable.ttf", request.url));
   if (!fontResponse.ok) return new Response("PDF font is unavailable", { status: 503 });
@@ -109,9 +104,45 @@ export async function GET(request: Request) {
     ensureSpace(48);
     const top = y;
     page.drawRectangle({ x: MARGIN, y: top - 27, width: contentW, height: 27, color: tint, borderColor: BORDER, borderWidth: 0.5 });
-    page.drawText(icon, { x: MARGIN + 10, y: top - 19, size: 10, font: bold, color: BLUE });
+    if (icon === "vaccine") {
+      page.drawCircle({ x: MARGIN + 16, y: top - 14, size: 7, borderColor: BLUE, borderWidth: 0.8, color: tint });
+      page.drawText("✓", { x: MARGIN + 12.5, y: top - 17.5, size: 8, font: bold, color: BLUE });
+    } else {
+      page.drawEllipse({ x: MARGIN + 9, y: top - 19, xScale: 14, yScale: 7, color: tint, borderColor: BLUE, borderWidth: 0.9 });
+      page.drawLine({ start: { x: MARGIN + 16, y: top - 19 }, end: { x: MARGIN + 22, y: top - 19 }, thickness: 0.7, color: BLUE });
+    }
     page.drawText(title.toLocaleUpperCase(en ? "en-US" : "ru-RU"), { x: MARGIN + 29, y: top - 18, size: 9, font: bold, color: INK });
     y -= 38;
+  };
+
+  const vaccineRow = (title: string, doseLabel: string, date: string, brand?: string | null) => {
+    const hasBrand = Boolean(brand);
+    const height = hasBrand ? 38 : 26;
+    ensureSpace(height + 4);
+    const top = y;
+    page.drawCircle({ x: MARGIN + 9, y: top - 10, size: 6.5, color: rgb(0.125, 0.784, 0.592) });
+    page.drawText("✓", { x: MARGIN + 5.7, y: top - 13, size: 7, font: bold, color: rgb(1, 1, 1) });
+    const name = `${title}${doseLabel}`;
+    page.drawText(name, { x: MARGIN + 22, y: top - 11, size: 12, font: bold, color: INK, maxWidth: contentW - 150 });
+    const dateWidth = regular.widthOfTextAtSize(date, 11);
+    page.drawText(date, { x: PAGE_W - MARGIN - dateWidth, y: top - 11, size: 11, font: regular, color: MUTED });
+    if (brand) page.drawText(brand, { x: MARGIN + 22, y: top - 29, size: 10, font: regular, color: BLUE });
+    y = top - height;
+    page.drawLine({ start: { x: MARGIN + 22, y }, end: { x: PAGE_W - MARGIN, y }, thickness: 0.5, color: BORDER });
+    y -= 4;
+  };
+
+  const medicationRow = (title: string, dosage: string | null, frequency: string) => {
+    ensureSpace(26);
+    const top = y;
+    page.drawCircle({ x: MARGIN + 7.5, y: top - 10, size: 2.5, color: rgb(0.361, 0.486, 0.98), opacity: 0.35 });
+    page.drawText(title, { x: MARGIN + 18, y: top - 11, size: 12, font: bold, color: INK, maxWidth: contentW * 0.57 });
+    const detail = [dosage, frequency].filter(Boolean).join(" · ");
+    const detailWidth = regular.widthOfTextAtSize(detail, 10);
+    page.drawText(detail, { x: PAGE_W - MARGIN - detailWidth, y: top - 10, size: 10, font: regular, color: MUTED });
+    y = top - 22;
+    page.drawLine({ start: { x: MARGIN + 18, y }, end: { x: PAGE_W - MARGIN, y }, thickness: 0.5, color: BORDER });
+    y -= 4;
   };
 
   const row = (title: string, details: string[], icon: string) => {
@@ -136,9 +167,20 @@ export async function GET(request: Request) {
   };
 
   newPage(true);
-  // Soft blue header in the same palette and proportions as the iOS passport.
-  page.drawRectangle({ x: 0, y: PAGE_H - 92, width: PAGE_W, height: 92, color: BLUE });
-  page.drawCircle({ x: PAGE_W - 24, y: PAGE_H - 10, size: 68, color: rgb(0.48, 0.60, 1), opacity: 0.3 });
+  // Recreate the iOS diagonal blue gradient with thin color bands.
+  const gradientStops = [rgb(0.361, 0.486, 0.98), rgb(0.455, 0.561, 0.988), rgb(0.455, 0.753, 0.988)];
+  const bands = 72;
+  for (let index = 0; index < bands; index += 1) {
+    const t = index / (bands - 1);
+    const segment = t < 0.55 ? 0 : 1;
+    const localT = segment === 0 ? t / 0.55 : (t - 0.55) / 0.45;
+    const from = gradientStops[segment];
+    const to = gradientStops[segment + 1];
+    page.drawRectangle({ x: PAGE_W * index / bands, y: PAGE_H - 92, width: PAGE_W / bands + 0.4, height: 92, color: rgb(from.red + (to.red - from.red) * localT, from.green + (to.green - from.green) * localT, from.blue + (to.blue - from.blue) * localT) });
+  }
+  page.drawCircle({ x: PAGE_W * 0.49, y: PAGE_H + 22, size: 70, color: rgb(1, 1, 1), opacity: 0.06 });
+  page.drawCircle({ x: PAGE_W * 0.55, y: PAGE_H - 50, size: 40, color: rgb(1, 1, 1), opacity: 0.06 });
+  page.drawCircle({ x: PAGE_W - 24, y: PAGE_H - 10, size: 68, color: rgb(0.48, 0.60, 1), opacity: 0.18 });
   if (icon) page.drawImage(icon, { x: MARGIN, y: PAGE_H - 69, width: 42, height: 42 });
   page.drawText("Karta", { x: MARGIN + 52, y: PAGE_H - 48, size: 24, font: bold, color: rgb(1, 1, 1) });
   page.drawText(en ? "HEALTH PASSPORT" : "ПАСПОРТ ЗДОРОВЬЯ", { x: MARGIN + 151, y: PAGE_H - 47, size: 10, font: bold, color: rgb(1, 1, 1) });
@@ -148,44 +190,31 @@ export async function GET(request: Request) {
   page.drawRectangle({ x: MARGIN, y: profileTop - 64, width: contentW, height: 64, color: PALE, borderColor: BORDER, borderWidth: 0.5 });
   const name = data.profile?.fullName || user.displayName || (en ? "Name not specified" : "Имя не указано");
   page.drawText(name, { x: MARGIN + 14, y: profileTop - 22, size: 15, font: bold, color: INK, maxWidth: contentW - 28 });
-  const profileLine = [data.profile?.birthDate, data.profile?.cityCurrent, data.profile?.regionCurrent, data.profile?.countryCurrent].filter(Boolean).join("  ·  ") || (en ? "Location not specified" : "Город не указан");
+  const profileLine = [data.profile?.birthDate, data.profile?.cityCurrent].filter(Boolean).join("  ·  ") || (en ? "Location not set" : "Город не указан");
   page.drawText(profileLine, { x: MARGIN + 14, y: profileTop - 42, size: 9, font: regular, color: MUTED, maxWidth: contentW - 28 });
   const generated = `${en ? "Generated" : "Выгружено"} ${new Intl.DateTimeFormat(en ? "en-US" : "ru-RU", { dateStyle: "long" }).format(new Date())}`;
-  page.drawText(generated, { x: MARGIN + 14, y: profileTop - 57, size: 8, font: regular, color: MUTED });
+  page.drawText(generated, { x: PAGE_W - MARGIN - regular.widthOfTextAtSize(generated, 8) - 14, y: profileTop - 57, size: 8, font: regular, color: MUTED });
   y -= 82;
-
-  if (showVaccinations) {
-    section(`${en ? "Vaccinations" : "Прививки"} · ${data.vaccinations.length}`, "+", rgb(0.93, 0.95, 1));
-    if (data.vaccinations.length === 0) drawText(en ? "No vaccination records" : "Нет записей о прививках", { size: 9, color: MUTED, x: MARGIN + 22 });
-    for (const { record, vaccine } of data.vaccinations) {
-      const title = en ? (vaccine?.nameEn || record.vaccineId) : (vaccine?.nameRu || record.vaccineId);
-      const dose = `${en ? "Dose" : "Доза"} ${record.doseNumber}${vaccine?.totalDoses && vaccine.totalDoses > 1 ? ` ${en ? "of" : "из"} ${vaccine.totalDoses}` : ""}`;
-      row(title, [
-        [formatDate(record.dateGiven, lang), dose, record.brand, record.clinic].filter(Boolean).join(" · "),
-        ...(record.notes ? [record.notes] : []),
-      ], "+");
-    }
-  }
 
   if (showMedications) {
     const activeMeds = data.medications.filter((med) => med.isActive);
-    section(`${en ? "Medications" : "Лекарства"} · ${activeMeds.length}`, "+", rgb(0.96, 0.93, 1));
-    if (!activeMeds.length) drawText(en ? "No active medications" : "Нет активных лекарств", { size: 9, color: MUTED, x: MARGIN + 22 });
+    section(en ? "Current medications" : "Принимаемые лекарства", "medication", rgb(0.96, 0.93, 1));
+    if (!activeMeds.length) drawText(en ? "No medication records" : "Нет записей о лекарствах", { size: 11, color: MUTED, x: MARGIN + 22 });
     for (const med of activeMeds) {
       const frequency = med.frequency === "weekly" ? (en ? "weekly" : "еженедельно") : med.frequency === "as_needed" ? (en ? "as needed" : "по необходимости") : (en ? "daily" : "ежедневно");
-      const meal = med.mealRelation === "before" ? (en ? "before food" : "до еды") : med.mealRelation === "during" ? (en ? "with food" : "во время еды") : med.mealRelation === "after" ? (en ? "after food" : "после еды") : "";
-      row(med.name, [[med.dosage, frequency, meal, med.startDate && med.endDate ? `${formatDate(med.startDate, lang)} – ${formatDate(med.endDate, lang)}` : ""].filter(Boolean).join(" · ")], "+");
+      const entry = (medicationCatalog as Array<{ id: string; ru: string; en: string }>).find((item) => item.id === med.drugCode || item.ru === med.name);
+      const title = en && entry?.en ? entry.en.charAt(0).toLocaleUpperCase("en-US") + entry.en.slice(1) : med.name;
+      medicationRow(title, med.dosage, frequency);
     }
   }
 
-  if (showLabs) {
-    section(`${en ? "Lab tests" : "Анализы"} · ${labs.length}`, "+", rgb(0.91, 0.97, 0.98));
-    if (!labs.length) drawText(en ? "No lab results" : "Нет результатов анализов", { size: 9, color: MUTED, x: MARGIN + 22 });
-    for (const lab of labs) {
-      let indicators: Array<{ name: string; value: string; unit?: string; refLow?: string; refHigh?: string }> = [];
-      try { indicators = JSON.parse(lab.indicators || "[]") as typeof indicators; } catch { /* malformed legacy rows fall back to the summary */ }
-      const detail = [formatDate(lab.testedAt, lang), [lab.result, lab.unit].filter(Boolean).join(" "), lab.referenceRange].filter(Boolean).join(" · ");
-      row(lab.name, [detail, ...indicators.map((item) => `${item.name}: ${item.value}${item.unit ? ` ${item.unit}` : ""}${item.refLow || item.refHigh ? ` (${en ? "ref." : "норма"} ${[item.refLow, item.refHigh].filter(Boolean).join("–")})` : ""}`), ...(lab.notes ? [lab.notes] : [])], "+");
+  if (showVaccinations) {
+    section(en ? "Completed vaccinations" : "Сделанные прививки", "vaccine", rgb(0.93, 0.95, 1));
+    if (data.vaccinations.length === 0) drawText(en ? "No vaccination records" : "Нет записей о прививках", { size: 11, color: MUTED, x: MARGIN + 22 });
+    for (const { record, vaccine } of data.vaccinations) {
+      const title = en ? (vaccine?.nameEn || record.vaccineId) : (vaccine?.nameRu || record.vaccineId);
+      const dose = vaccine?.totalDoses && vaccine.totalDoses > 1 ? (en ? ` (dose ${record.doseNumber} of ${vaccine.totalDoses})` : ` (доза ${record.doseNumber} из ${vaccine.totalDoses})`) : "";
+      vaccineRow(title, dose, formatDate(record.dateGiven, lang), record.brand);
     }
   }
 
