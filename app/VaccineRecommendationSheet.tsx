@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Baby, CalendarDays, ChevronRight, Info, Lightbulb, MapPin, Plane, Syringe, UserRound, X } from "lucide-react";
 import { addVaccination } from "@/app/actions";
-import { VaccinationDateInput } from "@/app/VaccinationDateInput";
+import { InlineDatePicker } from "@/app/InlineDatePicker";
 import { useKartaLanguage } from "@/app/LanguageRuntime";
 import type { VaccineForTasks } from "@/app/tasks";
 
@@ -18,11 +18,13 @@ const field: React.CSSProperties = {
 };
 
 const tagText: Record<string, [string, string]> = {
-  pregnancy: ["Беременность", "Pregnancy"],
-  infant_contact: ["Контакт с младенцами", "Infant contact"],
-  travel: ["Путешествия", "Travel"],
+  pregnancy: ["беременность", "pregnancy"],
+  infant_contact: ["младенцы", "infants"],
+  travel: ["путешествия", "travel"],
   "60plus": ["60+", "60+"],
 };
+const tagColors: Record<string, string> = { pregnancy: "#EC4899", infant_contact: "#F59E0B", travel: "#06B6D4", "60plus": "#8B5CF6" };
+const tagBackgrounds: Record<string, string> = { pregnancy: "rgba(236,72,153,.1)", infant_contact: "rgba(245,158,11,.1)", travel: "rgba(6,182,212,.1)", "60plus": "rgba(139,92,246,.1)" };
 
 const endemicRows = [
   { flag: "🇪🇪🇱🇻🇱🇹🇦🇹🇨🇿🇸🇮🇸🇰", title: ["Высокий риск", "High risk"], regions: ["Эстония, Латвия, Литва, Австрия, Чехия, Словения, Словакия", "Estonia, Latvia, Lithuania, Austria, Czechia, Slovenia, Slovakia"], color: "#EF4444" },
@@ -49,6 +51,7 @@ export function VaccineRecommendationSheet({
   const [open, setOpen] = useState(false);
   const [markOpen, setMarkOpen] = useState(false);
   const [brand, setBrand] = useState("");
+  const [vaccinationDate, setVaccinationDate] = useState(today);
   useEffect(() => {
     if (!open && !markOpen) return;
     const previousOverflow = document.body.style.overflow;
@@ -64,12 +67,23 @@ export function VaccineRecommendationSheet({
   const disclaimer = en ? local?.disclaimerEn || vaccine.disclaimerEn || local?.disclaimerRu || vaccine.disclaimerRu : local?.disclaimerRu || vaccine.disclaimerRu;
   const pregnancyNote = vaccine.pregnancyRelevant ? (en ? vaccine.pregnancyNoteEn || vaccine.pregnancyNoteRu : vaccine.pregnancyNoteRu) : null;
   const infantNote = en ? vaccine.infantContactNoteEn || vaccine.infantContactNoteRu : vaccine.infantContactNoteRu;
+  const frequencyType = local?.frequencyType || vaccine.frequencyType;
+  const intervalYears = local?.intervalYears ?? vaccine.intervalYears;
   const suggestions = useMemo(() => brands.filter((item) => !brand || item.toLocaleLowerCase().includes(brand.toLocaleLowerCase())), [brand, brands]);
-  const frequency = vaccine.frequencyType === "recurring"
-    ? (vaccine.intervalYears ? (en ? `Every ${vaccine.intervalYears} years` : `Каждые ${vaccine.intervalYears} лет`) : en ? "Repeat" : "Повторно")
-    : vaccine.frequencyType === "annual" ? (en ? "Annual" : "Ежегодно")
-      : vaccine.frequencyType === "once_plus_pregnancy" ? (en ? "Once + pregnancy" : "Однократно + беременность")
-        : en ? "Once" : "Однократно";
+  const nextDue = useMemo(() => {
+    const date = new Date(`${vaccinationDate}T00:00:00`);
+    if (Number.isNaN(date.getTime())) return "";
+    if ((vaccine.totalDoses || 1) > 1 && vaccine.doseScheduleDays?.[0] != null) date.setDate(date.getDate() + vaccine.doseScheduleDays[0]);
+    else if (frequencyType === "annual") date.setFullYear(date.getFullYear() + 1);
+    else if (frequencyType === "recurring" && intervalYears) date.setFullYear(date.getFullYear() + intervalYears);
+    else return "";
+    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+  }, [frequencyType, intervalYears, vaccinationDate, vaccine.doseScheduleDays, vaccine.totalDoses]);
+  const frequency = frequencyType === "recurring"
+    ? (intervalYears ? (en ? `every ${intervalYears} years` : `каждые ${intervalYears} лет`) : en ? "repeat" : "повторно")
+    : frequencyType === "annual" ? (en ? "annual" : "ежегодно")
+      : frequencyType === "once_plus_pregnancy" ? (en ? "once + pregnancy" : "однократно + беременность")
+        : en ? "once" : "однократно";
 
   return <>
     <button type="button" onClick={() => setOpen(true)} aria-label={en ? `About ${name}` : `О вакцине «${name}»`} style={{ width: "100%", padding: 11, textAlign: "left", border: `1px solid rgba(255,255,255,.92)`, borderRadius: 15, background: "rgba(244,246,255,.72)", color: ink, boxShadow: "0 1px 7px rgba(26,32,80,.035)" }}>
@@ -83,7 +97,7 @@ export function VaccineRecommendationSheet({
       </span>
       <span style={{ display: "flex", alignItems: "center", flexWrap: "wrap", gap: 6, marginTop: 9 }}>
         <span style={{ padding: "4px 8px", borderRadius: 99, background: "rgba(92,124,250,.09)", color: blue, fontSize: 10, fontWeight: 700 }}>{frequency}</span>
-        {(vaccine.tags || []).slice(0, 2).map((tag) => <span key={tag} style={{ padding: "4px 8px", borderRadius: 99, color: tag === "pregnancy" ? "#EC4899" : tag === "infant_contact" ? "#D97706" : tag === "travel" ? "#0891B2" : "#8B5CF6", background: tag === "pregnancy" ? "rgba(236,72,153,.1)" : tag === "infant_contact" ? "rgba(245,158,11,.1)" : tag === "travel" ? "rgba(6,182,212,.1)" : "rgba(139,92,246,.1)", fontSize: 10, fontWeight: 600 }}>{tagText[tag]?.[en ? 1 : 0] || tag}</span>)}
+        {(vaccine.tags || []).slice(0, 2).map((tag) => <span key={tag} style={{ padding: "4px 8px", borderRadius: 99, color: tagColors[tag] || muted, background: tagBackgrounds[tag] || "rgba(26,32,80,.08)", fontSize: 10, fontWeight: 600 }}>{tagText[tag]?.[en ? 1 : 0] || tag}</span>)}
       </span>
       {travelAdvisory && <span style={{ display: "flex", alignItems: "center", gap: 5, width: "fit-content", marginTop: 8, padding: "5px 8px", borderRadius: 8, color: "#0B7285", background: "rgba(6,182,212,.08)", fontSize: 10 }}>{en ? "Recommended when traveling to endemic regions" : "Рекомендуется при поездке в эндемичные регионы"}</span>}
     </button>
@@ -94,7 +108,7 @@ export function VaccineRecommendationSheet({
         <header style={{ padding: "6px 20px 18px", background: "linear-gradient(135deg,rgba(92,124,250,.14),rgba(116,207,250,.08))" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 12 }}><span style={{ width: 52, height: 52, display: "grid", placeItems: "center", borderRadius: 14, color: blue, background: "rgba(92,124,250,.12)" }}><Syringe size={23} /></span><button type="button" onClick={() => setOpen(false)} aria-label={en ? "Close" : "Закрыть"} style={{ width: 34, height: 34, display: "grid", placeItems: "center", border: 0, borderRadius: "50%", background: "rgba(255,255,255,.72)", color: muted }}><X size={16} /></button></div>
           <h2 id={`vaccine-title-${vaccine.id}`} style={{ margin: "0 0 9px", fontSize: 22, lineHeight: 1.2, fontWeight: 750 }}>{name}</h2>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}><span style={{ padding: "4px 8px", borderRadius: 99, color: blue, background: "rgba(92,124,250,.09)", fontSize: 10, fontWeight: 700 }}>{frequency}</span>{(vaccine.tags || []).slice(0, 3).map((tag) => <span key={tag} style={{ padding: "4px 8px", borderRadius: 99, color: "#7257C9", background: "rgba(114,87,201,.09)", fontSize: 10, fontWeight: 600 }}>{tagText[tag]?.[en ? 1 : 0] || tag}</span>)}</div>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}><span style={{ padding: "4px 8px", borderRadius: 99, color: blue, background: "rgba(92,124,250,.09)", fontSize: 10, fontWeight: 700 }}>{frequency}</span>{(vaccine.tags || []).slice(0, 3).map((tag) => <span key={tag} style={{ padding: "4px 8px", borderRadius: 99, color: tagColors[tag] || muted, background: tagBackgrounds[tag] || "rgba(26,32,80,.08)", fontSize: 10, fontWeight: 600 }}>{tagText[tag]?.[en ? 1 : 0] || tag}</span>)}</div>
         </header>
 
         <div style={{ display: "grid", gap: 15, padding: 20 }}>
@@ -106,7 +120,7 @@ export function VaccineRecommendationSheet({
           {pregnancyNote && <InfoSection icon={<span>♡</span>} title={en ? "Pregnancy" : "Беременность"} body={pregnancyNote} accent="#EC4899" />}
           {infantNote && (vaccine.tags || []).includes("infant_contact") && <InfoSection icon={<Baby size={15} />} title={en ? "Infant contact" : "Если рядом младенец"} body={infantNote} accent="#D97706" />}
           {vaccine.requiresEndemicCheck && <details style={{ border: `1px solid ${border}`, borderRadius: 14, background: "rgba(255,255,255,.75)" }}><summary style={{ display: "flex", alignItems: "center", gap: 8, padding: 13, cursor: "pointer", listStyle: "none", color: muted, fontSize: 11, fontWeight: 750, letterSpacing: ".06em", textTransform: "uppercase" }}><MapPin size={14} color="#06B6D4" />{en ? "Endemic regions" : "Эндемичные регионы"}<ChevronRight size={14} style={{ marginLeft: "auto" }} /></summary><div style={{ display: "grid", gap: 10, padding: "0 13px 14px" }}>{endemicRows.map((row) => <div key={row.flag} style={{ display: "flex", gap: 8, alignItems: "flex-start", fontSize: 12, lineHeight: 1.4 }}><span style={{ width: 29, flexShrink: 0 }}>{row.flag}</span><span><b style={{ display: "block", marginBottom: 2, color: row.color }}>{row.title[en ? 1 : 0]}</b>{row.regions[en ? 1 : 0]}</span></div>)}</div></details>}
-          <button type="button" onClick={() => setMarkOpen(true)} style={{ width: "100%", minHeight: 50, marginTop: 2, padding: "12px 14px", border: 0, borderRadius: 14, background: "linear-gradient(135deg,#748FFC,#5C7CFA)", color: "white", fontSize: 14, fontWeight: 700, boxShadow: "0 5px 14px rgba(92,124,250,.22)" }}>{en ? "Mark as done" : "Отметить как сделанную"}</button>
+          <button type="button" onClick={() => { setBrand(""); setVaccinationDate(today); setMarkOpen(true); }} style={{ width: "100%", minHeight: 50, marginTop: 2, padding: "12px 14px", border: 0, borderRadius: 14, background: "linear-gradient(135deg,#748FFC,#5C7CFA)", color: "white", fontSize: 14, fontWeight: 700, boxShadow: "0 5px 14px rgba(92,124,250,.22)" }}>{en ? "Mark as done" : "Отметить как сделанную"}</button>
         </div>
       </section>
     </div>}
@@ -120,8 +134,10 @@ export function VaccineRecommendationSheet({
         <form action={addVaccination} onSubmit={() => { setMarkOpen(false); setOpen(false); }} style={{ display: "grid", gap: 12 }}>
           <input type="hidden" name="vaccineId" value={vaccine.id} /><input type="hidden" name="doseNumber" value="1" /><input type="hidden" name="totalDoses" value={vaccine.totalDoses} />
           <label style={{ display: "grid", gap: 7, fontSize: 12, fontWeight: 650 }}>{en ? "Vaccine brand (optional)" : "Название препарата (необязательно)"}<input name="brand" list={`vaccine-brands-${vaccine.id}`} value={brand} onChange={(event) => setBrand(event.target.value)} placeholder={en ? "E.g. Gardasil 9" : "Например, Гардасил 9"} style={field} /><datalist id={`vaccine-brands-${vaccine.id}`}>{brands.map((name) => <option value={name} key={name} />)}</datalist></label>
-          {suggestions.length > 0 && <div style={{ display: "flex", flexWrap: "wrap", gap: 7, marginTop: -6 }}>{suggestions.slice(0, 8).map((item) => <button key={item} type="button" onClick={() => setBrand(item)} style={{ padding: "6px 10px", border: 0, borderRadius: 99, background: brand === item ? blue : "rgba(92,124,250,.1)", color: brand === item ? "white" : blue, fontSize: 11 }}>{item}</button>)}</div>}
-          <VaccinationDateInput initialDate={today} maxDate={today} doseNumber={1} totalDoses={vaccine.totalDoses} doseScheduleDays={vaccine.doseScheduleDays} frequencyType={vaccine.frequencyType} intervalYears={vaccine.intervalYears} style={field} />
+          {suggestions.length > 0 && <div style={{ display: "flex", flexWrap: "nowrap", gap: 7, marginTop: -6, overflowX: "auto", WebkitOverflowScrolling: "touch" }}>{suggestions.slice(0, 8).map((item) => <button key={item} type="button" onClick={() => setBrand(item)} style={{ flex: "0 0 auto", whiteSpace: "nowrap", padding: "6px 10px", border: 0, borderRadius: 99, background: brand === item ? blue : "rgba(92,124,250,.1)", color: brand === item ? "white" : blue, fontSize: 11 }}>{item}</button>)}</div>}
+          <InlineDatePicker value={vaccinationDate} onChange={setVaccinationDate} maxDate={today} label={en ? "Vaccination date" : "Дата прививки"} />
+          {nextDue && <div style={{ padding: "10px 12px", borderRadius: 11, background: "rgba(92,124,250,.07)", color: muted, fontSize: 12 }}>{(vaccine.totalDoses || 1) > 1 ? (en ? "Next dose:" : "Следующая доза:") : (en ? "Next booster:" : "Следующая ревакцинация:")} {new Intl.DateTimeFormat(en ? "en-US" : "ru-RU", { day: "numeric", month: "short", year: "numeric" }).format(new Date(`${nextDue}T00:00:00`))}</div>}
+          <input type="hidden" name="nextDue" value={nextDue} />
           <button type="submit" style={{ minHeight: 49, border: 0, borderRadius: 14, background: "linear-gradient(135deg,#748FFC,#5C7CFA)", color: "white", fontSize: 14, fontWeight: 700 }}>{en ? "Save" : "Сохранить"}</button>
         </form>
       </section>

@@ -28,9 +28,10 @@ export default async function VaccinationsPage({ searchParams }: { searchParams:
 
   const tab = (await searchParams).tab === "recommendations" ? "recommendations" : "passport";
   const data = await getUserData({ userId: user.userId, email: user.email, displayName: user.displayName });
+  const region = catalogRegion(data.profile?.countryCode);
   const records = data.vaccinations.map(({ record }) => record);
   const todayDate = new Date();
-  const generatedUpcoming = upcomingVaccineTasks(records, taskCatalog, todayDate);
+  const generatedUpcoming = upcomingVaccineTasks(records, taskCatalog, todayDate, region);
   const manualUpcoming = data.vaccinations.flatMap(({ record, vaccine }) => {
     const metadata = readVaccinationMetadata(record.notes);
     if (!metadata.isUpcoming) return [];
@@ -40,7 +41,6 @@ export default async function VaccinationsPage({ searchParams }: { searchParams:
   const manualKeys = new Set(manualUpcoming.map((task) => `${task.vaccineId}:${task.doseNumber}`));
   const upcoming = [...manualUpcoming, ...generatedUpcoming.filter((task) => !manualKeys.has(`${task.vaccineId}:${task.doseNumber}`))].sort((a, b) => a.dueDate.localeCompare(b.dueDate));
   const recommendations = recommendedVaccines(data.profile, records, taskCatalog);
-  const region = catalogRegion(data.profile?.countryCode);
   const today = dateKey(new Date());
 
   return <div style={{ padding: "0 16px", color: C.text }}>
@@ -56,12 +56,12 @@ export default async function VaccinationsPage({ searchParams }: { searchParams:
 
     <datalist id="vaccine-brands">{brands.map((brand) => <option value={brand} key={brand} />)}</datalist>
 
-    {tab === "passport" ? <PassportContent data={data} records={records} upcoming={upcoming} recommendedCount={recommendations.length} today={today} en={en} vaccines={data.vaccines} brands={brands} /> : <RecommendationsContent data={data} recommendations={recommendations} region={region || undefined} today={today} en={en} />}
+    {tab === "passport" ? <PassportContent data={data} records={records} upcoming={upcoming} recommendedCount={recommendations.length} today={today} en={en} vaccines={data.vaccines} brands={brands} region={region} /> : <RecommendationsContent data={data} recommendations={recommendations} region={region || undefined} today={today} en={en} />}
 
   </div>;
 }
 
-function PassportContent({ data, records, upcoming, recommendedCount, today, en, vaccines, brands }: { data: Awaited<ReturnType<typeof getUserData>>; records: Array<{ id: string; vaccineId: string; dateGiven: string | null; doseNumber: number; brand: string | null; clinic: string | null; notes: string | null }>; upcoming: Array<ReturnType<typeof upcomingVaccineTasks>[number] & { recordId?: string }>; recommendedCount: number; today: string; en: boolean; vaccines: Array<{ id: string; nameRu: string; nameEn?: string | null; totalDoses?: number | null; doseScheduleDays?: number[] | null; frequencyType?: string | null; intervalYears?: number | null }>; brands: string[] }) {
+function PassportContent({ data, records, upcoming, recommendedCount, today, en, vaccines, brands, region }: { data: Awaited<ReturnType<typeof getUserData>>; records: Array<{ id: string; vaccineId: string; dateGiven: string | null; doseNumber: number; brand: string | null; clinic: string | null; notes: string | null }>; upcoming: Array<ReturnType<typeof upcomingVaccineTasks>[number] & { recordId?: string }>; recommendedCount: number; today: string; en: boolean; vaccines: Array<{ id: string; nameRu: string; nameEn?: string | null; totalDoses?: number | null; doseScheduleDays?: number[] | null; frequencyType?: string | null; intervalYears?: number | null }>; brands: string[]; region: string | null }) {
   const history = data.vaccinations.filter(({ record }) => !readVaccinationMetadata(record.notes).isUpcoming);
   const hasVaccinations = data.vaccinations.length > 0;
   return <>
@@ -81,7 +81,7 @@ function PassportContent({ data, records, upcoming, recommendedCount, today, en,
     </section> : <>
       {upcoming.length > 0 && <section id="upcoming-doses" style={{ marginBottom: 12 }}>
         <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 9 }}><div style={{ fontSize: 13, fontWeight: 700 }}>{en ? "Upcoming doses" : "Предстоящие дозы"}</div><div style={{ color: "#D97706", fontWeight: 700 }}>{upcoming.length}</div></div>
-        <div style={{ display: "grid", gap: 4 }}>{upcoming.map((task) => <UpcomingTask key={task.key} task={task} today={today} firstDoseDate={records.find((record) => record.vaccineId === task.vaccineId && record.doseNumber === 1)?.dateGiven || ""} en={en} />)}</div>
+        <div style={{ display: "grid", gap: 4 }}>{upcoming.map((task) => <UpcomingTask key={task.key} task={task} today={today} firstDoseDate={records.find((record) => record.vaccineId === task.vaccineId && record.doseNumber === 1)?.dateGiven || ""} en={en} region={region} />)}</div>
       </section>}
 
       {history.length > 0 && <>
@@ -96,8 +96,9 @@ function PassportContent({ data, records, upcoming, recommendedCount, today, en,
   </>;
 }
 
-function UpcomingTask({ task, today, firstDoseDate, en }: { task: ReturnType<typeof upcomingVaccineTasks>[number] & { recordId?: string }; today: string; firstDoseDate: string; en: boolean }) {
+function UpcomingTask({ task, today, firstDoseDate, en, region }: { task: ReturnType<typeof upcomingVaccineTasks>[number] & { recordId?: string }; today: string; firstDoseDate: string; en: boolean; region: string | null }) {
   const vaccine = taskCatalog.find((item) => item.id === task.vaccineId);
+  const regional = region ? vaccine?.regions?.[region] : undefined;
   const vaccineName = task.recordId ? task.nameRu : (en ? vaccine?.nameEn : vaccine?.nameRu) || task.nameRu;
   const date = new Date(`${task.dueDate.slice(0, 10)}T00:00:00`);
   const dueLabel = Number.isNaN(date.getTime()) ? task.dueDate : date.toLocaleDateString(en ? "en-US" : "ru-RU", { day: "numeric", month: "short", year: "numeric" });
@@ -107,7 +108,7 @@ function UpcomingTask({ task, today, firstDoseDate, en }: { task: ReturnType<typ
   return <details style={{ background: C.card, border: `1px solid ${task.overdue ? "rgba(224,49,49,.3)" : C.border}`, borderRadius: 14, overflow: "hidden" }}>
     <summary className="vax-upcoming-summary" style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: 12, padding: "12px 14px", listStyle: "none" }}><span style={{ width: 36, height: 36, flex: "0 0 36px", display: "grid", placeItems: "center", borderRadius: 8, background: `${accent}1F` }}><Syringe size={15} color={accent} /></span><span style={{ minWidth: 0, flex: 1 }}><span style={{ display: "block", fontSize: 13, fontWeight: 650 }}>{vaccineName}</span><span style={{ display: "block", marginTop: 2, color: C.muted, fontSize: 11 }}>{task.totalDoses > 1 ? en ? `Dose ${task.doseNumber} of ${task.totalDoses}` : `Доза ${task.doseNumber} из ${task.totalDoses}` : en ? "Booster" : "Ревакцинация"}</span></span><span style={{ textAlign: "right" }}><span style={{ display: "block", color: accent, fontSize: 13, fontWeight: 650, whiteSpace: "nowrap" }}>{dueLabel}</span>{(task.overdue || soon) && <span style={{ display: "block", color: accent, fontSize: 9 }}>{task.overdue ? en ? "overdue" : "просрочено" : en ? "soon" : "скоро"}</span>}</span><span aria-hidden="true" style={{ color: "rgba(26,32,80,.35)", fontSize: 16 }}>⌄</span></summary>
     <div style={{ padding: "0 14px 12px" }}><div style={{ height: 1, background: "rgba(26,32,80,.08)", marginBottom: 8 }} />{vaccine?.descriptionRu && <p style={{ color: C.muted, fontSize: 12, margin: "0 0 8px" }}>{en ? vaccine.descriptionEn || vaccine.descriptionRu : vaccine.descriptionRu}</p>}
-      <form action={completeUpcomingVaccination} style={{ display: "grid", gap: 7, marginTop: 8 }}>{task.recordId && <input type="hidden" name="id" value={task.recordId} />}<input type="hidden" name="vaccineId" value={task.vaccineId} /><input type="hidden" name="doseNumber" value={task.doseNumber} /><input type="hidden" name="totalDoses" value={task.totalDoses} /><VaccinationDateInput initialDate={today} maxDate={today} doseNumber={task.doseNumber} totalDoses={task.totalDoses} doseScheduleDays={vaccine?.doseScheduleDays} firstDoseDate={firstDoseDate} frequencyType={vaccine?.frequencyType} intervalYears={vaccine?.intervalYears} style={input} /><input name="brand" list="vaccine-brands" placeholder={en ? "Product / brand" : "Препарат / бренд"} style={input} /><input name="clinic" placeholder={en ? "Clinic" : "Клиника"} style={input} /><button type="submit" style={{ padding: 10, border: 0, borderRadius: 10, background: "linear-gradient(105deg,#748FFC,#5C7CFA)", color: "white", fontWeight: 700 }}>{en ? "Mark as done" : "Отметить сделанной"}</button></form>
+      <form action={completeUpcomingVaccination} style={{ display: "grid", gap: 7, marginTop: 8 }}>{task.recordId && <input type="hidden" name="id" value={task.recordId} />}<input type="hidden" name="vaccineId" value={task.vaccineId} /><input type="hidden" name="doseNumber" value={task.doseNumber} /><input type="hidden" name="totalDoses" value={task.totalDoses} /><VaccinationDateInput initialDate={today} maxDate={today} doseNumber={task.doseNumber} totalDoses={task.totalDoses} doseScheduleDays={vaccine?.doseScheduleDays} firstDoseDate={firstDoseDate} frequencyType={regional?.frequencyType || vaccine?.frequencyType} intervalYears={regional?.intervalYears ?? vaccine?.intervalYears} style={input} /><input name="brand" list="vaccine-brands" placeholder={en ? "Product / brand" : "Препарат / бренд"} style={input} /><input name="clinic" placeholder={en ? "Clinic" : "Клиника"} style={input} /><button type="submit" style={{ padding: 10, border: 0, borderRadius: 10, background: "linear-gradient(105deg,#748FFC,#5C7CFA)", color: "white", fontWeight: 700 }}>{en ? "Mark as done" : "Отметить сделанной"}</button></form>
       {task.recordId && <form action={deleteVaccination} style={{ marginTop: 6, textAlign: "right" }}><input type="hidden" name="id" value={task.recordId} /><button type="submit" style={{ border: 0, background: "transparent", color: "#E03131", fontSize: 11 }}>{en ? "Delete plan" : "Удалить план"}</button></form>}
     </div>
   </details>;

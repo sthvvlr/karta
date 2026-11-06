@@ -139,7 +139,7 @@ export type VaccineForTasks = {
   infantContactNoteEn?: string | null;
   pregnancyRelevant?: boolean;
   requiresEndemicCheck?: boolean;
-  regions?: Record<string, { scheduleRu?: string | null; scheduleEn?: string | null; noteRu?: string | null; noteEn?: string | null; disclaimerRu?: string | null; disclaimerEn?: string | null; audience?: string | null; whoRu?: string | null; whoEn?: string | null }>;
+  regions?: Record<string, { scheduleRu?: string | null; scheduleEn?: string | null; noteRu?: string | null; noteEn?: string | null; disclaimerRu?: string | null; disclaimerEn?: string | null; audience?: string | null; whoRu?: string | null; whoEn?: string | null; frequencyType?: string | null; intervalYears?: number | null }>;
 };
 
 export type VaccinationForTasks = {
@@ -176,10 +176,13 @@ function addYears(date: Date, years: number): Date {
   return result;
 }
 
-export function upcomingVaccineTasks(records: VaccinationForTasks[], catalog: VaccineForTasks[], today = new Date()): UpcomingVaccineTask[] {
+export function upcomingVaccineTasks(records: VaccinationForTasks[], catalog: VaccineForTasks[], today = new Date(), region?: string | null): UpcomingVaccineTask[] {
   const todayKey = dateKey(today);
   const result: UpcomingVaccineTask[] = [];
   for (const vaccine of catalog) {
+    const regional = region ? vaccine.regions?.[region] : undefined;
+    const frequencyType = regional?.frequencyType || vaccine.frequencyType;
+    const intervalYears = regional?.intervalYears ?? vaccine.intervalYears;
     const completed = records.filter((record) => record.vaccineId === vaccine.id && record.dateGiven).sort((a, b) => (a.dateGiven || "").localeCompare(b.dateGiven || ""));
     if (!completed.length) continue;
     const schedule = vaccine.doseScheduleDays || [];
@@ -195,11 +198,11 @@ export function upcomingVaccineTasks(records: VaccinationForTasks[], catalog: Va
       }
       continue;
     }
-    const recurring = vaccine.frequencyType === "annual" || vaccine.frequencyType === "recurring";
+    const recurring = frequencyType === "annual" || frequencyType === "recurring";
     if (!recurring) continue;
     const last = completed[completed.length - 1];
     const lastDate = dateOnly(last.dateGiven);
-    const interval = vaccine.frequencyType === "annual" ? 1 : vaccine.intervalYears;
+    const interval = frequencyType === "annual" ? 1 : intervalYears;
     if (!lastDate || !interval) continue;
     const dueDate = addYears(lastDate, interval);
     result.push({ key: `${vaccine.id}:recurring`, vaccineId: vaccine.id, nameRu: vaccine.nameRu, doseNumber: 1, totalDoses: 1, dueDate: isoDate(dueDate), overdue: isoDate(dueDate) < todayKey });
