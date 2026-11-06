@@ -2,7 +2,7 @@
 
 import { useState, type ReactNode } from "react";
 import Link from "next/link";
-import { CalendarDays, ChevronRight, Clock3, Map, MapPin, Bell, Pencil, PersonStanding, Settings, Trash2, UserRound, X } from "lucide-react";
+import { CalendarDays, ChevronRight, Clock3, Map, MapPin, Bell, Moon, Pencil, PersonStanding, Settings, Sunrise, Trash2, UserRound, X } from "lucide-react";
 import { CityPicker } from "@/app/CityPicker";
 import { DeleteDataForm } from "@/app/DeleteDataForm";
 import { addProfileLocation, changePassword, deleteProfileLocation, saveProfile, saveReminderSettings, setCurrentProfileLocation, signOutAccount, updateProfileLocation } from "@/app/actions";
@@ -65,15 +65,16 @@ export function ProfileScreen({ profile, locations, displayName, email, userId, 
       <div style={{ padding: 14 }}><DeleteDataForm en={en} /></div>
     </div>
 
-    {sheet === "edit" && <Sheet title={en ? "Edit profile" : "Редактировать профиль"} onClose={() => setSheet(null)} en={en}>
-      <form action={saveProfile} style={{ display: "grid", gap: 16 }}>
+    {sheet === "edit" && <Sheet title={en ? "Edit Profile" : "Редактировать профиль"} onClose={() => setSheet(null)} en={en}
+      leftAction={<button type="button" onClick={() => setSheet(null)} style={navTextButton}>{en ? "Cancel" : "Отмена"}</button>}
+      rightAction={<button type="submit" form="profile-edit-form" style={navPrimaryButton}>{en ? "Save" : "Сохранить"}</button>}>
+      <form id="profile-edit-form" action={async (formData) => { await saveProfile(formData); setSheet(null); }} style={{ display: "grid", gap: 16 }}>
         <div style={{ display: "grid", placeItems: "center", padding: "8px 0 2px" }}><div style={{ width: 80, height: 80, borderRadius: "50%", display: "grid", placeItems: "center", background: "linear-gradient(135deg,#BAC8FF,#D0BFFF)", fontSize: 32, boxShadow: "0 4px 14px rgba(92,124,250,.15)" }}>{name[0]?.toUpperCase() || "?"}</div></div>
         <label style={labelStyle}>{en ? "NAME" : "ИМЯ"}<input name="fullName" defaultValue={profile.fullName || displayName} placeholder={en ? "Enter your name" : "Введите имя"} style={{ ...field, marginTop: 6 }} /></label>
-        <label style={labelStyle}>{en ? "DATE OF BIRTH" : "ДАТА РОЖДЕНИЯ"}<input name="birthDate" type="date" max={new Date().toISOString().slice(0, 10)} defaultValue={birthDateInputValue(profile.birthDate)} style={{ ...field, marginTop: 6 }} /></label>
+        <BirthDateField initial={birthDateInputValue(profile.birthDate)} en={en} />
         <GenderPicker initial={profile.gender || ""} en={en} />
         <label style={labelStyle}>{en ? "CURRENT CITY" : "ТЕКУЩИЙ ГОРОД"}<CityPicker initialCity={profile.cityCurrent || ""} initialRegion={profile.regionCurrent || ""} initialCountry={profile.countryCurrent || ""} initialCountryCode={profile.countryCode || ""} en={en} /></label>
         <div style={{ color: C.muted, fontSize: 12, lineHeight: 1.45 }}>{en ? "Your region affects the vaccine catalog and recommendations." : "Регион влияет на каталог и рекомендации по прививкам."}</div>
-        <button type="submit" style={primaryButton}>{en ? "Save" : "Сохранить"}</button>
       </form>
     </Sheet>}
 
@@ -103,8 +104,10 @@ export function ProfileScreen({ profile, locations, displayName, email, userId, 
       {!editingLocation.isCurrent && <form action={async (formData) => { await setCurrentProfileLocation(formData); setEditingLocation(null); }} style={{ marginTop: 9 }}><input type="hidden" name="id" value={editingLocation.id} /><button type="submit" style={secondaryButton}>{en ? "Set as current city" : "Сделать текущим городом"}</button></form>}
     </Sheet>}
 
-    {sheet === "reminders" && <Sheet title={en ? "Reminders" : "Напоминания"} onClose={() => setSheet(null)} en={en}>
-      <ReminderForm enabled={profile.remindersEnabled} morning={profile.remindersMorning} evening={profile.remindersEvening} en={en} />
+    {sheet === "reminders" && <Sheet title={en ? "Reminders" : "Напоминания"} onClose={() => setSheet(null)} en={en}
+      leftAction={<button type="button" onClick={() => setSheet(null)} aria-label={en ? "Close" : "Закрыть"} style={iconButton}><X size={15} /></button>}
+      rightAction={<button type="submit" form="profile-reminder-form" style={navPrimaryButton}>{en ? "Done" : "Готово"}</button>}>
+      <ReminderForm id="profile-reminder-form" enabled={profile.remindersEnabled} morning={profile.remindersMorning} evening={profile.remindersEvening} en={en} onSaved={() => setSheet(null)} />
     </Sheet>}
 
     {sheet === "account" && <Sheet title={en ? "Account settings" : "Настройки аккаунта"} onClose={() => setSheet(null)} en={en}>
@@ -137,10 +140,14 @@ function locationPeriod(location: Location, en: boolean) {
   return en ? "Past city" : "Прошлый город";
 }
 
-function Sheet({ title, onClose, children, en, zIndex = 120, ariaHidden = false }: { title: string; onClose: () => void; children: ReactNode; en: boolean; zIndex?: number; ariaHidden?: boolean }) {
+function Sheet({ title, onClose, children, en, zIndex = 120, ariaHidden = false, leftAction, rightAction }: { title: string; onClose: () => void; children: ReactNode; en: boolean; zIndex?: number; ariaHidden?: boolean; leftAction?: ReactNode; rightAction?: ReactNode }) {
   return <div role="presentation" aria-hidden={ariaHidden || undefined} onMouseDown={(event) => { if (event.target === event.currentTarget) onClose(); }} style={{ position: "fixed", inset: 0, zIndex, display: "flex", alignItems: "flex-end", justifyContent: "center", background: "rgba(20,25,55,.38)", backdropFilter: "blur(7px)" }}>
     <section role="dialog" aria-modal="true" aria-label={title} style={{ width: "min(100%, 430px)", maxHeight: "91dvh", overflow: "auto", padding: "10px 20px calc(24px + env(safe-area-inset-bottom))", border: "1px solid rgba(255,255,255,.75)", borderBottom: 0, borderRadius: "24px 24px 0 0", background: "rgba(250,251,255,.98)", boxShadow: "0 -12px 42px rgba(26,32,80,.18)", color: C.text }}>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}><span style={{ width: 34 }} /><h2 style={{ margin: 0, fontSize: 17, fontWeight: 700 }}>{title}</h2><button type="button" onClick={onClose} aria-label={en ? "Close" : "Закрыть"} style={{ width: 34, height: 34, display: "grid", placeItems: "center", border: 0, borderRadius: 17, background: "rgba(26,32,80,.06)", color: C.text }}><X size={18} /></button></div>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8, minHeight: 36, marginBottom: 14 }}>
+        <div style={{ width: 76, display: "flex", justifyContent: "flex-start" }}>{leftAction || <span style={{ width: 34 }} />}</div>
+        <h2 style={{ margin: 0, fontSize: 17, fontWeight: 700, textAlign: "center" }}>{title}</h2>
+        <div style={{ width: 76, display: "flex", justifyContent: "flex-end" }}>{rightAction || <button type="button" onClick={onClose} aria-label={en ? "Close" : "Закрыть"} style={{ width: 34, height: 34, display: "grid", placeItems: "center", border: 0, borderRadius: 17, background: "rgba(26,32,80,.06)", color: C.text }}><X size={18} /></button>}</div>
+      </div>
       {children}
     </section>
   </div>;
@@ -152,21 +159,32 @@ function GenderPicker({ initial, en }: { initial: string; en: boolean }) {
   return <div style={labelStyle}>{en ? "GENDER" : "ПОЛ"}<input type="hidden" name="gender" value={gender} /><div style={{ display: "flex", gap: 8, marginTop: 6 }}>{choices.map(([value, label]) => <button key={value} type="button" onClick={() => setGender(gender === value ? "" : value)} style={{ flex: 1, padding: "11px 5px", borderRadius: 12, border: `1px solid ${gender === value ? C.primary : "rgba(186,200,255,.55)"}`, background: gender === value ? "rgba(92,124,250,.08)" : "#F4F6FF", color: gender === value ? C.primary : C.muted, fontWeight: 600, fontSize: 12 }}>{label}</button>)}</div></div>;
 }
 
-function ReminderForm({ enabled: initialEnabled, morning: initialMorning, evening: initialEvening, en }: { enabled: boolean; morning: string; evening: string; en: boolean }) {
+function ReminderForm({ id, enabled: initialEnabled, morning: initialMorning, evening: initialEvening, en, onSaved }: { id: string; enabled: boolean; morning: string; evening: string; en: boolean; onSaved: () => void }) {
   const [enabled, setEnabled] = useState(initialEnabled);
   const [morning, setMorning] = useState(initialMorning);
   const [evening, setEvening] = useState(initialEvening);
-  return <form action={saveReminderSettings} style={{ display: "grid", gap: 14 }}>
+  return <form id={id} action={async (formData) => { await saveReminderSettings(formData); onSaved(); }} style={{ display: "grid", gap: 16, paddingTop: 2 }}>
     <input type="hidden" name="enabled" value={String(enabled)} />
     <div style={{ ...cardStyle(15, 14), display: "flex", alignItems: "center", gap: 11 }}><Bell size={18} color={C.primary} /><div style={{ flex: 1 }}><div style={{ fontSize: 14, fontWeight: 600 }}>{en ? "Medication reminders" : "Напоминания о лекарствах"}</div><div style={{ fontSize: 11, color: C.muted, marginTop: 2 }}>{en ? "Daily notifications" : "Ежедневные уведомления"}</div></div><button type="button" role="switch" aria-checked={enabled} onClick={() => setEnabled(!enabled)} style={{ width: 46, height: 28, border: 0, borderRadius: 20, padding: 3, background: enabled ? C.primary : "#C9CEDD", transition: "background .16s" }}><span style={{ display: "block", width: 22, height: 22, borderRadius: "50%", background: "white", transform: enabled ? "translateX(18px)" : "translateX(0)", transition: "transform .16s" }} /></button></div>
     {enabled && <>
-      <label style={labelStyle}>{en ? "MORNING REMINDER" : "УТРЕННЕЕ НАПОМИНАНИЕ"}<input type="time" name="morning" value={morning} onChange={(event) => setMorning(event.target.value)} style={{ ...field, marginTop: 6 }} /></label>
-      <label style={labelStyle}>{en ? "EVENING REMINDER" : "ВЕЧЕРНЕЕ НАПОМИНАНИЕ"}<input type="time" name="evening" value={evening} onChange={(event) => setEvening(event.target.value)} style={{ ...field, marginTop: 6 }} /></label>
+      <label style={{ ...cardStyle(15, 14), display: "grid", gap: 10 }}><span style={{ display: "flex", alignItems: "center", gap: 8, color: C.text, fontSize: 13, fontWeight: 600 }}><Sunrise size={16} color="#F59F00" />{en ? "Morning reminder" : "Утреннее напоминание"}</span><input type="time" name="morning" value={morning} onChange={(event) => setMorning(event.target.value)} style={field} /></label>
+      <label style={{ ...cardStyle(15, 14), display: "grid", gap: 10 }}><span style={{ display: "flex", alignItems: "center", gap: 8, color: C.text, fontSize: 13, fontWeight: 600 }}><Moon size={16} color={C.primary} />{en ? "Evening reminder" : "Вечернее напоминание"}</span><input type="time" name="evening" value={evening} onChange={(event) => setEvening(event.target.value)} style={field} /></label>
     </>}
     {!enabled && <><input type="hidden" name="morning" value={morning} /><input type="hidden" name="evening" value={evening} /></>}
     <div style={{ fontSize: 11, color: C.muted, lineHeight: 1.4 }}>{en ? "Push notifications will be added in a future version." : "Push-уведомления будут добавлены в следующей версии."}</div>
-    <button type="submit" style={primaryButton}>{en ? "Done" : "Готово"}</button>
   </form>;
+}
+
+function BirthDateField({ initial, en }: { initial: string; en: boolean }) {
+  const [enabled, setEnabled] = useState(Boolean(initial));
+  const [value, setValue] = useState(initial);
+  return <div>
+    <SectionTitle style={{ paddingBottom: 6 }}>{en ? "DATE OF BIRTH" : "ДАТА РОЖДЕНИЯ"}</SectionTitle>
+    <div style={{ ...cardStyle(15, 14), display: "grid", gap: 12 }}>
+      <label style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 13, color: C.text }}><input type="checkbox" checked={enabled} onChange={(event) => setEnabled(event.target.checked)} style={{ width: 18, height: 18, accentColor: C.primary }} />{en ? "Set date of birth" : "Указать дату рождения"}</label>
+      {enabled ? <input name="birthDate" type="date" max={localToday()} value={value} onChange={(event) => setValue(event.target.value)} style={field} /> : <input type="hidden" name="birthDate" value="" />}
+    </div>
+  </div>;
 }
 
 function SectionTitle({ children, style = {} }: { children: ReactNode; style?: React.CSSProperties }) { return <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: ".08em", color: C.muted, padding: "0 4px 8px", ...style }}>{children}</div>; }
@@ -176,6 +194,8 @@ function ActionRow({ icon, label, color = C.primary, onClick }: { icon: ReactNod
 function cardStyle(radius: number, padding: number): React.CSSProperties { return { background: C.card, border: `1px solid ${C.border}`, borderRadius: radius, padding, boxShadow: "0 2px 12px rgba(26,32,80,.035)" }; }
 const labelStyle: React.CSSProperties = { display: "block", color: C.muted, fontSize: 10, fontWeight: 700, letterSpacing: ".06em" };
 const primaryButton: React.CSSProperties = { width: "100%", border: 0, borderRadius: 12, padding: 13, background: "linear-gradient(135deg,#748FFC,#5C7CFA)", color: "white", fontSize: 14, fontWeight: 700 };
+const navTextButton: React.CSSProperties = { border: 0, padding: "6px 0", background: "transparent", color: C.muted, fontSize: 15, whiteSpace: "nowrap" };
+const navPrimaryButton: React.CSSProperties = { border: 0, padding: "6px 0", background: "transparent", color: C.primary, fontSize: 15, fontWeight: 650, whiteSpace: "nowrap" };
 const secondaryButton: React.CSSProperties = { width: "100%", border: "1px solid #DCE3FF", borderRadius: 11, padding: 12, background: "white", color: C.primary, fontSize: 13, fontWeight: 700 };
 const accountButton: React.CSSProperties = { width: "100%", border: 0, background: "transparent", display: "flex", alignItems: "center", gap: 8, padding: 15, textAlign: "left", fontSize: 14, fontWeight: 600, color: "#E03131" };
 const iconButton: React.CSSProperties = { width: 32, height: 32, border: 0, borderRadius: 10, background: "rgba(92,124,250,.08)", color: C.primary, display: "grid", placeItems: "center" };
