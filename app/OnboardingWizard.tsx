@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { CityPicker } from "@/app/CityPicker";
 import { saveOnboarding } from "@/app/actions";
+import { birthDateInputValue } from "@/app/profile-dates";
 
 const C = { text: "#1A2050", muted: "rgba(26,32,80,.48)", primary: "#5C7CFA", border: "rgba(255,255,255,.9)" };
 const input = { width: "100%", padding: "13px 14px", background: "rgba(244,246,255,.8)", border: "1px solid rgba(186,200,255,.45)", borderRadius: 12, fontSize: 16, color: C.text } as const;
@@ -15,7 +16,7 @@ const steps = [
 export function OnboardingWizard({ initialName, initialBirthDate = "", initialGender = "", initialCity = "", initialRegion = "", initialCountry = "", initialCountryCode = "" }: { initialName: string; initialBirthDate?: string | null; initialGender?: string | null; initialCity?: string | null; initialRegion?: string | null; initialCountry?: string | null; initialCountryCode?: string | null }) {
   const [step, setStep] = useState(0);
   const [name, setName] = useState(initialName);
-  const [birth, setBirth] = useState(initialBirthDate || "");
+  const [birth, setBirth] = useState(birthDateInputValue(initialBirthDate));
   const [gender, setGender] = useState(initialGender || "");
   const [currentCity, setCurrentCity] = useState(initialCity || "");
   const now = new Date();

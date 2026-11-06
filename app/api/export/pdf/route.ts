@@ -4,6 +4,7 @@ import { getChatGPTUser } from "@/app/chatgpt-auth";
 import { getUserData } from "@/app/data";
 import medicationCatalog from "@/app/medications_ru.json";
 import { readVaccinationMetadata } from "@/app/vaccination-record";
+import { birthDateDisplayValue } from "@/app/profile-dates";
 
 export const dynamic = "force-dynamic";
 
@@ -193,7 +194,7 @@ export async function GET(request: Request) {
   page.drawRectangle({ x: MARGIN, y: profileTop - 64, width: contentW, height: 64, color: PALE, borderColor: BORDER, borderWidth: 0.5 });
   const name = data.profile?.fullName || user.displayName || (en ? "Name not specified" : "Имя не указано");
   page.drawText(name, { x: MARGIN + 14, y: profileTop - 22, size: 15, font: bold, color: INK, maxWidth: contentW - 28 });
-  const profileLine = [data.profile?.birthDate, data.profile?.cityCurrent].filter(Boolean).join("  ·  ") || (en ? "Location not set" : "Город не указан");
+  const profileLine = [birthDateDisplayValue(data.profile?.birthDate), data.profile?.cityCurrent].filter(Boolean).join("  ·  ") || (en ? "Location not set" : "Город не указан");
   page.drawText(profileLine, { x: MARGIN + 14, y: profileTop - 42, size: 9, font: regular, color: MUTED, maxWidth: contentW - 28 });
   const generated = `${en ? "Generated" : "Выгружено"} ${new Intl.DateTimeFormat(en ? "en-US" : "ru-RU", { dateStyle: "long" }).format(new Date())}`;
   page.drawText(generated, { x: PAGE_W - MARGIN - regular.widthOfTextAtSize(generated, 8) - 14, y: profileTop - 57, size: 8, font: regular, color: MUTED });

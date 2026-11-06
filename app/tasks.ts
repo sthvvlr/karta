@@ -1,3 +1,5 @@
+import { birthDateParts } from "@/app/profile-dates";
+
 export type MedicationForTasks = {
   id: string;
   name: string;
@@ -206,10 +208,10 @@ const regionCountries: Record<string, string> = {
 const euCountries = new Set(["DE", "FR", "IT", "ES", "NL", "BE", "AT", "PL", "SE", "DK", "FI", "NO", "CH", "GB", "IE", "PT", "CZ", "SK", "HU", "RO", "BG", "HR", "SI", "EE", "LV", "LT", "LU", "MT", "CY", "GR"]);
 
 function ageFromBirthDate(birthDate: string | null | undefined, today = new Date()): number | null {
-  const birth = dateOnly(birthDate);
+  const birth = birthDateParts(birthDate);
   if (!birth) return null;
-  let age = today.getFullYear() - birth.getFullYear();
-  const beforeBirthday = today.getMonth() < birth.getMonth() || (today.getMonth() === birth.getMonth() && today.getDate() < birth.getDate());
+  let age = today.getFullYear() - birth.year;
+  const beforeBirthday = today.getMonth() < birth.month || (today.getMonth() === birth.month && today.getDate() < birth.day);
   if (beforeBirthday) age -= 1;
   return age;
 }

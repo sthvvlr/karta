@@ -7,6 +7,7 @@ import { getUserData } from "@/app/data";
 import { getDb } from "@/db";
 import { profileLocations } from "@/db/schema";
 import { asc, eq } from "drizzle-orm";
+import { birthDateInputValue } from "@/app/profile-dates";
 
 export const dynamic = "force-dynamic";
 const C = { text: "#1A2050", muted: "rgba(26,32,80,0.42)", card: "rgba(255,255,255,0.72)", border: "rgba(255,255,255,0.9)" };
@@ -23,7 +24,7 @@ export default async function ProfilePage() {
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginBottom: 20 }}><div style={{ width: 72, height: 72, borderRadius: "50%", background: "linear-gradient(135deg,#BAC8FF,#D0BFFF)", display: "grid", placeItems: "center", fontSize: 30, marginBottom: 10 }}>{(profile?.fullName || user.displayName)[0]?.toUpperCase() || "K"}</div><div style={{ fontSize: 18, fontWeight: 700 }}>{profile?.fullName || user.displayName}</div><div style={{ fontSize: 12, color: C.muted }}>{user.email}</div></div>
     <form action={saveProfile} style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 20, padding: 16, display: "grid", gap: 12 }}>
       <label style={{ fontSize: 12, color: C.muted }}>Имя<input name="fullName" defaultValue={profile?.fullName || user.displayName} style={{ ...input, marginTop: 5 }} /></label>
-      <label style={{ fontSize: 12, color: C.muted }}>Дата рождения<input name="birthDate" type="date" defaultValue={profile?.birthDate || ""} style={{ ...input, marginTop: 5 }} /></label>
+      <label style={{ fontSize: 12, color: C.muted }}>Дата рождения<input name="birthDate" type="date" defaultValue={birthDateInputValue(profile?.birthDate)} style={{ ...input, marginTop: 5 }} /></label>
       <label style={{ fontSize: 12, color: C.muted }}>Пол<select name="gender" defaultValue={profile?.gender || ""} style={{ ...input, marginTop: 5 }}><option value="">Не указан</option><option value="female">Женский</option><option value="male">Мужской</option><option value="other">Другой</option></select></label>
       <label style={{ fontSize: 12, color: C.muted }}>Текущий город<CityPicker initialCity={profile?.cityCurrent || ""} initialRegion={profile?.regionCurrent || ""} initialCountry={profile?.countryCurrent || ""} initialCountryCode={profile?.countryCode || ""} /></label>
       <div style={{ fontSize: 12, lineHeight: 1.45, color: C.muted }}>Регион влияет на каталог и рекомендации по прививкам.</div>

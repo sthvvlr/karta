@@ -4,11 +4,12 @@ import { getDb } from "@/db";
 import { profiles } from "@/db/schema";
 import { ensureProfile } from "@/app/data";
 import { getMobileUser } from "@/app/mobile-auth";
+import { birthDateDisplayValue } from "@/app/profile-dates";
 
 function profileResponse(profile: typeof profiles.$inferSelect) {
   return {
     fullName: profile.fullName,
-    birthDate: profile.birthDate,
+    birthDate: birthDateDisplayValue(profile.birthDate),
     gender: profile.gender,
     cityCurrent: profile.cityCurrent,
     regionCurrent: profile.regionCurrent,

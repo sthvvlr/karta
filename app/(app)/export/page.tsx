@@ -3,6 +3,7 @@ import { getChatGPTUser } from "@/app/chatgpt-auth";
 import { getUserData } from "@/app/data";
 import { PdfExportControls } from "@/app/PdfExportControls";
 import medicationCatalog from "@/app/medications_ru.json";
+import { birthDateDisplayValue } from "@/app/profile-dates";
 
 export const dynamic = "force-dynamic";
 
@@ -42,7 +43,7 @@ export default async function ExportPage({ searchParams }: { searchParams: Promi
 
     <section className="passport-profile print-card" style={{ position: "relative", minHeight: 64, margin: "16px 0 18px", padding: "12px 14px", border: `1px solid ${line}`, borderRadius: 10, background: "#F4F6FF" }}>
       <div style={{ fontSize: 15, fontWeight: 700 }}>{data.profile?.fullName || user.displayName || (en ? "Name not set" : "Имя не указано")}</div>
-      <div style={{ maxWidth: "78%", marginTop: 5, color: muted, fontSize: 11 }}>{[data.profile?.birthDate, data.profile?.cityCurrent].filter(Boolean).join("  ·  ") || (en ? "Location not set" : "Город не указан")}</div>
+      <div style={{ maxWidth: "78%", marginTop: 5, color: muted, fontSize: 11 }}>{[birthDateDisplayValue(data.profile?.birthDate), data.profile?.cityCurrent].filter(Boolean).join("  ·  ") || (en ? "Location not set" : "Город не указан")}</div>
       <div style={{ position: "absolute", right: 14, bottom: 9, color: muted, fontSize: 9 }}>{en ? "Generated" : "Выгружено"} {generated}</div>
     </section>
 
