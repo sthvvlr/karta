@@ -27,11 +27,11 @@ function indicatorStatus(item: Indicator) {
 }
 
 export default async function LabsPage({ searchParams }: { searchParams: Promise<{ monitoringMedicationId?: string; monitoringRuleId?: string }> }) {
-  const user = await getChatGPTUser();
-  if (!user) return <div style={{ padding: 24, color: C.text }}>Войдите, чтобы открыть анализы.</div>;
-  const params = await searchParams;
   const cookieStore = await cookies();
   const en = cookieStore.get("karta_lang")?.value === "en";
+  const user = await getChatGPTUser();
+  if (!user) return <div style={{ padding: 24, color: C.text }}>{en ? "Sign in to open your lab results." : "Войдите, чтобы открыть анализы."}</div>;
+  const params = await searchParams;
   const locale = en ? "en-US" : "ru-RU";
   const db = getDb();
   const [rows, profile] = await Promise.all([

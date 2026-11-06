@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { cookies } from "next/headers";
 import "./globals.css";
 import { LanguageRuntime } from "@/app/LanguageRuntime";
 
@@ -22,6 +23,7 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="ru"><body><LanguageRuntime />{children}</body></html>;
+export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const lang = (await cookies()).get("karta_lang")?.value === "en" ? "en" : "ru";
+  return <html lang={lang}><body><LanguageRuntime />{children}</body></html>;
 }

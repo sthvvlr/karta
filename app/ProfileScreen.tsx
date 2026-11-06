@@ -17,14 +17,14 @@ type Location = { id: string; city: string; country: string | null; region: stri
 const C = { text: "#1A2050", muted: "rgba(26,32,80,.48)", card: "rgba(255,255,255,.72)", border: "rgba(255,255,255,.9)", primary: "#5C7CFA" };
 const field = { width: "100%", padding: "12px 13px", background: "rgba(244,246,255,.8)", border: "1px solid rgba(186,200,255,.4)", borderRadius: 11, fontSize: 16, color: C.text } as const;
 
-export function ProfileScreen({ profile, locations, displayName, email, userId, chatSignOutUrl }: { profile: Profile; locations: Location[]; displayName: string; email: string; userId: string; chatSignOutUrl: string }) {
+export function ProfileScreen({ profile, locations, displayName, email, userId, chatSignOutUrl, en = false }: { profile: Profile; locations: Location[]; displayName: string; email: string; userId: string; chatSignOutUrl: string; en?: boolean }) {
   const [sheet, setSheet] = useState<"edit" | "cities" | "reminders" | "account" | null>(null);
   const name = profile.fullName || displayName || "Karta";
-  const gender = profile.gender === "female" ? "Женский" : profile.gender === "male" ? "Мужской" : profile.gender === "other" ? "Другой" : "—";
+  const gender = profile.gender === "female" ? (en ? "Female" : "Женский") : profile.gender === "male" ? (en ? "Male" : "Мужской") : profile.gender === "other" ? (en ? "Other" : "Другой") : "—";
   const city = [profile.cityCurrent, profile.regionCurrent, profile.countryCurrent].filter(Boolean).join(" · ") || "—";
 
   return <div style={{ padding: "12px 16px 0", color: C.text }}>
-    <header style={{ paddingTop: 16, paddingBottom: 22 }}><h1 style={{ margin: 0, fontSize: 26, lineHeight: 1.2, fontWeight: 700 }}>Профиль</h1><div style={{ fontSize: 13, color: C.muted, marginTop: 4 }}>Личные данные</div></header>
+    <header style={{ paddingTop: 16, paddingBottom: 22 }}><h1 style={{ margin: 0, fontSize: 26, lineHeight: 1.2, fontWeight: 700 }}>{en ? "Profile" : "Профиль"}</h1><div style={{ fontSize: 13, color: C.muted, marginTop: 4 }}>{en ? "Personal info" : "Личные данные"}</div></header>
 
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginBottom: 22 }}>
       <div style={{ width: 72, height: 72, borderRadius: "50%", background: "linear-gradient(135deg,#BAC8FF,#D0BFFF)", display: "grid", placeItems: "center", fontSize: 30, color: C.text, boxShadow: "0 4px 12px rgba(92,124,250,.15)" }}>{name[0]?.toUpperCase() || "K"}</div>
@@ -32,65 +32,65 @@ export function ProfileScreen({ profile, locations, displayName, email, userId, 
       {email && <div style={{ fontSize: 12, color: C.muted, marginTop: 2 }}>{email}</div>}
     </div>
 
-    <SectionTitle>ЛИЧНЫЕ ДАННЫЕ</SectionTitle>
+    <SectionTitle>{en ? "PERSONAL INFO" : "ЛИЧНЫЕ ДАННЫЕ"}</SectionTitle>
     <div style={cardStyle(20, 0)}>
-      <InfoRow icon={<UserRound size={15} />} label="Имя" value={name} />
+      <InfoRow icon={<UserRound size={15} />} label={en ? "Name" : "Имя"} value={name} />
       <Divider />
-      <InfoRow icon={<CalendarDays size={15} />} label="Дата рождения" value={profile.birthDate ? displayBirth(profile.birthDate) : "—"} />
+      <InfoRow icon={<CalendarDays size={15} />} label={en ? "Date of birth" : "Дата рождения"} value={profile.birthDate ? displayBirth(profile.birthDate) : "—"} />
       <Divider />
-      <InfoRow icon={<PersonStanding size={16} />} label="Пол" value={gender} />
+      <InfoRow icon={<PersonStanding size={16} />} label={en ? "Gender" : "Пол"} value={gender} />
       <Divider />
-      <InfoRow icon={<MapPin size={15} />} label="Город" value={city} />
+      <InfoRow icon={<MapPin size={15} />} label={en ? "City" : "Город"} value={city} />
     </div>
 
-    <SectionTitle style={{ marginTop: 22 }}>НАСТРОЙКИ</SectionTitle>
+    <SectionTitle style={{ marginTop: 22 }}>{en ? "SETTINGS" : "НАСТРОЙКИ"}</SectionTitle>
     <div style={cardStyle(20, 0)}>
-      <ActionRow icon={<Pencil size={14} />} label="Редактировать профиль" onClick={() => setSheet("edit")} />
+      <ActionRow icon={<Pencil size={14} />} label={en ? "Edit profile" : "Редактировать профиль"} onClick={() => setSheet("edit")} />
       <Divider />
-      <ActionRow icon={<Map size={14} />} label="История городов" color="#20C997" onClick={() => setSheet("cities")} />
+      <ActionRow icon={<Map size={14} />} label={en ? "City history" : "История городов"} color="#20C997" onClick={() => setSheet("cities")} />
       <Divider />
-      <ActionRow icon={<Bell size={14} />} label="Напоминания" color="#F59F00" onClick={() => setSheet("reminders")} />
-      {userId.startsWith("email:") && <><Divider /><ActionRow icon={<Settings size={14} />} label="Настройки аккаунта" onClick={() => setSheet("account")} /></>}
+      <ActionRow icon={<Bell size={14} />} label={en ? "Reminders" : "Напоминания"} color="#F59F00" onClick={() => setSheet("reminders")} />
+      {userId.startsWith("email:") && <><Divider /><ActionRow icon={<Settings size={14} />} label={en ? "Account settings" : "Настройки аккаунта"} onClick={() => setSheet("account")} /></>}
     </div>
 
     <div style={{ ...cardStyle(20, 0), marginTop: 14, marginBottom: 32 }}>
-      <a href={chatSignOutUrl} style={{ ...accountButton, textDecoration: "none", boxSizing: "border-box" }}><span style={{ color: "#E03131", width: 28 }}>↪</span><span>Выйти через ChatGPT</span></a>
-      {userId.startsWith("email:") && <><Divider /><form action={signOutAccount}><button type="submit" style={accountButton}><span style={{ color: "#E03131", width: 28 }}>↪</span><span>Выйти из email-аккаунта</span></button></form></>}
+      <a href={chatSignOutUrl} style={{ ...accountButton, textDecoration: "none", boxSizing: "border-box" }}><span style={{ color: "#E03131", width: 28 }}>↪</span><span>{en ? "Sign out of ChatGPT" : "Выйти через ChatGPT"}</span></a>
+      {userId.startsWith("email:") && <><Divider /><form action={signOutAccount}><button type="submit" style={accountButton}><span style={{ color: "#E03131", width: 28 }}>↪</span><span>{en ? "Sign out of email account" : "Выйти из email-аккаунта"}</span></button></form></>}
       <Divider />
-      <div style={{ padding: 14 }}><DeleteDataForm /></div>
+      <div style={{ padding: 14 }}><DeleteDataForm en={en} /></div>
     </div>
 
-    {sheet === "edit" && <Sheet title="Редактировать профиль" onClose={() => setSheet(null)}>
+    {sheet === "edit" && <Sheet title={en ? "Edit profile" : "Редактировать профиль"} onClose={() => setSheet(null)} en={en}>
       <form action={saveProfile} style={{ display: "grid", gap: 16 }}>
         <div style={{ display: "grid", placeItems: "center", padding: "8px 0 2px" }}><div style={{ width: 80, height: 80, borderRadius: "50%", display: "grid", placeItems: "center", background: "linear-gradient(135deg,#BAC8FF,#D0BFFF)", fontSize: 32, boxShadow: "0 4px 14px rgba(92,124,250,.15)" }}>{name[0]?.toUpperCase() || "?"}</div></div>
-        <label style={labelStyle}>ИМЯ<input name="fullName" defaultValue={profile.fullName || displayName} placeholder="Введите имя" style={{ ...field, marginTop: 6 }} /></label>
-        <label style={labelStyle}>ДАТА РОЖДЕНИЯ<input name="birthDate" type="date" max={new Date().toISOString().slice(0, 10)} defaultValue={birthDateInputValue(profile.birthDate)} style={{ ...field, marginTop: 6 }} /></label>
-        <GenderPicker initial={profile.gender || ""} />
-        <label style={labelStyle}>ТЕКУЩИЙ ГОРОД<CityPicker initialCity={profile.cityCurrent || ""} initialRegion={profile.regionCurrent || ""} initialCountry={profile.countryCurrent || ""} initialCountryCode={profile.countryCode || ""} /></label>
-        <div style={{ color: C.muted, fontSize: 12, lineHeight: 1.45 }}>Регион влияет на каталог и рекомендации по прививкам.</div>
-        <button type="submit" style={primaryButton}>Сохранить</button>
+        <label style={labelStyle}>{en ? "NAME" : "ИМЯ"}<input name="fullName" defaultValue={profile.fullName || displayName} placeholder={en ? "Enter your name" : "Введите имя"} style={{ ...field, marginTop: 6 }} /></label>
+        <label style={labelStyle}>{en ? "DATE OF BIRTH" : "ДАТА РОЖДЕНИЯ"}<input name="birthDate" type="date" max={new Date().toISOString().slice(0, 10)} defaultValue={birthDateInputValue(profile.birthDate)} style={{ ...field, marginTop: 6 }} /></label>
+        <GenderPicker initial={profile.gender || ""} en={en} />
+        <label style={labelStyle}>{en ? "CURRENT CITY" : "ТЕКУЩИЙ ГОРОД"}<CityPicker initialCity={profile.cityCurrent || ""} initialRegion={profile.regionCurrent || ""} initialCountry={profile.countryCurrent || ""} initialCountryCode={profile.countryCode || ""} en={en} /></label>
+        <div style={{ color: C.muted, fontSize: 12, lineHeight: 1.45 }}>{en ? "Your region affects the vaccine catalog and recommendations." : "Регион влияет на каталог и рекомендации по прививкам."}</div>
+        <button type="submit" style={primaryButton}>{en ? "Save" : "Сохранить"}</button>
       </form>
     </Sheet>}
 
-    {sheet === "cities" && <Sheet title="История городов" onClose={() => setSheet(null)}>
-      {locations.length === 0 ? <div style={{ textAlign: "center", padding: "36px 16px", color: C.muted }}><Map size={34} color="#5C7CFA" style={{ opacity: .45, marginBottom: 12 }} /><div style={{ color: C.text, fontWeight: 700, fontSize: 15 }}>Нет городов</div><p style={{ fontSize: 13, lineHeight: 1.45 }}>Добавьте города, где вы живёте или жили. Это влияет на рекомендации по прививкам.</p></div> : <>
-        <div style={{ background: "rgba(92,124,250,.06)", borderRadius: 11, padding: 12, color: C.muted, fontSize: 11, lineHeight: 1.45, marginBottom: 8 }}>Города влияют на региональные рекомендации по прививкам.</div>
+    {sheet === "cities" && <Sheet title={en ? "City history" : "История городов"} onClose={() => setSheet(null)} en={en}>
+      {locations.length === 0 ? <div style={{ textAlign: "center", padding: "36px 16px", color: C.muted }}><Map size={34} color="#5C7CFA" style={{ opacity: .45, marginBottom: 12 }} /><div style={{ color: C.text, fontWeight: 700, fontSize: 15 }}>{en ? "No cities yet" : "Нет городов"}</div><p style={{ fontSize: 13, lineHeight: 1.45 }}>{en ? "Add cities where you live or have lived. This affects vaccine recommendations." : "Добавьте города, где вы живёте или жили. Это влияет на рекомендации по прививкам."}</p></div> : <>
+        <div style={{ background: "rgba(92,124,250,.06)", borderRadius: 11, padding: 12, color: C.muted, fontSize: 11, lineHeight: 1.45, marginBottom: 8 }}>{en ? "Cities affect regional vaccine recommendations." : "Города влияют на региональные рекомендации по прививкам."}</div>
         {locations.map((location) => <div key={location.id} style={{ display: "flex", alignItems: "center", gap: 10, padding: "12px 3px", borderBottom: "1px solid rgba(26,32,80,.08)" }}>
           <div style={{ color: location.isCurrent ? C.primary : C.muted }}>{location.isCurrent ? <MapPin size={19} /> : <Clock3 size={19} />}</div>
-          <div style={{ minWidth: 0, flex: 1 }}><div style={{ fontSize: 14, fontWeight: 600 }}>{location.city}{location.isCurrent && <span style={{ marginLeft: 6, color: "white", background: C.primary, borderRadius: 9, padding: "2px 6px", fontSize: 9 }}>текущий</span>}</div><div style={{ fontSize: 11, color: C.muted, marginTop: 2 }}>{[location.region, location.country].filter(Boolean).join(" · ")}{location.fromYear || location.toYear ? ` · ${location.fromYear || "?"}–${location.toYear || "сейчас"}` : ""}</div></div>
-          {!location.isCurrent && <form action={setCurrentProfileLocation}><input type="hidden" name="id" value={location.id} /><button type="submit" aria-label={`Сделать город ${location.city} текущим`} style={iconButton}><MapPin size={15} /></button></form>}
-          <form action={deleteProfileLocation}><input type="hidden" name="id" value={location.id} /><button type="submit" aria-label={`Удалить город ${location.city}`} style={{ ...iconButton, color: "#E03131" }}><Trash2 size={15} /></button></form>
+          <div style={{ minWidth: 0, flex: 1 }}><div style={{ fontSize: 14, fontWeight: 600 }}>{location.city}{location.isCurrent && <span style={{ marginLeft: 6, color: "white", background: C.primary, borderRadius: 9, padding: "2px 6px", fontSize: 9 }}>{en ? "current" : "текущий"}</span>}</div><div style={{ fontSize: 11, color: C.muted, marginTop: 2 }}>{[location.region, location.country].filter(Boolean).join(" · ")}{location.fromYear || location.toYear ? ` · ${location.fromYear || "?"}–${location.toYear || (en ? "now" : "сейчас")}` : ""}</div></div>
+          {!location.isCurrent && <form action={setCurrentProfileLocation}><input type="hidden" name="id" value={location.id} /><button type="submit" aria-label={en ? `Set ${location.city} as current city` : `Сделать город ${location.city} текущим`} style={iconButton}><MapPin size={15} /></button></form>}
+          <form action={deleteProfileLocation}><input type="hidden" name="id" value={location.id} /><button type="submit" aria-label={en ? `Delete city ${location.city}` : `Удалить город ${location.city}`} style={{ ...iconButton, color: "#E03131" }}><Trash2 size={15} /></button></form>
         </div>)}
       </>}
-      <form action={addProfileLocation} style={{ display: "grid", gap: 10, marginTop: 16 }}><div style={labelStyle}>ДОБАВИТЬ ГОРОД<CityPicker fieldPrefix="historyCity" /></div><div style={{ display: "flex", gap: 8 }}><input name="fromYear" type="number" min="1900" max="2100" placeholder="С какого года" style={{ ...field, flex: 1, minWidth: 0 }} /><input name="toYear" type="number" min="1900" max="2100" placeholder="По какой год" style={{ ...field, flex: 1, minWidth: 0 }} /></div><button type="submit" style={secondaryButton}>Добавить город</button></form>
+      <form action={addProfileLocation} style={{ display: "grid", gap: 10, marginTop: 16 }}><div style={labelStyle}>{en ? "ADD CITY" : "ДОБАВИТЬ ГОРОД"}<CityPicker fieldPrefix="historyCity" en={en} requireSelection /></div><div style={{ display: "flex", gap: 8 }}><input name="fromYear" type="number" min="1900" max="2100" placeholder={en ? "From year" : "С какого года"} style={{ ...field, flex: 1, minWidth: 0 }} /><input name="toYear" type="number" min="1900" max="2100" placeholder={en ? "To year" : "По какой год"} style={{ ...field, flex: 1, minWidth: 0 }} /></div><button type="submit" style={secondaryButton}>{en ? "Add city" : "Добавить город"}</button></form>
     </Sheet>}
 
-    {sheet === "reminders" && <Sheet title="Напоминания" onClose={() => setSheet(null)}>
-      <ReminderForm enabled={profile.remindersEnabled} morning={profile.remindersMorning} evening={profile.remindersEvening} />
+    {sheet === "reminders" && <Sheet title={en ? "Reminders" : "Напоминания"} onClose={() => setSheet(null)} en={en}>
+      <ReminderForm enabled={profile.remindersEnabled} morning={profile.remindersMorning} evening={profile.remindersEvening} en={en} />
     </Sheet>}
 
-    {sheet === "account" && <Sheet title="Настройки аккаунта" onClose={() => setSheet(null)}>
-      <form action={changePassword} style={{ display: "grid", gap: 10 }}><label style={labelStyle}>ИЗМЕНИТЬ ПАРОЛЬ<input name="newPassword" type="password" minLength={6} required placeholder="Новый пароль, минимум 6 символов" style={{ ...field, marginTop: 6 }} /></label><button type="submit" style={primaryButton}>Сохранить новый пароль</button></form>
+    {sheet === "account" && <Sheet title={en ? "Account settings" : "Настройки аккаунта"} onClose={() => setSheet(null)} en={en}>
+      <form action={changePassword} style={{ display: "grid", gap: 10 }}><label style={labelStyle}>{en ? "CHANGE PASSWORD" : "ИЗМЕНИТЬ ПАРОЛЬ"}<input name="newPassword" type="password" minLength={6} required placeholder={en ? "New password, at least 6 characters" : "Новый пароль, минимум 6 символов"} style={{ ...field, marginTop: 6 }} /></label><button type="submit" style={primaryButton}>{en ? "Save new password" : "Сохранить новый пароль"}</button></form>
     </Sheet>}
   </div>;
 }
@@ -102,33 +102,33 @@ function displayBirth(value: string) {
   return `${day}.${month}.${year}`;
 }
 
-function Sheet({ title, onClose, children }: { title: string; onClose: () => void; children: ReactNode }) {
+function Sheet({ title, onClose, children, en }: { title: string; onClose: () => void; children: ReactNode; en: boolean }) {
   return <div role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) onClose(); }} style={{ position: "fixed", inset: 0, zIndex: 120, display: "flex", alignItems: "flex-end", justifyContent: "center", background: "rgba(20,25,55,.38)", backdropFilter: "blur(7px)" }}>
     <section role="dialog" aria-modal="true" aria-label={title} style={{ width: "min(100%, 430px)", maxHeight: "91dvh", overflow: "auto", padding: "10px 20px calc(24px + env(safe-area-inset-bottom))", border: "1px solid rgba(255,255,255,.75)", borderBottom: 0, borderRadius: "24px 24px 0 0", background: "rgba(250,251,255,.98)", boxShadow: "0 -12px 42px rgba(26,32,80,.18)", color: C.text }}>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}><span style={{ width: 34 }} /><h2 style={{ margin: 0, fontSize: 17, fontWeight: 700 }}>{title}</h2><button type="button" onClick={onClose} aria-label="Закрыть" style={{ width: 34, height: 34, display: "grid", placeItems: "center", border: 0, borderRadius: 17, background: "rgba(26,32,80,.06)", color: C.text }}><X size={18} /></button></div>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}><span style={{ width: 34 }} /><h2 style={{ margin: 0, fontSize: 17, fontWeight: 700 }}>{title}</h2><button type="button" onClick={onClose} aria-label={en ? "Close" : "Закрыть"} style={{ width: 34, height: 34, display: "grid", placeItems: "center", border: 0, borderRadius: 17, background: "rgba(26,32,80,.06)", color: C.text }}><X size={18} /></button></div>
       {children}
     </section>
   </div>;
 }
 
-function GenderPicker({ initial }: { initial: string }) {
+function GenderPicker({ initial, en }: { initial: string; en: boolean }) {
   const [gender, setGender] = useState(initial);
-  const choices = [["female", "Женский"], ["male", "Мужской"], ["other", "Другой"]];
-  return <div style={labelStyle}>ПОЛ<input type="hidden" name="gender" value={gender} /><div style={{ display: "flex", gap: 8, marginTop: 6 }}>{choices.map(([value, label]) => <button key={value} type="button" onClick={() => setGender(gender === value ? "" : value)} style={{ flex: 1, padding: "11px 5px", borderRadius: 12, border: `1px solid ${gender === value ? C.primary : "rgba(186,200,255,.55)"}`, background: gender === value ? "rgba(92,124,250,.08)" : "#F4F6FF", color: gender === value ? C.primary : C.muted, fontWeight: 600, fontSize: 12 }}>{label}</button>)}</div></div>;
+  const choices = [["female", en ? "Female" : "Женский"], ["male", en ? "Male" : "Мужской"], ["other", en ? "Other" : "Другой"]];
+  return <div style={labelStyle}>{en ? "GENDER" : "ПОЛ"}<input type="hidden" name="gender" value={gender} /><div style={{ display: "flex", gap: 8, marginTop: 6 }}>{choices.map(([value, label]) => <button key={value} type="button" onClick={() => setGender(gender === value ? "" : value)} style={{ flex: 1, padding: "11px 5px", borderRadius: 12, border: `1px solid ${gender === value ? C.primary : "rgba(186,200,255,.55)"}`, background: gender === value ? "rgba(92,124,250,.08)" : "#F4F6FF", color: gender === value ? C.primary : C.muted, fontWeight: 600, fontSize: 12 }}>{label}</button>)}</div></div>;
 }
 
-function ReminderForm({ enabled: initialEnabled, morning: initialMorning, evening: initialEvening }: { enabled: boolean; morning: string; evening: string }) {
+function ReminderForm({ enabled: initialEnabled, morning: initialMorning, evening: initialEvening, en }: { enabled: boolean; morning: string; evening: string; en: boolean }) {
   const [enabled, setEnabled] = useState(initialEnabled);
   return <form action={saveReminderSettings} style={{ display: "grid", gap: 14 }}>
     <input type="hidden" name="enabled" value={String(enabled)} />
-    <div style={{ ...cardStyle(15, 14), display: "flex", alignItems: "center", gap: 11 }}><Bell size={18} color={C.primary} /><div style={{ flex: 1 }}><div style={{ fontSize: 14, fontWeight: 600 }}>Напоминания о лекарствах</div><div style={{ fontSize: 11, color: C.muted, marginTop: 2 }}>Ежедневные уведомления</div></div><button type="button" role="switch" aria-checked={enabled} onClick={() => setEnabled(!enabled)} style={{ width: 46, height: 28, border: 0, borderRadius: 20, padding: 3, background: enabled ? C.primary : "#C9CEDD", transition: "background .16s" }}><span style={{ display: "block", width: 22, height: 22, borderRadius: "50%", background: "white", transform: enabled ? "translateX(18px)" : "translateX(0)", transition: "transform .16s" }} /></button></div>
+    <div style={{ ...cardStyle(15, 14), display: "flex", alignItems: "center", gap: 11 }}><Bell size={18} color={C.primary} /><div style={{ flex: 1 }}><div style={{ fontSize: 14, fontWeight: 600 }}>{en ? "Medication reminders" : "Напоминания о лекарствах"}</div><div style={{ fontSize: 11, color: C.muted, marginTop: 2 }}>{en ? "Daily notifications" : "Ежедневные уведомления"}</div></div><button type="button" role="switch" aria-checked={enabled} onClick={() => setEnabled(!enabled)} style={{ width: 46, height: 28, border: 0, borderRadius: 20, padding: 3, background: enabled ? C.primary : "#C9CEDD", transition: "background .16s" }}><span style={{ display: "block", width: 22, height: 22, borderRadius: "50%", background: "white", transform: enabled ? "translateX(18px)" : "translateX(0)", transition: "transform .16s" }} /></button></div>
     {enabled && <>
-      <label style={labelStyle}>УТРЕННЕЕ НАПОМИНАНИЕ<input type="time" name="morning" defaultValue={initialMorning} style={{ ...field, marginTop: 6 }} /></label>
-      <label style={labelStyle}>ВЕЧЕРНЕЕ НАПОМИНАНИЕ<input type="time" name="evening" defaultValue={initialEvening} style={{ ...field, marginTop: 6 }} /></label>
+      <label style={labelStyle}>{en ? "MORNING REMINDER" : "УТРЕННЕЕ НАПОМИНАНИЕ"}<input type="time" name="morning" defaultValue={initialMorning} style={{ ...field, marginTop: 6 }} /></label>
+      <label style={labelStyle}>{en ? "EVENING REMINDER" : "ВЕЧЕРНЕЕ НАПОМИНАНИЕ"}<input type="time" name="evening" defaultValue={initialEvening} style={{ ...field, marginTop: 6 }} /></label>
     </>}
     {!enabled && <><input type="hidden" name="morning" value={initialMorning} /><input type="hidden" name="evening" value={initialEvening} /></>}
-    <div style={{ fontSize: 11, color: C.muted, lineHeight: 1.4 }}>Push-уведомления будут добавлены в следующей версии.</div>
-    <button type="submit" style={primaryButton}>Готово</button>
+    <div style={{ fontSize: 11, color: C.muted, lineHeight: 1.4 }}>{en ? "Push notifications will be added in a future version." : "Push-уведомления будут добавлены в следующей версии."}</div>
+    <button type="submit" style={primaryButton}>{en ? "Done" : "Готово"}</button>
   </form>;
 }
 
