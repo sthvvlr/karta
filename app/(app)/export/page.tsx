@@ -1,9 +1,11 @@
 import Link from "next/link";
+import { Pill, Syringe } from "lucide-react";
 import { getChatGPTUser } from "@/app/chatgpt-auth";
 import { getUserData } from "@/app/data";
 import { PdfExportControls } from "@/app/PdfExportControls";
 import medicationCatalog from "@/app/medications_ru.json";
 import { birthDateDisplayValue } from "@/app/profile-dates";
+import { readVaccinationMetadata } from "@/app/vaccination-record";
 
 export const dynamic = "force-dynamic";
 
@@ -28,7 +30,7 @@ export default async function ExportPage({ searchParams }: { searchParams: Promi
   const activeMeds = data.medications.filter((med) => med.isActive);
   const generated = new Date().toLocaleDateString(en ? "en-US" : "ru-RU", { dateStyle: "long" });
 
-  return <div className="print-page" style={{ maxWidth: 760, margin: "0 auto", padding: "24px 18px 56px", color: ink, fontFamily: "Arial, sans-serif" }}>
+  return <div className="print-page" style={{ maxWidth: 760, margin: "0 auto", padding: "24px 18px 56px", color: ink, fontFamily: "KartaPDF, Arial, sans-serif" }}>
     <div className="no-print" style={{ marginBottom: 16 }}><Link href="/" style={{ color: "#5C7CFA", textDecoration: "none", fontSize: 14 }}>{en ? "← Back to Karta" : "← Вернуться в Karta"}</Link></div>
     <PdfExportControls lang={lang} scope={scope} />
 
@@ -48,7 +50,7 @@ export default async function ExportPage({ searchParams }: { searchParams: Promi
     </section>
 
     {scope !== "vaccinations" && <section className="passport-section print-card">
-      <div className="passport-section-title" style={{ background: "rgba(139,92,246,.10)", borderColor: "rgba(139,92,246,.18)" }}><span style={{ color: "#8B5CF6" }}>◒</span>{en ? "CURRENT MEDICATIONS" : "ПРИНИМАЕМЫЕ ЛЕКАРСТВА"}</div>
+      <div className="passport-section-title" style={{ background: "rgba(139,92,246,.10)", borderColor: "rgba(139,92,246,.18)" }}><Pill size={14} color="#8B5CF6" />{en ? "CURRENT MEDICATIONS" : "ПРИНИМАЕМЫЕ ЛЕКАРСТВА"}</div>
       {activeMeds.length ? activeMeds.map((med) => {
         const entry = (medicationCatalog as Array<{ id: string; ru: string; en: string }>).find((item) => item.id === med.drugCode || item.ru === med.name);
         const name = en && entry?.en ? entry.en.charAt(0).toLocaleUpperCase("en-US") + entry.en.slice(1) : med.name;
@@ -58,11 +60,14 @@ export default async function ExportPage({ searchParams }: { searchParams: Promi
     </section>}
 
     {scope !== "medications" && <section className="passport-section print-card" style={{ marginTop: 8 }}>
-      <div className="passport-section-title" style={{ background: "rgba(92,124,250,.10)", borderColor: "rgba(92,124,250,.18)" }}><span style={{ color: "#5C7CFA" }}>✓</span>{en ? "COMPLETED VACCINATIONS" : "СДЕЛАННЫЕ ПРИВИВКИ"}</div>
-      {data.vaccinations.length ? data.vaccinations.map(({ record, vaccine }) => {
-        const name = en ? vaccine?.nameEn || record.vaccineId : vaccine?.nameRu || record.vaccineId;
-        const dose = vaccine?.totalDoses && vaccine.totalDoses > 1 ? (en ? ` (dose ${record.doseNumber} of ${vaccine.totalDoses})` : ` (доза ${record.doseNumber} из ${vaccine.totalDoses})`) : "";
-        return <div key={record.id} className="passport-vax-row" style={{ display: "flex", alignItems: "flex-start", gap: 8, minHeight: record.brand ? 38 : 26, padding: "4px 0", borderBottom: `1px solid ${line}` }}><span style={{ width: 14, flex: "none", color: "#20C997", fontSize: 14, lineHeight: "18px" }}>✓</span><div style={{ flex: 1, minWidth: 0 }}><div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 8 }}><span style={{ fontSize: 12, fontWeight: 600 }}>{name}{dose}</span><span style={{ color: muted, fontSize: 11, whiteSpace: "nowrap" }}>{formatDate(record.dateGiven, lang)}</span></div>{record.brand && <div style={{ marginTop: 3, color: "rgba(92,124,250,.7)", fontSize: 10 }}>{record.brand}</div>}</div></div>;
+      <div className="passport-section-title" style={{ background: "rgba(92,124,250,.10)", borderColor: "rgba(92,124,250,.18)" }}><Syringe size={14} color="#5C7CFA" />{en ? "COMPLETED VACCINATIONS" : "СДЕЛАННЫЕ ПРИВИВКИ"}</div>
+      {data.vaccinations.filter(({ record }) => !readVaccinationMetadata(record.notes).isUpcoming).length ? data.vaccinations.filter(({ record }) => !readVaccinationMetadata(record.notes).isUpcoming).map(({ record, vaccine }) => {
+        const metadata = readVaccinationMetadata(record.notes);
+        const name = en ? vaccine?.nameEn || metadata.name || record.vaccineId : metadata.name || vaccine?.nameRu || record.vaccineId;
+        const totalDoses = metadata.totalDoses ?? vaccine?.totalDoses ?? 1;
+        const dose = totalDoses > 1 ? (en ? ` (dose ${record.doseNumber} of ${totalDoses})` : ` (доза ${record.doseNumber} из ${totalDoses})`) : "";
+        const date = formatDate(metadata.dateString || record.dateGiven, lang);
+        return <div key={record.id} className="passport-vax-row" style={{ display: "flex", alignItems: "flex-start", gap: 8, minHeight: record.brand ? 38 : 26, padding: "4px 0", borderBottom: `1px solid ${line}` }}><span style={{ width: 14, flex: "none", color: "#20C997", fontSize: 14, lineHeight: "18px" }}>✓</span><div style={{ flex: 1, minWidth: 0 }}><div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 8 }}><span style={{ fontSize: 12, fontWeight: 600 }}>{name}{dose}</span><span style={{ color: muted, fontSize: 11, whiteSpace: "nowrap" }}>{date}</span></div>{record.brand && <div style={{ marginTop: 3, color: "rgba(92,124,250,.7)", fontSize: 10 }}>{record.brand}</div>}</div></div>;
       }) : <div className="passport-empty">{en ? "No vaccination records" : "Нет записей о прививках"}</div>}
     </section>}
     <footer className="passport-footer"><span>Karta</span><span>{en ? "Health passport" : "Паспорт здоровья"}</span></footer>

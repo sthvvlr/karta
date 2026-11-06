@@ -13,8 +13,10 @@ const PAGE_H = 841.89;
 const MARGIN = 36;
 const FOOTER_H = 30;
 const INK = rgb(0.102, 0.125, 0.314);
-const MUTED = rgb(0.43, 0.45, 0.56);
+const MUTED = rgb(0.641, 0.65, 0.726);
 const BLUE = rgb(0.361, 0.486, 0.98);
+const PURPLE = rgb(0.545, 0.361, 0.98);
+const SUCCESS = rgb(0.125, 0.784, 0.592);
 const PALE = rgb(0.957, 0.965, 1);
 const BORDER = rgb(0.87, 0.89, 0.96);
 
@@ -45,14 +47,16 @@ export async function GET(request: Request) {
   const showMedications = scope !== "vaccinations";
   const en = lang === "en";
   const fontResponse = await fetch(new URL("/fonts/NotoSans-Variable.ttf", request.url));
-  if (!fontResponse.ok) return new Response("PDF font is unavailable", { status: 503 });
+  const boldFontResponse = await fetch(new URL("/fonts/NotoSans-Bold.ttf", request.url));
+  if (!fontResponse.ok || !boldFontResponse.ok) return new Response("PDF font is unavailable", { status: 503 });
   const iconResponse = await fetch(new URL("/karta-icon.png", request.url));
 
   const pdf = await PDFDocument.create();
   pdf.registerFontkit(fontkit);
   const fontBytes = await fontResponse.arrayBuffer();
+  const boldFontBytes = await boldFontResponse.arrayBuffer();
   const regular = await pdf.embedFont(fontBytes, { subset: true });
-  const bold = regular;
+  const bold = await pdf.embedFont(boldFontBytes, { subset: true });
   const icon = iconResponse.ok ? await pdf.embedPng(await iconResponse.arrayBuffer()) : null;
   let page: PDFPage;
   let y = 0;
@@ -64,9 +68,9 @@ export async function GET(request: Request) {
     pageNumber += 1;
     y = first ? 724 : PAGE_H - 70;
     if (!first) {
-      page.drawEllipse({ x: MARGIN + 7, y: PAGE_H - 48, xScale: 5, yScale: 2.5, color: BLUE });
-      page.drawLine({ start: { x: MARGIN + 7, y: PAGE_H - 50 }, end: { x: MARGIN + 14, y: PAGE_H - 42 }, thickness: 0.8, color: rgb(0.455, 0.561, 0.988) });
-      page.drawText("KARTA", { x: MARGIN + 20, y: PAGE_H - 48, size: 10, font: bold, color: BLUE, characterSpacing: 2 });
+      page.drawEllipse({ x: MARGIN + 7, y: PAGE_H - 45, xScale: 5, yScale: 2.5, color: BLUE });
+      page.drawLine({ start: { x: MARGIN + 7, y: PAGE_H - 47 }, end: { x: MARGIN + 14, y: PAGE_H - 39 }, thickness: 0.8, color: rgb(0.455, 0.561, 0.988) });
+      page.drawText("KARTA", { x: MARGIN + 20, y: PAGE_H - 45, size: 10, font: bold, color: BLUE, characterSpacing: 2 });
       page.drawLine({ start: { x: MARGIN, y: PAGE_H - 58 }, end: { x: PAGE_W - MARGIN, y: PAGE_H - 58 }, thickness: 0.6, color: BORDER });
     }
   };
@@ -105,17 +109,18 @@ export async function GET(request: Request) {
   };
 
   const section = (title: string, icon: string, tint: ReturnType<typeof rgb>) => {
-    ensureSpace(48);
+    ensureSpace(56);
     const top = y;
-    page.drawRectangle({ x: MARGIN, y: top - 27, width: contentW, height: 27, color: tint, borderColor: BORDER, borderWidth: 0.5 });
+    const accent = icon === "vaccine" ? BLUE : PURPLE;
+    page.drawRectangle({ x: MARGIN, y: top - 27, width: contentW, height: 27, color: tint, borderColor: accent, borderWidth: 0.5, borderOpacity: 0.18 });
     if (icon === "vaccine") {
-      page.drawCircle({ x: MARGIN + 16, y: top - 14, size: 7, borderColor: BLUE, borderWidth: 0.8, color: tint });
-      page.drawText("✓", { x: MARGIN + 12.5, y: top - 17.5, size: 8, font: bold, color: BLUE });
+      page.drawCircle({ x: MARGIN + 16, y: top - 14, size: 7, color: SUCCESS });
+      page.drawText("✓", { x: MARGIN + 12.5, y: top - 17.5, size: 8, font: bold, color: rgb(1, 1, 1) });
     } else {
-      page.drawEllipse({ x: MARGIN + 9, y: top - 19, xScale: 14, yScale: 7, color: tint, borderColor: BLUE, borderWidth: 0.9 });
-      page.drawLine({ start: { x: MARGIN + 16, y: top - 19 }, end: { x: MARGIN + 22, y: top - 19 }, thickness: 0.7, color: BLUE });
+      page.drawEllipse({ x: MARGIN + 15, y: top - 14, xScale: 10, yScale: 5.5, color: tint, borderColor: accent, borderWidth: 0.9 });
+      page.drawLine({ start: { x: MARGIN + 15, y: top - 14 }, end: { x: MARGIN + 24, y: top - 14 }, thickness: 0.7, color: accent });
     }
-    page.drawText(title.toLocaleUpperCase(en ? "en-US" : "ru-RU"), { x: MARGIN + 29, y: top - 18, size: 9, font: bold, color: INK });
+    page.drawText(title.toLocaleUpperCase(en ? "en-US" : "ru-RU"), { x: MARGIN + 30, y: top - 18, size: 9, font: bold, color: accent, characterSpacing: 1.8 });
     y -= 38;
   };
 
@@ -124,7 +129,7 @@ export async function GET(request: Request) {
     const height = hasBrand ? 38 : 26;
     ensureSpace(height + 4);
     const top = y;
-    page.drawCircle({ x: MARGIN + 9, y: top - 10, size: 6.5, color: rgb(0.125, 0.784, 0.592) });
+    page.drawCircle({ x: MARGIN + 9, y: top - 10, size: 6.5, color: SUCCESS });
     page.drawText("✓", { x: MARGIN + 5.7, y: top - 13, size: 7, font: bold, color: rgb(1, 1, 1) });
     const name = `${title}${doseLabel}`;
     page.drawText(name, { x: MARGIN + 22, y: top - 11, size: 12, font: bold, color: INK, maxWidth: contentW - 150 });
@@ -171,23 +176,32 @@ export async function GET(request: Request) {
   };
 
   newPage(true);
-  // Recreate the iOS diagonal blue gradient with thin color bands.
+  // Recreate the iOS diagonal blue gradient with small interpolated PDF tiles.
   const gradientStops = [rgb(0.361, 0.486, 0.98), rgb(0.455, 0.561, 0.988), rgb(0.455, 0.753, 0.988)];
-  const bands = 72;
-  for (let index = 0; index < bands; index += 1) {
-    const t = index / (bands - 1);
-    const segment = t < 0.55 ? 0 : 1;
-    const localT = segment === 0 ? t / 0.55 : (t - 0.55) / 0.45;
-    const from = gradientStops[segment];
-    const to = gradientStops[segment + 1];
-    page.drawRectangle({ x: PAGE_W * index / bands, y: PAGE_H - 92, width: PAGE_W / bands + 0.4, height: 92, color: rgb(from.red + (to.red - from.red) * localT, from.green + (to.green - from.green) * localT, from.blue + (to.blue - from.blue) * localT) });
+  const columns = 48;
+  const rows = 12;
+  for (let row = 0; row < rows; row += 1) {
+    for (let column = 0; column < columns; column += 1) {
+      const x = PAGE_W * column / columns;
+      const topY = 92 * row / rows;
+      const t = (x + topY) / (PAGE_W + 92);
+      const segment = t < 0.55 ? 0 : 1;
+      const localT = segment === 0 ? t / 0.55 : (t - 0.55) / 0.45;
+      const from = gradientStops[segment];
+      const to = gradientStops[segment + 1];
+      const color = rgb(from.red + (to.red - from.red) * localT, from.green + (to.green - from.green) * localT, from.blue + (to.blue - from.blue) * localT);
+      const tileY = PAGE_H - 92 + (rows - 1 - row) * 92 / rows;
+      page.drawRectangle({ x, y: tileY, width: PAGE_W / columns + 0.4, height: 92 / rows + 0.4, color });
+    }
   }
   page.drawCircle({ x: PAGE_W * 0.49, y: PAGE_H + 22, size: 70, color: rgb(1, 1, 1), opacity: 0.06 });
   page.drawCircle({ x: PAGE_W * 0.55, y: PAGE_H - 50, size: 40, color: rgb(1, 1, 1), opacity: 0.06 });
   page.drawCircle({ x: PAGE_W - 24, y: PAGE_H - 10, size: 68, color: rgb(0.48, 0.60, 1), opacity: 0.18 });
   if (icon) page.drawImage(icon, { x: MARGIN, y: PAGE_H - 69, width: 42, height: 42 });
   page.drawText("Karta", { x: MARGIN + 52, y: PAGE_H - 48, size: 24, font: bold, color: rgb(1, 1, 1) });
-  page.drawText(en ? "HEALTH PASSPORT" : "ПАСПОРТ ЗДОРОВЬЯ", { x: MARGIN + 151, y: PAGE_H - 47, size: 10, font: bold, color: rgb(1, 1, 1) });
+  const passportTitle = en ? "HEALTH PASSPORT" : "ПАСПОРТ ЗДОРОВЬЯ";
+  const titleWidth = bold.widthOfTextAtSize(passportTitle, 10) + Math.max(0, passportTitle.length - 1) * 2.5;
+  page.drawText(passportTitle, { x: (PAGE_W - titleWidth) / 2, y: PAGE_H - 47, size: 10, font: bold, color: rgb(1, 1, 1), characterSpacing: 2.5 });
   y = PAGE_H - 108;
 
   const profileTop = y;
