@@ -36,7 +36,7 @@ export default async function ExportPage({ searchParams }: { searchParams: Promi
 
     <header className="passport-header" style={{ position: "relative", display: "flex", alignItems: "center", height: 92, margin: "0 -18px", padding: "0 36px", overflow: "hidden", color: "white", background: "linear-gradient(112deg,#5C7CFA 0%,#748FFC 55%,#74C0FC 100%)" }}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/karta-icon.png" alt="Karta" width={42} height={42} style={{ borderRadius: 9, flex: "none" }} />
+      <img src="/karta-pdf-icon.svg" alt="Karta" width={42} height={42} style={{ borderRadius: 9, flex: "none" }} />
       <div style={{ marginLeft: 10, fontSize: 24, fontWeight: 700, letterSpacing: -.5 }}>Karta</div>
       <div style={{ position: "absolute", left: "50%", transform: "translateX(-50%)", fontSize: 10, fontWeight: 600, letterSpacing: 2.1, whiteSpace: "nowrap" }}>{en ? "HEALTH PASSPORT" : "ПАСПОРТ ЗДОРОВЬЯ"}</div>
       <div aria-hidden="true" style={{ position: "absolute", width: 140, height: 140, borderRadius: "50%", background: "rgba(255,255,255,.06)", top: -30, left: "42%" }} />

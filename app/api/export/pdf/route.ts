@@ -43,7 +43,7 @@ export async function GET(request: Request) {
   const fontResponse = await fetch(new URL("/fonts/NotoSans-Variable.ttf", request.url));
   const boldFontResponse = await fetch(new URL("/fonts/NotoSans-Bold.ttf", request.url));
   if (!fontResponse.ok || !boldFontResponse.ok) return new Response("PDF font is unavailable", { status: 503 });
-  const iconResponse = await fetch(new URL("/karta-icon.png", request.url));
+  const iconResponse = await fetch(new URL("/karta-pdf-icon.png", request.url));
 
   const pdf = await PDFDocument.create();
   pdf.registerFontkit(fontkit);
