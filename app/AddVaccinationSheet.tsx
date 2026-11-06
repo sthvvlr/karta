@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { X } from "lucide-react";
 import { addVaccination } from "@/app/actions";
+import { useKartaLanguage } from "@/app/LanguageRuntime";
 
-type VaccineOption = { id: string; nameRu: string };
+type VaccineOption = { id: string; nameRu: string; nameEn?: string | null };
 
 const field: React.CSSProperties = {
   width: "100%",
@@ -21,12 +22,7 @@ const field: React.CSSProperties = {
 export function AddVaccinationSheet({ vaccines, brands }: { vaccines: VaccineOption[]; brands: string[] }) {
   const [open, setOpen] = useState(false);
   const [planned, setPlanned] = useState(false);
-  const [language, setLanguage] = useState<"ru" | "en">("ru");
-  const en = language === "en";
-
-  useEffect(() => {
-    if (document.cookie.split(";").some((value) => value.trim() === "karta_lang=en")) setLanguage("en");
-  }, []);
+  const en = useKartaLanguage() === "en";
 
   return <>
     <button type="button" onClick={() => setOpen(true)} aria-label={en ? "Add vaccination" : "Добавить прививку"} style={{ width: 36, height: 36, border: 0, borderRadius: 10, display: "grid", placeItems: "center", background: "linear-gradient(135deg,#748FFC,#5C7CFA)", color: "white", fontSize: 24, lineHeight: 1, boxShadow: "0 4px 12px rgba(92,124,250,.25)" }}>+</button>
@@ -36,7 +32,7 @@ export function AddVaccinationSheet({ vaccines, brands }: { vaccines: VaccineOpt
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}><h2 id="add-vaccination-title" style={{ margin: 0, fontSize: 19, fontWeight: 700 }}>{en ? "Add vaccination" : "Добавить прививку"}</h2><button type="button" onClick={() => setOpen(false)} aria-label={en ? "Close" : "Закрыть"} style={{ width: 34, height: 34, display: "grid", placeItems: "center", border: 0, borderRadius: 17, background: "rgba(26,32,80,.06)", color: "#1A2050" }}><X size={18} /></button></div>
         <form action={addVaccination} onSubmit={() => setOpen(false)} style={{ display: "grid", gap: 10 }}>
           <label style={{ display: "grid", gap: 5, fontSize: 12, fontWeight: 600 }}>{en ? "Vaccine name" : "Название прививки"}<input name="customName" placeholder={en ? "Measles, flu, COVID-19…" : "Корь, грипп, COVID-19…"} style={field} /></label>
-          <label style={{ display: "grid", gap: 5, fontSize: 12, fontWeight: 600 }}>{en ? "Or choose from the catalog" : "Или выберите из справочника"}<select name="vaccineId" defaultValue="" style={field}><option value="">{en ? "Select a vaccine" : "Выбрать вакцину"}</option>{vaccines.map((vaccine) => <option key={vaccine.id} value={vaccine.id}>{vaccine.nameRu}</option>)}</select></label>
+          <label style={{ display: "grid", gap: 5, fontSize: 12, fontWeight: 600 }}>{en ? "Or choose from the catalogue" : "Или выберите из справочника"}<select name="vaccineId" defaultValue="" style={field}><option value="">{en ? "Select a vaccine" : "Выбрать вакцину"}</option>{vaccines.map((vaccine) => <option key={vaccine.id} value={vaccine.id}>{en ? vaccine.nameEn || vaccine.nameRu : vaccine.nameRu}</option>)}</select></label>
           <label style={{ display: "flex", alignItems: "center", gap: 10, minHeight: 46, padding: "0 12px", border: "1px solid rgba(186,200,255,.42)", borderRadius: 13, background: "rgba(244,246,255,.62)", fontSize: 13 }}><input type="checkbox" value="true" checked={planned} onChange={(event) => setPlanned(event.target.checked)} name="isUpcoming" style={{ width: 18, height: 18, accentColor: "#5C7CFA" }} />{en ? "Scheduled (not done yet)" : "Запланирована (ещё не сделана)"}</label>
           {!planned && <label style={{ display: "grid", gap: 5, fontSize: 12, fontWeight: 600 }}>{en ? "Date vaccinated" : "Дата прививки"}<input required name="dateGiven" type="date" style={field} /></label>}
           {planned && <label style={{ display: "grid", gap: 5, fontSize: 12, fontWeight: 600 }}>{en ? "Planned date (optional)" : "Плановая дата (необязательно)"}<input name="nextDue" type="date" style={field} /></label>}

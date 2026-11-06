@@ -105,7 +105,6 @@ export function LanguageRuntime({ initialLanguage, children }: { initialLanguage
   const lang = initialLanguage;
   useEffect(() => {
     applyLanguage(lang);
-    window.dispatchEvent(new CustomEvent("karta-language-change", { detail: lang }));
     const observer = new MutationObserver(() => applyLanguage(lang));
     observer.observe(document.body, { childList: true, subtree: true, characterData: true });
     return () => observer.disconnect();

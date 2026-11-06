@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
+import { useKartaLanguage } from "@/app/LanguageRuntime";
 
 type Props = {
   initialDate: string;
@@ -26,10 +27,7 @@ function toKey(date: Date): string {
 
 export function VaccinationDateInput({ initialDate, maxDate, doseNumber, totalDoses, doseScheduleDays = [], firstDoseDate = "", frequencyType = "", intervalYears, style }: Props) {
   const [date, setDate] = useState(initialDate);
-  const [language, setLanguage] = useState<"ru" | "en">("ru");
-  useEffect(() => {
-    if (document.cookie.split(";").some((value) => value.trim() === "karta_lang=en")) setLanguage("en");
-  }, []);
+  const en = useKartaLanguage() === "en";
   const nextDate = useMemo(() => {
     const base = toDate(doseNumber === 1 ? date : firstDoseDate) || (doseNumber >= totalDoses ? toDate(date) : null);
     if (doseNumber < totalDoses) {
@@ -44,10 +42,10 @@ export function VaccinationDateInput({ initialDate, maxDate, doseNumber, totalDo
     due.setFullYear(due.getFullYear() + years);
     return toKey(due);
   }, [date, doseNumber, doseScheduleDays, firstDoseDate, frequencyType, intervalYears, totalDoses]);
-  const formattedNextDate = nextDate ? new Intl.DateTimeFormat(language === "en" ? "en-US" : "ru-RU", { day: "numeric", month: "short", year: "numeric" }).format(toDate(nextDate)!) : "";
+  const formattedNextDate = nextDate ? new Intl.DateTimeFormat(en ? "en-US" : "ru-RU", { day: "numeric", month: "short", year: "numeric" }).format(toDate(nextDate)!) : "";
   return <>
     <input type="hidden" name="nextDue" value={nextDate || ""} />
-    <label style={{ fontSize: 11, color: "rgba(26,32,80,.55)" }}>Дата прививки<input name="dateGiven" type="date" required value={date} max={maxDate} onChange={(event) => setDate(event.target.value)} style={{ ...style, marginTop: 4 }} /></label>
-    {formattedNextDate && <div style={{ padding: "8px 10px", borderRadius: 9, background: "rgba(92,124,250,.08)", color: "rgba(26,32,80,.55)", fontSize: 11 }}>{doseNumber < totalDoses ? "Следующая доза:" : "Следующая ревакцинация:"} {formattedNextDate}</div>}
+    <label style={{ fontSize: 11, color: "rgba(26,32,80,.55)" }}>{en ? "Vaccination date" : "Дата прививки"}<input name="dateGiven" type="date" required value={date} max={maxDate} onChange={(event) => setDate(event.target.value)} style={{ ...style, marginTop: 4 }} /></label>
+    {formattedNextDate && <div style={{ padding: "8px 10px", borderRadius: 9, background: "rgba(92,124,250,.08)", color: "rgba(26,32,80,.55)", fontSize: 11 }}>{doseNumber < totalDoses ? (en ? "Next dose:" : "Следующая доза:") : (en ? "Next booster:" : "Следующая ревакцинация:")} {formattedNextDate}</div>}
   </>;
 }

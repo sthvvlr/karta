@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Pencil, Plus, X } from "lucide-react";
 import { addMedication } from "@/app/actions";
+import { useKartaLanguage } from "@/app/LanguageRuntime";
 import { MedicationPicker } from "@/app/MedicationPicker";
 import { MedicationSchedulePicker } from "@/app/MedicationSchedulePicker";
 
@@ -32,15 +33,7 @@ const input: React.CSSProperties = {
 
 export function MedicationSheet({ med, primary = false, initialOpen = false }: { med?: MedicationDraft; primary?: boolean; initialOpen?: boolean }) {
   const [open, setOpen] = useState(initialOpen);
-  const [language, setLanguage] = useState<"ru" | "en">("ru");
-  const en = language === "en";
-
-  useEffect(() => {
-    const readLanguage = () => setLanguage(document.cookie.split(";").some((value) => value.trim() === "karta_lang=en") ? "en" : "ru");
-    readLanguage();
-    window.addEventListener("karta-language-change", readLanguage);
-    return () => window.removeEventListener("karta-language-change", readLanguage);
-  }, []);
+  const en = useKartaLanguage() === "en";
 
   return <>
     <button type="button" onClick={() => setOpen(true)} aria-label={en ? (med ? `Edit ${med.name}` : "Add medication") : (med ? `Изменить ${med.name}` : "Добавить лекарство")} style={primary ? { display: "flex", alignItems: "center", justifyContent: "center", gap: 7, minHeight: 42, padding: "0 16px", border: 0, borderRadius: 12, background: "linear-gradient(135deg,#748FFC,#5C7CFA)", color: "white", fontWeight: 700, boxShadow: "0 4px 10px rgba(92,124,250,.24)" } : med ? { display: "grid", placeItems: "center", width: 30, height: 30, padding: 0, border: 0, borderRadius: 9, background: "transparent", color: "rgba(26,32,80,.48)" } : { display: "grid", placeItems: "center", width: 36, height: 36, padding: 0, border: 0, borderRadius: 10, background: "linear-gradient(135deg,#748FFC,#5C7CFA)", color: "white", boxShadow: "0 4px 10px rgba(92,124,250,.24)" }}>
