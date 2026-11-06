@@ -61,7 +61,7 @@ export default async function HomePage() {
   const name = data.profile?.fullName?.split(" ")[0] || user.displayName.split(" ")[0];
   const hour = new Date().getHours();
   const greeting = hour < 12 ? "Доброе утро" : hour < 18 ? "Добрый день" : "Добрый вечер";
-  const profileFields = [data.profile?.fullName, data.profile?.birthDate, data.profile?.cityCurrent, data.vaccinations.length || data.medications.length];
+  const profileFields = [data.profile?.fullName, data.profile?.cityCurrent, data.medications.length, data.vaccinations.length];
   const profileProgress = Math.round(profileFields.filter(Boolean).length / profileFields.length * 100);
   const dayOfYear = Math.floor((today.getTime() - new Date(today.getFullYear(), 0, 0).getTime()) / 86400000);
   const todayFact = healthFacts[(dayOfYear - 1) % healthFacts.length];
@@ -80,10 +80,10 @@ export default async function HomePage() {
           <div style={{ width: 56, height: 56, borderRadius: "50%", padding: 5, background: `conic-gradient(#748FFC ${profileComplete ? score : profileProgress}%, rgba(26,32,80,0.08) 0)`, flexShrink: 0 }}>
             <div style={{ width: "100%", height: "100%", borderRadius: "50%", background: "rgba(255,255,255,.86)", display: "grid", placeItems: "center", color: "#5C7CFA", fontWeight: 700, fontSize: profileComplete ? 17 : 12 }}>{profileComplete ? score : `${profileProgress}%`}</div>
           </div>
-          <div style={{ flex: 1 }}><div style={{ fontSize: 15, fontWeight: 700, color: C.text, marginBottom: 2 }}>{profileComplete ? "Karta Score" : "Заполните профиль"}</div><div style={{ fontSize: 11, color: C.muted }}>{profileComplete ? (recommended.length ? `${recommended.length} рекомендаций требуют внимания` : "Все доступные рекомендации учтены") : `Профиль заполнен на ${profileProgress}%`}</div></div>
+          <div style={{ flex: 1 }}><div style={{ fontSize: 15, fontWeight: 700, color: C.text, marginBottom: 2 }}>{profileComplete ? "Karta Score" : "Заполните профиль"}</div><div style={{ fontSize: 11, color: C.muted }}>{profileComplete ? (score === 100 ? "Все прививки сделаны 🎉" : "Нажмите, чтобы узнать что сделать") : `Профиль заполнен на ${profileProgress}%`}</div></div>
           {!profileComplete && <Link href="/profile" aria-label="Заполнить профиль" style={{ color: C.muted, fontSize: 16, textDecoration: "none" }}>›</Link>}
         </div>
-        {profileComplete && <div style={{ position: "relative", zIndex: 1, marginTop: 12, padding: "0 4px", fontSize: 12, color: C.muted }}><ScoreDetails score={score} pending={recommended.map((item) => ({ id: item.id, name: item.nameRu, description: item.descriptionRu }))} overdue={vaccineTasks.filter((task) => task.overdue)} /></div>}
+        {profileComplete && score < 100 && <div style={{ position: "relative", zIndex: 1, marginTop: 12, padding: "0 4px", fontSize: 12, color: C.muted }}><ScoreDetails score={score} pending={recommended.map((item) => ({ id: item.id, name: item.nameRu, description: item.descriptionRu }))} overdue={vaccineTasks.filter((task) => task.overdue)} /></div>}
 
         <div style={{ position: "relative", zIndex: 1, height: 1, background: "rgba(26,32,80,0.08)", margin: "14px 0" }} />
         <div style={{ position: "relative", zIndex: 1, display: "flex", alignItems: "flex-start", gap: 8 }}><span style={{ fontSize: 13, lineHeight: 1 }}>💡</span><div><div style={{ fontSize: 10, color: "#5C7CFA", fontWeight: 700, marginBottom: 4 }}>ИНТЕРЕСНЫЙ ФАКТ</div><div style={{ fontSize: 12, lineHeight: 1.45, color: C.muted }}>{todayFact.ru}</div></div></div>
