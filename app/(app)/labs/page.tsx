@@ -2,8 +2,9 @@ import { LabResultForm } from "@/app/LabResultForm";
 import { addLabResult, deleteLabResult } from "@/app/actions";
 import { getChatGPTUser } from "@/app/chatgpt-auth";
 import { getDb } from "@/db";
-import { labResults } from "@/db/schema";
-import { eq, desc } from "drizzle-orm";
+import { labResults, medications, profiles } from "@/db/schema";
+import rules from "@/app/monitoring_rules.json";
+import { and, eq, desc } from "drizzle-orm";
 
 export const dynamic = "force-dynamic";
 const C = { text: "#1A2050", muted: "rgba(26,32,80,0.42)", card: "rgba(255,255,255,0.72)", border: "rgba(255,255,255,0.9)" };
@@ -11,10 +12,21 @@ type Indicator = { name: string; value: string; unit?: string; refLow?: string; 
 function parseIndicators(raw: string | null): Indicator[] { try { return JSON.parse(raw || "[]") as Indicator[]; } catch { return []; } }
 function indicatorStatus(item: Indicator) { const value = Number(String(item.value).replace(",", ".")); const low = Number(item.refLow); const high = Number(item.refHigh); if (!Number.isFinite(value)) return ""; if (Number.isFinite(low) && value < low) return "ниже нормы"; if (Number.isFinite(high) && value > high) return "выше нормы"; return Number.isFinite(low) || Number.isFinite(high) ? "в норме" : ""; }
 
-export default async function LabsPage() {
+export default async function LabsPage({ searchParams }: { searchParams: Promise<{ monitoringMedicationId?: string; monitoringRuleId?: string }> }) {
   const user = await getChatGPTUser();
   if (!user) return <div style={{ padding: 24, color: C.text }}>Войдите, чтобы открыть анализы.</div>;
-  const rows = await getDb().select().from(labResults).where(eq(labResults.userId, user.userId)).orderBy(desc(labResults.testedAt));
+  const params = await searchParams;
+  const db = getDb();
+  const [rows, profile] = await Promise.all([
+    db.select().from(labResults).where(eq(labResults.userId, user.userId)).orderBy(desc(labResults.testedAt)),
+    db.select({ gender: profiles.gender }).from(profiles).where(eq(profiles.userId, user.userId)).limit(1).then((items) => items[0]),
+  ]);
+  let monitoringPrefill: { medicationId: string; ruleId: string; title: string; tests: string[] } | null = null;
+  if (params.monitoringMedicationId && params.monitoringRuleId) {
+    const [medication] = await db.select({ id: medications.id, drugCode: medications.drugCode }).from(medications).where(and(eq(medications.id, params.monitoringMedicationId), eq(medications.userId, user.userId), eq(medications.isActive, true))).limit(1);
+    const rule = rules.find((item) => item.id === params.monitoringRuleId && medication?.drugCode && item.drug_codes.includes(medication.drugCode));
+    if (medication && rule) monitoringPrefill = { medicationId: medication.id, ruleId: rule.id, title: rule.title_ru, tests: rule.tests_ru };
+  }
   return <div style={{ padding: "12px 16px 0", color: C.text }}>
     <div style={{ fontSize: 24, fontWeight: 700, paddingTop: 12 }}>Анализы</div><div style={{ fontSize: 12, color: C.muted, marginBottom: 20 }}>Результаты, показатели и прикреплённые файлы</div>
     {rows.length === 0 ? <div style={{ padding: "16px 0", color: C.muted, fontSize: 13 }}>Пока нет результатов. Добавьте первый анализ.</div> : rows.map((row) => { const indicators = parseIndicators(row.indicators); const abnormal = indicators.filter((item) => indicatorStatus(item) && indicatorStatus(item) !== "в норме"); return <details key={row.id} style={{ marginBottom: 8, background: C.card, border: `1px solid ${C.border}`, borderRadius: 15, padding: "11px 13px" }}>
@@ -26,6 +38,6 @@ export default async function LabsPage() {
         <div style={{ display: "flex", gap: 10, marginTop: 12 }}><details style={{ flex: 1 }}><summary style={{ cursor: "pointer", color: "#5C7CFA", fontSize: 12 }}>Изменить</summary><LabResultForm action={addLabResult} initial={row} /></details><form action={deleteLabResult}><input type="hidden" name="id" value={row.id} /><button type="submit" style={{ border: 0, background: "transparent", color: "#E03131", fontSize: 12 }}>Удалить</button></form></div>
       </div>
     </details>; })}
-    <details open={rows.length === 0} style={{ marginTop: 18, background: C.card, border: `1px solid ${C.border}`, borderRadius: 16, padding: "13px 14px" }}><summary style={{ cursor: "pointer", fontSize: 13, fontWeight: 700 }}>+ Добавить анализ</summary><LabResultForm action={addLabResult} /></details>
+    <details open={rows.length === 0 || !!monitoringPrefill} style={{ marginTop: 18, background: C.card, border: `1px solid ${C.border}`, borderRadius: 16, padding: "13px 14px" }}><summary style={{ cursor: "pointer", fontSize: 13, fontWeight: 700 }}>{monitoringPrefill ? "Внести результат проверки" : "+ Добавить анализ"}</summary><LabResultForm action={addLabResult} prefillTitle={monitoringPrefill?.title} prefillTests={monitoringPrefill?.tests} gender={profile?.gender} monitoringMedicationId={monitoringPrefill?.medicationId} monitoringRuleId={monitoringPrefill?.ruleId} /></details>
   </div>;
 }

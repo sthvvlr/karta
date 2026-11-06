@@ -8,6 +8,7 @@ import { getChatGPTUser, requireChatGPTUser, createAppSession, clearAppSession }
 import { getDb } from "@/db";
 import { authAccounts, authSessions, labResults, medicationLogs, medications, monitoringCompletions, profileLocations, profiles, vaccinations } from "@/db/schema";
 import { ensureCatalog, ensureProfile } from "./data";
+import monitoringRules from "./monitoring_rules.json";
 
 async function hashPassword(password: string, salt: string) {
   const material = await crypto.subtle.importKey("raw", new TextEncoder().encode(password), "PBKDF2", false, ["deriveBits"]);
@@ -395,5 +396,21 @@ export async function addLabResult(formData: FormData) {
   };
   if (existing) await db.update(labResults).set(values).where(and(eq(labResults.id, id), eq(labResults.userId, auth.userId)));
   else await db.insert(labResults).values({ id, ...values });
+  const monitoringMedicationId = String(formData.get("monitoringMedicationId") || "");
+  const monitoringRuleId = String(formData.get("monitoringRuleId") || "");
+  if (monitoringMedicationId && monitoringRuleId) {
+    const [medication] = await db.select({ id: medications.id, drugCode: medications.drugCode }).from(medications).where(and(eq(medications.id, monitoringMedicationId), eq(medications.userId, auth.userId), eq(medications.isActive, true))).limit(1);
+    const rule = monitoringRules.find((item) => item.id === monitoringRuleId && medication?.drugCode && item.drug_codes.includes(medication.drugCode));
+    if (medication && rule) {
+      const next = new Date();
+      next.setDate(next.getDate() + (rule.repeat_days || 3650));
+      const completion = { nextDue: next.toISOString().slice(0, 10), completedAt: new Date().toISOString() };
+      const [previous] = await db.select({ id: monitoringCompletions.id }).from(monitoringCompletions).where(and(eq(monitoringCompletions.userId, auth.userId), eq(monitoringCompletions.medicationId, medication.id), eq(monitoringCompletions.ruleId, rule.id))).limit(1);
+      if (previous) await db.update(monitoringCompletions).set(completion).where(and(eq(monitoringCompletions.id, previous.id), eq(monitoringCompletions.userId, auth.userId)));
+      else await db.insert(monitoringCompletions).values({ id: crypto.randomUUID(), userId: auth.userId, medicationId: medication.id, ruleId: rule.id, ...completion });
+    }
+  }
   revalidatePath("/labs");
+  revalidatePath("/");
+  revalidatePath("/medications");
 }

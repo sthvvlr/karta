@@ -8,10 +8,21 @@ type Indicator = { name: string; markerCode?: string; value: string; unit: strin
 
 function defaultIndicator(): Indicator { return { name: "", value: "", unit: "", refLow: "", refHigh: "" }; }
 
-export function LabResultForm({ action, initial }: { action: (formData: FormData) => void; initial?: { id?: string; name?: string | null; testedAt?: string | null; notes?: string | null; fileKey?: string | null; indicators?: string | null } }) {
+function prefilledIndicator(name: string, gender?: string): Indicator {
+  const query = name.trim().toLocaleLowerCase();
+  const source = markers as Marker[];
+  const marker = source.find((item) => item.ru.trim().toLocaleLowerCase() === query || item.en.trim().toLocaleLowerCase() === query)
+    || source.find((item) => `${item.ru} ${item.en}`.toLocaleLowerCase().includes(query));
+  const reference = gender === "male" || gender === "мужской" ? marker?.ref_male || marker?.ref
+    : gender === "female" || gender === "женский" ? marker?.ref_female || marker?.ref
+      : marker?.ref || marker?.ref_female || marker?.ref_male;
+  return { name: marker?.ru || name, markerCode: marker?.code, value: "", unit: marker?.unit || "", refLow: reference ? String(reference.low) : "", refHigh: reference ? String(reference.high) : "" };
+}
+
+export function LabResultForm({ action, initial, prefillTitle, prefillTests = [], gender, monitoringMedicationId, monitoringRuleId }: { action: (formData: FormData) => void; initial?: { id?: string; name?: string | null; testedAt?: string | null; notes?: string | null; fileKey?: string | null; indicators?: string | null }; prefillTitle?: string; prefillTests?: string[]; gender?: string | null; monitoringMedicationId?: string; monitoringRuleId?: string }) {
   let parsed: Indicator[] = [];
   try { parsed = JSON.parse(initial?.indicators || "[]") as Indicator[]; } catch { parsed = []; }
-  const [indicators, setIndicators] = useState<Indicator[]>(parsed.length ? parsed : [defaultIndicator()]);
+  const [indicators, setIndicators] = useState<Indicator[]>(parsed.length ? parsed : prefillTests.length ? prefillTests.map((name) => prefilledIndicator(name, gender || undefined)) : [defaultIndicator()]);
   const [queries, setQueries] = useState<string[]>(indicators.map(() => ""));
   function update(index: number, patch: Partial<Indicator>) { setIndicators((items) => items.map((item, i) => i === index ? { ...item, ...patch } : item)); }
   function select(index: number, marker: Marker) {
@@ -21,7 +32,8 @@ export function LabResultForm({ action, initial }: { action: (formData: FormData
   }
   return <form action={action} style={{ display: "grid", gap: 9, marginTop: 13 }}>
     {initial?.id && <input type="hidden" name="id" value={initial.id} />}
-    <input name="name" required defaultValue={initial?.name || ""} placeholder="Название анализа" style={{ width: "100%", padding: "11px 12px", background: "rgba(244,246,255,.8)", border: "1px solid rgba(186,200,255,.4)", borderRadius: 11, fontSize: 16, color: "#1A2050" }} />
+    {monitoringMedicationId && monitoringRuleId && <><input type="hidden" name="monitoringMedicationId" value={monitoringMedicationId} /><input type="hidden" name="monitoringRuleId" value={monitoringRuleId} /></>}
+    <input name="name" required defaultValue={initial?.name || prefillTitle || ""} placeholder="Название анализа" style={{ width: "100%", padding: "11px 12px", background: "rgba(244,246,255,.8)", border: "1px solid rgba(186,200,255,.4)", borderRadius: 11, fontSize: 16, color: "#1A2050" }} />
     <input name="testedAt" type="date" defaultValue={initial?.testedAt || ""} style={{ width: "100%", padding: "11px 12px", background: "rgba(244,246,255,.8)", border: "1px solid rgba(186,200,255,.4)", borderRadius: 11, fontSize: 16, color: "#1A2050" }} />
     <div style={{ fontSize: 12, fontWeight: 700, color: "#1A2050", marginTop: 4 }}>Показатели</div>
     {indicators.map((item, index) => { const q = queries[index] ?? item.name; const suggestions = !item.markerCode && q.trim().length >= 2 ? (markers as Marker[]).filter((marker) => `${marker.ru} ${marker.en}`.toLowerCase().includes(q.toLowerCase())).slice(0, 6) : []; return <div key={index} style={{ padding: 10, background: "rgba(244,246,255,.65)", borderRadius: 12, display: "grid", gap: 7, position: "relative" }}>
