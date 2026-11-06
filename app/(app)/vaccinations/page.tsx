@@ -1,16 +1,17 @@
 import Link from "next/link";
 import { cookies } from "next/headers";
 import { FileDown, Globe2, MapPin } from "lucide-react";
-import { addVaccination, completeUpcomingVaccination, deleteVaccination, updateVaccination } from "@/app/actions";
+import { addVaccination, completeUpcomingVaccination, deleteVaccination } from "@/app/actions";
 import { getChatGPTUser } from "@/app/chatgpt-auth";
 import { getUserData } from "@/app/data";
 import catalog from "@/app/vaccinations_catalog.json";
 import { catalogRegion, dateKey, plannedVaccinationDateKey, recommendedVaccines, tbeRisk, vaccinationScore, upcomingVaccineTasks, type VaccineForTasks } from "@/app/tasks";
 import { VaccinationDateInput } from "@/app/VaccinationDateInput";
-import { isCustomVaccineId, readVaccinationMetadata } from "@/app/vaccination-record";
+import { readVaccinationMetadata } from "@/app/vaccination-record";
 import brandCatalog from "@/app/vaccine_brands.json";
 import { AddVaccinationSheet } from "@/app/AddVaccinationSheet";
 import { VaccineRecommendationSheet } from "@/app/VaccineRecommendationSheet";
+import { VaccinationHistory } from "@/app/VaccinationHistory";
 
 export const dynamic = "force-dynamic";
 
@@ -55,12 +56,12 @@ export default async function VaccinationsPage({ searchParams }: { searchParams:
 
     <datalist id="vaccine-brands">{brands.map((brand) => <option value={brand} key={brand} />)}</datalist>
 
-    {tab === "passport" ? <PassportContent data={data} records={records} upcoming={upcoming} score={score} today={today} en={en} /> : <RecommendationsContent data={data} recommendations={recommendations} region={region || undefined} today={today} en={en} />}
+    {tab === "passport" ? <PassportContent data={data} records={records} upcoming={upcoming} score={score} today={today} en={en} vaccines={data.vaccines} /> : <RecommendationsContent data={data} recommendations={recommendations} region={region || undefined} today={today} en={en} />}
 
   </div>;
 }
 
-function PassportContent({ data, records, upcoming, score, today, en }: { data: Awaited<ReturnType<typeof getUserData>>; records: Array<{ id: string; vaccineId: string; dateGiven: string | null; doseNumber: number; brand: string | null; clinic: string | null; notes: string | null }>; upcoming: Array<ReturnType<typeof upcomingVaccineTasks>[number] & { recordId?: string }>; score: number; today: string; en: boolean }) {
+function PassportContent({ data, records, upcoming, score, today, en, vaccines }: { data: Awaited<ReturnType<typeof getUserData>>; records: Array<{ id: string; vaccineId: string; dateGiven: string | null; doseNumber: number; brand: string | null; clinic: string | null; notes: string | null }>; upcoming: Array<ReturnType<typeof upcomingVaccineTasks>[number] & { recordId?: string }>; score: number; today: string; en: boolean; vaccines: Array<{ id: string; nameRu: string; nameEn?: string | null; totalDoses?: number | null; doseScheduleDays?: number[] | null; frequencyType?: string | null; intervalYears?: number | null }> }) {
   const history = data.vaccinations.filter(({ record }) => !readVaccinationMetadata(record.notes).isUpcoming);
   return <>
     <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 20, padding: "17px 18px", marginBottom: 18, boxShadow: "0 2px 16px rgba(26,32,80,.06)" }}>
@@ -76,12 +77,7 @@ function PassportContent({ data, records, upcoming, score, today, en }: { data: 
     </div>
 
     <div style={{ fontSize: 13, fontWeight: 700, marginBottom: 10 }}>{en ? "My history" : "Моя история"}</div>
-    {history.length === 0 ? <div style={{ color: C.muted, fontSize: 13, padding: "14px 0" }}>{en ? "No records yet. Add your first vaccination below." : "Пока нет записей. Добавьте первую прививку ниже."}</div> : history.map(({ record, vaccine }) => {
-      const metadata = readVaccinationMetadata(record.notes);
-      const custom = isCustomVaccineId(record.vaccineId);
-      const title = metadata.name || (en ? vaccine?.nameEn : vaccine?.nameRu) || record.vaccineId;
-      return <details key={record.id} style={{ marginBottom: 6, background: C.card, border: `1px solid ${C.border}`, borderRadius: 14, padding: "11px 13px" }}><summary style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: 9 }}><div style={{ width: 7, height: 7, borderRadius: "50%", background: "#20C997" }} /><div style={{ flex: 1 }}><div style={{ fontSize: 12, fontWeight: 600 }}>{title}</div><div style={{ fontSize: 10, color: C.muted }}>{metadata.dateString || record.dateGiven || (en ? "Date not specified" : "Дата не указана")} · {en ? "dose" : "доза"} {record.doseNumber}{metadata.totalDoses && metadata.totalDoses > 1 ? `/${metadata.totalDoses}` : ""}{record.brand ? ` · ${record.brand}` : ""}</div></div><span style={{ color: "#5C7CFA", fontSize: 11 }}>{en ? "Edit" : "Изменить"}</span></summary><form action={updateVaccination} style={{ display: "grid", gap: 8, marginTop: 10 }}><input type="hidden" name="id" value={record.id} /><select name="vaccineId" defaultValue={custom ? "" : record.vaccineId} style={input}><option value="">{en ? "Custom vaccination" : "Своя прививка"}</option>{data.vaccines.map((v) => <option value={v.id} key={v.id}>{en ? v.nameEn : v.nameRu}</option>)}</select><input name="customName" defaultValue={custom ? title : ""} placeholder={en ? "Custom vaccination name" : "Название своей прививки"} style={input} /><input name="dateGiven" type="date" defaultValue={metadata.dateDoneISO || record.dateGiven || ""} style={input} /><input name="nextDue" type="date" defaultValue={metadata.nextDue || ""} style={input} /><input name="doseNumber" type="number" min="1" defaultValue={record.doseNumber} style={input} /><input name="totalDoses" type="number" min="1" max="10" defaultValue={metadata.totalDoses || vaccine?.totalDoses || 1} style={input} /><input name="brand" list="vaccine-brands" defaultValue={record.brand || ""} placeholder={en ? "Product / brand" : "Препарат / бренд"} style={input} /><input name="clinic" defaultValue={record.clinic || ""} placeholder={en ? "Clinic" : "Клиника"} style={input} /><textarea name="notes" defaultValue={metadata.userNotes || ""} placeholder={en ? "Notes" : "Заметки"} rows={2} style={input} /><button type="submit" style={{ padding: 10, border: 0, borderRadius: 10, background: "#5C7CFA", color: "white", fontWeight: 700 }}>{en ? "Save changes" : "Сохранить изменения"}</button></form><form action={deleteVaccination} style={{ marginTop: 7 }}><input type="hidden" name="id" value={record.id} /><button type="submit" style={{ border: 0, background: "transparent", color: "#E03131", fontSize: 12 }}>{en ? "Delete record" : "Удалить запись"}</button></form></details>;
-    })}
+    <VaccinationHistory records={history.map(({ record }) => record)} vaccines={vaccines} brands={brands} />
   </>;
 }
 
