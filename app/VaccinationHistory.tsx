@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Baby, CalendarDays, ChevronRight, Info, Lightbulb, Pencil, Syringe, Trash2, UserRound, X } from "lucide-react";
 import { addVaccination, deleteVaccination, updateVaccination } from "@/app/actions";
 import { readVaccinationMetadata } from "@/app/vaccination-record";
@@ -18,6 +18,9 @@ export function VaccinationHistory({ records, vaccines, catalogDetails, region, 
   const en = useKartaLanguage() === "en";
   const [selected, setSelected] = useState<Record | null>(null);
   const [editing, setEditing] = useState(false);
+  const [swipedRecordId, setSwipedRecordId] = useState<string | null>(null);
+  const swipeStartX = useRef<number | null>(null);
+  const suppressRowClick = useRef(false);
   const catalog = new Map(vaccines.map((vaccine) => [vaccine.id, vaccine]));
   const detailsCatalog = new Map(catalogDetails.map((vaccine) => [vaccine.id, vaccine]));
   const sorted = records.slice().sort((a, b) => (b.dateGiven || "").localeCompare(a.dateGiven || ""));
@@ -31,12 +34,31 @@ export function VaccinationHistory({ records, vaccines, catalogDetails, region, 
       const date = metadata.dateString || record.dateGiven || (en ? "Date not specified" : "Дата не указана");
       const totalDoses = metadata.totalDoses || vaccine?.totalDoses || 0;
       const progressColor = totalDoses && record.doseNumber < totalDoses ? C.primary : "#0CA678";
-      return <button type="button" key={record.id} onClick={() => { setSelected(record); setEditing(false); }} aria-label={`${title}, ${date}`} style={{ width: "100%", minWidth: 0, boxSizing: "border-box", display: "flex", alignItems: "center", gap: 10, padding: "10px 13px", border: `1px solid ${C.border}`, borderRadius: 14, background: C.card, color: C.text, textAlign: "left" }}>
-        <span aria-hidden="true" style={{ width: 7, height: 7, flex: "0 0 7px", borderRadius: "50%", background: "#20C997", boxShadow: "0 0 7px rgba(32,201,151,.4)" }} />
-        <span style={{ flex: 1, minWidth: 0 }}><span style={{ display: "block", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", fontSize: 13, fontWeight: 650 }}>{title}</span><span style={{ display: "block", marginTop: 2, color: C.muted, fontSize: 10 }}>{date}{totalDoses > 0 ? ` · ${record.doseNumber}/${totalDoses}` : ""}{record.brand ? ` · ${record.brand}` : ""}</span></span>
-        {totalDoses > 0 ? <span style={{ padding: "3px 8px", borderRadius: 99, border: `1px solid ${progressColor}33`, background: `${progressColor}1A`, color: progressColor, fontSize: 10, fontWeight: 650, whiteSpace: "nowrap" }}>{record.doseNumber}/{totalDoses}</span> : <span style={{ color: "#20C997", fontSize: 15 }}>✓</span>}
-        <ChevronRight size={13} color="rgba(26,32,80,.3)" />
-      </button>;
+      const isSwiped = swipedRecordId === record.id;
+      return <div key={record.id} onPointerDown={(event) => { swipeStartX.current = event.clientX; suppressRowClick.current = false; }} onPointerUp={(event) => {
+        const start = swipeStartX.current;
+        const end = event.clientX;
+        swipeStartX.current = null;
+        if (start == null || end == null) return;
+        const delta = end - start;
+        if (delta < -36) { setSwipedRecordId(record.id); suppressRowClick.current = true; }
+        else if (delta > 36) { setSwipedRecordId(null); suppressRowClick.current = true; }
+      }} style={{ position: "relative", overflow: "hidden", borderRadius: 14, touchAction: "pan-y" }}>
+        {isSwiped && <form action={deleteVaccination} style={{ position: "absolute", inset: "0 0 0 auto", width: 84, display: "grid", placeItems: "center", background: "#E03131" }}>
+          <input type="hidden" name="id" value={record.id} />
+          <button type="submit" aria-label={en ? "Delete vaccination" : "Удалить прививку"} style={{ width: "100%", height: "100%", display: "grid", placeContent: "center", justifyItems: "center", gap: 3, border: 0, background: "transparent", color: "white", fontSize: 10, fontWeight: 600 }}><Trash2 size={16} />{en ? "Delete" : "Удалить"}</button>
+        </form>}
+        <button type="button" onClick={() => {
+          if (suppressRowClick.current) { suppressRowClick.current = false; return; }
+          if (isSwiped) { setSwipedRecordId(null); return; }
+          setSwipedRecordId(null); setSelected(record); setEditing(false);
+        }} aria-label={`${title}, ${date}`} style={{ position: "relative", zIndex: 1, width: "100%", minWidth: 0, boxSizing: "border-box", display: "flex", alignItems: "center", gap: 10, padding: "10px 13px", border: `1px solid ${C.border}`, borderRadius: 14, background: C.card, color: C.text, textAlign: "left", transform: isSwiped ? "translateX(-84px)" : "translateX(0)", transition: "transform 180ms ease", touchAction: "pan-y" }}>
+          <span aria-hidden="true" style={{ width: 7, height: 7, flex: "0 0 7px", borderRadius: "50%", background: "#20C997", boxShadow: "0 0 7px rgba(32,201,151,.4)" }} />
+          <span style={{ flex: 1, minWidth: 0 }}><span style={{ display: "block", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", fontSize: 13, lineHeight: "15px", fontWeight: 650 }}>{title}</span><span style={{ display: "block", marginTop: 1, color: C.muted, fontSize: 10, lineHeight: "12px" }}>{date}{totalDoses > 0 ? ` · ${record.doseNumber}/${totalDoses}` : ""}{record.brand ? ` · ${record.brand}` : ""}</span></span>
+          {totalDoses > 0 ? <span style={{ padding: "3px 8px", borderRadius: 99, border: `1px solid ${progressColor}33`, background: `${progressColor}1A`, color: progressColor, fontSize: 10, lineHeight: "12px", fontWeight: 650, whiteSpace: "nowrap" }}>{record.doseNumber}/{totalDoses}</span> : <span style={{ color: "#20C997", fontSize: 15, lineHeight: "18px" }}>✓</span>}
+          <ChevronRight size={13} color="rgba(26,32,80,.3)" />
+        </button>
+      </div>;
     })}</div>
     {selected && <div role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) { setSelected(null); setEditing(false); } }} style={overlay}>
       <section role="dialog" aria-modal="true" aria-label={en ? "Vaccination details" : "Данные о прививке"} style={{ ...sheet, padding: detailsCatalog.has(selected.vaccineId) && !editing ? "0 0 calc(24px + env(safe-area-inset-bottom))" : sheet.padding }}>
