@@ -13,7 +13,7 @@ const PAGE_H = 841.89;
 const MARGIN = 36;
 const FOOTER_H = 30;
 const INK = rgb(0.102, 0.125, 0.314);
-const MUTED = rgb(0.641, 0.65, 0.726);
+const MUTED = rgb(0.461, 0.475, 0.588);
 const BLUE = rgb(0.361, 0.486, 0.98);
 const PURPLE = rgb(0.545, 0.361, 0.98);
 const SUCCESS = rgb(0.125, 0.784, 0.592);
@@ -68,8 +68,11 @@ export async function GET(request: Request) {
     pageNumber += 1;
     y = first ? 724 : PAGE_H - 70;
     if (!first) {
-      page.drawEllipse({ x: MARGIN + 7, y: PAGE_H - 45, xScale: 5, yScale: 2.5, color: BLUE });
-      page.drawLine({ start: { x: MARGIN + 7, y: PAGE_H - 47 }, end: { x: MARGIN + 14, y: PAGE_H - 39 }, thickness: 0.8, color: rgb(0.455, 0.561, 0.988) });
+      const leafX = MARGIN + 7;
+      const leafY = PAGE_H - 45;
+      page.drawEllipse({ x: leafX, y: leafY, xScale: 5, yScale: 2.5, rotate: degrees(42), color: BLUE });
+      page.drawEllipse({ x: leafX + 2, y: leafY + 1.5, xScale: 3.5, yScale: 1.7, rotate: degrees(42), color: BLUE });
+      page.drawLine({ start: { x: leafX - 3, y: leafY - 3 }, end: { x: leafX + 5, y: leafY + 5 }, thickness: 0.8, color: BLUE });
       page.drawText("KARTA", { x: MARGIN + 20, y: PAGE_H - 45, size: 10, font: bold, color: BLUE, characterSpacing: 2 });
       page.drawLine({ start: { x: MARGIN, y: PAGE_H - 58 }, end: { x: PAGE_W - MARGIN, y: PAGE_H - 58 }, thickness: 0.6, color: BORDER });
     }
@@ -120,9 +123,15 @@ export async function GET(request: Request) {
     const accent = icon === "vaccine" ? BLUE : PURPLE;
     drawRoundedRect(MARGIN, top - 27, contentW, 27, 7, tint, accent, 0.5, 0.18);
     if (icon === "vaccine") {
-      page.drawCircle({ x: MARGIN + 16, y: top - 14, size: 7, color: SUCCESS });
-      page.drawLine({ start: { x: MARGIN + 12.8, y: top - 14 }, end: { x: MARGIN + 15, y: top - 16.2 }, thickness: 1.1, color: rgb(1, 1, 1) });
-      page.drawLine({ start: { x: MARGIN + 15, y: top - 16.2 }, end: { x: MARGIN + 19.1, y: top - 11.8 }, thickness: 1.1, color: rgb(1, 1, 1) });
+      const cx = MARGIN + 16;
+      const cy = top - 14;
+      const syringe = rgb(0.457, 0.562, 0.983);
+      page.drawLine({ start: { x: cx - 4.5, y: cy - 4.5 }, end: { x: cx + 3.8, y: cy + 3.8 }, thickness: 1.25, color: syringe });
+      page.drawLine({ start: { x: cx - 2.5, y: cy - 6.5 }, end: { x: cx + 5.8, y: cy + 1.8 }, thickness: 1.25, color: syringe });
+      page.drawLine({ start: { x: cx - 5.6, y: cy - 3.4 }, end: { x: cx - 3.4, y: cy - 5.6 }, thickness: 1.1, color: syringe });
+      page.drawLine({ start: { x: cx + 2.7, y: cy + 2.7 }, end: { x: cx + 5.5, y: cy - 0.1 }, thickness: 1.1, color: syringe });
+      page.drawLine({ start: { x: cx + 3.8, y: cy + 3.8 }, end: { x: cx + 6.2, y: cy + 6.2 }, thickness: 1.1, color: syringe });
+      page.drawLine({ start: { x: cx - 4.5, y: cy - 4.5 }, end: { x: cx - 6.5, y: cy - 6.5 }, thickness: 0.8, color: syringe });
     } else {
       const centerX = MARGIN + 16;
       const centerY = top - 14;
@@ -145,7 +154,7 @@ export async function GET(request: Request) {
     page.drawText(name, { x: MARGIN + 22, y: top - 11, size: 12, font: bold, color: INK, maxWidth: contentW - 150 });
     const dateWidth = regular.widthOfTextAtSize(date, 11);
     page.drawText(date, { x: PAGE_W - MARGIN - dateWidth, y: top - 11, size: 11, font: regular, color: MUTED });
-    if (brand) page.drawText(brand, { x: MARGIN + 22, y: top - 29, size: 10, font: regular, color: BLUE });
+    if (brand) page.drawText(brand, { x: MARGIN + 22, y: top - 29, size: 10, font: regular, color: rgb(0.586, 0.665, 0.987) });
     y = top - height;
     page.drawLine({ start: { x: MARGIN + 22, y }, end: { x: PAGE_W - MARGIN, y }, thickness: 0.5, color: BORDER });
     y -= 4;
@@ -206,7 +215,6 @@ export async function GET(request: Request) {
   }
   page.drawCircle({ x: PAGE_W * 0.49, y: PAGE_H + 22, size: 70, color: rgb(1, 1, 1), opacity: 0.06 });
   page.drawCircle({ x: PAGE_W * 0.55, y: PAGE_H - 50, size: 40, color: rgb(1, 1, 1), opacity: 0.06 });
-  page.drawCircle({ x: PAGE_W - 24, y: PAGE_H - 10, size: 68, color: rgb(0.48, 0.60, 1), opacity: 0.18 });
   if (icon) page.drawImage(icon, { x: MARGIN, y: PAGE_H - 69, width: 42, height: 42 });
   page.drawText("Karta", { x: MARGIN + 52, y: PAGE_H - 48, size: 24, font: bold, color: rgb(1, 1, 1) });
   const passportTitle = en ? "HEALTH PASSPORT" : "ПАСПОРТ ЗДОРОВЬЯ";
@@ -219,9 +227,9 @@ export async function GET(request: Request) {
   const name = data.profile?.fullName || user.displayName || (en ? "Name not specified" : "Имя не указано");
   page.drawText(name, { x: MARGIN + 14, y: profileTop - 22, size: 15, font: bold, color: INK, maxWidth: contentW - 28 });
   const profileLine = [birthDateDisplayValue(data.profile?.birthDate), data.profile?.cityCurrent].filter(Boolean).join("  ·  ") || (en ? "Location not set" : "Город не указан");
-  page.drawText(profileLine, { x: MARGIN + 14, y: profileTop - 42, size: 9, font: regular, color: MUTED, maxWidth: contentW - 28 });
+  page.drawText(profileLine, { x: MARGIN + 14, y: profileTop - 42, size: 11, font: regular, color: MUTED, maxWidth: contentW - 28 });
   const generated = `${en ? "Generated" : "Выгружено"} ${new Intl.DateTimeFormat(en ? "en-US" : "ru-RU", { dateStyle: "long" }).format(new Date())}`;
-  page.drawText(generated, { x: PAGE_W - MARGIN - regular.widthOfTextAtSize(generated, 8) - 14, y: profileTop - 57, size: 8, font: regular, color: MUTED });
+  page.drawText(generated, { x: PAGE_W - MARGIN - regular.widthOfTextAtSize(generated, 9) - 14, y: profileTop - 57, size: 9, font: regular, color: MUTED });
   y -= 82;
 
   if (showMedications) {
