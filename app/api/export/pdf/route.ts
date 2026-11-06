@@ -108,11 +108,17 @@ export async function GET(request: Request) {
     }
   };
 
+  const drawRoundedRect = (x: number, bottom: number, width: number, height: number, radius: number, fill: ReturnType<typeof rgb>, stroke: ReturnType<typeof rgb>, strokeWidth: number, strokeOpacity = 1) => {
+    const r = Math.min(radius, width / 2, height / 2);
+    const path = `M ${r} 0 H ${width - r} Q ${width} 0 ${width} ${r} V ${height - r} Q ${width} ${height} ${width - r} ${height} H ${r} Q 0 ${height} 0 ${height - r} V ${r} Q 0 0 ${r} 0 Z`;
+    page.drawSvgPath(path, { x, y: bottom + height, color: fill, borderColor: stroke, borderWidth: strokeWidth, borderOpacity: strokeOpacity });
+  };
+
   const section = (title: string, icon: string, tint: ReturnType<typeof rgb>) => {
     ensureSpace(56);
     const top = y;
     const accent = icon === "vaccine" ? BLUE : PURPLE;
-    page.drawRectangle({ x: MARGIN, y: top - 27, width: contentW, height: 27, color: tint, borderColor: accent, borderWidth: 0.5, borderOpacity: 0.18 });
+    drawRoundedRect(MARGIN, top - 27, contentW, 27, 7, tint, accent, 0.5, 0.18);
     if (icon === "vaccine") {
       page.drawCircle({ x: MARGIN + 16, y: top - 14, size: 7, color: SUCCESS });
       page.drawText("✓", { x: MARGIN + 12.5, y: top - 17.5, size: 8, font: bold, color: rgb(1, 1, 1) });
@@ -205,7 +211,7 @@ export async function GET(request: Request) {
   y = PAGE_H - 108;
 
   const profileTop = y;
-  page.drawRectangle({ x: MARGIN, y: profileTop - 64, width: contentW, height: 64, color: PALE, borderColor: BORDER, borderWidth: 0.5 });
+  drawRoundedRect(MARGIN, profileTop - 64, contentW, 64, 10, PALE, BORDER, 0.5);
   const name = data.profile?.fullName || user.displayName || (en ? "Name not specified" : "Имя не указано");
   page.drawText(name, { x: MARGIN + 14, y: profileTop - 22, size: 15, font: bold, color: INK, maxWidth: contentW - 28 });
   const profileLine = [birthDateDisplayValue(data.profile?.birthDate), data.profile?.cityCurrent].filter(Boolean).join("  ·  ") || (en ? "Location not set" : "Город не указан");
