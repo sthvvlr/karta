@@ -4,6 +4,7 @@ import { useState } from "react";
 import { X } from "lucide-react";
 import { addVaccination } from "@/app/actions";
 import { useKartaLanguage } from "@/app/LanguageRuntime";
+import { VaccinationRecordDateField } from "@/app/VaccinationRecordDateField";
 
 type VaccineOption = { id: string; nameRu: string; nameEn?: string | null };
 
@@ -34,7 +35,7 @@ export function AddVaccinationSheet({ vaccines, brands }: { vaccines: VaccineOpt
           <label style={{ display: "grid", gap: 5, fontSize: 12, fontWeight: 600 }}>{en ? "Vaccine name" : "Название прививки"}<input name="customName" placeholder={en ? "Measles, flu, COVID-19…" : "Корь, грипп, COVID-19…"} style={field} /></label>
           <label style={{ display: "grid", gap: 5, fontSize: 12, fontWeight: 600 }}>{en ? "Or choose from the catalogue" : "Или выберите из справочника"}<select name="vaccineId" defaultValue="" style={field}><option value="">{en ? "Select a vaccine" : "Выбрать вакцину"}</option>{vaccines.map((vaccine) => <option key={vaccine.id} value={vaccine.id}>{en ? vaccine.nameEn || vaccine.nameRu : vaccine.nameRu}</option>)}</select></label>
           <label style={{ display: "flex", alignItems: "center", gap: 10, minHeight: 46, padding: "0 12px", border: "1px solid rgba(186,200,255,.42)", borderRadius: 13, background: "rgba(244,246,255,.62)", fontSize: 13 }}><input type="checkbox" value="true" checked={planned} onChange={(event) => setPlanned(event.target.checked)} name="isUpcoming" style={{ width: 18, height: 18, accentColor: "#5C7CFA" }} />{en ? "Scheduled (not done yet)" : "Запланирована (ещё не сделана)"}</label>
-          {!planned && <label style={{ display: "grid", gap: 5, fontSize: 12, fontWeight: 600 }}>{en ? "Date vaccinated" : "Дата прививки"}<input required name="dateGiven" type="date" style={field} /></label>}
+          {!planned && <VaccinationRecordDateField style={field} />}
           {planned && <label style={{ display: "grid", gap: 5, fontSize: 12, fontWeight: 600 }}>{en ? "Planned date (optional)" : "Плановая дата (необязательно)"}<input name="nextDue" type="date" style={field} /></label>}
           {!planned && <label style={{ display: "grid", gap: 5, fontSize: 12, fontWeight: 600 }}>{en ? "Next booster due (optional)" : "Следующая ревакцинация (необязательно)"}<input name="nextDue" type="date" style={field} /></label>}
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 9 }}><label style={{ display: "grid", gap: 5, fontSize: 12, fontWeight: 600 }}>{en ? "Dose number" : "Номер дозы"}<input name="doseNumber" type="number" min="1" max="10" defaultValue="1" style={field} /></label><label style={{ display: "grid", gap: 5, fontSize: 12, fontWeight: 600 }}>{en ? "Total doses" : "Всего доз"}<input name="totalDoses" type="number" min="1" max="10" defaultValue="1" style={field} /></label></div>

@@ -282,6 +282,8 @@ const monthNames: Record<string, number> = {
 };
 
 function plannedDate(metadata: ReturnType<typeof readVaccinationMetadata>): Date | null {
+  const monthOnly = /^(\d{4})-(0[1-9]|1[0-2])$/.exec(metadata.dateMonthISO || "");
+  if (monthOnly) return new Date(Number(monthOnly[1]), Number(monthOnly[2]) - 1, 1);
   const iso = metadata.dateDoneISO || metadata.nextDue;
   if (iso) {
     const parsed = dateOnly(iso);

@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { and, eq, gte, lt } from "drizzle-orm";
 import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
 import { env } from "cloudflare:workers";
 import { getChatGPTUser, requireChatGPTUser, createAppSession, clearAppSession } from "./chatgpt-auth";
 import { getDb } from "@/db";
@@ -22,6 +23,22 @@ async function hashPassword(password: string, salt: string) {
   const material = await crypto.subtle.importKey("raw", new TextEncoder().encode(password), "PBKDF2", false, ["deriveBits"]);
   const bits = await crypto.subtle.deriveBits({ name: "PBKDF2", salt: new TextEncoder().encode(salt), iterations: 100000, hash: "SHA-256" }, material, 256);
   return Array.from(new Uint8Array(bits)).map((byte) => byte.toString(16).padStart(2, "0")).join("");
+}
+
+const monthLabels = {
+  en: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+  ru: ["янв.", "февр.", "мар.", "апр.", "май", "июн.", "июл.", "авг.", "сент.", "окт.", "нояб.", "дек."],
+};
+
+function isMonthOnlyDate(value: string) {
+  return /^\d{4}-(0[1-9]|1[0-2])$/.test(value);
+}
+
+function monthOnlyDateLabel(value: string, en: boolean) {
+  if (!isMonthOnlyDate(value)) return value;
+  const [year, month] = value.split("-").map(Number);
+  const label = monthLabels[en ? "en" : "ru"][month - 1];
+  return `${en ? label : label[0].toLocaleUpperCase(en ? "en-US" : "ru-RU") + label.slice(1)} ${year}`;
 }
 
 export async function registerAccount(formData: FormData) {
@@ -98,7 +115,9 @@ export async function addVaccination(formData: FormData) {
   const vaccineId = String(formData.get("vaccineId") || "");
   if (!customName && !vaccineId) return;
   const isUpcoming = formData.get("isUpcoming") === "true";
-  const dateGiven = String(formData.get("dateGiven") || "") || null;
+  const dateInput = String(formData.get("dateGiven") || "");
+  const monthOnly = isMonthOnlyDate(dateInput);
+  const dateGiven = dateInput || null;
   const [catalogVaccine] = vaccineId ? await getDb().select({ totalDoses: vaccines.totalDoses }).from(vaccines).where(eq(vaccines.id, vaccineId)).limit(1) : [];
   const totalDoses = Math.max(1, Math.min(10, Number(customName ? formData.get("totalDoses") || 1 : catalogVaccine?.totalDoses || 1)));
   const nextDue = String(formData.get("nextDue") || "") || null;
@@ -112,7 +131,7 @@ export async function addVaccination(formData: FormData) {
     doseNumber: Number(formData.get("doseNumber") || 1),
     brand: String(formData.get("brand") || "") || null,
     clinic: String(formData.get("clinic") || "") || null,
-    notes: writeVaccinationMetadata({ name: customName || undefined, isUpcoming, totalDoses, nextDue, dateString: isUpcoming ? "" : dateGiven || "", dateDoneISO: isUpcoming ? null : dateGiven, userNotes }),
+    notes: writeVaccinationMetadata({ name: customName || undefined, isUpcoming, totalDoses, nextDue, dateString: isUpcoming ? "" : monthOnly ? monthOnlyDateLabel(dateInput, (await cookies()).get("karta_lang")?.value === "en") : dateInput, dateMonthISO: monthOnly ? dateInput : null, dateDoneISO: isUpcoming || monthOnly ? null : dateInput, userNotes }),
     createdAt: new Date().toISOString(),
   });
   revalidatePath("/");
@@ -129,7 +148,9 @@ export async function updateVaccination(formData: FormData) {
   const customName = String(formData.get("customName") || "").trim();
   const vaccineId = customName ? `custom:${id}` : String(formData.get("vaccineId") || existing.vaccineId);
   const [catalogVaccine] = vaccineId.startsWith("custom:") ? [] : await db.select({ totalDoses: vaccines.totalDoses }).from(vaccines).where(eq(vaccines.id, vaccineId)).limit(1);
-  const dateGiven = String(formData.get("dateGiven") || "") || null;
+  const dateInput = String(formData.get("dateGiven") || "");
+  const monthOnly = isMonthOnlyDate(dateInput);
+  const dateGiven = dateInput || null;
   await db.update(vaccinations).set({
     vaccineId,
     dateGiven,
@@ -141,8 +162,9 @@ export async function updateVaccination(formData: FormData) {
       isUpcoming: false,
       totalDoses: Math.max(1, Math.min(10, Number(customName ? formData.get("totalDoses") || 1 : catalogVaccine?.totalDoses || 1))),
       nextDue: String(formData.get("nextDue") || "") || null,
-      dateString: dateGiven || "",
-      dateDoneISO: dateGiven,
+      dateString: monthOnly ? monthOnlyDateLabel(dateInput, (await cookies()).get("karta_lang")?.value === "en") : dateInput,
+      dateMonthISO: monthOnly ? dateInput : null,
+      dateDoneISO: monthOnly ? null : dateGiven,
       userNotes: String(formData.get("notes") || "") || null,
     }),
   }).where(and(eq(vaccinations.id, id), eq(vaccinations.userId, auth.userId)));

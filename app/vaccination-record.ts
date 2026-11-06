@@ -6,6 +6,7 @@ export type VaccinationMetadata = {
   totalDoses?: number;
   nextDue?: string | null;
   dateString?: string;
+  dateMonthISO?: string | null;
   dateDoneISO?: string | null;
   userNotes?: string | null;
 };

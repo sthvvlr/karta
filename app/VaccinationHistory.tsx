@@ -5,6 +5,7 @@ import { ChevronRight, Pencil, Trash2, X } from "lucide-react";
 import { deleteVaccination, updateVaccination } from "@/app/actions";
 import { readVaccinationMetadata } from "@/app/vaccination-record";
 import { useKartaLanguage } from "@/app/LanguageRuntime";
+import { VaccinationRecordDateField } from "@/app/VaccinationRecordDateField";
 import { VaccinationDateInput } from "@/app/VaccinationDateInput";
 
 type Record = { id: string; vaccineId: string; dateGiven: string | null; doseNumber: number; brand: string | null; clinic: string | null; notes: string | null };
@@ -56,7 +57,7 @@ function EditVaccinationForm({ record, vaccine, vaccines, brands, en, onSaved }:
     <input type="hidden" name="id" value={record.id} />
     <select name="vaccineId" defaultValue={record.vaccineId.startsWith("custom:") ? "" : record.vaccineId} style={input}><option value="">{en ? "Custom vaccination" : "Своя прививка"}</option>{vaccines.map((item) => <option value={item.id} key={item.id}>{en ? item.nameEn || item.nameRu : item.nameRu}</option>)}</select>
     <input name="customName" defaultValue={record.vaccineId.startsWith("custom:") ? metadata.name || "" : ""} placeholder={en ? "Custom vaccination name" : "Название своей прививки"} style={input} />
-    <label style={labelStyle}>{en ? "Date vaccinated" : "Дата прививки"}<input name="dateGiven" type="date" defaultValue={metadata.dateDoneISO || record.dateGiven || ""} style={input} /></label>
+    <VaccinationRecordDateField initialDate={metadata.dateDoneISO || (record.dateGiven?.length === 10 ? record.dateGiven : "")} initialMonth={metadata.dateMonthISO || (record.dateGiven?.length === 7 ? record.dateGiven : "")} style={input} />
     <label style={labelStyle}>{en ? "Next dose" : "Следующая доза"}<input name="nextDue" type="date" defaultValue={metadata.nextDue || ""} style={input} /></label>
     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}><label style={labelStyle}>{en ? "Dose" : "Доза №"}<input name="doseNumber" type="number" min="1" max="10" defaultValue={record.doseNumber} style={input} /></label><label style={labelStyle}>{en ? "Total doses" : "Всего доз"}<input name="totalDoses" type="number" min="1" max="10" defaultValue={metadata.totalDoses || vaccine?.totalDoses || 1} style={input} /></label></div>
     <input name="brand" list="edit-vaccine-brands" defaultValue={record.brand || ""} placeholder={en ? "Product / brand" : "Препарат / бренд"} style={input} /><datalist id="edit-vaccine-brands">{brands.map((brand) => <option value={brand} key={brand} />)}</datalist>
