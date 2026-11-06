@@ -20,7 +20,7 @@ Use the iOS app as the source of truth for screens, layout, controls, and behavi
 
 ## Recent evidence
 
-- Production Site version 77 is live at `https://karta-health.lera-wt.chatgpt.site`; the Sites deployment completed successfully. Unauthenticated app routes redirect to sign-in.
+- Production Site version 78 is live at `https://karta-health.lera-wt.chatgpt.site`; the Sites deployment completed successfully. Unauthenticated app routes redirect to sign-in; direct PDF API access returns 401 without a session.
 - Versions 72–74 align the home card hierarchy and the top insets on home, vaccination, medication, lab, and profile screens with the iOS source. Production builds passed before deployment.
 - A synthetic profile was used for local phone-sized screenshots of home, vaccination passport/detail/recommendation detail, medication and lab empty states, and profile edit/reminder/city-history sheets. The lab empty-state action was corrected. Blank vaccination submit was exercised and now shows an inline error without closing the form. Direct paired iOS screenshots and remaining states are still pending.
 - Registration and the three-step onboarding flow were completed with a temporary account in local Wrangler D1; profile and city-history values were verified, then that account was removed with the app's delete-data flow. The registration screen is now styled to follow the native composition.
