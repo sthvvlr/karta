@@ -144,7 +144,7 @@
 /* iOS Safari zooms focused controls below 16px. Keep form controls at the
    native readable size on phones instead of scaling the whole page. */
 @media (max-width: 600px) {
-  input, select, textarea, button {
+  input, select, textarea {
     font-size: 16px !important;
   }
 }
