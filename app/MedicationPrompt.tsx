@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { Pill } from "lucide-react";
 
 export function MedicationPrompt({ en }: { en: boolean }) {
   const [visible, setVisible] = useState(false);
@@ -16,12 +17,12 @@ export function MedicationPrompt({ en }: { en: boolean }) {
   }
 
   if (!visible) return null;
-  return <section style={{ marginBottom: 18, background: "rgba(255,255,255,.72)", border: "1px solid rgba(255,255,255,.9)", borderRadius: 16, padding: "13px 14px" }}>
-    <div style={{ fontSize: 13, fontWeight: 700 }}>{en ? "Do you take any medications?" : "Вы принимаете лекарства?"}</div>
-    <div style={{ fontSize: 11, color: "rgba(26,32,80,.42)", marginTop: 4 }}>{en ? "Add them to your schedule and track each dose." : "Добавьте их в расписание и отмечайте каждый приём."}</div>
-    <div style={{ display: "flex", gap: 14, alignItems: "center", marginTop: 9 }}>
-      <Link href="/medications?add=1" onClick={dismiss} style={{ color: "#5C7CFA", fontSize: 12, fontWeight: 700, textDecoration: "none" }}>{en ? "Yes, add →" : "Да, добавить →"}</Link>
-      <button type="button" onClick={dismiss} style={{ border: 0, padding: 0, background: "transparent", color: "rgba(26,32,80,.42)", fontSize: 12 }}>{en ? "Not now" : "Пока нет"}</button>
+  return <section style={{ margin: "0 0 14px", background: "rgba(255,255,255,.72)", border: "1px solid rgba(255,255,255,.9)", borderRadius: 20, padding: 16, boxShadow: "0 2px 16px rgba(26,32,80,.045)" }}>
+    <div style={{ display: "flex", alignItems: "center", gap: 8 }}><Pill size={16} color="#5C7CFA" style={{ opacity: .72 }} /><div style={{ fontSize: 14, fontWeight: 650, color: "#1A2050" }}>{en ? "Do you take any medications?" : "Вы принимаете лекарства?"}</div></div>
+    <div style={{ fontSize: 12, color: "rgba(26,32,80,.48)", marginTop: 9, lineHeight: 1.4 }}>{en ? "Add them to your schedule and get daily reminders" : "Добавьте их в расписание и получайте ежедневные напоминания"}</div>
+    <div style={{ display: "flex", gap: 8, marginTop: 12 }}>
+      <Link href="/medications?add=1" onClick={dismiss} style={{ flex: 1, display: "grid", placeItems: "center", minHeight: 40, borderRadius: 10, background: "linear-gradient(135deg,#748FFC,#5C7CFA)", color: "white", fontSize: 13, fontWeight: 650, textDecoration: "none" }}>{en ? "Yes, add them" : "Да, добавить"}</Link>
+      <button type="button" onClick={dismiss} style={{ flex: 1, minHeight: 40, border: "1px solid rgba(186,200,255,.4)", borderRadius: 10, background: "rgba(244,246,255,.6)", color: "rgba(26,32,80,.58)", fontSize: 13, fontWeight: 550 }}>{en ? "Not now" : "Пока нет"}</button>
     </div>
   </section>;
 }
