@@ -87,25 +87,26 @@ export default async function HomePage() {
   const scoreHeader = <div style={{ position: "relative", zIndex: 1, display: "flex", alignItems: "center", gap: 14, width: "100%" }}>
     <div style={{ width: 52, height: 52, borderRadius: "50%", padding: 5, background: `conic-gradient(#748FFC ${profileComplete ? score : profileProgress}%, rgba(26,32,80,0.08) 0)`, flexShrink: 0 }}><div style={{ width: "100%", height: "100%", borderRadius: "50%", background: "rgba(255,255,255,.86)", display: "grid", placeItems: "center", color: "#5C7CFA", fontWeight: 700, fontSize: profileComplete ? 13 : 11 }}>{profileComplete ? score : `${profileProgress}%`}</div></div>
     <div style={{ flex: 1, textAlign: "left" }}><div style={{ fontSize: 15, fontWeight: 700, color: C.text, marginBottom: 2 }}>{profileComplete ? "Karta Score" : en ? "Complete your profile" : "Заполните профиль"}</div><div style={{ fontSize: 11, color: C.muted }}>{profileComplete ? (score === 100 ? (en ? "All vaccinations done 🎉" : "Все прививки сделаны 🎉") : (en ? "Tap to see what's left" : "Нажмите, чтобы узнать что сделать")) : en ? `Profile ${profileProgress}% complete` : `Профиль заполнен на ${profileProgress}%`}</div></div>
-    {profileComplete ? (score < 100 ? <span aria-hidden="true" style={{ color: "rgba(26,32,80,.35)", fontSize: 20 }}>›</span> : null) : <Link href="/profile" aria-label={en ? "Complete profile" : "Заполнить профиль"} style={{ color: C.muted, fontSize: 16, textDecoration: "none" }}>›</Link>}
+    {profileComplete && score < 100 ? <span aria-hidden="true" style={{ color: "rgba(26,32,80,.35)", fontSize: 20 }}>›</span> : null}
   </div>;
 
   return (
-    <div style={{ padding: "12px 16px 0" }}>
+    <div style={{ padding: "0 16px" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 18, paddingTop: 16 }}>
         <div><div style={{ fontSize: 13, color: C.muted, marginBottom: 2 }}>{greeting}</div><div style={{ fontSize: 26, fontWeight: 700, color: C.text }}>{name}</div></div>
         <Link href="/profile" style={{ textDecoration: "none" }}><div style={{ width: 38, height: 38, borderRadius: "50%", background: "linear-gradient(135deg,#BAC8FF,#D0BFFF)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, color: C.text }}>{name[0]?.toUpperCase()}</div></Link>
       </div>
 
       <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 20, boxShadow: "0 2px 16px rgba(26,32,80,0.06)", padding: 16, marginBottom: 14, position: "relative", overflow: "hidden" }}>
-        <div style={{ position: "absolute", width: 130, height: 130, borderRadius: "50%", background: "linear-gradient(135deg,#BAC8FF,#D0BFFF)", top: -35, right: -35, filter: "blur(30px)", opacity: 0.6 }} />
+        <div style={{ position: "absolute", width: 100, height: 100, borderRadius: "50%", background: "linear-gradient(135deg,#BAC8FF,#D0BFFF)", top: -20, right: -20, filter: "blur(30px)", opacity: 0.6 }} />
+        <div style={{ position: "absolute", width: 60, height: 60, borderRadius: "50%", background: "linear-gradient(135deg,#A5F3FC,#C7F5E8)", top: 10, right: 40, filter: "blur(20px)", opacity: 0.45 }} />
         {profileComplete && score < 100 ? <ScoreDetails score={score} pending={recommended.map((item) => ({ id: item.id, name: item.nameRu, nameEn: item.nameEn, description: item.descriptionRu, descriptionEn: item.descriptionEn }))} overdue={manualVaccineTasks.filter((task) => task.overdue).map((task) => ({ ...task, nameEn: taskCatalog.find((vaccine) => vaccine.id === task.vaccineId)?.nameEn }))}>{scoreHeader}</ScoreDetails> : scoreHeader}
 
         <div style={{ position: "relative", zIndex: 1, height: 1, background: "rgba(26,32,80,0.08)", margin: "12px 0" }} />
-        <div style={{ position: "relative", zIndex: 1, display: "flex", alignItems: "flex-start", gap: 8 }}><Lightbulb size={16} color="#748FFC" strokeWidth={1.8} /><div><div style={{ fontSize: 10, color: "#5C7CFA", fontWeight: 700, marginBottom: 4 }}>{en ? "INTERESTING FACT" : "ИНТЕРЕСНЫЙ ФАКТ"}</div><div style={{ fontSize: 12, lineHeight: 1.45, color: C.muted }}>{en ? todayFact.en : todayFact.ru}</div></div></div>
+        <div style={{ position: "relative", zIndex: 1, display: "flex", alignItems: "flex-start", gap: 8 }}><Lightbulb size={11} color="#748FFC" strokeWidth={1.8} style={{ marginTop: 1, flexShrink: 0 }} /><div style={{ fontSize: 12, lineHeight: 1.45, color: C.muted }}>{en ? todayFact.en : todayFact.ru}</div></div>
 
         <div style={{ position: "relative", zIndex: 1, height: 1, background: "rgba(26,32,80,0.08)", margin: "12px 0" }} />
-        <Link href="/export" style={{ position: "relative", zIndex: 1, display: "flex", alignItems: "center", gap: 10, textDecoration: "none", color: "#4C6EF5" }}><Share size={16} strokeWidth={2.2} /><div style={{ flex: 1 }}><div style={{ fontSize: 13, fontWeight: 700 }}>{en ? "My health card" : "Моя карта здоровья"}</div><div style={{ fontSize: 11, marginTop: 2, opacity: 0.75 }}>{en ? "Open and save as PDF" : "Открыть и сохранить в PDF"}</div></div><span style={{ fontSize: 17 }}>›</span></Link>
+        <Link href="/export" style={{ position: "relative", zIndex: 1, display: "flex", alignItems: "center", gap: 8, textDecoration: "none", color: "#4C6EF5" }}><Share size={13} strokeWidth={2.2} /><div style={{ flex: 1, fontSize: 13, fontWeight: 700 }}>{en ? "My health card" : "Моя карта здоровья"}</div><span style={{ fontSize: 11, fontWeight: 500, color: "rgba(92,124,250,.6)", padding: "3px 7px", borderRadius: 999, background: "rgba(92,124,250,.08)" }}>PDF</span></Link>
       </div>
 
       {data.medications.length === 0 && <MedicationPrompt en={en} />}
@@ -128,7 +129,7 @@ export default async function HomePage() {
             : label === "Лекарства" ? activeMedicationCount === 0 ? (en ? "None active" : "Нет активных") : `${activeMedicationCount} ${medicationPlural(activeMedicationCount, en)}`
             : label === "Анализы" ? labs.length === 0 ? (en ? "Add a result" : "Добавьте результат") : en ? `${labs.length} records` : `Записей: ${labs.length}`
             : en ? "Coming soon" : "Скоро";
-          const card = <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 14, padding: 13, position: "relative", overflow: "hidden", boxShadow: "0 1px 6px rgba(26,32,80,0.04)" }}><div style={{ position: "absolute", width: 55, height: 55, borderRadius: "50%", background: tile.blob, top: -14, right: -14, filter: "blur(14px)", opacity: 0.5 }} /><div style={{ position: "relative", marginBottom: 7, height: 25, display: "flex", alignItems: "center" }}><tile.Icon size={22} color="#5C7CFA" strokeWidth={2.2} aria-hidden="true" /></div><div style={{ fontSize: 13, fontWeight: 700, color: C.text, position: "relative" }}>{displayLabel}</div><div style={{ fontSize: 10, color: C.muted, position: "relative" }}>{subtitle}</div></div>;
+          const card = <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 14, padding: 13, position: "relative", overflow: "hidden", boxShadow: "0 1px 6px rgba(26,32,80,0.04)" }}><div style={{ position: "absolute", width: 50, height: 50, borderRadius: "50%", background: tile.blob, top: -10, right: -10, filter: "blur(12px)", opacity: 0.5 }} /><div style={{ position: "relative", marginBottom: 7, height: 25, display: "flex", alignItems: "center" }}><tile.Icon size={22} color="#5C7CFA" strokeWidth={2.2} aria-hidden="true" /></div><div style={{ fontSize: 13, fontWeight: 700, color: C.text, position: "relative" }}>{displayLabel}</div><div style={{ fontSize: 10, color: C.muted, position: "relative" }}>{subtitle}</div></div>;
           return label === "Чекапы"
             ? <div key={label} aria-disabled="true" style={{ opacity: 0.6, pointerEvents: "none" }}>{card}</div>
             : <Link key={label} href={tile.href} style={{ textDecoration: "none" }}>{card}</Link>;
