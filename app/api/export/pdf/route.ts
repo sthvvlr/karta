@@ -143,32 +143,40 @@ export async function GET(request: Request) {
   };
 
   const vaccineRow = (title: string, doseLabel: string, date: string, brand?: string | null) => {
-    const hasBrand = Boolean(brand);
-    const height = hasBrand ? 38 : 26;
+    const dateWidth = regular.widthOfTextAtSize(date, 11);
+    const titleMaxWidth = contentW - 22 - dateWidth - 12;
+    const titleLines = wrappedLines(`${title}${doseLabel}`, bold, 12, titleMaxWidth);
+    const brandLines = brand ? wrappedLines(brand, regular, 10, contentW - 22) : [];
+    const height = Math.max(26, titleLines.length * 14 + (brandLines.length ? brandLines.length * 12 + 3 : 0) + 6);
     ensureSpace(height + 4);
     const top = y;
     page.drawCircle({ x: MARGIN + 9, y: top - 10, size: 6.5, color: SUCCESS });
     page.drawLine({ start: { x: MARGIN + 6.4, y: top - 10 }, end: { x: MARGIN + 8.3, y: top - 11.9 }, thickness: 1, color: rgb(1, 1, 1) });
     page.drawLine({ start: { x: MARGIN + 8.3, y: top - 11.9 }, end: { x: MARGIN + 11.8, y: top - 8.2 }, thickness: 1, color: rgb(1, 1, 1) });
-    const name = `${title}${doseLabel}`;
-    page.drawText(name, { x: MARGIN + 22, y: top - 11, size: 12, font: bold, color: INK, maxWidth: contentW - 150 });
-    const dateWidth = regular.widthOfTextAtSize(date, 11);
+    titleLines.forEach((line, index) => page.drawText(line, { x: MARGIN + 22, y: top - 11 - index * 14, size: 12, font: bold, color: INK }));
     page.drawText(date, { x: PAGE_W - MARGIN - dateWidth, y: top - 11, size: 11, font: regular, color: MUTED });
-    if (brand) page.drawText(brand, { x: MARGIN + 22, y: top - 29, size: 10, font: regular, color: rgb(0.586, 0.665, 0.987) });
+    brandLines.forEach((line, index) => page.drawText(line, { x: MARGIN + 22, y: top - 11 - titleLines.length * 14 - index * 12, size: 10, font: regular, color: rgb(0.586, 0.665, 0.987) }));
     y = top - height;
     page.drawLine({ start: { x: MARGIN + 22, y }, end: { x: PAGE_W - MARGIN, y }, thickness: 0.5, color: ROW_RULE });
     y -= 4;
   };
 
   const medicationRow = (title: string, dosage: string | null, frequency: string) => {
-    ensureSpace(26);
+    const detail = [dosage, frequency].filter(Boolean).join(" · ");
+    const detailMaxWidth = contentW * 0.44;
+    const detailWidth = Math.min(detailMaxWidth, Math.max(90, regular.widthOfTextAtSize(detail, 10)));
+    const titleLines = wrappedLines(title, bold, 12, contentW - 18 - detailWidth - 12);
+    const detailLines = wrappedLines(detail, regular, 10, detailWidth);
+    const height = Math.max(22, Math.max(titleLines.length * 14, detailLines.length * 12) + 8);
+    ensureSpace(height + 4);
     const top = y;
     page.drawCircle({ x: MARGIN + 7.5, y: top - 10, size: 2.5, color: rgb(0.361, 0.486, 0.98), opacity: 0.35 });
-    page.drawText(title, { x: MARGIN + 18, y: top - 11, size: 12, font: bold, color: INK, maxWidth: contentW * 0.57 });
-    const detail = [dosage, frequency].filter(Boolean).join(" · ");
-    const detailWidth = regular.widthOfTextAtSize(detail, 10);
-    page.drawText(detail, { x: PAGE_W - MARGIN - detailWidth, y: top - 10, size: 10, font: regular, color: MUTED });
-    y = top - 22;
+    titleLines.forEach((line, index) => page.drawText(line, { x: MARGIN + 18, y: top - 11 - index * 14, size: 12, font: bold, color: INK }));
+    detailLines.forEach((line, index) => {
+      const lineWidth = regular.widthOfTextAtSize(line, 10);
+      page.drawText(line, { x: PAGE_W - MARGIN - lineWidth, y: top - 10 - index * 12, size: 10, font: regular, color: MUTED });
+    });
+    y = top - height;
     page.drawLine({ start: { x: MARGIN + 18, y }, end: { x: PAGE_W - MARGIN, y }, thickness: 0.5, color: ROW_RULE });
     y -= 4;
   };
