@@ -53,7 +53,7 @@ export async function GET(request: Request) {
   const regular = await pdf.embedFont(fontBytes, { subset: true });
   const bold = regular;
   const icon = iconResponse.ok ? await pdf.embedPng(await iconResponse.arrayBuffer()) : null;
-  let page: PDFPage = pdf.addPage([PAGE_W, PAGE_H]);
+  let page: PDFPage;
   let y = 0;
   let pageNumber = 0;
   const contentW = PAGE_W - MARGIN * 2;
@@ -61,10 +61,12 @@ export async function GET(request: Request) {
   const newPage = (first = false) => {
     page = pdf.addPage([PAGE_W, PAGE_H]);
     pageNumber += 1;
-    y = first ? 724 : PAGE_H - 58;
+    y = first ? 724 : PAGE_H - 70;
     if (!first) {
-      page.drawText("KARTA", { x: MARGIN, y: PAGE_H - 39, size: 10, font: bold, color: BLUE });
-      page.drawLine({ start: { x: MARGIN, y: PAGE_H - 48 }, end: { x: PAGE_W - MARGIN, y: PAGE_H - 48 }, thickness: 0.6, color: BORDER });
+      page.drawEllipse({ x: MARGIN + 7, y: PAGE_H - 48, xScale: 5, yScale: 2.5, color: BLUE });
+      page.drawLine({ start: { x: MARGIN + 7, y: PAGE_H - 50 }, end: { x: MARGIN + 14, y: PAGE_H - 42 }, thickness: 0.8, color: rgb(0.455, 0.561, 0.988) });
+      page.drawText("KARTA", { x: MARGIN + 20, y: PAGE_H - 48, size: 10, font: bold, color: BLUE, characterSpacing: 2 });
+      page.drawLine({ start: { x: MARGIN, y: PAGE_H - 58 }, end: { x: PAGE_W - MARGIN, y: PAGE_H - 58 }, thickness: 0.6, color: BORDER });
     }
   };
 
