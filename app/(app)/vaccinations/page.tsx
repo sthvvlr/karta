@@ -45,7 +45,7 @@ export default async function VaccinationsPage({ searchParams }: { searchParams:
   return <div style={{ padding: "12px 16px 0", color: C.text }}>
     <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", paddingTop: 12, marginBottom: 14 }}>
       <div><div style={{ fontSize: 24, fontWeight: 700 }}>Прививки</div><div style={{ fontSize: 12, color: C.muted, marginTop: 3 }}>{tab === "passport" ? "Паспорт вакцинации" : "Персональные рекомендации"}</div></div>
-      <div style={{ display: "flex", gap: 8 }}><Link href="/export?scope=full" aria-label="Выгрузить карту в PDF" style={{ width: 36, height: 36, borderRadius: 10, display: "grid", placeItems: "center", background: "rgba(92,124,250,.1)", color: "#5C7CFA" }}><FileDown size={18} /></Link><AddVaccinationSheet vaccines={data.vaccines} brands={brands} /></div>
+      <div style={{ display: "flex", gap: 8 }}><Link href="/export?scope=full" aria-label={en ? "Export health card as PDF" : "Выгрузить карту в PDF"} style={{ width: 36, height: 36, borderRadius: 10, display: "grid", placeItems: "center", background: "rgba(92,124,250,.1)", color: "#5C7CFA" }}><FileDown size={18} /></Link><AddVaccinationSheet vaccines={data.vaccines} brands={brands} /></div>
     </div>
 
     <div style={{ display: "flex", gap: 4, padding: 3, background: C.card, border: `1px solid ${C.border}`, borderRadius: 13, marginBottom: 20 }}>

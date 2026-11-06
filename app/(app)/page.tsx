@@ -86,7 +86,7 @@ export default async function HomePage() {
             <div style={{ width: "100%", height: "100%", borderRadius: "50%", background: "rgba(255,255,255,.86)", display: "grid", placeItems: "center", color: "#5C7CFA", fontWeight: 700, fontSize: profileComplete ? 17 : 12 }}>{profileComplete ? score : `${profileProgress}%`}</div>
           </div>
         <div style={{ flex: 1 }}><div style={{ fontSize: 15, fontWeight: 700, color: C.text, marginBottom: 2 }}>{profileComplete ? "Karta Score" : en ? "Complete your profile" : "Заполните профиль"}</div><div style={{ fontSize: 11, color: C.muted }}>{profileComplete ? (score === 100 ? (en ? "All vaccinations done 🎉" : "Все прививки сделаны 🎉") : (en ? "Tap to see what's left" : "Нажмите, чтобы узнать что сделать")) : en ? `Profile ${profileProgress}% complete` : `Профиль заполнен на ${profileProgress}%`}</div></div>
-          {!profileComplete && <Link href="/profile" aria-label="Заполнить профиль" style={{ color: C.muted, fontSize: 16, textDecoration: "none" }}>›</Link>}
+          {!profileComplete && <Link href="/profile" aria-label={en ? "Complete profile" : "Заполнить профиль"} style={{ color: C.muted, fontSize: 16, textDecoration: "none" }}>›</Link>}
         </div>
         {profileComplete && score < 100 && <div style={{ position: "relative", zIndex: 1, marginTop: 12, padding: "0 4px", fontSize: 12, color: C.muted }}><ScoreDetails score={score} pending={recommended.map((item) => ({ id: item.id, name: item.nameRu, nameEn: item.nameEn, description: item.descriptionRu, descriptionEn: item.descriptionEn }))} overdue={manualVaccineTasks.filter((task) => task.overdue).map((task) => ({ ...task, nameEn: taskCatalog.find((vaccine) => vaccine.id === task.vaccineId)?.nameEn }))} /></div>}
 
