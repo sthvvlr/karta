@@ -126,25 +126,13 @@ export function LanguageRuntime() {
     observer.observe(document.body, { childList: true, subtree: true, characterData: true });
     return () => observer.disconnect();
   }, [lang]);
-  async function changeLanguage() {
+  function changeLanguage() {
     const next = lang === "ru" ? "en" : "ru";
-    try {
-      const response = await fetch("/api/preferences/language", {
-        method: "POST",
-        credentials: "same-origin",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ language: next }),
-      });
-      if (!response.ok) throw new Error("Could not save language preference");
-    } catch {
-      languageStore.set(next);
-      return;
-    }
-    languageStore.set(next);
-    window.location.reload();
+    const returnTo = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+    window.location.assign(`/api/preferences/language?language=${next}&return_to=${encodeURIComponent(returnTo)}`);
   }
 
-  return <button type="button" onClick={() => void changeLanguage()} aria-label={lang === "ru" ? "Switch to English" : "Переключить на русский"} style={{ position: "fixed", top: 10, left: "50%", transform: "translateX(-50%)", zIndex: 70, border: "1px solid rgba(92,124,250,.2)", borderRadius: 999, padding: "6px 10px", background: "rgba(255,255,255,.82)", color: "#5C7CFA", fontSize: 11, fontWeight: 700, boxShadow: "0 4px 14px rgba(26,32,80,.08)" }}>{lang === "ru" ? "EN" : "RU"}</button>;
+  return <button type="button" onClick={changeLanguage} aria-label={lang === "ru" ? "Switch to English" : "Переключить на русский"} style={{ position: "fixed", top: 10, left: "50%", transform: "translateX(-50%)", zIndex: 70, border: "1px solid rgba(92,124,250,.2)", borderRadius: 999, padding: "6px 10px", background: "rgba(255,255,255,.82)", color: "#5C7CFA", fontSize: 11, fontWeight: 700, boxShadow: "0 4px 14px rgba(26,32,80,.08)" }}>{lang === "ru" ? "EN" : "RU"}</button>;
 }
 
 export function useKartaLanguage(): Language {
