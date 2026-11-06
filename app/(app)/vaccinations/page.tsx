@@ -56,28 +56,43 @@ export default async function VaccinationsPage({ searchParams }: { searchParams:
 
     <datalist id="vaccine-brands">{brands.map((brand) => <option value={brand} key={brand} />)}</datalist>
 
-    {tab === "passport" ? <PassportContent data={data} records={records} upcoming={upcoming} recommendedCount={recommendations.length} today={today} en={en} vaccines={data.vaccines} /> : <RecommendationsContent data={data} recommendations={recommendations} region={region || undefined} today={today} en={en} />}
+    {tab === "passport" ? <PassportContent data={data} records={records} upcoming={upcoming} recommendedCount={recommendations.length} today={today} en={en} vaccines={data.vaccines} brands={brands} /> : <RecommendationsContent data={data} recommendations={recommendations} region={region || undefined} today={today} en={en} />}
 
   </div>;
 }
 
-function PassportContent({ data, records, upcoming, recommendedCount, today, en, vaccines }: { data: Awaited<ReturnType<typeof getUserData>>; records: Array<{ id: string; vaccineId: string; dateGiven: string | null; doseNumber: number; brand: string | null; clinic: string | null; notes: string | null }>; upcoming: Array<ReturnType<typeof upcomingVaccineTasks>[number] & { recordId?: string }>; recommendedCount: number; today: string; en: boolean; vaccines: Array<{ id: string; nameRu: string; nameEn?: string | null; totalDoses?: number | null; doseScheduleDays?: number[] | null; frequencyType?: string | null; intervalYears?: number | null }> }) {
+function PassportContent({ data, records, upcoming, recommendedCount, today, en, vaccines, brands }: { data: Awaited<ReturnType<typeof getUserData>>; records: Array<{ id: string; vaccineId: string; dateGiven: string | null; doseNumber: number; brand: string | null; clinic: string | null; notes: string | null }>; upcoming: Array<ReturnType<typeof upcomingVaccineTasks>[number] & { recordId?: string }>; recommendedCount: number; today: string; en: boolean; vaccines: Array<{ id: string; nameRu: string; nameEn?: string | null; totalDoses?: number | null; doseScheduleDays?: number[] | null; frequencyType?: string | null; intervalYears?: number | null }>; brands: string[] }) {
   const history = data.vaccinations.filter(({ record }) => !readVaccinationMetadata(record.notes).isUpcoming);
+  const hasVaccinations = data.vaccinations.length > 0;
   return <>
     <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 20, padding: 16, marginBottom: 20, boxShadow: "0 2px 16px rgba(26,32,80,.06)" }}>
       <div style={{ display: "flex", gap: 16 }}>
-        <a href="#upcoming-doses" style={{ flex: 1, display: "grid", justifyItems: "center", gap: 3, padding: "12px 8px", borderRadius: 12, background: upcoming.length ? "rgba(245,158,11,.08)" : "rgba(32,201,151,.08)", textDecoration: "none" }}><b style={{ color: upcoming.length ? "#F59E0B" : "#20C997", fontSize: 22, lineHeight: 1 }}>{upcoming.length}</b><span style={{ color: C.muted, fontSize: 10 }}>{en ? "upcoming" : "предстоящих"}</span></a>
+        {upcoming.length > 0 ? <a href="#upcoming-doses" style={{ flex: 1, display: "grid", justifyItems: "center", gap: 3, padding: "12px 8px", borderRadius: 12, background: "rgba(245,158,11,.08)", textDecoration: "none" }}><b style={{ color: "#F59E0B", fontSize: 22, lineHeight: 1 }}>{upcoming.length}</b><span style={{ color: C.muted, fontSize: 10 }}>{en ? "upcoming" : "предстоящих"}</span></a> : <div style={{ flex: 1, display: "grid", justifyItems: "center", gap: 3, padding: "12px 8px", borderRadius: 12, background: "rgba(32,201,151,.08)" }}><b style={{ color: "#20C997", fontSize: 22, lineHeight: 1 }}>0</b><span style={{ color: C.muted, fontSize: 10 }}>{en ? "upcoming" : "предстоящих"}</span></div>}
         <Link href="/vaccinations?tab=recommendations" style={{ flex: 1, display: "grid", justifyItems: "center", gap: 3, padding: "12px 8px", border: `1px solid ${recommendedCount ? "rgba(92,124,250,.15)" : "rgba(32,201,151,.2)"}`, borderRadius: 12, background: recommendedCount ? "rgba(92,124,250,.08)" : "rgba(32,201,151,.08)", textDecoration: "none" }}><b style={{ color: recommendedCount ? "#5C7CFA" : "#20C997", fontSize: 22, lineHeight: 1 }}>{recommendedCount}</b><span style={{ color: C.muted, fontSize: 10 }}>{en ? "recommended" : "рекомендованных"}</span></Link>
       </div>
     </div>
 
-    <div id="upcoming-doses" style={{ background: "transparent", marginBottom: 12 }}>
-      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: upcoming.length ? 9 : 0 }}><div style={{ fontSize: 13, fontWeight: 700 }}>{en ? "Upcoming vaccinations" : "Предстоящие прививки"}</div><div style={{ color: upcoming.length ? "#D97706" : "#0CA678", fontWeight: 700 }}>{upcoming.length}</div></div>
-      {upcoming.length === 0 ? <div style={{ fontSize: 11, color: C.muted }}>{en ? "No upcoming doses yet." : "Предстоящих доз пока нет."}</div> : <div style={{ display: "grid", gap: 4 }}>{upcoming.map((task) => <UpcomingTask key={task.key} task={task} today={today} firstDoseDate={records.find((record) => record.vaccineId === task.vaccineId && record.doseNumber === 1)?.dateGiven || ""} en={en} />)}</div>}
-    </div>
+    {!hasVaccinations ? <section style={{ display: "grid", justifyItems: "center", gap: 16, padding: "40px 16px", textAlign: "center" }}>
+      <Syringe size={36} color="#5C7CFA" style={{ opacity: .3 }} />
+      <div style={{ display: "grid", gap: 6 }}>
+        <div style={{ color: C.text, fontSize: 15, fontWeight: 650 }}>{en ? "No vaccination records" : "Нет записей о прививках"}</div>
+        <div style={{ color: C.muted, fontSize: 13, lineHeight: 1.45 }}>{en ? "Add your vaccinations to track your immunization history" : "Добавьте свои прививки, чтобы отслеживать историю вакцинации"}</div>
+      </div>
+    </section> : <>
+      {upcoming.length > 0 && <section id="upcoming-doses" style={{ marginBottom: 12 }}>
+        <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 9 }}><div style={{ fontSize: 13, fontWeight: 700 }}>{en ? "Upcoming doses" : "Предстоящие дозы"}</div><div style={{ color: "#D97706", fontWeight: 700 }}>{upcoming.length}</div></div>
+        <div style={{ display: "grid", gap: 4 }}>{upcoming.map((task) => <UpcomingTask key={task.key} task={task} today={today} firstDoseDate={records.find((record) => record.vaccineId === task.vaccineId && record.doseNumber === 1)?.dateGiven || ""} en={en} />)}</div>
+      </section>}
 
-    <div style={{ fontSize: 13, fontWeight: 700, marginBottom: 10 }}>{en ? "My history" : "Моя история"}</div>
-    <VaccinationHistory records={history.map(({ record }) => record)} vaccines={vaccines} brands={brands} />
+      {history.length > 0 && <>
+        <div style={{ fontSize: 13, fontWeight: 700, marginTop: 6, marginBottom: 10 }}>{en ? "Done" : "Сделаны"}</div>
+        <VaccinationHistory records={history.map(({ record }) => record)} vaccines={vaccines} brands={brands} />
+      </>}
+    </>}
+
+    <div style={{ margin: "8px 0 0", border: `1px solid ${C.border}`, borderRadius: 14, background: C.card, boxShadow: "0 2px 8px rgba(26,32,80,.06)" }}>
+      <AddVaccinationSheet vaccines={vaccines} brands={brands} primaryAction />
+    </div>
   </>;
 }
 

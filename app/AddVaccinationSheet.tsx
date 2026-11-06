@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { X } from "lucide-react";
+import { PlusCircle, X } from "lucide-react";
 import { addVaccination } from "@/app/actions";
 import { useKartaLanguage } from "@/app/LanguageRuntime";
 import { VaccinationRecordDateField } from "@/app/VaccinationRecordDateField";
@@ -20,7 +20,7 @@ const field: React.CSSProperties = {
   fontSize: 16,
 };
 
-export function AddVaccinationSheet({ vaccines, brands }: { vaccines: VaccineOption[]; brands: string[] }) {
+export function AddVaccinationSheet({ vaccines, brands, primaryAction = false }: { vaccines: VaccineOption[]; brands: string[]; primaryAction?: boolean }) {
   const [open, setOpen] = useState(false);
   const [planned, setPlanned] = useState(false);
   const [nameError, setNameError] = useState(false);
@@ -33,7 +33,7 @@ export function AddVaccinationSheet({ vaccines, brands }: { vaccines: VaccineOpt
   function close() { setOpen(false); setPlanned(false); setNameError(false); }
 
   return <>
-    <button type="button" onClick={() => { setNameError(false); setPlanned(false); setOpen(true); }} aria-label={en ? "Add vaccination" : "Добавить прививку"} style={{ width: 36, height: 36, border: 0, borderRadius: 10, display: "grid", placeItems: "center", background: "linear-gradient(135deg,#748FFC,#5C7CFA)", color: "white", fontSize: 24, lineHeight: 1, boxShadow: "0 4px 12px rgba(92,124,250,.25)" }}>+</button>
+    <button type="button" onClick={() => { setNameError(false); setPlanned(false); setOpen(true); }} aria-label={en ? "Add vaccination" : "Добавить прививку"} style={primaryAction ? { width: "100%", minHeight: 44, display: "flex", alignItems: "center", gap: 8, padding: "0 16px", border: 0, background: "transparent", color: "rgba(26,32,80,.48)", textAlign: "left", fontSize: 13, fontWeight: 500 } : { width: 36, height: 36, border: 0, borderRadius: 10, display: "grid", placeItems: "center", background: "linear-gradient(135deg,#748FFC,#5C7CFA)", color: "white", fontSize: 24, lineHeight: 1, boxShadow: "0 4px 12px rgba(92,124,250,.25)" }}>{primaryAction ? <><PlusCircle size={17} color="rgba(92,124,250,.6)" /><span>{en ? "Add vaccination" : "Добавить прививку"}</span></> : "+"}</button>
     {open && <div role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) close(); }} style={{ position: "fixed", inset: 0, zIndex: 100, display: "flex", alignItems: "flex-end", justifyContent: "center", background: "rgba(20,25,55,.38)", backdropFilter: "blur(7px)" }}>
       <section role="dialog" aria-modal="true" aria-labelledby="add-vaccination-title" style={{ width: "min(100%, 430px)", maxHeight: "90dvh", overflow: "auto", padding: "10px 20px calc(24px + env(safe-area-inset-bottom))", border: "1px solid rgba(255,255,255,.75)", borderBottom: 0, borderRadius: "24px 24px 0 0", background: "rgba(250,251,255,.98)", boxShadow: "0 -12px 42px rgba(26,32,80,.18)", color: "#1A2050" }}>
         <div style={{ width: 38, height: 4, margin: "0 auto 14px", borderRadius: 99, background: "rgba(26,32,80,.18)" }} />
