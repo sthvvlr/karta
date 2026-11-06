@@ -1,5 +1,5 @@
 import fontkit from "@pdf-lib/fontkit";
-import { PDFDocument, rgb, type PDFFont, type PDFPage } from "pdf-lib";
+import { degrees, PDFDocument, rgb, type PDFFont, type PDFPage } from "pdf-lib";
 import { getChatGPTUser } from "@/app/chatgpt-auth";
 import { getUserData } from "@/app/data";
 import medicationCatalog from "@/app/medications_ru.json";
@@ -121,10 +121,13 @@ export async function GET(request: Request) {
     drawRoundedRect(MARGIN, top - 27, contentW, 27, 7, tint, accent, 0.5, 0.18);
     if (icon === "vaccine") {
       page.drawCircle({ x: MARGIN + 16, y: top - 14, size: 7, color: SUCCESS });
-      page.drawText("✓", { x: MARGIN + 12.5, y: top - 17.5, size: 8, font: bold, color: rgb(1, 1, 1) });
+      page.drawLine({ start: { x: MARGIN + 12.8, y: top - 14 }, end: { x: MARGIN + 15, y: top - 16.2 }, thickness: 1.1, color: rgb(1, 1, 1) });
+      page.drawLine({ start: { x: MARGIN + 15, y: top - 16.2 }, end: { x: MARGIN + 19.1, y: top - 11.8 }, thickness: 1.1, color: rgb(1, 1, 1) });
     } else {
-      page.drawEllipse({ x: MARGIN + 15, y: top - 14, xScale: 10, yScale: 5.5, color: tint, borderColor: accent, borderWidth: 0.9 });
-      page.drawLine({ start: { x: MARGIN + 15, y: top - 14 }, end: { x: MARGIN + 24, y: top - 14 }, thickness: 0.7, color: accent });
+      const centerX = MARGIN + 16;
+      const centerY = top - 14;
+      page.drawEllipse({ x: centerX, y: centerY, xScale: 8, yScale: 4.5, rotate: degrees(35), color: tint, borderColor: accent, borderWidth: 0.9 });
+      page.drawLine({ start: { x: centerX - 1.4, y: centerY - 2 }, end: { x: centerX + 1.4, y: centerY + 2 }, thickness: 0.7, color: accent });
     }
     page.drawText(title.toLocaleUpperCase(en ? "en-US" : "ru-RU"), { x: MARGIN + 30, y: top - 18, size: 9, font: bold, color: accent, characterSpacing: 1.8 });
     y -= 38;
@@ -136,7 +139,8 @@ export async function GET(request: Request) {
     ensureSpace(height + 4);
     const top = y;
     page.drawCircle({ x: MARGIN + 9, y: top - 10, size: 6.5, color: SUCCESS });
-    page.drawText("✓", { x: MARGIN + 5.7, y: top - 13, size: 7, font: bold, color: rgb(1, 1, 1) });
+    page.drawLine({ start: { x: MARGIN + 6.4, y: top - 10 }, end: { x: MARGIN + 8.3, y: top - 11.9 }, thickness: 1, color: rgb(1, 1, 1) });
+    page.drawLine({ start: { x: MARGIN + 8.3, y: top - 11.9 }, end: { x: MARGIN + 11.8, y: top - 8.2 }, thickness: 1, color: rgb(1, 1, 1) });
     const name = `${title}${doseLabel}`;
     page.drawText(name, { x: MARGIN + 22, y: top - 11, size: 12, font: bold, color: INK, maxWidth: contentW - 150 });
     const dateWidth = regular.widthOfTextAtSize(date, 11);
