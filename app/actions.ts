@@ -74,6 +74,10 @@ export async function signOutAccount() {
 export async function deleteAccountData() {
   const auth = await requireChatGPTUser("/profile");
   const db = getDb();
+  const labFiles = await db.select({ fileKey: labResults.fileKey }).from(labResults).where(eq(labResults.userId, auth.userId));
+  if (env.BUCKET) {
+    for (const file of labFiles) if (file.fileKey) await env.BUCKET.delete(file.fileKey);
+  }
   await db.delete(medicationLogs).where(eq(medicationLogs.userId, auth.userId));
   await db.delete(monitoringCompletions).where(eq(monitoringCompletions.userId, auth.userId));
   await db.delete(medications).where(eq(medications.userId, auth.userId));
