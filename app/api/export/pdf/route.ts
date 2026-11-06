@@ -117,6 +117,12 @@ export async function GET(request: Request) {
     }
   };
 
+  const drawEmptyRow = (value: string) => {
+    ensureSpace(26);
+    page.drawText(value, { x: MARGIN + 22, y: y - 11, size: 11, font: regular, color: MUTED });
+    y -= 26;
+  };
+
   const drawRoundedRect = (x: number, bottom: number, width: number, height: number, radius: number, fill: ReturnType<typeof rgb>, stroke: ReturnType<typeof rgb>, strokeWidth: number, strokeOpacity = 1) => {
     const r = Math.min(radius, width / 2, height / 2);
     const path = `M ${r} 0 H ${width - r} Q ${width} 0 ${width} ${r} V ${height - r} Q ${width} ${height} ${width - r} ${height} H ${r} Q 0 ${height} 0 ${height - r} V ${r} Q 0 0 ${r} 0 Z`;
@@ -241,19 +247,20 @@ export async function GET(request: Request) {
   if (showMedications) {
     const activeMeds = data.medications.filter((med) => med.isActive);
     section(en ? "Current medications" : "Принимаемые лекарства", "medication", rgb(0.96, 0.93, 1));
-    if (!activeMeds.length) drawText(en ? "No medication records" : "Нет записей о лекарствах", { size: 11, color: MUTED, x: MARGIN + 22 });
+    if (!activeMeds.length) drawEmptyRow(en ? "No medication records" : "Нет записей о лекарствах");
     for (const med of activeMeds) {
       const frequency = med.frequency === "weekly" ? (en ? "weekly" : "еженедельно") : med.frequency === "as_needed" ? (en ? "as needed" : "по необходимости") : (en ? "daily" : "ежедневно");
       const entry = (medicationCatalog as Array<{ id: string; ru: string; en: string }>).find((item) => item.id === med.drugCode || item.ru === med.name);
       const title = en && entry?.en ? entry.en.charAt(0).toLocaleUpperCase("en-US") + entry.en.slice(1) : med.name;
       medicationRow(title, med.dosage, frequency);
     }
+    y -= 8;
   }
 
   if (showVaccinations) {
     section(en ? "Completed vaccinations" : "Сделанные прививки", "vaccine", rgb(0.93, 0.95, 1));
     const completedVaccinations = data.vaccinations.filter(({ record }) => !readVaccinationMetadata(record.notes).isUpcoming);
-    if (completedVaccinations.length === 0) drawText(en ? "No vaccination records" : "Нет записей о прививках", { size: 11, color: MUTED, x: MARGIN + 22 });
+    if (completedVaccinations.length === 0) drawEmptyRow(en ? "No vaccination records" : "Нет записей о прививках");
     for (const { record, vaccine } of completedVaccinations) {
       const metadata = readVaccinationMetadata(record.notes);
       const title = en ? (vaccine?.nameEn || metadata.name || record.vaccineId) : (metadata.name || vaccine?.nameRu || record.vaccineId);
@@ -261,6 +268,7 @@ export async function GET(request: Request) {
       const dose = totalDoses > 1 ? (en ? ` (dose ${record.doseNumber} of ${totalDoses})` : ` (доза ${record.doseNumber} из ${totalDoses})`) : "";
       vaccineRow(title, dose, formatDate(metadata.dateString || record.dateGiven, lang), record.brand);
     }
+    y -= 8;
   }
 
   for (const [index, pdfPage] of pdf.getPages().entries()) {
