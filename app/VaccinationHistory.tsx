@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronRight, Pencil, ShieldCheck, Trash2, X } from "lucide-react";
+import { ChevronRight, Pencil, Trash2, X } from "lucide-react";
 import { deleteVaccination, updateVaccination } from "@/app/actions";
 import { readVaccinationMetadata } from "@/app/vaccination-record";
 import { useKartaLanguage } from "@/app/LanguageRuntime";
@@ -23,12 +23,16 @@ export function VaccinationHistory({ records, vaccines, brands }: { records: Rec
   return <>
     <div style={{ display: "grid", gap: 6 }}>{sorted.map((record) => {
       const metadata = readVaccinationMetadata(record.notes);
-      const title = metadata.name || (en ? catalog.get(record.vaccineId)?.nameEn : catalog.get(record.vaccineId)?.nameRu) || record.vaccineId;
+      const vaccine = catalog.get(record.vaccineId);
+      const title = metadata.name || (en ? vaccine?.nameEn : vaccine?.nameRu) || record.vaccineId;
       const date = metadata.dateString || record.dateGiven || (en ? "Date not specified" : "Дата не указана");
-      return <button type="button" key={record.id} onClick={() => { setSelected(record); setEditing(false); }} aria-label={`${title}, ${date}`} style={{ width: "100%", display: "flex", alignItems: "center", gap: 10, padding: "11px 13px", border: `1px solid ${C.border}`, borderRadius: 14, background: C.card, color: C.text, textAlign: "left" }}>
-        <ShieldCheck size={17} color="#20C997" />
-        <span style={{ flex: 1, minWidth: 0 }}><span style={{ display: "block", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", fontSize: 13, fontWeight: 650 }}>{title}</span><span style={{ display: "block", marginTop: 2, color: C.muted, fontSize: 10 }}>{date} · {en ? "dose" : "доза"} {record.doseNumber}{metadata.totalDoses && metadata.totalDoses > 1 ? `/${metadata.totalDoses}` : ""}{record.brand ? ` · ${record.brand}` : ""}</span></span>
-        <ChevronRight size={15} color="rgba(26,32,80,.3)" />
+      const totalDoses = metadata.totalDoses || vaccine?.totalDoses || 0;
+      const progressColor = totalDoses && record.doseNumber < totalDoses ? C.primary : "#0CA678";
+      return <button type="button" key={record.id} onClick={() => { setSelected(record); setEditing(false); }} aria-label={`${title}, ${date}`} style={{ width: "100%", display: "flex", alignItems: "center", gap: 10, padding: "10px 13px", border: `1px solid ${C.border}`, borderRadius: 14, background: C.card, color: C.text, textAlign: "left", marginBottom: 5 }}>
+        <span aria-hidden="true" style={{ width: 7, height: 7, flex: "0 0 7px", borderRadius: "50%", background: "#20C997", boxShadow: "0 0 7px rgba(32,201,151,.4)" }} />
+        <span style={{ flex: 1, minWidth: 0 }}><span style={{ display: "block", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", fontSize: 13, fontWeight: 650 }}>{title}</span><span style={{ display: "block", marginTop: 2, color: C.muted, fontSize: 10 }}>{date}{totalDoses > 0 ? ` · ${record.doseNumber}/${totalDoses}` : ""}{record.brand ? ` · ${record.brand}` : ""}</span></span>
+        {totalDoses > 0 ? <span style={{ padding: "3px 8px", borderRadius: 99, border: `1px solid ${progressColor}33`, background: `${progressColor}1A`, color: progressColor, fontSize: 10, fontWeight: 650, whiteSpace: "nowrap" }}>{record.doseNumber}/{totalDoses}</span> : <span style={{ color: "#20C997", fontSize: 15 }}>✓</span>}
+        <ChevronRight size={13} color="rgba(26,32,80,.3)" />
       </button>;
     })}</div>
     {selected && <div role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) { setSelected(null); setEditing(false); } }} style={overlay}>
