@@ -30,8 +30,8 @@ export default async function LabsPage({ searchParams }: { searchParams: Promise
     if (medication && rule) monitoringPrefill = { medicationId: medication.id, ruleId: rule.id, title: en ? rule.title_en || rule.title_ru : rule.title_ru, tests: en ? rule.tests_en || rule.tests_ru : rule.tests_ru };
   }
 
-  return <div style={{ padding: "12px 16px 0", color: C.text }}>
-    <header style={{ display: "flex", alignItems: "center", gap: 10, paddingTop: 12, paddingBottom: 12 }}>
+  return <div style={{ padding: "0 16px", color: C.text }}>
+    <header style={{ display: "flex", alignItems: "center", gap: 10, paddingTop: 16, paddingBottom: 12 }}>
       <Link href="/" aria-label={en ? "Back" : "Назад"} style={{ width: 36, height: 36, display: "grid", placeItems: "center", borderRadius: "50%", background: C.card, color: C.text, textDecoration: "none" }}><ChevronLeft size={18} /></Link>
       <div style={{ minWidth: 0, flex: 1 }}><div style={{ fontSize: 22, fontWeight: 700 }}>{en ? "Lab tests" : "Анализы"}</div><div style={{ fontSize: 12, color: C.muted }}>{en ? "Your indicators over time" : "Ваши показатели в динамике"}</div></div>
       <LabResultSheet gender={profile?.gender} prefillTitle={monitoringPrefill?.title} prefillTests={monitoringPrefill?.tests} monitoringMedicationId={monitoringPrefill?.medicationId} monitoringRuleId={monitoringPrefill?.ruleId} initiallyOpen={!!monitoringPrefill} />

@@ -43,8 +43,8 @@ export default async function VaccinationsPage({ searchParams }: { searchParams:
   const region = catalogRegion(data.profile?.countryCode);
   const today = dateKey(new Date());
 
-  return <div style={{ padding: "12px 16px 0", color: C.text }}>
-    <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", paddingTop: 12, marginBottom: 14 }}>
+  return <div style={{ padding: "0 16px", color: C.text }}>
+    <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", paddingTop: 16, marginBottom: 14 }}>
       <div><div style={{ fontSize: 26, fontWeight: 700 }}>{en ? "Vaccinations" : "Прививки"}</div><div style={{ fontSize: 13, color: C.muted, marginTop: 3 }}>{tab === "passport" ? (en ? "Vaccination record" : "Паспорт вакцинации") : (en ? "Personal recommendations" : "Персональные рекомендации")}</div></div>
       <AddVaccinationSheet vaccines={data.vaccines} brands={brands} />
     </div>
