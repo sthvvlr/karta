@@ -57,10 +57,10 @@ export function OnboardingWizard({ initialName, initialBirthDate = "", initialGe
           </section>
 
           <section style={{ display: step === 2 ? "block" : "none" }}>
-            <label style={{ display: "block", color: C.muted, fontSize: 12, fontWeight: 600, marginBottom: 6 }}>{en ? "Current city" : "Город сейчас"}</label>
+            <div style={{ display: "block", color: C.muted, fontSize: 12, fontWeight: 600, marginBottom: 6 }}>{en ? "Current city" : "Город сейчас"}</div>
             <CityPicker initialCity={initialCity || ""} initialRegion={initialRegion || ""} initialCountry={initialCountry || ""} initialCountryCode={initialCountryCode || ""} onSelectionChange={(city) => setCurrentCity(city?.city || "")} en={en} />
             <div style={{ fontSize: 11, color: C.muted, marginTop: 6 }}>{en ? "Your region is used when selecting vaccines." : "Регион учитывается при подборе прививок."}</div>
-            <label style={{ display: "block", color: C.muted, fontSize: 12, fontWeight: 600, marginTop: 20, marginBottom: 6 }}>{en ? "Where have you lived in the past 10 years?" : "Где жили последние 10 лет"}</label>
+            <div style={{ display: "block", color: C.muted, fontSize: 12, fontWeight: 600, marginTop: 20, marginBottom: 6 }}>{en ? "Where have you lived in the past 10 years?" : "Где жили последние 10 лет"}</div>
             <CityPicker fieldPrefix="historyCity" en={en} />
             <div style={{ fontSize: 11, color: C.muted, marginTop: 6 }}>{en ? "Add this city or another one to account for regional risks." : "Укажите тот же или другой город — это влияет на региональные риски."}</div>
           </section>

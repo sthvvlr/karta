@@ -22,6 +22,7 @@ export function ProfileScreen({ profile, locations, displayName, email, userId, 
   const [sheet, setSheet] = useState<"edit" | "cities" | "reminders" | "account" | null>(null);
   const [editingLocation, setEditingLocation] = useState<Location | null>(null);
   const [editingName, setEditingName] = useState(profile.fullName || displayName || "");
+  const [historyCitySelected, setHistoryCitySelected] = useState(false);
   const name = profile.fullName || displayName || "Karta";
   const gender = profile.gender === "female" ? (en ? "Female" : "Женский") : profile.gender === "male" ? (en ? "Male" : "Мужской") : profile.gender === "other" ? (en ? "Other" : "Другой") : "—";
   const city = [profile.cityCurrent, profile.regionCurrent, profile.countryCurrent].filter(Boolean).join(" · ") || "—";
@@ -53,7 +54,7 @@ export function ProfileScreen({ profile, locations, displayName, email, userId, 
     <div style={cardStyle(20, 0)}>
       <ActionRow icon={<Pencil size={14} />} label={en ? "Edit profile" : "Редактировать профиль"} onClick={() => { setEditingName(profile.fullName || displayName || ""); setSheet("edit"); }} />
       <Divider />
-      <ActionRow icon={<Map size={14} />} label={en ? "City history" : "История городов"} color="#20C997" onClick={() => setSheet("cities")} />
+      <ActionRow icon={<Map size={14} />} label={en ? "City history" : "История городов"} color="#20C997" onClick={() => { setHistoryCitySelected(false); setSheet("cities"); }} />
       <Divider />
       <ActionRow icon={<Bell size={14} />} label={en ? "Reminders" : "Напоминания"} color="#F59F00" onClick={() => setSheet("reminders")} />
       {userId.startsWith("email:") && <><Divider /><ActionRow icon={<Settings size={14} />} label={en ? "Account settings" : "Настройки аккаунта"} onClick={() => setSheet("account")} /></>}
@@ -74,7 +75,7 @@ export function ProfileScreen({ profile, locations, displayName, email, userId, 
         <label style={labelStyle}>{en ? "NAME" : "ИМЯ"}<input name="fullName" value={editingName} onChange={(event) => setEditingName(event.target.value)} placeholder={en ? "Enter your name" : "Введите имя"} style={{ ...field, marginTop: 6 }} /></label>
         <BirthDateField initial={birthDateInputValue(profile.birthDate)} en={en} />
         <GenderPicker initial={profile.gender || ""} en={en} />
-        <label style={labelStyle}>{en ? "CURRENT CITY" : "ТЕКУЩИЙ ГОРОД"}<CityPicker initialCity={profile.cityCurrent || ""} initialRegion={profile.regionCurrent || ""} initialCountry={profile.countryCurrent || ""} initialCountryCode={profile.countryCode || ""} en={en} /></label>
+        <div style={labelStyle}>{en ? "CURRENT CITY" : "ТЕКУЩИЙ ГОРОД"}<CityPicker initialCity={profile.cityCurrent || ""} initialRegion={profile.regionCurrent || ""} initialCountry={profile.countryCurrent || ""} initialCountryCode={profile.countryCode || ""} en={en} /></div>
         <div style={{ color: C.muted, fontSize: 12, lineHeight: 1.45 }}>{en ? "Your region affects the vaccine catalog and recommendations." : "Регион влияет на каталог и рекомендации по прививкам."}</div>
       </form>
     </Sheet>}
@@ -90,7 +91,7 @@ export function ProfileScreen({ profile, locations, displayName, email, userId, 
           <form action={deleteProfileLocation}><input type="hidden" name="id" value={location.id} /><button type="submit" aria-label={en ? `Delete city ${location.city}` : `Удалить город ${location.city}`} style={{ ...iconButton, color: "#E03131" }}><Trash2 size={15} /></button></form>
         </div>)}
       </>}
-      <form action={addProfileLocation} style={{ display: "grid", gap: 10, marginTop: 16 }}><div style={labelStyle}>{en ? "ADD CITY" : "ДОБАВИТЬ ГОРОД"}<CityPicker fieldPrefix="historyCity" en={en} requireSelection /></div><button type="submit" style={secondaryButton}>{en ? "Add city" : "Добавить город"}</button></form>
+      <form action={async (formData) => { await addProfileLocation(formData); setHistoryCitySelected(false); }} style={{ display: "grid", gap: 10, marginTop: 16 }}><div style={labelStyle}>{en ? "ADD CITY" : "ДОБАВИТЬ ГОРОД"}<CityPicker fieldPrefix="historyCity" onSelectionChange={(city) => setHistoryCitySelected(Boolean(city))} en={en} /></div><button type="submit" disabled={!historyCitySelected} style={{ ...secondaryButton, opacity: historyCitySelected ? 1 : .5 }}>{en ? "Add city" : "Добавить город"}</button></form>
     </Sheet>}
 
     {sheet === "cities" && editingLocation && <Sheet title={en ? "Edit city" : "Редактировать город"} onClose={() => setEditingLocation(null)} en={en} zIndex={130}>
