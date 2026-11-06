@@ -21,6 +21,7 @@ const field = { width: "100%", padding: "12px 13px", background: "rgba(244,246,2
 export function ProfileScreen({ profile, locations, displayName, email, userId, chatSignOutUrl, en = false }: { profile: Profile; locations: Location[]; displayName: string; email: string; userId: string; chatSignOutUrl: string; en?: boolean }) {
   const [sheet, setSheet] = useState<"edit" | "cities" | "reminders" | "account" | null>(null);
   const [editingLocation, setEditingLocation] = useState<Location | null>(null);
+  const [editingName, setEditingName] = useState(profile.fullName || displayName || "");
   const name = profile.fullName || displayName || "Karta";
   const gender = profile.gender === "female" ? (en ? "Female" : "Женский") : profile.gender === "male" ? (en ? "Male" : "Мужской") : profile.gender === "other" ? (en ? "Other" : "Другой") : "—";
   const city = [profile.cityCurrent, profile.regionCurrent, profile.countryCurrent].filter(Boolean).join(" · ") || "—";
@@ -50,7 +51,7 @@ export function ProfileScreen({ profile, locations, displayName, email, userId, 
 
     <SectionTitle style={{ marginTop: 22 }}>{en ? "SETTINGS" : "НАСТРОЙКИ"}</SectionTitle>
     <div style={cardStyle(20, 0)}>
-      <ActionRow icon={<Pencil size={14} />} label={en ? "Edit profile" : "Редактировать профиль"} onClick={() => setSheet("edit")} />
+      <ActionRow icon={<Pencil size={14} />} label={en ? "Edit profile" : "Редактировать профиль"} onClick={() => { setEditingName(profile.fullName || displayName || ""); setSheet("edit"); }} />
       <Divider />
       <ActionRow icon={<Map size={14} />} label={en ? "City history" : "История городов"} color="#20C997" onClick={() => setSheet("cities")} />
       <Divider />
@@ -69,8 +70,8 @@ export function ProfileScreen({ profile, locations, displayName, email, userId, 
       leftAction={<button type="button" onClick={() => setSheet(null)} style={navTextButton}>{en ? "Cancel" : "Отмена"}</button>}
       rightAction={<button type="submit" form="profile-edit-form" style={navPrimaryButton}>{en ? "Save" : "Сохранить"}</button>}>
       <form id="profile-edit-form" action={async (formData) => { await saveProfile(formData); setSheet(null); }} style={{ display: "grid", gap: 16 }}>
-        <div style={{ display: "grid", placeItems: "center", padding: "8px 0 2px" }}><div style={{ width: 80, height: 80, borderRadius: "50%", display: "grid", placeItems: "center", background: "linear-gradient(135deg,#BAC8FF,#D0BFFF)", fontSize: 32, boxShadow: "0 4px 14px rgba(92,124,250,.15)" }}>{name[0]?.toUpperCase() || "?"}</div></div>
-        <label style={labelStyle}>{en ? "NAME" : "ИМЯ"}<input name="fullName" defaultValue={profile.fullName || displayName} placeholder={en ? "Enter your name" : "Введите имя"} style={{ ...field, marginTop: 6 }} /></label>
+        <div style={{ display: "grid", placeItems: "center", padding: "8px 0 2px" }}><div style={{ width: 80, height: 80, borderRadius: "50%", display: "grid", placeItems: "center", background: "linear-gradient(135deg,#BAC8FF,#D0BFFF)", fontSize: 32, boxShadow: "0 4px 14px rgba(92,124,250,.15)" }}>{editingName[0]?.toUpperCase() || "?"}</div></div>
+        <label style={labelStyle}>{en ? "NAME" : "ИМЯ"}<input name="fullName" value={editingName} onChange={(event) => setEditingName(event.target.value)} placeholder={en ? "Enter your name" : "Введите имя"} style={{ ...field, marginTop: 6 }} /></label>
         <BirthDateField initial={birthDateInputValue(profile.birthDate)} en={en} />
         <GenderPicker initial={profile.gender || ""} en={en} />
         <label style={labelStyle}>{en ? "CURRENT CITY" : "ТЕКУЩИЙ ГОРОД"}<CityPicker initialCity={profile.cityCurrent || ""} initialRegion={profile.regionCurrent || ""} initialCountry={profile.countryCurrent || ""} initialCountryCode={profile.countryCode || ""} en={en} /></label>
