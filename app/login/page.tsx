@@ -22,10 +22,10 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
     "Вход через Apple пока не настроен для веб-версии.": ["Вход через Apple пока не настроен для веб-версии.", "Apple sign-in is not configured for the web version yet."],
   };
   const error = params.error ? errorText[params.error]?.[en ? 1 : 0] || params.error : "";
-  return <main style={{ minHeight: "100dvh", overflowY: "auto", position: "relative", display: "flex", justifyContent: "center", padding: "38px 20px 44px", background: "#F4F6FF", color: "#1A2050" }}>
+  return <main style={{ minHeight: "100dvh", boxSizing: "border-box", overflowY: "auto", position: "relative", display: "flex", justifyContent: "flex-start", padding: "calc(env(safe-area-inset-top) + 60px) 20px calc(env(safe-area-inset-bottom) + 48px)", background: "#F4F6FF", color: "#1A2050" }}>
     <BlobBackground />
     {appleClientId && <Script src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js" strategy="afterInteractive" />}
-    <div style={{ position: "relative", zIndex: 1, width: "100%", maxWidth: 430, margin: "auto 0", textAlign: "center" }}>
+    <div style={{ position: "relative", zIndex: 1, width: "100%", maxWidth: 430, margin: "0 auto", textAlign: "center" }}>
       <header style={{ display: "grid", justifyItems: "center", gap: 7, marginBottom: 34 }}>
         <img src="/karta-icon.png" alt="Karta" style={{ width: 64, height: 64, borderRadius: 17, boxShadow: "0 8px 20px rgba(92,124,250,.24)" }} />
         <div style={{ fontSize: 24, lineHeight: 1.15, fontWeight: 750 }}>{en ? "karta" : "karta"}</div>
@@ -46,10 +46,10 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
       <div style={{ display: "flex", alignItems: "center", gap: 10, margin: "22px 0 12px", color: "rgba(26,32,80,.42)", fontSize: 11 }}><span style={{ height: 1, flex: 1, background: "rgba(26,32,80,.1)" }} />{en ? "or" : "или"}<span style={{ height: 1, flex: 1, background: "rgba(26,32,80,.1)" }} /></div>
       <div style={{ display: "grid", gap: 10 }}>
         <AppleWebSignInButton clientId={appleClientId} returnTo={returnTo} en={en} />
-        {params.guest !== "1" && <a href={chatGPTSignInPath(returnTo)} style={{ display: "block", minHeight: 46, boxSizing: "border-box", padding: 13, border: "1px solid rgba(186,200,255,.42)", borderRadius: 14, background: "rgba(255,255,255,.36)", color: "#5C7CFA", textDecoration: "none", fontWeight: 650, fontSize: 13 }}>{en ? "Continue with ChatGPT" : "Войти через ChatGPT"}</a>}
         <GuestModeButton en={en} returnTo={returnTo} />
       </div>
-      <div style={{ maxWidth: 300, margin: "9px auto 0", color: "rgba(26,32,80,.43)", fontSize: 11, lineHeight: 1.4 }}>{en ? "Guest data stays linked to this browser. Create an account to sync across devices." : "Данные гостевого режима привязаны к этому браузеру. Создайте аккаунт для синхронизации между устройствами."}</div>
+      <div style={{ maxWidth: 300, margin: "9px auto 0", color: "rgba(26,32,80,.43)", fontSize: 11, lineHeight: 1.4 }}>{en ? "Guest data stays in this browser. An account syncs it across devices." : "Гостевые данные сохраняются в этом браузере. Аккаунт синхронизирует их между устройствами."}</div>
+      {params.guest !== "1" && <div style={{ marginTop: 10, fontSize: 12 }}><a href={chatGPTSignInPath(returnTo)} style={{ color: "#5C7CFA", textDecoration: "none", fontWeight: 600 }}>{en ? "Sign in with ChatGPT" : "Войти через ChatGPT"}</a></div>}
     </div>
   </main>;
 }
